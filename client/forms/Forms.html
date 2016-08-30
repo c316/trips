@@ -1,0 +1,132 @@
+<template name="Forms">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase font-dark">Forms</span>
+                    </div>
+                    <div class="tools">
+                        <span class="text-right" style="color: orangered;"><i class="btn-icon-only btn-lg icon-ban"></i> Not Started</span>
+                        <a href="" class="expand" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-red-haze">
+                                            <span data-counter="counterup" data-value="2">2</span>
+                                        </h3>
+                                        <small>UNFINISHED FORMS</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-bell"></i>
+                                    </div>
+                                </div>
+                                <div class="progress-info">
+                                    <div class="progress">
+                                <span style="width: 50%;" class="progress-bar progress-bar-success blue-sharp">
+                                    <span class="sr-only">50% left</span>
+                                </span>
+                                    </div>
+                                    <div class="status">
+                                        <div class="status-title"> left </div>
+                                        <div class="status-number"> 50% </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered">
+                                <form action="../assets/global/plugins/dropzone/upload.php" class="dropzone dropzone-file-area dz-clickable" id="my-dropzone"
+                                      style="width: 250px; margin-top: 5px;">
+                                    <h5 class="sbold">Drop passport photo here</h5>
+                                    <div class="dz-default dz-message"><span></span></div></form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="portlet light bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject bold uppercase font-dark">Missionary Information Form</span>
+                                    </div>
+                                    <div class="tools">
+                                        <a href="" class="expand" data-original-title="" title=""> </a>
+                                    </div>
+                                    <div class="actions">
+                                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title=""> </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body" style="display: none;">
+                                    {{> MissionaryInformationForm}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="portlet light bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject bold uppercase font-dark">Missions Trip Code of Conduct</span>
+                                    </div>
+                                    <div class="tools">
+                                        <a href="" class="expand" data-original-title="" title=""> </a>
+                                    </div>
+                                    <div class="actions">
+                                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title=""> </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body" style="display: none;">
+                                    {{> MissionTripCodeOfConduct}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="portlet light bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject bold uppercase font-dark">Media Release Form</span>
+                                        <span class="caption-helper">Consent to Photograph, Film, or Videotape a Participant for Non-Profit Use</span>
+                                    </div>
+                                    <div class="tools">
+                                        <a href="" class="expand" data-original-title="" title=""> </a>
+                                    </div>
+                                    <div class="actions">
+                                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title=""> </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body" style="display: none;">
+                                    {{> MediaReleaseForm}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="portlet light bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject bold uppercase font-dark">Release and Waiver of Liability</span>
+                                    </div>
+                                    <div class="tools">
+                                        <a href="" class="expand" data-original-title="" title=""> </a>
+                                    </div>
+                                    <div class="actions">
+                                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title=""> </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body" style="display: none;">
+                                    {{> ReleaseAndWaiverOfLiability}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

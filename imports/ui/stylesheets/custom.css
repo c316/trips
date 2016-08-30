@@ -1,0 +1,11 @@
+.page-footer{
+    padding-bottom: 10px;
+}
+
+.clickable-cell {
+    color: #337ab7;
+}
+.clickable-cell:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

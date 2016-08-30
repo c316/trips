@@ -1,0 +1,32 @@
+{
+  "name": "trips",
+  "private": true,
+  "scripts": {
+    "start": "meteor run --settings settings.json"
+  },
+  "dependencies": {
+    "apollo-client": "^0.3.12",
+    "apollo-server": "^0.1.5",
+    "bcrypt": "^0.8.7",
+    "express": "^4.14.0",
+    "graphql": "^0.6.2",
+    "jquery": "^2.2.4",
+    "meteor-node-stubs": "~0.2.0",
+    "moment": "^2.14.1",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1"
+  },
+  "version": "1.0.0",
+  "description": "Track trip participants and their funding",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c316/trips.git"
+  },
+  "author": "Joshua Bechard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/c316/trips/issues"
+  },
+  "homepage": "https://github.com/c316/trips#readme"
+}

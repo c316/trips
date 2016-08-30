@@ -1,0 +1,31 @@
+<template name="TripRegistration">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase font-dark">Register for a trip</span>
+                    </div>
+                    <div class="tools">
+                        <span class="text-right" style="color: orange;"><i class="btn-lg btn-icon-only icon-hourglass"></i> In-progress</span>
+                        <a href="" class="expand" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="center-block">
+                        <form id="tripRegistrationForm">
+                            <div class="form-body">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <input type="text" class="form-control" name="tripName">
+                                    <label for="tripName">What is your trip id?</label>
+                                    <span class="help-block"> (You can't proceed without an id) </span>
+                                </div>
+                                <a class="btn btn-block" type="submit">Go</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

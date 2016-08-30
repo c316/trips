@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="74b9c952-8467-423c-85f4-d13d20929dae" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/bg/1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/bg/2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/bg/3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/bg/4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/bg/5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/bg/6.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/10.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/11.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/12.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/13.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/14.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/15.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/16.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/17.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/18.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/19.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/20.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/6.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/7.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/8.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/9.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/blog/Thumbs.db" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/article.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/iphone.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/iphone_left.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/iphone_right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/photo1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/photo2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/photo3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/photo4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/photo5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/photo6.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/social_facebook.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/social_googleplus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/social_linkedin.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/social_rss.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/email/social_twitter.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/image1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/image2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/image3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/image4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/image5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/item_img.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/item_img1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_02.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_03.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_04.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_05.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_06.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_07.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_08.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_09.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_10.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_11.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_12.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_13.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_14.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_15.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_16.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_17.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/gallery/preview_18.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/invoice/walmart.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/Thumbs.db" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/avatar.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/avatar1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/avatar1_small.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/avatar2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/avatar3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/avatar3_small.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/earth-rtl.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/earth.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/img.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/img1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/img1_2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/img2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/img3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/img3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/img4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/logo_azteca.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/logo_conquer.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/logo_metronic.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/photo1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/photo2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/photo3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/profile-img.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/profile-img.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/profile.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/pages/profile_user.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/avatar.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/avatar1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/avatar1_small.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/avatar2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/avatar3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/avatar3_small.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/bg-61.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/logo_azteca.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/logo_conquer.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/logo_metronic.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/people19.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/photo1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/photo2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/photo3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/profile-img.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/profile-img.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/profile.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/profile/profile_user.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/search/1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/search/2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/search/img1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/search/img2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/search/img3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar10.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar11.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar6.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar7.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar8.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar80_1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar80_2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar80_3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar80_4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar80_5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar80_6.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar80_7.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar80_8.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/avatar9.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/teambg1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/teambg2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/teambg3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/teambg4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/teambg5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/teambg6.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/teambg7.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/users/teambg8.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/works/img1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/works/img2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/works/img3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/works/img4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/works/img5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/works/img6.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/Footer.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/login/Login.html" />
+    </list>
+    <ignored path="trips.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="Login.html" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/client/login/Login.html">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="401">
+                    <caret line="76" column="60" selection-start-line="76" selection-start-column="60" selection-end-line="76" selection-end-column="60" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="trips" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="admin.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/admin/admin.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+              <folding>
+                <element signature="n#style#0;n#table#0;n#div#2;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <marker date="1472508243000" expanded="true" signature="2818:3950" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="router.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/both/router.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="46" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Fundraising.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/Fundraising.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+              <folding>
+                <element signature="n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Forms.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/forms/Forms.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="108" column="54" selection-start-line="108" selection-start-column="54" selection-end-line="108" selection-end-column="54" />
+              <folding>
+                <element signature="n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                <element signature="n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                <element signature="n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                <element signature="n#div#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Header.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/Header.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="196" column="31" selection-start-line="196" selection-start-column="16" selection-end-line="196" selection-end-column="31" />
+              <folding>
+                <element signature="n#div#0;n#div#0;n#nav#0;n#template#0;n#!!top" expanded="false" />
+                <element signature="n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#ul#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/imports/ui/stylesheets/components-md.less" />
+        <option value="$PROJECT_DIR$/client/js/form-validation-md.js" />
+        <option value="$PROJECT_DIR$/client/js/app.js" />
+        <option value="$PROJECT_DIR$/client/js/bootstrap-datepicker.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/imports/ui/js/bootstrap-datepicker.js" />
+        <option value="$PROJECT_DIR$/imports/ui/js/jquery.inputmask.js" />
+        <option value="$PROJECT_DIR$/imports/ui/js/inputmask.phone.extensions.js" />
+        <option value="$PROJECT_DIR$/both/lib/collections/schemas.js" />
+        <option value="$PROJECT_DIR$/client/MissionaryInformationForm.html" />
+        <option value="$PROJECT_DIR$/imports/ui/stylesheets/style.css" />
+        <option value="$PROJECT_DIR$/client/Forms.html" />
+        <option value="$PROJECT_DIR$/client/TestForm.html" />
+        <option value="$PROJECT_DIR$/client/TestForm.js" />
+        <option value="$PROJECT_DIR$/client/admin/MissionaryInformationForm.js" />
+        <option value="$PROJECT_DIR$/client/Home.html" />
+        <option value="$PROJECT_DIR$/client/app.html" />
+        <option value="$PROJECT_DIR$/client/forms/MissionaryInformationForm.js" />
+        <option value="$PROJECT_DIR$/imports/ui/js/quick-sidebar.js" />
+        <option value="$PROJECT_DIR$/client/home/Home.js" />
+        <option value="$PROJECT_DIR$/client/css/bootstrap.css" />
+        <option value="$PROJECT_DIR$/imports/ui/js/layout.js" />
+        <option value="$PROJECT_DIR$/imports/ui/js/app.js" />
+        <option value="$PROJECT_DIR$/.meteor/packages" />
+        <option value="$PROJECT_DIR$/both/Footer.html" />
+        <option value="$PROJECT_DIR$/client/forms/MediaReleaseForm.html" />
+        <option value="$PROJECT_DIR$/client/forms/ReleaseAndWaiverOfLiability.html" />
+        <option value="$PROJECT_DIR$/client/forms/MissionTripCodeOfConduct.html" />
+        <option value="$PROJECT_DIR$/client/RegisterTrip.html" />
+        <option value="$PROJECT_DIR$/client/Footer.html" />
+        <option value="$PROJECT_DIR$/client/main.html" />
+        <option value="$PROJECT_DIR$/client/Login.html" />
+        <option value="$PROJECT_DIR$/client/Login.js" />
+        <option value="$PROJECT_DIR$/imports/ui/js/login.js" />
+        <option value="$PROJECT_DIR$/client/login/Login.js" />
+        <option value="$PROJECT_DIR$/imports/ui/js/dashboard.js" />
+        <option value="$PROJECT_DIR$/imports/ui/stylesheets/components-md.css" />
+        <option value="$PROJECT_DIR$/client/home/Home.html" />
+        <option value="$PROJECT_DIR$/client/forms/MissionaryInformationForm.html" />
+        <option value="$PROJECT_DIR$/client/TripRegistration.html" />
+        <option value="$PROJECT_DIR$/client/login/Login.html" />
+        <option value="$PROJECT_DIR$/client/UserRegistration.html" />
+        <option value="$PROJECT_DIR$/imports/ui/stylesheets/custom.css" />
+        <option value="$PROJECT_DIR$/client/admin/admin.html" />
+        <option value="$PROJECT_DIR$/imports/ui/stylesheets/default.css" />
+        <option value="$PROJECT_DIR$/client/Header.js" />
+        <option value="$PROJECT_DIR$/client/main.js" />
+        <option value="$PROJECT_DIR$/client/Header.html" />
+        <option value="$PROJECT_DIR$/both/router.js" />
+        <option value="$PROJECT_DIR$/client/Fundraising.html" />
+        <option value="$PROJECT_DIR$/client/forms/Forms.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1600" />
+    <option name="height" value="873" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="1" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trips" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trips" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trips" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trips" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trips" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="both" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="JavaScriptLanguageLevel" value="ES6" />
+    <property name="JavaScriptPreferStrict" value="false" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../give" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="enabled" />
+    <property name="js.meteor.project" value="true" />
+    <property name="js.meteor.library.was.enabled" value="true" />
+    <property name="js-jscs-nodeInterpreter" value="$USER_HOME$/.nvm/versions/node/v5.10.1/bin/node" />
+    <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v5.10.1/bin/node" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/login" />
+      <recent name="$PROJECT_DIR$/client" />
+      <recent name="$PROJECT_DIR$/public/fonts" />
+      <recent name="$PROJECT_DIR$/client/home" />
+      <recent name="$PROJECT_DIR$/public/img" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/imports/ui/js" />
+      <recent name="$PROJECT_DIR$/imports/ui/stylesheets" />
+      <recent name="$PROJECT_DIR$/client/forms" />
+      <recent name="$PROJECT_DIR$/public/img" />
+      <recent name="$PROJECT_DIR$/public" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="74b9c952-8467-423c-85f4-d13d20929dae" name="Default" comment="" />
+      <created>1471984808916</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1471984808916</updated>
+      <workItem from="1471984812274" duration="41228000" />
+      <workItem from="1472477343419" duration="22000" />
+      <workItem from="1472477388098" duration="20205000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="61455000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1600" height="873" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22419253" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47388536" sideWeight="0.5072831" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3277849" sideWeight="0.4977834" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299363" sideWeight="0.4977834" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24952501" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23949045" sideWeight="0.4927169" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/client/admin/MissionaryInformationForm.js" />
+    <entry file="file://$USER_HOME$/Documents/Dev/metronic_v4.6/theme/assets/layouts/layout3/css/custom.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/Dev/metronic_v4.6/theme/admin_3_material_design/app_calendar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="45" column="53" selection-start-line="45" selection-start-column="53" selection-end-line="45" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/fonts/Simple-Line-Icons.eot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/Dev/metronic_v4.6/theme/admin_3_material_design/elements_lists.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="31" column="62" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/both/lib/collections/schemas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="69" column="2" selection-start-line="69" selection-start-column="2" selection-end-line="69" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/js/quick-sidebar.js" />
+    <entry file="file://$PROJECT_DIR$/client/js/bootstrap.js" />
+    <entry file="file://$PROJECT_DIR$/public/fonts/bootstrap/glyphicons-halflings-regular.eot" />
+    <entry file="file://$PROJECT_DIR$/client/css/bootstrap.css" />
+    <entry file="file://$PROJECT_DIR$/imports/ui/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/js/layout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.meteor/packages">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="14" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="68" selection-start-line="5" selection-start-column="68" selection-end-line="5" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/stylesheets/plugins-md.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="1182" column="35" selection-start-line="1182" selection-start-column="27" selection-end-line="1182" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/img/avatar1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/img/avatar.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/Forms.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="57" column="10" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/forms/MissionaryInformationForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="6" column="51" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/forms/ReleaseAndWaiverOfLiability.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="47" selection-start-line="1" selection-start-column="47" selection-end-line="1" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/forms/MissionTripCodeOfConduct.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/forms/MediaReleaseForm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/TestForm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/TestForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/UserDashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/Upload.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="101" selection-start-line="0" selection-start-column="101" selection-end-line="0" selection-end-column="101" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/login/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/js/dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="43" selection-start-line="0" selection-start-column="43" selection-end-line="0" selection-end-column="43" />
+          <folding>
+            <marker date="1472499835000" expanded="true" signature="20502:20508" ph=" " />
+            <marker date="1472499835000" expanded="true" signature="46708:46723" ph="..." />
+            <marker date="1472499835000" expanded="true" signature="46768:46783" ph="..." />
+            <marker date="1472499835000" expanded="true" signature="47148:47163" ph="..." />
+            <marker date="1472499835000" expanded="true" signature="47208:47223" ph="..." />
+            <marker date="1472499835000" expanded="true" signature="49263:49277" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/home/Home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/stylesheets/login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="14" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/stylesheets/components-md.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="13179" column="1" selection-start-line="13179" selection-start-column="1" selection-end-line="13179" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="250" column="0" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+          <folding>
+            <element signature="e#70#2016#0" expanded="false" />
+            <element signature="e#2060#3930#0" expanded="false" />
+            <element signature="e#3968#7876#0" expanded="false" />
+            <marker date="1472498619000" expanded="true" signature="4464:4470" ph=" " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/Footer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/forms/MissionaryInformationForm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/stylesheets/simple-line-icons.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="39" column="2083" selection-start-line="39" selection-start-column="2083" selection-end-line="39" selection-end-column="2083" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/TripRegistration.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/UserRegistration.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/home/Home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/UserRegistration.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="34" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="34" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/login/Login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="76" column="60" selection-start-line="76" selection-start-column="60" selection-end-line="76" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/stylesheets/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/stylesheets/layout.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/stylesheets/default.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="484" column="0" selection-start-line="484" selection-start-column="0" selection-end-line="484" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="32" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/Header.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="44" selection-start-line="0" selection-start-column="44" selection-end-line="0" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/Header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="196" column="31" selection-start-line="196" selection-start-column="16" selection-end-line="196" selection-end-column="31" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#nav#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#ul#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#nav#0;n#template#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/admin/admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+          <folding>
+            <element signature="n#style#0;n#table#0;n#div#2;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <marker date="1472508243000" expanded="true" signature="2818:3950" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/Fundraising.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+          <folding>
+            <element signature="n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/forms/Forms.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="108" column="54" selection-start-line="108" selection-start-column="54" selection-end-line="108" selection-end-column="54" />
+          <folding>
+            <element signature="n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/both/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="46" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
