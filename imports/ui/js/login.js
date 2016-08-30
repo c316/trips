@@ -7,7 +7,7 @@ export default Login = function() {
             errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             rules: {
-                username: {
+                email: {
                     required: true
                 },
                 password: {
@@ -19,8 +19,8 @@ export default Login = function() {
             },
 
             messages: {
-                username: {
-                    required: "Username is required."
+                email: {
+                    required: "Email is required."
                 },
                 password: {
                     required: "Password is required."
@@ -158,7 +158,10 @@ export default Login = function() {
             ignore: "",
             rules: {
 
-                fullname: {
+                firstname: {
+                    required: true
+                },
+                lastname: {
                     required: true
                 },
                 email: {
@@ -171,11 +174,10 @@ export default Login = function() {
                 city: {
                     required: true
                 },
-                country: {
+                state: {
                     required: true
                 },
-
-                username: {
+                zip: {
                     required: true
                 },
                 password: {
@@ -192,7 +194,7 @@ export default Login = function() {
 
             messages: { // custom messages for radio buttons and checkboxes
                 tnc: {
-                    required: "Please accept TNC first."
+                    required: "Please accept terms of service first."
                 }
             },
 
@@ -234,15 +236,6 @@ export default Login = function() {
             }
         });
 
-        jQuery('#register-btn').click(function() {
-            jQuery('.login-form').hide();
-            jQuery('.register-form').show();
-        });
-
-        jQuery('#register-back-btn').click(function() {
-            jQuery('.login-form').show();
-            jQuery('.register-form').hide();
-        });
     }
 
     return {
@@ -252,7 +245,6 @@ export default Login = function() {
             handleLogin();
             handleForgetPassword();
             handleRegister();
-
         }
 
     };

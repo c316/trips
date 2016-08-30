@@ -59,8 +59,8 @@ export const App = function() {
         }
     };
 
-    // handle the layout reinitialization on window resize
     var handleOnResize = function() {
+        var windowWidth = $(window).width();
         var resize;
         if (isIE8) {
             var currheight;
@@ -78,12 +78,15 @@ export const App = function() {
             });
         } else {
             $(window).resize(function() {
-                if (resize) {
-                    clearTimeout(resize);
+                if ($(window).width() != windowWidth) {
+                    windowWidth = $(window).width();
+                    if (resize) {
+                        clearTimeout(resize);
+                    }
+                    resize = setTimeout(function() {
+                        _runResizeHandlers();
+                    }, 50); // wait 50ms until window resize finishes.
                 }
-                resize = setTimeout(function() {
-                    _runResizeHandlers();
-                }, 50); // wait 50ms until window resize finishes.
             });
         }
     };
@@ -428,14 +431,6 @@ export const App = function() {
         });
     };
 
-    // Handle Hower Dropdowns
-    var handleDropdownHover = function() {
-        $('[data-hover="dropdown"]').not('.hover-initialized').each(function() {
-            $(this).dropdownHover();
-            $(this).addClass('hover-initialized');
-        });
-    };
-
     // Handle textarea autosize 
     var handleTextareaAutosize = function() {
         if (typeof(autosize) == "function") {
@@ -574,6 +569,7 @@ export const App = function() {
             }
        });       
     }
+    
     //* END:CORE HANDLERS *//
 
     return {
@@ -612,13 +608,11 @@ export const App = function() {
             handleFixInputPlaceholderForIE(); //IE8 & IE9 input placeholder issue fix
         },
 
-
         //main function to initiate core javascript after ajax complete
         initAjax: function() {
             //handleUniform(); // handles custom radio & checkboxes     
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleDropdownHover(); // handles dropdown hover       
             handleScrollers(); // handles slim scrolling contents 
             handleSelect2(); // handle custom Select2 dropdowns
             handleFancybox(); // handle fancy box
@@ -1018,4 +1012,3 @@ export const App = function() {
     };
 
 }();
-

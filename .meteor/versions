@@ -61,6 +61,7 @@ mongo-id@1.0.5
 npm-bcrypt@0.9.1
 npm-mongo@1.5.48
 observe-sequence@1.0.12
+ongoworks:security@2.0.1
 ordered-dict@1.0.8
 promise@0.8.4
 random@1.0.10

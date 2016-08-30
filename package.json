@@ -8,6 +8,7 @@
     "apollo-client": "^0.3.12",
     "apollo-server": "^0.1.5",
     "bcrypt": "^0.8.7",
+    "casual-browserify": "^1.5.3",
     "express": "^4.14.0",
     "graphql": "^0.6.2",
     "jquery": "^2.2.4",

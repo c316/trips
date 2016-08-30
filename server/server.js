@@ -1,6 +1,7 @@
 import { createApolloServer } from 'meteor/apollo';
 
-import { schema, resolvers } from '/imports/api/schema';
+import { schema } from '/imports/api/schema';
+import { resolvers } from '/imports/api/resolvers';
 
 createApolloServer({
   graphiql: true,

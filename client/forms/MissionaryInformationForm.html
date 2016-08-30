@@ -1,6 +1,8 @@
 <template name="MissionaryInformationForm">
     <form id="missionaryInformationForm">
         <div class="form-body">
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button> You have some form errors. Please check below. </div>
             <div class="form-group form-md-line-input form-md-floating-label">
                 <input type="text" class="form-control" name="preferredName">
                 <label for="preferredName">Name you prefer to be called</label>
@@ -11,22 +13,22 @@
                 <label>Do you have a passport?</label>
                 <div class="md-radio-list">
                     <div class="md-radio">
-                        <input type="radio" id="radio30" name="passportStatus" class="md-radiobtn" value="yes">
-                        <label for="radio30">
-                            <span class="inc"></span>
+                        <input type="radio" id="radio111" name="passportStatus" class="md-radiobtn" value="yes">
+                        <label for="radio111">
+                            <span></span>
                             <span class="check"></span>
                             <span class="box"></span> Yes </label>
                     </div>
                     <div class="md-radio">
-                        <input type="radio" id="radio31" name="passportStatus" class="md-radiobtn" value="in-progress">
-                        <label for="radio31">
-                            <span class="inc"></span>
+                        <input type="radio" id="radio112" name="passportStatus" class="md-radiobtn" value="in-progress">
+                        <label for="radio112">
+                            <span></span>
                             <span class="check"></span>
                             <span class="box"></span> No, but I have submitted my passport application </label>
                     </div>
                     <div class="md-radio">
-                        <input type="radio" id="radio32" name="passportStatus" class="md-radiobtn" value="no-not-applied">
-                        <label for="radio32">
+                        <input type="radio" id="radio113" name="passportStatus" class="md-radiobtn" value="no-not-applied">
+                        <label for="radio113">
                             <span></span>
                             <span class="check"></span>
                             <span class="box"></span> No, and I have not applied for one yet </label>
@@ -45,15 +47,15 @@
                 <label>Gender</label>
                 <div class="md-radio-inline">
                     <div class="md-radio">
-                        <input type="radio" id="radio6" name="gender" class="md-radiobtn" value="male">
-                        <label for="radio6">
+                        <input type="radio" id="radio98" name="gender" class="md-radiobtn" value="male">
+                        <label for="radio98">
                             <span class="inc"></span>
                             <span class="check"></span>
                             <span class="box"></span> Male </label>
                     </div>
                     <div class="md-radio">
-                        <input type="radio" id="radio7" name="gender" class="md-radiobtn" value="female">
-                        <label for="radio7">
+                        <input type="radio" id="radio99" name="gender" class="md-radiobtn" value="female">
+                        <label for="radio99">
                             <span></span>
                             <span class="check"></span>
                             <span class="box"></span> Female </label>
@@ -234,7 +236,7 @@
                 </div>
             </div>
             <div class="form-group form-md-radios">
-                <label>Blood Type</label>
+                <label>T-shirt Size</label>
                 <div class="md-radio-list">
                     <div class="md-radio">
                         <input type="radio" id="radio21" name="tShirtSize" class="md-radiobtn" value="small">
@@ -298,15 +300,15 @@
                 <span class="help-block">Felony or misdemeanor</span>
                 <div class="md-radio-list">
                     <div class="md-radio">
-                        <input type="radio" id="radio31" name="convictedOfACrime" class="md-radiobtn" value="yes">
-                        <label for="radio31">
+                        <input type="radio" id="radio38" name="convictedOfACrime" class="md-radiobtn" value="yes">
+                        <label for="radio38">
                             <span></span>
                             <span class="check"></span>
                             <span class="box"></span> Yes </label>
                     </div>
                     <div class="md-radio">
-                        <input type="radio" id="radio32" name="convictedOfACrime" class="md-radiobtn" value="no">
-                        <label for="radio32">
+                        <input type="radio" id="radio39" name="convictedOfACrime" class="md-radiobtn" value="no">
+                        <label for="radio39">
                             <span></span>
                             <span class="check"></span>
                             <span class="box"></span> No </label>

@@ -364,7 +364,10 @@ Bootstrap Select
   color: #aaa; }
 
 .bootstrap-select .dropdown-menu {
-  z-index: 9999 !important; }
+  z-index: 1000 !important; }
+
+.modal-open .bootstrap-select .dropdown-menu {
+  z-index: 10050 !important; }
 
 /***
 Bootstrap Switch 

@@ -5,23 +5,20 @@ import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
 
 
 Template.MissionaryInformationForm.onRendered(()=>{
+
   $('.date-picker').datepicker({
     autoclose: true
   });
-
-
   $("[name='emergencyContactPhone']").inputmask({"mask": "(999) 999-9999"});
   $("[name='lastTetanusShotYear']").inputmask({"mask": "9999"});
 
-
-
   // for more info visit the official plugin documentation:
   // http://docs.jquery.com/Plugins/Validation
-  var form1 = $('#form_sample_3');
-  var error1 = $('.alert-danger', form1);
-  var success1 = $('.alert-success', form1);
+  var missionaryInformationForm = $('#missionaryInformationForm');
+  var error1 = $('.alert-danger', missionaryInformationForm);
+  var success1 = $('.alert-success', missionaryInformationForm);
 
-  form1.validate({
+  missionaryInformationForm.validate({
     errorElement: 'span', //default input error message container
     errorClass: 'help-block help-block-error', // default input error message class
     focusInvalid: false, // do not focus the last invalid input
@@ -38,57 +35,24 @@ Template.MissionaryInformationForm.onRendered(()=>{
       'checkboxes2[]': {
         required: 'Please check some options',
         minlength: jQuery.validator.format("At least {0} items must be selected"),
-      }
+      },
     },
     rules: {
-      name: {
+      preferredName: {
         minlength: 2,
         required: true
       },
-      email: {
-        required: true,
-        email: true
+      passportExpirationDate: {
+        date: true,
       },
-      email2: {
-        required: true,
-        email: true
+      birthdate: {
+        date: true
       },
-      url: {
-        required: true,
-        url: true
-      },
-      url2: {
-        required: true,
-        url: true
-      },
-      number: {
-        required: true,
+      lastTetanusShotYear: {
         number: true
       },
-      number2: {
-        required: true,
-        number: true
-      },
-      digits: {
-        required: true,
-        digits: true
-      },
-      creditcard: {
-        required: true,
-        creditcard: true
-      },
-      delivery: {
-        required: true
-      },
-      payment: {
-        required: true,
-        minlength: 2,
-        maxlength: 4
-      },
-      memo: {
-        required: true,
-        minlength: 10,
-        maxlength: 40
+      emergencyContactPhone: {
+        phoneUS: true
       }
     },
 
@@ -136,7 +100,6 @@ Template.MissionaryInformationForm.events({
     console.log('form submitted');
   },
   'change .date-picker'(e){
-    console.log("Change detected");
     let dateValue = $(e.currentTarget).val();
     if (dateValue) $(e.currentTarget).addClass('edited');
   }

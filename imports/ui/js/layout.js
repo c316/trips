@@ -1,7 +1,6 @@
 /**
 Core script to handle the entire theme and core functions
-**/
-
+ **/
 import { App } from './app';
 
 export const Layout = function() {
@@ -12,6 +11,17 @@ export const Layout = function() {
 
     var resBreakpointMd = App.getResponsiveBreakpoint('md');
 
+    // Set proper height for sidebar and content. The content and sidebar height must be synced always.
+    var handleContentHeight = function () {
+        var content = $('.page-content');
+        var copyright = $('.copyright');
+        var body = $('body');
+        var height;
+
+        var available_height = App.getViewPort().height - $('.copyright').outerHeight() - $('.page-header').outerHeight() - 50;
+        content.css('min-height', available_height);
+    };
+
     // handle on page scroll
     var handleHeaderOnScroll = function() {
         if ($(window).scrollTop() > 60) {
@@ -20,11 +30,11 @@ export const Layout = function() {
             $("body").removeClass("page-on-scroll");
         }
     }
-
+    
     // Handles active menu to avoid closing click to content
 
     // handle go to top button
-    var handleGo2Top = function () {
+    var handleGo2Top = function () {       
         var Go2TopOperation = function(){
             var CurrentWindowPosition = $(window).scrollTop();// current vertical position
             if (CurrentWindowPosition > 100) {
@@ -53,7 +63,7 @@ export const Layout = function() {
 
     var handleHeaderMenu = function() {
         $('.page-header .navbar-nav > .dropdown-fw, .page-header .navbar-nav > .more-dropdown, .page-header .navbar-nav > .dropdown > .dropdown-menu  > .dropdown').click(function(e) {
-
+            
             if (App.getViewPort().width > resBreakpointMd) {
                 if ($(this).hasClass('more-dropdown') || $(this).hasClass('more-dropdown-sub')) {
                     return;
@@ -63,7 +73,7 @@ export const Layout = function() {
             } else {
                 e.stopPropagation();
             }
-
+            
             var links = $(this).parent().find('> .dropdown');
 
             if (App.getViewPort().width < resBreakpointMd) {
@@ -94,31 +104,31 @@ export const Layout = function() {
         // handle hover dropdown menu for desktop devices only
         var width = App.getViewPort().width;
         var menu = $(".page-header .navbar-nav");
-        if (width >= resBreakpointMd && menu.data('breakpoint') !== 'desktop') {
+        if (width >= resBreakpointMd && menu.data('breakpoint') !== 'desktop') { 
             menu.data('breakpoint', 'desktop');
-            $('[data-hover="extended-dropdown"]', menu).not('.hover-initialized').each(function() {
-                $(this).dropdownHover();
-                $(this).addClass('hover-initialized');
+            $('[data-hover="extended-dropdown"]', menu).not('.hover-initialized').each(function() { 
+                $(this).dropdownHover(); 
+                $(this).addClass('hover-initialized'); 
             });
         } else if (width < resBreakpointMd && menu.data('breakpoint') !== 'mobile') {
             menu.data('breakpoint', 'mobile');
             // disable hover bootstrap dropdowns plugin
-            $('[data-hover="extended-dropdown"].hover-initialized', menu).each(function() {
+            $('[data-hover="extended-dropdown"].hover-initialized', menu).each(function() {   
                 $(this).unbind('hover');
                 $(this).parent().unbind('hover').find('.dropdown-submenu').each(function() {
                     $(this).unbind('hover');
                 });
-                $(this).removeClass('hover-initialized');
+                $(this).removeClass('hover-initialized');    
             });
         }
     };
 
     return {
-
         // Main init methods to initialize the layout
         // IMPORTANT!!!: Do not modify the core handlers call order.
 
         init: function () {
+            handleContentHeight();            
             handleGo2Top();
             handleHeaderOnScroll();
             handleHeaderMenu();
