@@ -1,10 +1,11 @@
 import casual from 'casual-browserify';
 export const fillForms = ()=>{
   const password = casual.password;
-  $("[name='firstname']").val(casual.word);
-  $("[name='middlename']").val(casual.word);
-  $("[name='lastname']").val(casual.word);
-  $("[name='address']").val(casual.address);
+  $("[name='firstname']").val(casual.first_name);
+  $("[name='middlename']").val(casual.first_name);
+  $("[name='lastname']").val(casual.last_name);
+  $("[name='phone']").val(casual.phone);
+  $("[name='address']").val(casual._address1());
   $("[name='city']").val(casual.city);
   $("[name='state']").val(casual.state_abbr);
   $("[name='zip']").val(casual.zip);

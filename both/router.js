@@ -22,25 +22,16 @@ FlowRouter.route( '/admin', {
 FlowRouter.route( '/admin/:trip', {
   name: 'trip',
   action() {
-    Session.set("trip", FlowRouter.getParam("trip"));
-    BlazeLayout.render( 'main', { top: "HeaderWithTools", main: 'TripAdmin', footer: "Footer" } );
+    const tripId = FlowRouter.getParam("trip");
+    BlazeLayout.render( 'main', { top: "Header", main: 'TripAdmin', footer: "Footer" } );
   }
 });
 
 FlowRouter.route( '/admin/:trip/:fundraiser', {
   name: 'tripFundraiserDetails',
   action() {
-    Session.set("trip", FlowRouter.getParam("trip"));
-    Session.set("fundraiser", FlowRouter.getParam("fundraiser"));
-    BlazeLayout.render( 'main', { top: 'HeaderWithTools', main: 'Fundraising', footer: "Footer" } );
-  }
-});
-
-FlowRouter.route( '/admin/:trip/:fundraiser', {
-  name: 'tripFormDetails',
-  action() {
-    Session.set("trip", FlowRouter.getParam("trip"));
-    Session.set("fundraiser", FlowRouter.getParam("fundraiser"));
-    BlazeLayout.render( 'main', { top: "Header", main: 'TripAdmin', footer: "Footer" } );
+    const tripId = FlowRouter.getParam("trip");
+    const fundraiserId = FlowRouter.getParam("fundraiser");
+    BlazeLayout.render( 'main', { top: 'Header', main: 'Fundraising', footer: "Footer" } );
   }
 });

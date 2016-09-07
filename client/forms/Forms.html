@@ -41,10 +41,18 @@
                         </div>
                         <div class="col-md-6 col-xs-12">
                             <div class="dashboard-stat2 bordered">
-                                <form action="../assets/global/plugins/dropzone/upload.php" class="dropzone dropzone-file-area dz-clickable" id="my-dropzone"
+                                <form class="dropzone dropzone-file-area dz-clickable"
+                                      id="my-dropzone"
                                       style="width: 250px; margin-top: 5px;">
-                                    <h5 class="sbold">Drop passport photo here</h5>
-                                    <div class="dz-default dz-message"><span></span></div></form>
+                                    <h5 class="sbold">Passport Photo</h5>
+                                    {{#if passportPhoto}}
+                                        <img src="passportPhoto" />
+                                    {{else}}
+                                        {{> uploadForm}}
+                                    {{/if}}
+                                    <div class="dz-default dz-message">
+                                        <span></span></div>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -1,58 +1,75 @@
 import rp from 'request-promise';
 
-export const resolvers = {
-  Query: {
-    dtFundId(){
-      const data = rp('https://trashmountain.donortools.com/funds.json', {
-        'auth': {
-          "user": Meteor.settings.DT.user,
-          "pass": Meteor.settings.DT.pass,
-        }
-      })
-        .then((res) => JSON.parse(res))
+const DTBaseURL = 'https://trashmountain.donortools.com/';
+const getFromDT = (getQuery) => {
+  const data = rp( DTBaseURL + getQuery, {
+    'auth': {
+      "user": Meteor.settings.DT.user,
+      "pass": Meteor.settings.DT.pass,
+    }
+  } )
+    .then( ( res ) => JSON.parse( res ) )
+    .then((res) =>{
+      return res;
+    });
+  return data;
+};
+
+
+
+export default resolveFunctions = {
+  RootQuery: {
+    Splits( root, args, context ){
+      let newValue = [];
+      const getQuery = 'funds/' + args.id + '/splits.json';
+
+      const data = getFromDT(getQuery)
+        .then( ( res ) => {
+          res.forEach( function ( donationSplit ) {
+            newValue.push( donationSplit.split );
+          } );
+          return newValue;
+        } );
+
+      return data;
+    },
+  },
+  Splits: {
+    donation( split ){
+      const getQuery = 'donations/' + split.donation_id + '.json';
+
+      const data = getFromDT(getQuery)
         .then((res) => {
-          console.log(res[0].fund);
-          return res[0].fund.id;
+          return res.donation;
         });
       return data;
     },
-    dtFundDonations(root, args, context){
-      console.log(args.id);
-      let newValue = [];
+  },
+  Donation:{
+    person( donation ){
+      console.log(donation.persona_id);
+      const getQuery = 'people/' + donation.persona_id + '.json';
 
-      const data = rp('https://trashmountain.donortools.com/funds/' + args.id + '/splits.json?basis=cash&page=1&per_page=1000&range=all_dates', {
-        'auth': {
-          "user": Meteor.settings.DT.user,
-          "pass": Meteor.settings.DT.pass,
-        }
-      })
-        .then((res) => JSON.parse(res))
+      const data = getFromDT(getQuery)
         .then((res) => {
-          res.forEach(function(donationSplit){
-            newValue.push({
-              amount: donationSplit.split.amount_in_cents,
-              donationId: donationSplit.split.donation_id,
-            });
-          });
-          return newValue;
+          console.log(res.persona);
+          return res.persona;
         });
-
-      const modifiedData = data.map(function ( split ) {
-        const donation = rp('https://trashmountain.donortools.com/donations/' + split.donation_id + '.json', {
-          'auth': {
-            "user": Meteor.settings.DT.user,
-            "pass": Meteor.settings.DT.pass,
-          }
-        })
-          .then((res) => JSON.parse(res))
-          .then((res) => {
-            console.log(res.donation.persona_id);
-            return res;
-          });
-        return {persona_id: donation.donation.persona_id}
-      });
-
-      return modifiedData;
+      return data;
+    }
+  },
+  Person:{
+    names(person){
+      return person.names;
+    },
+    addresses(person){
+      return person.addresses;
+    },
+    phone_numbers(person){
+      return person.phone_numbers;
+    },
+    email_addresses(person){
+      return person.email_addresses;
     }
   }
 };

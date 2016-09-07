@@ -1,9 +1,9 @@
+import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
+
 Template.LoginContent.onRendered(()=>{
   $('body').addClass('login');
   import '/imports/ui/stylesheets/login.css';
-  //import Login from  '/imports/ui/js/login';
-
-  //Login.init();
+  $("[name='phone']").inputmask({"mask": "(999) 999-9999"});
 
 
   $( '.login-form' ).validate({
@@ -68,8 +68,30 @@ Template.LoginContent.onRendered(()=>{
 });
 
 Template.LoginContent.events({
-  'submit form'(){
-    console.log('Form submitted');
+  'submit .register-form'(e){
+    e.preventDefault();
+    const emailVar = e.target.email.value;
+    const passwordVar = e.target.password.value;
+    const profile = {
+      firstName: e.target.firstname.value,
+      middleName: e.target.middlename.value,
+      lastName: e.target.lastname.value,
+      phone: e.target.phone.value,
+      address: {
+        address: e.target.address.value,
+        city: e.target.city.value,
+        state: e.target.state.value,
+        zip: e.target.zip.value,
+      },
+    };
+    Accounts.createUser({
+      email: emailVar,
+      password: passwordVar,
+      profile
+    }, (e)=>{
+      if (e) console.error(e);
+      else FlowRouter.go('home');
+    });
   },
   'click #register-btn'() {
     $('.login-form').hide();
@@ -81,7 +103,19 @@ Template.LoginContent.events({
     fillForms();
   },
   'click #register-back-btn'(){
-    $( '.login-form' ).show();
     $( '.register-form' ).hide();
+    $( '.login-form' ).show();
+  },
+  'click #back-btn'(e){
+    e.target.form.reset();
+    $( '.register-form' ).hide();
+    $( '.forget-form' ).hide();
+    $( '.login-form' ).show();
+  },
+  'click #forget-password'(){
+    $( '.login-form' ).hide();
+    $( '.register-form' ).hide();
+    $( '.forget-form' ).show();
   }
 });
+

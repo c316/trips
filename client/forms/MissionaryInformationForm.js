@@ -3,7 +3,6 @@ import  { App } from '/imports/ui/js/app';
 import { BootstrapDatePicker } from '/imports/ui/js/bootstrap-datepicker';
 import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
 
-
 Template.MissionaryInformationForm.onRendered(()=>{
 
   $('.date-picker').datepicker({

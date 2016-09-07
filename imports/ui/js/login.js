@@ -53,7 +53,7 @@ export default Login = function() {
         $('.login-form input').keypress(function(e) {
             if (e.which == 13) {
                 if ($('.login-form').validate().form()) {
-                    $('.login-form').submit(); //form validation success, call ajax form submit
+                    $('.login-form').submit(); // form validation success, call ajax form submit
                 }
                 return false;
             }
@@ -125,43 +125,19 @@ export default Login = function() {
 
     var handleRegister = function() {
 
-        function format(state) {
-            if (!state.id) { return state.text; }
-            var $state = $(
-             '<span><img src="../assets/global/img/flags/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
-            );
-            
-            return $state;
-        }
-
-        if (jQuery().select2 && $('#country_list').size() > 0) {
-            $("#country_list").select2({
-	            placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Country',
-	            templateResult: format,
-                templateSelection: format,
-                width: 'auto', 
-	            escapeMarkup: function(m) {
-	                return m;
-	            }
-	        });
-
-
-	        $('#country_list').change(function() {
-	            $('.register-form').validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
-	        });
-    	}
-
         $('.register-form').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-
                 firstname: {
                     required: true
                 },
                 lastname: {
+                    required: true
+                },
+                phone: {
                     required: true
                 },
                 email: {
