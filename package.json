@@ -16,7 +16,9 @@
     "meteor-node-stubs": "~0.2.0",
     "moment": "^2.14.1",
     "request": "^2.74.0",
-    "request-promise": "^4.1.1"
+    "request-promise": "^4.1.1",
+    "spawn-sync": "^1.0.15",
+    "try-thread-sleep": "^1.0.0"
   },
   "version": "1.0.0",
   "description": "Track trip participants and their funding",

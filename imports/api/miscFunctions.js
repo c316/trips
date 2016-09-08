@@ -14,3 +14,25 @@ export const fillForms = ()=>{
   $("[name='rpassword']").val(password);
   $('[name="tnc"]').prop('checked', true);
 };
+
+export const updateForm = (formInfo)=>{
+  Meteor.call("update.form", formInfo, function(err, res){
+    if(err) console.error(err);
+    else console.log(res);
+  });
+};
+
+export const fillFormData = (formData)=>{
+  formData.forEach(function ( field ) {
+    if(field && field.value){
+      if($("[name='" + [field.name] + "']").is(':radio') || $("[name='" + [field.name] + "']").is(':checkbox')) {
+        console.log("this is a radio field");
+        $("input[name='" + [field.name] + "'][value='" + [field.value] + "']").prop("checked",true);
+      } else {
+        $("[name='" + [field.name] + "']").val(field.value);
+        $("[name='" + [field.name] + "']").addClass("edited");
+      }
+    }
+  });
+};
+

@@ -43,10 +43,18 @@
                             <div class="dashboard-stat2 bordered">
                                 <form class="dropzone dropzone-file-area dz-clickable"
                                       id="my-dropzone"
-                                      style="width: 250px; margin-top: 5px;">
+                                      style="width: 300px; margin-top: 5px;">
                                     <h5 class="sbold">Passport Photo</h5>
-                                    {{#if passportPhoto}}
-                                        <img src="passportPhoto" />
+                                    {{#if images}}
+                                        {{passportPhotos}}
+                                        <p>
+                                            <a id="delete-passport-photo" class="btn btn-primary">Delete Photo</a>
+                                        </p>
+                                        <p>
+                                            <a href="{{passportPhotoOriginal}}">
+                                                <img src="{{passportPhotoThumbnail}}" />
+                                            </a>
+                                        </p>
                                     {{else}}
                                         {{> uploadForm}}
                                     {{/if}}
@@ -64,7 +72,7 @@
                                         <span class="caption-subject bold uppercase font-dark">Missionary Information Form</span>
                                     </div>
                                     <div class="tools">
-                                        <a href="" class="expand" data-original-title="" title=""> </a>
+                                        <a href="" class="expand" data-original-title="" title="" id="expand-missionaryInformationForm"> </a>
                                     </div>
                                     <div class="actions">
                                         <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title=""> </a>

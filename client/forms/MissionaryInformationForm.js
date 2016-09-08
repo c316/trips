@@ -38,8 +38,7 @@ Template.MissionaryInformationForm.onRendered(()=>{
     },
     rules: {
       preferredName: {
-        minlength: 2,
-        required: true
+        minlength: 2
       },
       passportExpirationDate: {
         date: true,
@@ -91,6 +90,8 @@ Template.MissionaryInformationForm.onRendered(()=>{
       error1.hide();
     }
   });
+
+
 });
 
 Template.MissionaryInformationForm.events({

@@ -9,51 +9,27 @@
 
 
 Meteor.methods({
-  'forms.insertPoem'({ order, grade, author, title, poem }) {
-    new SimpleSchema({
-      order:  { type: String },
-      grade:  { type: String },
-      author: { type: String },
-      title:  { type: String },
-      poem:   { type: String },
-    }).validate({ order, grade, author, title, poem });
+  'delete.passportPhoto'() {
+    console.log("Got to delete.passportPhoto");
 
-
-    if (this.userId && Roles.userIsInRole(this.userId, ['admin'])) {
-      Poems.insert({ order: order, grade: grade, author: author, title: title, poem: poem });
+    if ( this.userId ) {
+      Images.remove({ userId: this.userId });
     } else {
-      throw new Meteor.Error('forms.insertPoem.unauthorized',
-        'Cannot insert a form without permission');
+      throw new Meteor.Error('delete.passportPhoto.unauthorized',
+        'Cannot delete a passport photo without permission');
     }
   },
-  'forms.insertVerse'({ book, chapter, verse, week }) {
-    console.log("Got to forms.insertVerse method");
-    new SimpleSchema({
-      book:       { type: String },
-      chapter:    { type: String },
-      verse:      { type: String },
-      week:       { type: String },
-    }).validate({ book, chapter, verse, week });
-
-    if (this.userId && Roles.userIsInRole(this.userId, ['admin'])) {
-      const bibleURL = 'https://www.bible.com/bible/59/';
-      const verseURL = bibleURL + book + "." + chapter + "." + verse;
-
-      const verseFromBibleCom = getVerse(verseURL);
-
-      Verses.insert({
-        book:               book,
-        chapter:            chapter,
-        verse:              verse,
-        bookChapterVerse:   verseFromBibleCom.human,
-        text:               verseFromBibleCom.reader_html,
-        verseURL:           verseURL,
-        week:               week
-      });
-      console.log("should have inserted verse");
-    } else {
-      throw new Meteor.Error('forms.insertPoem.unauthorized',
-        'Cannot insert a form without permission');
-    }
+  'update.form'(formInfo){
+    check( formInfo, {
+      'formName':   String,
+      'form':       [{name: String, value: String}],
+    } );
+    console.log("Got to update.form");
+    console.dir(formInfo);
+    Forms.upsert({userId: this.userId, formName: formInfo.formName}, {
+      userId: this.userId,
+      formName: formInfo.formName,
+      form: formInfo.form
+    });
   }
 });

@@ -144,6 +144,7 @@
                 </select>
                 <label for="emergencyContactState">State</label>
             </div>
+
             <div class="form-group form-md-line-input form-md-floating-label">
                 <input type="text" class="form-control" name="emergencyContactAddressZip">
                 <label for="emergencyContactAddressZip">Zip</label>
@@ -338,6 +339,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="form-group form-md-radios">
                 <label>Do you speak other languages?</label>
                 <div class="md-radio-list">
@@ -414,7 +416,7 @@
                 <label for="whyDoYouWantToJoinThisTeam">Why do you want to join this team?</label>
             </div>
             <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="whatThreeSkills" rows="3"></textarea>
+                <textarea class="form-control" name="whatThreeSkills" rows="3" style="margin-top: 10px;"></textarea>
                 <label for="whatThreeSkills">What are three skills or abilities you possess and desire to use on the trip that you believe will be beneficial to this team?</label>
             </div>
 
@@ -422,42 +424,42 @@
                 <label>If opportunity arises, in which areas would you like to participate?</label>
                 <div class="md-checkbox-list">
                     <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox1" class="md-check" value="arts+crafts">
+                        <input type="checkbox" id="checkbox1" class="md-check" value="arts+crafts" name="iWouldLikeToParticipateIn">
                         <label for="checkbox1">
                             <span></span>
                             <span class="check"></span>
                             <span class="box"></span> Arts/Crafts </label>
                     </div>
                     <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox9" class="md-check" value="construction">
+                        <input type="checkbox" id="checkbox9" class="md-check" value="construction" name="iWouldLikeToParticipateIn">
                         <label for="checkbox9">
                             <span></span>
                             <span class="check"></span>
                             <span class="box"></span> Construction </label>
                     </div>
                     <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox11" class="md-check" value="kidMinistry">
+                        <input type="checkbox" id="checkbox11" class="md-check" value="kidMinistry" name="iWouldLikeToParticipateIn">
                         <label for="checkbox11">
                             <span></span>
                             <span class="check"></span>
                             <span class="box"></span> Kid's Ministry </label>
                     </div>
                     <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox12" class="md-check" value="medical">
+                        <input type="checkbox" id="checkbox12" class="md-check" value="medical" name="iWouldLikeToParticipateIn">
                         <label for="checkbox12">
                             <span></span>
                             <span class="check"></span>
                             <span class="box"></span> Medical </label>
                     </div>
                     <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox13" class="md-check" value="music">
+                        <input type="checkbox" id="checkbox13" class="md-check" value="music" name="iWouldLikeToParticipateIn">
                         <label for="checkbox13">
                             <span></span>
                             <span class="check"></span>
                             <span class="box"></span> Music </label>
                     </div>
                     <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox14" class="md-check" value="other">
+                        <input type="checkbox" id="checkbox14" class="md-check" value="other" name="iWouldLikeToParticipateIn">
                         <label for="checkbox14">
                             <span></span>
                             <span class="check"></span>
@@ -481,7 +483,7 @@
                 </label>
                 <div class="md-checkbox-list">
                     <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox20" class="md-check" value="iagree">
+                        <input type="checkbox" id="checkbox20" name="iagree" class="md-check" value="iagree">
                         <label for="checkbox20">
                             <span></span>
                             <span class="check"></span>
@@ -504,8 +506,7 @@
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="submit" class="btn dark">Validate</button>
-                    <button type="reset" class="btn default">Reset</button>
+                    <button type="submit" class="btn dark">Submit</button>
                 </div>
             </div>
         </div>

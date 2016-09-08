@@ -1,7 +1,9 @@
 import { FilesCollection } from 'meteor/ostrio:files';
 import { Random } from 'meteor/random'
+import gm from 'gm';
 
 var knox, bound, client, Request, cfdomain, Collections = {};
+
 
 if (Meteor.isServer) {
   // Fix CloudFront certificate issue
@@ -21,16 +23,58 @@ if (Meteor.isServer) {
     region: Meteor.settings.AWS.region
   });
 
-  // Meteor method for getting a signed URL (which expires in 5 minutes),
+  // Meteor method for getting a signed URL (which expires in 10 minutes),
   // files can't be viewed from this bucket without the signed URL
   Meteor.methods({
-    'getSignedURL'(filename){
-      check(filename, String);
-      let signedURL = client.signedUrl(filename, new Date((new Date().getTime() + 600000)));
-      console.log(signedURL);
-      return signedURL;
+    'getSignedURLs'(){
+      if (!this.userId) return;
+      let image = Images.findOne({userId: this.userId});
+      if(image && image._id) {
+
+        let signedThumbnailURL = client.signedUrl(image.versions.thumbnail.meta.pipePath,
+          new Date((new Date().getTime() + 600000)));
+        let signedOriginalURL = client.signedUrl(image.versions.original.meta.pipePath,
+          new Date((new Date().getTime() + 600000)));
+        console.log(signedThumbnailURL);
+        return {
+          original: signedOriginalURL,
+          thumbnail: signedThumbnailURL
+        };
+      } else {
+        console.error("No image found");
+        return;
+      }
     }
   });
+
+
+  createThumbnails = function(collection, fileRef) {
+    const cropName = fileRef.path + "__thumbnail__." + fileRef.extension;
+    var image = gm(fileRef.path);
+
+    var Future = Npm.require('fibers/future');
+    var fut = new Future();
+    var updateAndSave = function(error){
+      return bound(function(){
+        if (error)
+          console.error( error);
+        const upd = {
+          $set: {
+            "versions.thumbnail" : {
+              path: cropName,
+              type: fileRef.type,
+              extension: fileRef.extension
+            }
+          }
+        };
+        console.log("thumb generated");
+        fut.return(collection.update( fileRef._id, upd ));
+      });
+    };
+    image.resize(250, 250).write(cropName, updateAndSave);
+
+    return fut.wait();
+  };
 }
 
 Images = new FilesCollection({
@@ -40,9 +84,13 @@ Images = new FilesCollection({
   collectionName: 'Images',
   allowClientCode: false,
   onAfterUpload: function(fileRef) {
+
+  let createdThumbnail = createThumbnails(this.collection, fileRef);
     // In onAfterUpload callback we will move file to AWS:S3
     var self = this;
-    _.each(fileRef.versions, function(vRef, version) {
+    let updatedFileVersions = Images.findOne({_id: fileRef._id});
+    _.each(updatedFileVersions.versions, function(vRef, version) {
+      console.log(vRef, version);
       // We use Random.id() instead of real file's _id
       // to secure files from reverse engineering
       // As after viewing this code it will be easy
