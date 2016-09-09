@@ -2,11 +2,11 @@
     <form id="missionaryInformationForm">
         <div class="form-body">
             <div class="alert alert-danger display-hide">
-                <button class="close" data-close="alert"></button> You have some form errors. Please check below. </div>
+                <button class="close" data-close="alert"></button> You have some form errors. Please check below.
+            </div>
             <div class="form-group form-md-line-input form-md-floating-label">
                 <input type="text" class="form-control" name="preferredName">
                 <label for="preferredName">Name you prefer to be called</label>
-                <span class="help-block"> (if different than above) </span>
             </div>
 
             <div class="form-group form-md-radios">
@@ -506,7 +506,7 @@
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="submit" class="btn dark">Submit</button>
+                    <button type="submit" class="btn dark" name="submitMissionaryInformationForm" {{submitFormText}}>Submit</button>
                 </div>
             </div>
         </div>

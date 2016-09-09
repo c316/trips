@@ -2,8 +2,11 @@ import '/imports/ui/stylesheets/bootstrap-datepicker3.css';
 import  { App } from '/imports/ui/js/app';
 import { BootstrapDatePicker } from '/imports/ui/js/bootstrap-datepicker';
 import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
+import { phoneUS, zipcode } from '/imports/api/validationMethods';
+
 
 Template.MissionaryInformationForm.onRendered(()=>{
+  phoneUS();
 
   $('.date-picker').datepicker({
     autoclose: true
@@ -20,24 +23,10 @@ Template.MissionaryInformationForm.onRendered(()=>{
   missionaryInformationForm.validate({
     errorElement: 'span', //default input error message container
     errorClass: 'help-block help-block-error', // default input error message class
-    focusInvalid: false, // do not focus the last invalid input
-    ignore: "", // validate all fields including form hidden input
-    messages: {
-      payment: {
-        maxlength: jQuery.validator.format("Max {0} items allowed for selection"),
-        minlength: jQuery.validator.format("At least {0} items must be selected")
-      },
-      'checkboxes1[]': {
-        required: 'Please check some options',
-        minlength: jQuery.validator.format("At least {0} items must be selected"),
-      },
-      'checkboxes2[]': {
-        required: 'Please check some options',
-        minlength: jQuery.validator.format("At least {0} items must be selected"),
-      },
-    },
+    focusInvalid: true, // do not focus the last invalid input
     rules: {
       preferredName: {
+        required: true,
         minlength: 2
       },
       passportExpirationDate: {
@@ -51,13 +40,22 @@ Template.MissionaryInformationForm.onRendered(()=>{
       },
       emergencyContactPhone: {
         phoneUS: true
+      },
+      emergencyContactAddressZip: {
+        zipcode: true
+      }
+    },
+    messages: {
+      preferredName: "Please specify your name",
+      emergencyContactAddressZip: {
+        minlength: "Your zip code needs to be at least 5 digits long"
       }
     },
 
     invalidHandler: function(event, validator) { //display error alert on form submit
       success1.hide();
       error1.show();
-      App.scrollTo(error1, -200);
+      //App.scrollTo(error1, -200);
     },
 
     errorPlacement: function(error, element) {
@@ -86,8 +84,15 @@ Template.MissionaryInformationForm.onRendered(()=>{
     },
 
     submitHandler: function(form) {
+      let btn = $('[name="submitMissionaryInformationForm"]');
+      btn.button("loading");
+
       success1.show();
       error1.hide();
+
+      setTimeout(function () {
+        btn.button('success')
+      }, 500);
     }
   });
 
@@ -95,10 +100,6 @@ Template.MissionaryInformationForm.onRendered(()=>{
 });
 
 Template.MissionaryInformationForm.events({
-  'submit form'(e){
-    e.preventDefault();
-    console.log('form submitted');
-  },
   'change .date-picker'(e){
     let dateValue = $(e.currentTarget).val();
     if (dateValue) $(e.currentTarget).addClass('edited');

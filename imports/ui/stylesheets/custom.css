@@ -13,3 +13,14 @@
 .error {
     color: red;
 }
+
+
+.form-group.form-md-line-input .form-control.edited:not([readonly]) ~ .help-block-error, .form-group.form-md-line-input .form-control:focus:not([readonly]) ~ .help-block-error {
+    opacity: 1;
+    filter: alpha(opacity=1); }
+.form-group.form-md-line-input .form-control.edited:not([readonly]):not(:focus) ~ .help-block {
+    opacity: 1;
+    filter: alpha(opacity=1); }
+.form-group.form-md-line-input .form-control.edited:not([readonly]):not(:focus) ~ .help-block-error {
+    opacity: 1;
+    filter: alpha(opacity=1); }

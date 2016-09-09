@@ -10,6 +10,14 @@ Template.registerHelper('showTools', function() {
   return routeName.includes("admin");
 });
 
+Template.registerHelper('submitFormText', function() {
+  return {
+    "data-loading-text": "Processing... <i class='fa fa-spinner fa-spin'></i>",
+    "data-error-text":   "Hmm...Please look over your form and try again, that didn't work. <i class='fa fa-exclamation-triangle'></i>",
+    "data-success-text": "Got it! <i class='fa fa-check'></i>"
+  }
+});
+
 Template.registerHelper('passportPhotos', function() {
   Meteor.setTimeout(()=>{
     Meteor.call( "getSignedURLs", function ( err, res ) {

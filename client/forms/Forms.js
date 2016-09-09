@@ -1,6 +1,5 @@
 import { updateForm, fillFormData } from '/imports/api/miscFunctions';
 
-
 Template.Forms.onCreated(function () {
   this.autorun(() => {
     Meteor.subscribe('files.images');
@@ -8,7 +7,7 @@ Template.Forms.onCreated(function () {
   });
 });
 
-  Template.Forms.events({
+Template.Forms.events({
   'click #delete-passport-photo'(){
     console.log("delete");
     Meteor.call("delete.passportPhoto");
@@ -17,6 +16,7 @@ Template.Forms.onCreated(function () {
   },
   'change #missionaryInformationForm, change #mediaReleaseForm, change #missionTripCodeOfConductForm, change #releaseAndWaiverOfLiabilityForm'(e){
     if(!e.target.value) return;
+    $('#' + e.currentTarget.id).valid();
     console.log("e: ", e.currentTarget.id);
     console.log("Target: ", e.target);
     console.log("Name: ", e.target.name);
@@ -34,7 +34,7 @@ Template.Forms.onCreated(function () {
     console.log(formName);
     let thisFormData = Forms.findOne({userId: Meteor.userId(), formName: formName});
     if(thisFormData && thisFormData.form) fillFormData(thisFormData.form);
-  }
+  },
 });
 
 Template.Forms.helpers({
