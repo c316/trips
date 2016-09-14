@@ -1,0 +1,113 @@
+<template name="Fundraising">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light portlet-fit bordered" {{noTripRegistration}}>
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold uppercase font-dark">Trip Funds</span>
+                    </div>
+                    <div class="tools">
+                        {{{status}}}
+                        {{#unless noTripRegistration}}
+                            <a href="" class="expand" data-original-title="" title="" id="expand-trip-funds"></a>
+                        {{/unless}}
+                    </div>
+                </div>
+                <div class="portlet-body" style="display: none;">
+                    <div class="row">
+                        <!-- deadlines, amounts due. -->
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                                <div class="visual">
+                                    <i class="fa fa-comments"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        {{#with DTSplits}}
+                                            <span data-counter="counterup" data-value="{{totalRaised}}">${{totalRaised}}</span>
+                                        {{/with}}
+                                    </div>
+                                    <div class="desc"> You have raised </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+                                <div class="visual">
+                                    <i class="fa fa-bar-chart-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        {{#with Deadlines}}
+                                            <span data-counter="counterup" data-value="{{totalDeadlineAmount}}">${{totalDeadlineAmount}}</span>
+                                        {{/with}}
+                                    </div>
+                                    <div class="desc"> You need to raise this much more </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-scrollable table-scrollable-borderless">
+                                <h2>Donation Details</h2>
+                                <table class="table table-hover table-light">
+                                    <thead>
+                                        <tr class="uppercase">
+                                            <th colspan="2"> Donor </th>
+                                            <th> Amount </th>
+                                            <th> Date </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each DTSplits}}
+                                            <tr>
+                                                <td class="fit">
+                                                    <img class="user-pic rounded" src="/img/avatar.png"> </td>
+                                                <td>
+                                                    <a href="" class="primary-link">{{this.persona.recognition_name}}</a>
+                                                </td>
+                                                <td> ${{amount}} </td>
+                                                <td> {{this.donation.received_on}} </td>
+                                            </tr>
+                                        {{/each}}
+                                    </tbody>
+                                    <br>
+                                    <br>
+                                    <thead>
+                                    <tr class="uppercase">
+                                        <th>
+                                            Deadline Name
+                                        </th>
+                                        <th>
+                                            Due on
+                                        </th>
+                                        <th class="text-left">
+                                            Deadline Amount
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each Deadlines}}
+                                        <tr>
+                                            <td>
+                                                {{this.name}}
+                                            </td>
+                                            <td>
+                                                {{this.due}}
+                                            </td>
+                                            <td>
+                                                ${{this.amount}}
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

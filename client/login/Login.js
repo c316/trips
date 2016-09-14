@@ -50,12 +50,14 @@ Template.LoginContent.onRendered(()=>{
       }
     },
     submitHandler() {
-      let email    = $( '[name="email"]' ).val(),
-        password = $('[name="password"]').val();
+      let email     = $('[name="email"]').val(),
+        password    = $('[name="password"]').val();
 
       Meteor.loginWithPassword( email, password, ( error ) => {
         if ( error ) {
           alert( error.reason );
+        } else {
+          FlowRouter.go("home");
         }
       });
     }});
@@ -63,8 +65,8 @@ Template.LoginContent.onRendered(()=>{
   // Fill the form fields so we can just submit them
   if (Meteor.isDevelopment) {
     import { fillForms } from '/imports/api/miscFunctions';
+    fillForms();
   }
-  fillForms();
 });
 
 Template.LoginContent.events({
@@ -74,7 +76,6 @@ Template.LoginContent.events({
     const passwordVar = e.target.password.value;
     const profile = {
       firstName: e.target.firstname.value,
-      middleName: e.target.middlename.value,
       lastName: e.target.lastname.value,
       phone: e.target.phone.value,
       address: {
@@ -99,8 +100,8 @@ Template.LoginContent.events({
     // Fill the form fields so we can just submit them
     if (Meteor.isDevelopment) {
       import { fillForms } from '/imports/api/miscFunctions';
+      fillForms();
     }
-    fillForms();
   },
   'click #register-back-btn'(){
     $( '.register-form' ).hide();

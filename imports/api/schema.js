@@ -1,6 +1,4 @@
-const logger = { log: (e) => console.log(e) };
-
-export const schema = [`
+export const typeDefs = [`
 
 type Splits {
     amount_in_cents:Int

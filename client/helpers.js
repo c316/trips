@@ -18,29 +18,52 @@ Template.registerHelper('submitFormText', function() {
   }
 });
 
-Template.registerHelper('passportPhotos', function() {
-  Meteor.setTimeout(()=>{
-    Meteor.call( "getSignedURLs", function ( err, res ) {
-      if( err ) {
-        console.error( err );
-        return;
-      } else {
-        console.log( res );
-        if(res && res.thumbnail) {
-          Session.set("passportPhotoThumbnail", res.thumbnail);
-          Session.set("passportPhotoOriginal", res.original);
-        }
-        return;
-      }
-    } );
-  },3000);
+Template.registerHelper('agreed', function(e) {
+  let thisForm = Forms.findOne({formName: e});
+  if(thisForm && thisForm.agreed){
+    $("#" + e).button('success');
+    return {
+      "disabled": "disabled"
+    }
+  }
+
 });
-
-
 
 Template.registerHelper('passportPhotoThumbnail', function() {
-  return Session.get("passportPhotoThumbnail");
+  if(this.versions && this.versions.thumbnail){
+    console.log(this.versions.thumbnail.meta.signedURL);
+    return this.versions.thumbnail.meta.signedURL;
+  }
 });
 Template.registerHelper('passportPhotoOriginal', function() {
-  return Session.get("passportPhotoOriginal");
+  if(this.versions && this.versions.original) {
+    return this.versions.original.meta.signedURL;
+  }
+});
+
+Template.registerHelper('tripId', function() {
+  let tripForm = Forms.findOne({formName: 'tripRegistration'});
+  return tripForm && tripForm.tripId;
+});
+
+Template.registerHelper('noTripRegistration', function() {
+  let tripForm = Forms.findOne({formName: 'tripRegistration'});
+  if(tripForm && tripForm.tripId){
+    return;
+  } else{
+    return {
+      style: 'background-color: #eee'
+    }
+  }
+});
+
+Template.registerHelper('noTripRegistrationExpand', function() {
+  let tripForm = Forms.findOne({formName: 'tripRegistration'});
+  if(tripForm && tripForm.tripId){
+    return;
+  } else{
+    return {
+      style: 'display: none;'
+    }
+  }
 });

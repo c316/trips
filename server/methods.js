@@ -1,13 +1,3 @@
-//TODO: 1. CRUD for trips
-// 2. CRUD for Fundraisers
-// 3. CRUD for Forms
-// 4. CRUD for
-
-// TODO:  Consider using Apollo here instead of HTTP calls to DonorTools, we wouldn't
-// even need to store that trip data if we could use apollo
-// rp can do async request promise calls to get REST data
-
-
 Meteor.methods({
   'delete.passportPhoto'() {
     console.log("Got to delete.passportPhoto");
@@ -24,12 +14,76 @@ Meteor.methods({
       'formName':   String,
       'form':       [{name: String, value: String}],
     } );
-    console.log("Got to update.form");
-    console.dir(formInfo);
-    Forms.upsert({userId: this.userId, formName: formInfo.formName}, {
-      userId: this.userId,
-      formName: formInfo.formName,
-      form: formInfo.form
-    });
+    if ( this.userId ) {
+      console.log( "Got to update.form" );
+      console.dir( formInfo );
+      Forms.upsert( { userId: this.userId, formName: formInfo.formName }, {
+        userId:    this.userId,
+        formName:  formInfo.formName,
+        form:      formInfo.form,
+        updatedOn: new Date()
+      } );
+    }
+  },
+  /**
+   * Get the Donor Tools split data and expand that to include the donation
+   * and person objects
+   *
+   * @method update.splits
+   * @param {Number} fundId
+   */
+  'update.splits'(fundId){
+    check(fundId, Number);
+    console.log("Started update.splits with fundId: ", fundId);
+    if ( this.userId ) {
+      this.unblock();
+      import {getDTSplitData} from '/imports/api/utils';
+      const splitData = getDTSplitData( fundId );
+      console.log( splitData );
+    }
+  },
+  /**
+   * Change the agreement status for a simple agree form
+   *
+   * @method form.agree
+   * @param {String} formName
+   */
+  'form.agree'(formName){
+    check(formName, String);
+    console.log("Started form.agree with formName: ", formName);
+    if ( this.userId ) {
+      this.unblock();
+
+      Forms.upsert( { userId: this.userId, formName: formName }, {
+        userId:     this.userId,
+        formName:   formName,
+        agreed:     true,
+        agreedDate: new Date()
+      } );
+
+      return 'Form inserted';
+    }
+  },
+  /**
+   * User method to register for a trip
+   *
+   * @method form.tripRegistration
+   * @param {String} tripId
+   */
+  'form.tripRegistration'(tripId){
+    check(tripId, String);
+    console.log("Started form.tripRegistration with tripId: ", tripId);
+
+    if ( this.userId ) {
+      this.unblock();
+      Forms.upsert( { userId: this.userId, formName: 'tripRegistration' }, {
+        userId:       this.userId,
+        formName:     'tripRegistration',
+        tripId:       Number( tripId ),
+        registeredOn: new Date()
+      } );
+
+      return 'Form inserted';
+    }
   }
 });

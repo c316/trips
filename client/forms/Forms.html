@@ -1,14 +1,16 @@
 <template name="Forms">
     <div class="row">
         <div class="col-md-12">
-            <div class="portlet light portlet-fit bordered">
+            <div class="portlet light portlet-fit bordered" {{noTripRegistration}}>
                 <div class="portlet-title">
                     <div class="caption">
                         <span class="caption-subject bold uppercase font-dark">Forms</span>
                     </div>
                     <div class="tools">
-                        <span class="text-right" style="color: orangered;"><i class="btn-icon-only btn-lg icon-ban"></i> Not Started</span>
-                        <a href="" class="expand" data-original-title="" title=""> </a>
+                        {{{status}}}
+                        {{#unless noTripRegistration}}
+                            <a href="" class="expand" data-original-title="" title="" id="expand-forms-button"> </a>
+                        {{/unless}}
                     </div>
                 </div>
                 <div class="portlet-body" style="display: none;">
@@ -45,16 +47,22 @@
                                       id="my-dropzone"
                                       style="width: 300px; margin-top: 5px;">
                                     <h5 class="sbold">Passport Photo</h5>
-                                    {{#if images}}
-                                        {{passportPhotos}}
-                                        <p>
-                                            <a id="delete-passport-photo" class="btn btn-primary">Delete Photo</a>
-                                        </p>
-                                        <p>
-                                            <a href="{{passportPhotoOriginal}}">
-                                                <img src="{{passportPhotoThumbnail}}" />
-                                            </a>
-                                        </p>
+                                    {{#if imageExists}}
+                                        {{#with images}}
+                                            <p>
+                                                <a id="delete-passport-photo" class="btn btn-primary">Delete Photo</a>
+                                            </p>
+                                            <p>
+                                                {{#if versions.original.meta.signedURL}}
+                                                <a href="{{versions.original.meta.signedURL}}">
+                                                    <img src="{{versions.thumbnail.meta.signedURL}}" />
+                                                </a>
+                                                {{else}}
+                                                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                                                    <span class="sr-only">Loading...</span>
+                                                {{/if}}
+                                            </p>
+                                        {{/with}}
                                     {{else}}
                                         {{> uploadForm}}
                                     {{/if}}

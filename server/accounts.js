@@ -14,7 +14,6 @@ Accounts.validateNewUser( ( user ) => {
     services:                  { type: Object, blackbox: true },
     profile:                   { type: Object },
     'profile.firstName':       { type: String },
-    'profile.middleName':      { type: String },
     'profile.lastName':        { type: String },
     'profile.phone':           { type: String },
     'profile.address':         { type: Object },

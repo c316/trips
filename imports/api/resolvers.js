@@ -17,7 +17,7 @@ const getFromDT = (getQuery) => {
 
 
 
-export default resolveFunctions = {
+export const resolvers = {
   RootQuery: {
     Splits( root, args, context ){
       let newValue = [];

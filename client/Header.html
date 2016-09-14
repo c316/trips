@@ -63,17 +63,33 @@
                                 data-hover="dropdown"
                                 data-close-others="true">
                             <span>Hi, {{firstName}}</span>
-                            <img src="/img/avatar1.jpg" alt=""> </button>
+                        </button>
                         <ul class="dropdown-menu-v2" role="menu">
                             <li>
-                                <a href="page_user_profile_1.html">
+                                <a href="" class="home-button">
+                                    <i class="icon-home"></i> Home
+                                </a>
+                            </li>
+                            {{#if isInRole 'admin'}}
+                                    <li>
+                                    <a href="" class="admin-button">
+                                        <i class="icon-rocket"></i> Admin
+                                    </a>
+                                </li>
+                            {{/if}}
+                            <li>
+                                <a href="" class="profile-button">
                                     <i class="icon-user"></i> My Profile
                                     <span class="badge badge-danger">1</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="app_calendar.html">
-                                    <i class="icon-calendar"></i> My Calendar </a>
+                                <a href="" class="trip-funds-button">
+                                    <i class="icon-wallet"></i> Trip Funds </a>
+                            </li>
+                            <li>
+                                <a href="" class="forms-button">
+                                    <i class="icon-docs"></i> Forms </a>
                             </li>
                             <li class="divider"> </li>
                             <li>

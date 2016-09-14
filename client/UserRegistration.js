@@ -82,6 +82,10 @@ Template.UserRegistration.onRendered(()=>{
 
     }
   });
+
+  if(Session.equals("showUserRegistration", true)){
+    $("#expand-userRegistrationForm").click();
+  }
 });
 
 Template.UserRegistration.helpers({

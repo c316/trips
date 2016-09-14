@@ -38,15 +38,20 @@
                     provident, similique. </p>
                 <form>
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control" name="parentOrGuardianFirstName">
+                        <input type="text" class="form-control edited" name="parentOrGuardianFirstName">
                         <label for="parentOrGuardianFirstName">Parent or Guardian First Name</label>
                         <span class="help-block">if team member is under 18 years of age</span>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control" name="parentOrGuardianLastName">
+                        <input type="text" class="form-control edited" name="parentOrGuardianLastName">
                         <label for="parentOrGuardianLastName">Parent or Guardian Last Name</label>
+                        <span class="help-block">if team member is under 18 years of age</span>
                     </div>
-                    <a class="btn btn-primary">I agree</a>
+                    <button type="submit"
+                            class="btn dark"
+                            id="code-of-conduct"
+                            {{submitFormText}}
+                            {{agreed 'code-of-conduct'}}>I agree</button>
                 </form>
             </div>
         </div>

@@ -7,22 +7,28 @@
                         <span class="caption-subject bold uppercase font-dark">Register for a trip</span>
                     </div>
                     <div class="tools">
-                        <span class="text-right" style="color: orange;"><i class="btn-lg btn-icon-only icon-hourglass"></i> In-progress</span>
-                        <a href="" class="expand" data-original-title="" title=""> </a>
+                        {{{status}}}
+                        {{#if noTripRegistration}}
+                            <a href="" class="expand" data-original-title="" title=""> </a>
+                        {{/if}}
                     </div>
                 </div>
-                <div class="portlet-body" style="display: none;">
+                <div class="portlet-body" {{noTripRegistrationExpand}}>
                     <div class="center-block">
-                        <form id="tripRegistrationForm">
-                            <div class="form-body">
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input type="text" class="form-control" name="tripName">
-                                    <label for="tripName">What is your trip id?</label>
-                                    <span class="help-block"> (You can't proceed without an id) </span>
+                        {{#if tripId}}
+                            <h3 class="text-center">Your trip ID: {{tripId}}</h3>
+                        {{else}}
+                            <form id="tripRegistrationForm">
+                                <div class="form-body">
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <input type="text" class="form-control edited" name="trip-id" value="{{tripId}}">
+                                        <label for="tripName">What is your trip id?</label>
+                                        <span class="help-block"> (You can't proceed without an id) </span>
+                                    </div>
+                                    <a class="btn btn-block" type="submit" id="tripRegistrationFormSubmit">Go</a>
                                 </div>
-                                <a class="btn btn-block" type="submit">Go</a>
-                            </div>
-                        </form>
+                            </form>
+                        {{/if}}
                     </div>
                 </div>
             </div>

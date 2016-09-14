@@ -95,8 +95,6 @@ Template.MissionaryInformationForm.onRendered(()=>{
       }, 500);
     }
   });
-
-
 });
 
 Template.MissionaryInformationForm.events({

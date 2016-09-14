@@ -3,11 +3,7 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$USER_HOME$/.meteor/packages/fastclick/1.0.12/web.browser/fastclick.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.4/web.browser/server.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.4/web.browser/promise-tests.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.4/web.browser/common.js" />
         <item url="file://$USER_HOME$/.meteor/packages/geojson-utils/1.0.9/web.browser/geojson-utils.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.4/web.browser/client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/geojson-utils/1.0.9/web.browser/main.js" />
         <item url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.10/web.browser/scanner.js" />
         <item url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.10/web.browser/tokenize.js" />
@@ -37,13 +33,10 @@
         <item url="file://$USER_HOME$/.meteor/packages/ongoworks_security/2.0.1/web.browser/lib/client/Security.js" />
         <item url="file://$USER_HOME$/.meteor/packages/caching-compiler/1.1.7/web.browser/caching-compiler.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ongoworks_security/2.0.1/web.browser/lib/builtInRules.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/apollo/0.0.4/web.browser/main-client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ongoworks_security/2.0.1/web.browser/lib/client/Security.Check.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/apollo/0.0.4/web.browser/main-server.js" />
         <item url="file://$USER_HOME$/.meteor/packages/caching-compiler/1.1.7/web.browser/multi-file-caching-compiler.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ongoworks_security/2.0.1/web.browser/lib/client/Security.Rule.js" />
         <item url="file://$USER_HOME$/.meteor/packages/http/1.2.9/web.browser/httpcall_client.js" />
-        <item url="file://$USER_HOME$/.meteor/packages/apollo/0.0.4/web.browser/check-npm.js" />
         <item url="file://$USER_HOME$/.meteor/packages/http/1.2.9/web.browser/httpcall_common.js" />
         <item url="file://$USER_HOME$/.meteor/packages/callback-hook/1.0.9/web.browser/hook.js" />
         <item url="file://$USER_HOME$/.meteor/packages/http/1.2.9/web.browser/httpcall_server.js" />
@@ -148,15 +141,22 @@
         <item url="file://$USER_HOME$/.meteor/packages/logging/1.1.15/web.browser/logging.js" />
         <item url="file://$USER_HOME$/.meteor/packages/observe-sequence/1.0.12/web.browser/observe_sequence.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/common/fast_render_route.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/apollo/0.1.0/web.browser/main-client.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/apollo/0.1.0/web.browser/main-server.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ordered-dict/1.0.8/web.browser/ordered_dict.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/apollo/0.1.0/web.browser/check-npm.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/client/triggers.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/modules.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/triggers.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/client/_helpers.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/route.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/router.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.7/web.browser/server.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/_init.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.7/web.browser/promise-tests.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/group.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.7/web.browser/common.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.7/web.browser/client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/lib/router.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ostrio_files/1.7.3/web.browser/demo/client/styles/styles.css" />
         <item url="file://$USER_HOME$/.meteor/packages/ostrio_files/1.7.3/web.browser/demo/client/upload/upload-form.coffee" />
@@ -235,11 +235,7 @@
     </properties>
     <CLASSES>
       <root url="file://$USER_HOME$/.meteor/packages/fastclick/1.0.12/web.browser/fastclick.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.4/web.browser/server.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.4/web.browser/promise-tests.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.4/web.browser/common.js" />
       <root url="file://$USER_HOME$/.meteor/packages/geojson-utils/1.0.9/web.browser/geojson-utils.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.4/web.browser/client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/geojson-utils/1.0.9/web.browser/main.js" />
       <root url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.10/web.browser/scanner.js" />
       <root url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.10/web.browser/tokenize.js" />
@@ -269,13 +265,10 @@
       <root url="file://$USER_HOME$/.meteor/packages/ongoworks_security/2.0.1/web.browser/lib/client/Security.js" />
       <root url="file://$USER_HOME$/.meteor/packages/caching-compiler/1.1.7/web.browser/caching-compiler.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ongoworks_security/2.0.1/web.browser/lib/builtInRules.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/apollo/0.0.4/web.browser/main-client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ongoworks_security/2.0.1/web.browser/lib/client/Security.Check.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/apollo/0.0.4/web.browser/main-server.js" />
       <root url="file://$USER_HOME$/.meteor/packages/caching-compiler/1.1.7/web.browser/multi-file-caching-compiler.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ongoworks_security/2.0.1/web.browser/lib/client/Security.Rule.js" />
       <root url="file://$USER_HOME$/.meteor/packages/http/1.2.9/web.browser/httpcall_client.js" />
-      <root url="file://$USER_HOME$/.meteor/packages/apollo/0.0.4/web.browser/check-npm.js" />
       <root url="file://$USER_HOME$/.meteor/packages/http/1.2.9/web.browser/httpcall_common.js" />
       <root url="file://$USER_HOME$/.meteor/packages/callback-hook/1.0.9/web.browser/hook.js" />
       <root url="file://$USER_HOME$/.meteor/packages/http/1.2.9/web.browser/httpcall_server.js" />
@@ -380,15 +373,22 @@
       <root url="file://$USER_HOME$/.meteor/packages/logging/1.1.15/web.browser/logging.js" />
       <root url="file://$USER_HOME$/.meteor/packages/observe-sequence/1.0.12/web.browser/observe_sequence.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/common/fast_render_route.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/apollo/0.1.0/web.browser/main-client.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/apollo/0.1.0/web.browser/main-server.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ordered-dict/1.0.8/web.browser/ordered_dict.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/apollo/0.1.0/web.browser/check-npm.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/client/triggers.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/modules.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/triggers.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/client/_helpers.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/route.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/router.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.7/web.browser/server.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/_init.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.7/web.browser/promise-tests.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/group.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.7/web.browser/common.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.7/web.browser/client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/lib/router.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ostrio_files/1.7.3/web.browser/demo/client/styles/styles.css" />
       <root url="file://$USER_HOME$/.meteor/packages/ostrio_files/1.7.3/web.browser/demo/client/upload/upload-form.coffee" />

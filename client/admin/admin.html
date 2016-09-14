@@ -67,157 +67,38 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr role="row" class="odd">
-                                    <td tabindex="0" class="sorting_1 clickable-cell">Airi, Satou</td>
-                                    <td class="clickable-cell">$850/1600</td>
-                                    <td class="clickable-cell">In Progress</td>
-                                    <td>
-                                        <div class="btn-group pull-right">
-                                            <button class="btn green btn-xs btn-outline dropdown-toggle"
-                                                    data-toggle="dropdown">Tools
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-print"></i>
-                                                        Print </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-pdf-o"></i>
-                                                        Save as PDF </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-excel-o"></i>
-                                                        Export to Excel </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr role="row" class="even">
-                                    <td class=" sorting_1 clickable-cell" tabindex="0">
-                                        Angelica, Ramos</td>
-                                    <td class="clickable-cell">$444/1600</td>
-                                    <td class="clickable-cell">In Progress</td>
-                                    <td>
-                                        <div class="btn-group pull-right">
-                                            <button class="btn green btn-xs btn-outline dropdown-toggle"
-                                                    data-toggle="dropdown">Tools
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-print"></i>
-                                                        Print </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-pdf-o"></i>
-                                                        Save as PDF </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-excel-o"></i>
-                                                        Export to Excel </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr role="row" class="odd">
-                                    <td tabindex="0" class=" sorting_1 clickable-cell">Ashton, Cox</td>
-                                    <td class="clickable-cell">$833/1600</td>
-                                    <td class="clickable-cell">In Progress</td>
-                                    <td>
-                                        <div class="btn-group pull-right">
-                                            <button class="btn green btn-xs btn-outline dropdown-toggle"
-                                                    data-toggle="dropdown">Tools
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-print"></i>
-                                                        Print </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-pdf-o"></i>
-                                                        Save as PDF </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-excel-o"></i>
-                                                        Export to Excel </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr role="row" class="even">
-                                    <td class=" sorting_1 clickable-cell" tabindex="0">Bradley, Greer</td>
-                                    <td class="clickable-cell">$133/1600</td>
-                                    <td class="clickable-cell">Not Started</td>
-                                    <td>
-                                        <div class="btn-group pull-right">
-                                            <button class="btn green btn-xs btn-outline dropdown-toggle"
-                                                    data-toggle="dropdown">Tools
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-print"></i>
-                                                        Print </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-pdf-o"></i>
-                                                        Save as PDF </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-excel-o"></i>
-                                                        Export to Excel </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr role="row" class="odd">
-                                    <td class=" sorting_1 clickable-cell" tabindex="0">Brenden, Wagner</td>
-                                    <td class="clickable-cell">$0/1600</td>
-                                    <td class="clickable-cell">In Progress</td>
-                                    <td>
-                                        <div class="btn-group pull-right">
-                                            <button class="btn green btn-xs btn-outline dropdown-toggle"
-                                                    data-toggle="dropdown">Tools
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-print"></i>
-                                                        Print </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-pdf-o"></i>
-                                                        Save as PDF </a>
-                                                </li>
-                                                <li>
-                                                    <a href="">
-                                                        <i class="fa fa-file-excel-o"></i>
-                                                        Export to Excel </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    {{#each user}}
+                                        <tr role="row" class="odd">
+                                            <td tabindex="0" class="sorting_1 clickable-cell">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
+                                            <td class="clickable-cell">{{raisedAmount}}</td>
+                                            <td class="clickable-cell">{{formsStatus}}</td>
+                                            <td>
+                                                <div class="btn-group pull-right">
+                                                    <button class="btn green btn-xs btn-outline dropdown-toggle"
+                                                            data-toggle="dropdown">Tools
+                                                        <i class="fa fa-angle-down"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li>
+                                                            <a href="">
+                                                                <i class="fa fa-print"></i>
+                                                                Print </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">
+                                                                <i class="fa fa-file-pdf-o"></i>
+                                                                Save as PDF </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="">
+                                                                <i class="fa fa-file-excel-o"></i>
+                                                                Export to Excel </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>

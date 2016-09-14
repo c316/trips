@@ -13,6 +13,35 @@ Template.Header.events({
     console.log('Logout clicked');
     Meteor.logout();
     FlowRouter.go("login");
+  },
+  'click .profile-button'(e){
+    e.preventDefault();
+    Session.set("showUserRegistration", true);
+    FlowRouter.go("profile");
+  },
+  'click .trip-funds-button'(e){
+    e.preventDefault();
+    Session.set("showTripFunds", true);
+    FlowRouter.go("fundraising");
+  },
+  'click .forms-button'(e){
+    e.preventDefault();
+    Session.set("showForms", true);
+    FlowRouter.go("forms");
+  },
+  'click .home-button'(e){
+    e.preventDefault();
+    Session.delete("showForms");
+    Session.delete("showUserRegistration");
+    Session.delete("showTripFunds");
+    FlowRouter.go("home");
+  },
+  'click .admin-button'(e){
+    e.preventDefault();
+    Session.delete("showForms");
+    Session.delete("showUserRegistration");
+    Session.delete("showTripFunds");
+    FlowRouter.go("admin");
   }
 });
 
@@ -30,4 +59,7 @@ Template.Header.helpers({
 
 Template.Header.onDestroyed(()=>{
   $('body').off();
+  Session.delete("showUserRegistration");
+  Session.delete("showTripFunds");
+  Session.delete("showForms");
 });

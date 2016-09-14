@@ -1,10 +1,28 @@
-import { updateForm, fillFormData } from '/imports/api/miscFunctions';
+import { updateForm, fillFormData, statuses } from '/imports/api/miscFunctions';
+
+const agreeToForm = (name, data) =>{
+  Meteor.call("form.agree", name, function ( err, res ) {
+    if(err) console.error(err);
+    else {
+      console.log(res);
+      // TODO: update the button
+      return res;
+    }
+  });
+};
 
 Template.Forms.onCreated(function () {
   this.autorun(() => {
     Meteor.subscribe('files.images');
-    Meteor.subscribe('forms');
+    Meteor.subscribe('Forms');
+    Meteor.subscribe('Trips');
   });
+});
+
+Template.Forms.onRendered(function () {
+  if(Session.equals("showForms", true)){
+    $("#expand-forms-button").click();
+  }
 });
 
 Template.Forms.events({
@@ -29,16 +47,56 @@ Template.Forms.events({
     updateForm(formInfo);
   },
   'click .expand'(e){
-    console.log(e.target.id);
     let formName = e.target.id.split("-").pop();
-    console.log(formName);
     let thisFormData = Forms.findOne({userId: Meteor.userId(), formName: formName});
     if(thisFormData && thisFormData.form) fillFormData(thisFormData.form);
   },
+  'click #code-of-conduct'(e){
+    e.preventDefault();
+    let btn = $('#code-of-conduct');
+    btn.button("loading");
+    agreeToForm("code-of-conduct");
+    btn.button("success");
+  },
+  'click #media-release'(e){
+    e.preventDefault();
+    let btn = $('#media-release');
+    btn.button("loading");
+    agreeToForm("media-release");
+    btn.button("success");
+  },
+  'click #waiver-of-liability'(e){
+    e.preventDefault();
+    let btn = $('#waiver-of-liability');
+    btn.button("loading");
+    agreeToForm("waiver-of-liability");
+    btn.button("success");
+  }
 });
 
 Template.Forms.helpers({
+  imageExists(){
+    return Images.find().count();
+  },
   images(){
-    return Images.find().count()
+    return Images.find().fetch()[0];
+  },
+  status(){
+    let tripForm = Forms.findOne({
+      formName:  {
+        $in: ['waiver-of-liability',
+              'code-of-conduct',
+              'media-release',
+              'missionaryInformationForm'
+        ]
+      }
+    } );
+    if(tripForm && tripForm._id){
+      // TODO: check if all the forms are complete and return completed if they are
+
+      return statuses.inProgress;
+    } else {
+      return statuses.notStarted;
+    }
   }
 });
