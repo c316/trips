@@ -13,21 +13,28 @@ Template.Fundraising.onCreated(function () {
     Meteor.subscribe('Deadlines');
     Meteor.subscribe('Forms');
     Meteor.subscribe('Trips');
+    if(Session.get("showingUserId")) Meteor.subscribe('user', Session.get("showingUserId"));
   });
 });
 
 Template.Fundraising.helpers({
   DTSplits(){
-    let name = Meteor.user() && Meteor.user().profile && (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
-    if (name){
+    if(Session.get("showingUserId")){
+      let user = Meteor.users.findOne({_id: Session.get("showingUserId")})
+      let name = user && user.profile && (user.profile.firstName + " " + user.profile.lastName);
       return DTSplits.find({memo: name});
+    } else {
+      let name = Meteor.user() && Meteor.user().profile && (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
+      if (name){
+        return DTSplits.find({memo: name});
+      }
     }
   },
   Deadlines(){
     return Deadlines.find();
   },
   totalRaised(){
-    return getRaisedTotal();
+    return getRaisedTotal(Session.get('showingUserId'));
   },
   totalDeadlineAmount(){
     if(this && this.count() > 0) {

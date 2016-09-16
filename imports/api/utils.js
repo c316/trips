@@ -3,13 +3,13 @@
  * cRud (R in CRUD)
  * http://docs.meteor.com/#/full/http_call
  *
- * @method _http_get_donortools
+ * @method http_get_donortools
  * @param {String} getQuery - The query string that should be attached to this request
  */
-_http_get_donortools = ( getQuery )=>{
+export const http_get_donortools = ( getQuery )=>{
   const DTBaseURL = Meteor.settings.DT.baseURL;
 
-  console.log( "Started _http_get_donortools" );
+  console.log( "Started http_get_donortools" );
   console.log( "getQuery:", getQuery );
 
 
@@ -35,7 +35,7 @@ const _Splits = ( fundId )=>{
   let newValue = [];
   const getQuery = 'funds/' + fundId + '/splits.json';
 
-  const data = _http_get_donortools(getQuery);
+  const data = http_get_donortools(getQuery);
   console.log(data);
 
   data.data.forEach( function ( donationSplit ) {
@@ -47,7 +47,7 @@ const _Splits = ( fundId )=>{
 const _Donation = ( splitId )=>{
   const getQuery = 'donations/' + splitId + '.json';
 
-  const data = _http_get_donortools(getQuery);
+  const data = http_get_donortools(getQuery);
   console.log("_Donation result:");
   console.log(data.data);
   return data.data.donation;
@@ -58,7 +58,7 @@ const _Person = ( persona_id )=>{
   console.log(persona_id);
   const getQuery = 'people/' + persona_id + '.json';
 
-  const data = _http_get_donortools(getQuery);
+  const data = http_get_donortools(getQuery);
   return data.data.persona;
 };
 

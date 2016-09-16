@@ -1,5 +1,4 @@
 import '/imports/ui/stylesheets/bootstrap-datepicker3.css';
-import  { App } from '/imports/ui/js/app';
 import { BootstrapDatePicker } from '/imports/ui/js/bootstrap-datepicker';
 import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
 import { phoneUS, zipcode } from '/imports/api/validationMethods';
@@ -7,6 +6,7 @@ import { phoneUS, zipcode } from '/imports/api/validationMethods';
 
 Template.MissionaryInformationForm.onRendered(()=>{
   phoneUS();
+  zipcode();
 
   $('.date-picker').datepicker({
     autoclose: true
@@ -55,7 +55,6 @@ Template.MissionaryInformationForm.onRendered(()=>{
     invalidHandler: function(event, validator) { //display error alert on form submit
       success1.hide();
       error1.show();
-      //App.scrollTo(error1, -200);
     },
 
     errorPlacement: function(error, element) {

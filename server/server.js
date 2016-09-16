@@ -2,7 +2,7 @@ import { createApolloServer } from 'meteor/apollo';
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import typeDefs from '/imports/api/schema';
 import resolvers from '/imports/api/resolvers';
-const logger = { log: (e) => console.log(e) };
+const logger = { log: (e) => logger.info(e) };
 
 const schema = makeExecutableSchema({
   typeDefs: typeDefs.typeDefs,

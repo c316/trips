@@ -1,5 +1,11 @@
 import { zipcode } from '/imports/api/validationMethods';
 
+Template.UserRegistration.onCreated(function () {
+  this.autorun(()=>{
+    if (Session.get("showingUserId")) Meteor.subscribe('user', Session.get("showingUserId"));
+  });
+});
+
 Template.UserRegistration.onRendered(()=>{
   zipcode();
 
@@ -90,7 +96,13 @@ Template.UserRegistration.onRendered(()=>{
 
 Template.UserRegistration.helpers({
   user(){
-    return Meteor.user();
+    let userId = Session.get("showingUserId");
+    if(userId){
+      console.log("Showing other user for admin");
+      return Meteor.users.findOne({_id: userId});
+    } else {
+      return Meteor.user();
+    }
   },
   getStates(){
     const states = [
@@ -162,4 +174,8 @@ Template.UserRegistration.events({
   'click #expand-userRegistrationForm'(){
     $("[name='phone']").inputmask({"mask": "(999) 999-9999"});
   }
+});
+
+Template.UserRegistration.onDestroyed(function () {
+  Session.delete("showingUserId");
 });

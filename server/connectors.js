@@ -11,7 +11,7 @@ const DTFund = {
     })
       .then((res) => JSON.parse(res))
       .then((res) => {
-        console.log(res[0].fund);
+        logger.info(res[0].fund);
         return res[0].fund.id;
       });
   }

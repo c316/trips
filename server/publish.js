@@ -65,5 +65,12 @@ Meteor.publish({
     if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
       return Meteor.users.find();
     }
+  },
+  'user'(userId){
+    check(userId, String);
+    if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
+      if(userId) return Meteor.users.find({_id: userId});
+      else return Meteor.users.find();
+    }
   }
 });

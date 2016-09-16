@@ -6,14 +6,14 @@ Template.registerHelper('formatTime', function(context) {
   }
 });
 Template.registerHelper('showTools', function() {
-  const routeName = FlowRouter.current().route.path;
-  return routeName.includes("admin");
+  const routeName = FlowRouter.getRouteName();
+  if(routeName) return routeName.includes("admin");
 });
 
 Template.registerHelper('submitFormText', function() {
   return {
     "data-loading-text": "Processing... <i class='fa fa-spinner fa-spin'></i>",
-    "data-error-text":   "Hmm...Please look over your form and try again, that didn't work. <i class='fa fa-exclamation-triangle'></i>",
+    "data-error-text":   "Hmm...that didn't work. Please look over your form and try again <i class='fa fa-exclamation-triangle'></i>",
     "data-success-text": "Got it! <i class='fa fa-check'></i>"
   }
 });
@@ -66,4 +66,9 @@ Template.registerHelper('noTripRegistrationExpand', function() {
       style: 'display: none;'
     }
   }
+});
+
+Template.registerHelper('oddEven', function(index) {
+  if((index % 2) === 0) return 'even';
+  else return 'odd';
 });

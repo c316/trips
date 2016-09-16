@@ -1,6 +1,8 @@
+import {getDTSplitData, http_get_donortools} from '/imports/api/utils';
+
 Meteor.methods({
   'delete.passportPhoto'() {
-    console.log("Got to delete.passportPhoto");
+    logger.info("Got to delete.passportPhoto");
 
     if ( this.userId ) {
       Images.remove({ userId: this.userId });
@@ -15,7 +17,7 @@ Meteor.methods({
       'form':       [{name: String, value: String}],
     } );
     if ( this.userId ) {
-      console.log( "Got to update.form" );
+      logger.info( "Got to update.form" );
       console.dir( formInfo );
       Forms.upsert( { userId: this.userId, formName: formInfo.formName }, {
         userId:    this.userId,
@@ -34,12 +36,11 @@ Meteor.methods({
    */
   'update.splits'(fundId){
     check(fundId, Number);
-    console.log("Started update.splits with fundId: ", fundId);
-    if ( this.userId ) {
+    logger.info("Started update.splits with fundId: ", fundId);
+    if ( Roles.userIsInRole(this.userId, 'admin') ) {
       this.unblock();
-      import {getDTSplitData} from '/imports/api/utils';
       const splitData = getDTSplitData( fundId );
-      console.log( splitData );
+      logger.info( splitData );
     }
   },
   /**
@@ -50,7 +51,7 @@ Meteor.methods({
    */
   'form.agree'(formName){
     check(formName, String);
-    console.log("Started form.agree with formName: ", formName);
+    logger.info("Started form.agree with formName: ", formName);
     if ( this.userId ) {
       this.unblock();
 
@@ -72,7 +73,7 @@ Meteor.methods({
    */
   'form.tripRegistration'(tripId){
     check(tripId, String);
-    console.log("Started form.tripRegistration with tripId: ", tripId);
+    logger.info("Started form.tripRegistration with tripId: ", tripId);
 
     if ( this.userId ) {
       this.unblock();
@@ -84,6 +85,76 @@ Meteor.methods({
       } );
 
       return 'Form inserted';
+    }
+  },
+  /**
+   * Admin method to check DonorTools for a tripId and then add the trip if it exists
+   *
+   * @method add.trip
+   * @param {String} tripId
+   */
+  'add.trip'(tripId){
+    check(tripId, String);
+    logger.info("Started add.trip with tripId: ", tripId);
+
+    if ( Roles.userIsInRole(this.userId, 'admin') ) {
+      let collecitonTrip = Trips.findOne({tripId: Number(tripId)});
+      logger.info(collecitonTrip);
+      if(collecitonTrip){
+        throw new Meteor.Error(400,
+          'This tripId already exists in the trips collection');
+      }
+      this.unblock();
+
+      let DTTrip = http_get_donortools("settings/funds/" + tripId + ".json");
+      if(DTTrip && DTTrip.statusCode === 200){
+        DTTrip = DTTrip.data.fund;
+      } else {
+        throw new Meteor.Error(DTTrip.statusCode,
+          'There was a problem contacting Donor Tools or getting a result from them');
+      }
+      Trips.insert( {
+        adminId:    this.userId,
+        name:       DTTrip.name,
+        tripId:     DTTrip.id,
+        createdOn:  new Date(),
+        raised:     DTTrip.raised.cents
+      } );
+
+      return DTTrip;
+    }
+  },
+  /**
+   * Admin method to check DonorTools for a tripId and then add the trip if it exists
+   *
+   * @method add.trip
+   * @param {Object} deadlines
+   * @param {String} deadlines.amount
+   * @param {String} deadlines.due
+   * @param {String} deadlines.name
+   * @param {String} tripId
+   */
+  'add.deadline'(deadlines, tripId){
+    console.dir(deadlines);
+    check(deadlines, [{
+        amount: String,
+        due: String,
+        name: String
+      }]);
+    check(tripId, String);
+    logger.info( "Started add.trip with tripId: ", deadlines, tripId );
+
+    if( Roles.userIsInRole( this.userId, 'admin' ) ) {
+      deadlines.forEach(function ( deadline, index ) {
+        Deadlines.upsert({tripId: Number(tripId), deadlineNumber: index+1}, {
+          deadlineNumber: index+1,
+          tripId: Number(tripId),
+          amount: Number(deadline.amount),
+          due:    deadline.due,
+          name:   deadline.name
+        });
+      });
+      return 'Inserted all deadlines'
     }
   }
 });

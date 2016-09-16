@@ -3,13 +3,15 @@
         <div class="container-fluid">
             <div class="clearfix navbar-fixed-top">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <button type="button" class="navbar-toggle"
+                        data-toggle="collapse"
+                        data-target=".navbar-responsive-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="toggle-icon">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </span>
                 </button>
                 <!-- End Toggle Button -->
                 <!-- BEGIN LOGO -->
@@ -18,43 +20,6 @@
                 <!-- END LOGO -->
                 <!-- BEGIN TOPBAR ACTIONS -->
                 <div class="topbar-actions">
-                    <!-- BEGIN GROUP NOTIFICATION -->
-                    <div class="btn-group-notification btn-group" id="header_notification_bar">
-                        <button type="button" class="btn btn-sm md-skip dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <span class="badge">7</span>
-                            <i class="icon-bell"></i>
-                        </button>
-                        <ul class="dropdown-menu-v2">
-                            <li class="external">
-                                <h3>
-                                    <span class="bold">12 pending</span> notifications</h3>
-                                <a href="#">view all</a>
-                            </li>
-                            <li>
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"><ul class="dropdown-menu-list scroller" style="height: 250px; padding: 0px; overflow: hidden; width: auto;" data-handle-color="#637283" data-initialized="1">
-                                    <li>
-                                        <a href="">
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-success md-skip">
-                                                                <i class="fa fa-plus"></i>
-                                                            </span> New user registered. </span>
-                                            <span class="time">just now</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-danger md-skip">
-                                                                <i class="fa fa-bolt"></i>
-                                                            </span> Storage server failed. </span>
-                                            <span class="time">9 days</span>
-                                        </a>
-                                    </li>
-                                </ul><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(99, 114, 131);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(234, 234, 234);"></div></div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- END GROUP NOTIFICATION -->
                     <!-- BEGIN USER PROFILE -->
                     <div class="btn-group-img btn-group">
                         <button type="button"
@@ -71,7 +36,7 @@
                                 </a>
                             </li>
                             {{#if isInRole 'admin'}}
-                                    <li>
+                                <li>
                                     <a href="" class="admin-button">
                                         <i class="icon-rocket"></i> Admin
                                     </a>
@@ -80,7 +45,6 @@
                             <li>
                                 <a href="" class="profile-button">
                                     <i class="icon-user"></i> My Profile
-                                    <span class="badge badge-danger">1</span>
                                 </a>
                             </li>
                             <li>
@@ -91,9 +55,10 @@
                                 <a href="" class="forms-button">
                                     <i class="icon-docs"></i> Forms </a>
                             </li>
-                            <li class="divider"> </li>
+                            <li class="divider"></li>
                             <li>
-                                <a href="" class="logout"><i class="icon-key"></i> Log Out </a>
+                                <a href="" class="logout"><i
+                                        class="icon-key"></i> Log Out </a>
                             </li>
                         </ul>
                     </div>
@@ -102,7 +67,8 @@
                 <!-- END TOPBAR ACTIONS -->
             </div>
             {{#if showTools}}
-                <div class="nav-collapse navbar-collapse navbar-responsive-collapse collapse" aria-expanded="false" style="height: 0px;">
+                <div class="nav-collapse navbar-collapse navbar-responsive-collapse collapse"
+                     aria-expanded="false" style="height: 0px;">
                     <ul class="nav navbar-nav">
                         <li class="dropdown dropdown-fw dropdown-fw-disabled {{isAdminRoute}}">
                             <a href="/admin" class="text-uppercase">

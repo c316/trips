@@ -45,8 +45,9 @@ export const statuses = {
 
 export const getRaisedTotal = (userId)=>{
   let total = 0;
+  let adminUserId = userId || Session.get('showingUserId');
   if(Roles.userIsInRole(Meteor.userId(), 'admin')){
-    let thisUser = Meteor.users.findOne({_id: userId});
+    let thisUser = Meteor.users.findOne({_id: adminUserId});
     if(thisUser && thisUser.profile && thisUser.profile.firstName) {
       let name = thisUser.profile.firstName + " " + thisUser.profile.lastName;
       DTSplits.find({memo: name}).map( function ( doc ) {
@@ -67,4 +68,25 @@ export const getDeadlineTotal = ()=>{
     total += doc.amount;
   } );
   return (total).toFixed( 2 );
+};
+
+export const repeaterSetup = () =>{
+  $('.mt-repeater').each(function(){
+    $(this).repeater({
+      show: function () {
+        $(this).slideDown();
+        $('.date-picker').datepicker({
+          orientation: "left",
+          autoclose: true
+        });
+        $("[name='trip-id']").val(Session.get("tripId"));
+      },
+
+      hide: function (deleteElement) {
+        if(confirm('Are you sure you want to delete this element?')) {
+          $(this).slideUp(deleteElement);
+        }
+      }
+    });
+  });
 };

@@ -24,3 +24,11 @@
 .form-group.form-md-line-input .form-control.edited:not([readonly]):not(:focus) ~ .help-block-error {
     opacity: 1;
     filter: alpha(opacity=1); }
+
+.text-info {
+    color: #659be0;
+}
+
+.no-top-margin {
+    margin-top: 0;
+}
