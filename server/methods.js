@@ -11,21 +11,34 @@ Meteor.methods({
         'Cannot delete a passport photo without permission');
     }
   },
-  'update.form'(formInfo){
+  'update.form'(formInfo, updateThisId){
     check( formInfo, {
       'formName':   String,
       'form':       [{name: String, value: String}],
     } );
-    if ( this.userId ) {
-      logger.info( "Got to update.form" );
-      console.dir( formInfo );
-      Forms.upsert( { userId: this.userId, formName: formInfo.formName }, {
-        userId:    this.userId,
-        formName:  formInfo.formName,
-        form:      formInfo.form,
-        updatedOn: new Date()
-      } );
+    check(updateThisId, Match.Maybe(String));
+    let userId;
+
+    if ( Roles.userIsInRole(this.userId, 'admin') ) {
+      logger.info( "Got to update.form as an admin user" );
+      if(updateThisId) {
+        logger.info( "There was a updateThisId param passed in and it was: ", updateThisId );
+        userId = updateThisId;
+      } else {
+        userId = this.userId;
+      }
+    } else if ( this.userId ) {
+      logger.info( "Got to update.form as a standard user" );
+      userId = this.userId;
+    } else {
+      return;
     }
+    Forms.upsert( { userId, formName: formInfo.formName }, {
+      userId,
+      formName:  formInfo.formName,
+      form:      formInfo.form,
+      updatedOn: new Date()
+    } );
   },
   /**
    * Get the Donor Tools split data and expand that to include the donation
@@ -71,21 +84,33 @@ Meteor.methods({
    * @method form.tripRegistration
    * @param {String} tripId
    */
-  'form.tripRegistration'(tripId){
+  'form.tripRegistration'(tripId, updateThisId){
     check(tripId, String);
+    check(updateThisId, Match.Maybe(String));
+
     logger.info("Started form.tripRegistration with tripId: ", tripId);
+    let userId;
 
-    if ( this.userId ) {
-      this.unblock();
-      Forms.upsert( { userId: this.userId, formName: 'tripRegistration' }, {
-        userId:       this.userId,
-        formName:     'tripRegistration',
-        tripId:       Number( tripId ),
-        registeredOn: new Date()
-      } );
-
-      return 'Form inserted';
+    if ( Roles.userIsInRole(this.userId, 'admin') ) {
+      logger.info( "Got to form.tripRegistration as an admin user" );
+      if(updateThisId) {
+        logger.info( "There was a updateThisId param passed in and it was: ", updateThisId );
+        userId = updateThisId;
+      } else {
+        userId = this.userId;
+      }
+    } else if ( this.userId ) {
+      logger.info( "Got to update.form as a standard user" );
+      userId = this.userId;
+    } else {
+      return;
     }
+    Forms.upsert( { userId, formName: 'tripRegistration' }, {
+      userId,
+      formName:     'tripRegistration',
+      tripId:       Number( tripId ),
+      registeredOn: new Date()
+    } );
   },
   /**
    * Admin method to check DonorTools for a tripId and then add the trip if it exists

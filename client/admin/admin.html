@@ -150,9 +150,9 @@
                             <tbody>
                             {{#each user}}
                                 <tr role="row" class="{{oddEven @index}}">
-                                    <td class="clickable-cell user-profile-admin-link">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
-                                    <td class="clickable-cell fundraising-admin-link">{{raisedAmount}}</td>
-                                    <td class="clickable-cell forms-admin-link">{{formsStatus}}</td>
+                                    <td class="clickable-cell user-admin-link">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
+                                    <td class="clickable-cell user-admin-link">{{{raisedAmount}}}</td>
+                                    <td class="clickable-cell user-admin-link">{{{formsStatus}}}</td>
                                     <td>
                                         <div class="btn-group">
                                             <button class="btn green btn-xs btn-outline dropdown-toggle"
@@ -177,6 +177,9 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                        <button class="btn dark btn-xs btn-outline user-admin-link"
+                                                data-toggle="dropdown">Details
+                                        </button>
                                     </td>
                                 </tr>
                             {{/each}}

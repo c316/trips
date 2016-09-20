@@ -1,7 +1,18 @@
 Meteor.publish({
-  'Deadlines'(){
+  'Deadlines'(userId){
+    check(userId, Match.Maybe(String));
     if( this.userId ) {
       if( Roles.userIsInRole(this.userId, 'admin') ){
+        if(userId) {
+          let tripForm = Forms.findOne( {
+            userId,
+            formName: 'tripRegistration'
+          } );
+          if( tripForm && tripForm.tripId ) {
+            let tripId = tripForm.tripId;
+            return Deadlines.find( { tripId } );
+          }
+        }
         return Deadlines.find();
       } else {
         let tripForm = Forms.findOne( {
@@ -32,10 +43,15 @@ Meteor.publish({
       }
     }
   },
-  'Forms'(){
+  'Forms'(userId){
+    check(userId, Match.Maybe(String));
     if( this.userId ) {
       if( Roles.userIsInRole(this.userId, 'admin') ){
-        return Forms.find();
+        if( userId ) {
+          return Forms.find( { userId } );
+        } else {
+            return Forms.find();
+        }
       } else {
         return Forms.find( { userId: this.userId } );
       }
@@ -68,6 +84,7 @@ Meteor.publish({
   },
   'user'(userId){
     check(userId, String);
+    console.log(userId);
     if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
       if(userId) return Meteor.users.find({_id: userId});
       else return Meteor.users.find();

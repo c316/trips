@@ -14,8 +14,8 @@ export const fillForms = ()=>{
   $('[name="tnc"]').prop('checked', true);
 };
 
-export const updateForm = (formInfo)=>{
-  Meteor.call("update.form", formInfo, function(err, res){
+export const updateForm = (formInfo, updateThisId)=>{
+  Meteor.call("update.form", formInfo, updateThisId, function(err, res){
     if(err) console.error(err);
     else console.log(res);
   });
@@ -45,6 +45,7 @@ export const statuses = {
 
 export const getRaisedTotal = (userId)=>{
   let total = 0;
+  // TODO: change this to look for user id params instead of session var
   let adminUserId = userId || Session.get('showingUserId');
   if(Roles.userIsInRole(Meteor.userId(), 'admin')){
     let thisUser = Meteor.users.findOne({_id: adminUserId});
@@ -62,11 +63,23 @@ export const getRaisedTotal = (userId)=>{
   return (total / 100).toFixed( 2 );
 };
 
-export const getDeadlineTotal = ()=>{
+export const getDeadlineTotal = (userId)=>{
   let total = 0;
-  Deadlines.find().map( function ( doc ) {
-    total += doc.amount;
-  } );
+  if(userId){
+    let trip = Forms.findOne({formName: 'tripRegistration', userId});
+    if(trip && trip.tripId){
+      Deadlines.find({tripId: trip.tripId}).map( function ( doc ) {
+        total += doc.amount;
+      } );
+    }
+  } else {
+    let trip = Forms.findOne({formName: 'tripRegistration', userId: Meteor.userId()});
+    if(trip){
+      Deadlines.find({tripId: trip.tripId}).map( function ( doc ) {
+        total += doc.amount;
+      } );
+    }
+  }
   return (total).toFixed( 2 );
 };
 
@@ -74,7 +87,7 @@ export const repeaterSetup = () =>{
   $('.mt-repeater').each(function(){
     $(this).repeater({
       show: function () {
-        $(this).slideDown();
+        $(this).slideDown(2000);
         $('.date-picker').datepicker({
           orientation: "left",
           autoclose: true

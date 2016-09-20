@@ -34,6 +34,7 @@ Template.Header.events({
     Session.delete("showForms");
     Session.delete("showUserRegistration");
     Session.delete("showTripFunds");
+    Session.delete("showingUserId");
     FlowRouter.go("home");
   },
   'click .admin-button'(e){

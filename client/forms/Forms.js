@@ -10,12 +10,15 @@ const agreeToForm = (name, data) =>{
     }
   });
 };
-
 Template.Forms.onCreated(function () {
   this.autorun(() => {
     Meteor.subscribe('files.images');
-    Meteor.subscribe('Forms');
     Meteor.subscribe('Trips');
+    if(Session.get("showingUserId")){
+      Meteor.subscribe('Forms', Session.get("showingUserId"));
+    } else {
+      Meteor.subscribe('Forms');
+    }
   });
 });
 
@@ -35,20 +38,25 @@ Template.Forms.events({
   'change #missionaryInformationForm, change #mediaReleaseForm, change #missionTripCodeOfConductForm, change #releaseAndWaiverOfLiabilityForm'(e){
     if(!e.target.value) return;
     $('#' + e.currentTarget.id).valid();
-    console.log("e: ", e.currentTarget.id);
-    console.log("Target: ", e.target);
-    console.log("Name: ", e.target.name);
-    console.log("Value: ", e.target.value);
     let formInfo = {
       formName: e.currentTarget.id,
       form: $('#' + [e.currentTarget.id]).serializeArray()
     };
 
-    updateForm(formInfo);
+    let updateThisId = FlowRouter.getQueryParam('id');
+    // TODO: need a way of knowing if the form is completed.
+    // If it is then we need to pass the completed: true, or even better do this on the server side
+    updateForm(formInfo, updateThisId);
   },
-  'click .expand'(e){
-    let formName = e.target.id.split("-").pop();
-    let thisFormData = Forms.findOne({userId: Meteor.userId(), formName: formName});
+  'click #expand-missionaryInformationForm'(e){
+    let formName = "missionaryInformationForm";
+    let userId;
+    if(Session.get("showingUserId")){
+      userId = Session.get("showingUserId");
+    } else {
+      userId = Meteor.userId();
+    }
+    let thisFormData = Forms.findOne({userId: userId, formName: formName});
     if(thisFormData && thisFormData.form) fillFormData(thisFormData.form);
   },
   'click #code-of-conduct'(e){
@@ -82,21 +90,46 @@ Template.Forms.helpers({
     return Images.find().fetch()[0];
   },
   status(){
-    let tripForm = Forms.findOne({
-      formName:  {
-        $in: ['waiver-of-liability',
-              'code-of-conduct',
-              'media-release',
-              'missionaryInformationForm'
-        ]
-      }
-    } );
+    let tripForm = Forms.findOne( { formName:  'tripRegistration' } );
     if(tripForm && tripForm._id){
-      // TODO: check if all the forms are complete and return completed if they are
-
-      return statuses.inProgress;
+      let forms = Forms.find({
+        formName:  {
+          $ne: 'tripRegistration'
+        },
+        $or: [{completed: true}, {agreed: true}]
+      } );
+      let totalNumberOfForms = forms && forms.count();
+      if (totalNumberOfForms === 4){
+        return statuses.completed;
+      } else {
+        return statuses.inProgress;
+      }
     } else {
       return statuses.notStarted;
     }
+  },
+  unfinishedForms(){
+    // todo: find how many forms there are (don't include the trip id form) and return the number left to complete
+    let forms = Forms.find({
+      formName:  {
+        $ne: 'tripRegistration'
+      },
+      $or: [{completed: true}, {agreed: true}]
+    } );
+    let totalNumberOfForms = forms && forms.count();
+    return 4 - (totalNumberOfForms || 0);
+  },
+  unfinishedFormsPercent(){
+    let forms = Forms.find({
+      formName:  {
+        $ne: 'tripRegistration'
+      },
+      $or: [{completed: true}, {agreed: true}]
+    } );
+    let totalNumberOfForms = forms && forms.count();
+    return {
+      'completed': ( ( ( totalNumberOfForms ? totalNumberOfForms : 0 ) / 4 ) * 100 ),
+      'remaining': Math.abs( ( ( ( totalNumberOfForms ? totalNumberOfForms : 0 ) / 4 ) * 100 ) - 100)
+    };
   }
 });

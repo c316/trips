@@ -12,6 +12,16 @@ FlowRouter.route( '/', {
   }
 });
 
+FlowRouter.route( '/admin/showuserhome', {
+  name: 'adminShowUserHome',
+  triggersEnter: function( context ) {
+    Session.set( 'showingUserId', context && context.queryParams.id);
+  },
+  action() {
+    BlazeLayout.render('main', { top: "Header", main: "Home", footer: "Footer" });
+  }
+});
+
 FlowRouter.route( '/login', {
   name: 'login',
   action() {

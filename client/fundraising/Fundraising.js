@@ -10,17 +10,21 @@ Template.Fundraising.onRendered(function () {
 Template.Fundraising.onCreated(function () {
   this.autorun(() => {
     Meteor.subscribe('DTSplits');
-    Meteor.subscribe('Deadlines');
-    Meteor.subscribe('Forms');
     Meteor.subscribe('Trips');
-    if(Session.get("showingUserId")) Meteor.subscribe('user', Session.get("showingUserId"));
+    if(Session.get("showingUserId")){
+      Meteor.subscribe('Forms', Session.get("showingUserId"));
+      Meteor.subscribe('Deadlines', Session.get("showingUserId"));
+    } else {
+      Meteor.subscribe('Deadlines');
+      Meteor.subscribe('Forms');
+    }
   });
 });
 
 Template.Fundraising.helpers({
   DTSplits(){
     if(Session.get("showingUserId")){
-      let user = Meteor.users.findOne({_id: Session.get("showingUserId")})
+      let user = Meteor.users.findOne({_id: Session.get("showingUserId")});
       let name = user && user.profile && (user.profile.firstName + " " + user.profile.lastName);
       return DTSplits.find({memo: name});
     } else {
@@ -37,9 +41,10 @@ Template.Fundraising.helpers({
     return getRaisedTotal(Session.get('showingUserId'));
   },
   totalDeadlineAmount(){
+    // TODO: need to fix this so the right amount shows up whether viewing as an admin or user
     if(this && this.count() > 0) {
-      let deadlineTotal = getDeadlineTotal();
-      let raisedTotal   = getRaisedTotal();
+      let deadlineTotal = getDeadlineTotal(Session.get('showingUserId'));
+      let raisedTotal   = getRaisedTotal(Session.get('showingUserId'));
       let needToRaiseThisAmount = deadlineTotal - raisedTotal;
       return needToRaiseThisAmount;
     } else {

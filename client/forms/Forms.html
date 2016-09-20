@@ -20,7 +20,7 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-red-haze">
-                                            <span data-counter="counterup" data-value="2">2</span>
+                                            <span data-counter="counterup" data-value="{{unfinishedForms}}">{{unfinishedForms}}</span>
                                         </h3>
                                         <small>UNFINISHED FORMS</small>
                                     </div>
@@ -30,13 +30,13 @@
                                 </div>
                                 <div class="progress-info">
                                     <div class="progress">
-                                <span style="width: 50%;" class="progress-bar progress-bar-success blue-sharp">
-                                    <span class="sr-only">50% left</span>
+                                <span style="width: {{unfinishedFormsPercent.completed}}%;" class="progress-bar progress-bar-success blue-sharp">
+                                    <span class="sr-only">{{unfinishedFormsPercent.completed}}% left</span>
                                 </span>
                                     </div>
                                     <div class="status">
                                         <div class="status-title"> left </div>
-                                        <div class="status-number"> 50% </div>
+                                        <div class="status-number"> {{unfinishedFormsPercent.remaining}}% </div>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                                         <a href="" class="expand" data-original-title="" title="" id="expand-missionaryInformationForm"> </a>
                                     </div>
                                     <div class="actions">
-                                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title=""> </a>
+                                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="" data-original-title="" title=""> </a>
                                     </div>
                                 </div>
                                 <div class="portlet-body" style="display: none;">

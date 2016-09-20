@@ -1,5 +1,6 @@
 <template name="Home">
     <!-- BEGIN PAGE BASE CONTENT -->
+    {{#if user}}<h1 class="text-center" style="color: indianred">Showing {{userFullName}}</h1>{{/if}}
     {{> UserRegistration}}
     {{> TripRegistration}}
     {{> Fundraising}}

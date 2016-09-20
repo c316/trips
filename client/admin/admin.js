@@ -1,4 +1,4 @@
-import { getRaisedTotal, getDeadlineTotal } from '/imports/api/miscFunctions';
+import { getRaisedTotal, getDeadlineTotal, statuses } from '/imports/api/miscFunctions';
 import { repeater } from '/imports/ui/js/jquery.repeater';
 import { repeaterSetup } from '/imports/api/miscFunctions';
 
@@ -27,12 +27,23 @@ Template.Admin.helpers({
     return Meteor.users.find();
   },
   formsStatus(){
-    // Get number of forms that are complete and since the MIF is the only one with many fields, get its status separately
-    let tripForm = Forms.findOne({formName: 'tripRegistration', userId: this._id});
-    if(tripForm && tripForm.tripId){
-      return 'In Progress';
+    let tripForm = Forms.findOne( { formName:  'tripRegistration', userId: this._id } );
+    if(tripForm && tripForm._id){
+      let forms = Forms.find({
+        userId: this._id,
+        formName:  {
+          $ne: 'tripRegistration'
+        },
+        $or: [{completed: true}, {agreed: true}]
+      } );
+      let totalNumberOfForms = forms && forms.count();
+      if (totalNumberOfForms === 4){
+        return statuses.completed;
+      } else {
+        return statuses.inProgress;
+      }
     } else {
-      return 'Waiting for trip registration';
+      return statuses.notStarted;
     }
   },
   raisedAmount(){
@@ -41,11 +52,11 @@ Template.Admin.helpers({
     let needToRaiseThisAmount = deadlineTotal - raisedTotal;
     if(raisedTotal > 0){
       if(needToRaiseThisAmount <= 0){
-        return '$' + raisedTotal + '/' + deadlineTotal;
+        return '$' + raisedTotal + ' raised of ' + deadlineTotal + ' total';
       }
-      return '$' + raisedTotal + '/' + deadlineTotal;
+      return '$' + raisedTotal + ' raised of ' + deadlineTotal + ' total';
     } else {
-      return 'Not Started';
+      return statuses.notStarted;
     }
   },
   tripId(){
@@ -57,24 +68,12 @@ Template.Admin.helpers({
 });
 
 Template.Admin.events({
-  'click .user-profile-admin-link'(e){
-    Session.set("showingUserId", this._id);
-    Session.set("showUserRegistration", true);
-    FlowRouter.go("profile");
-  },
-  'click .forms-admin-link'(e){
-    Session.set("showingUserId", this._id);
-    Session.set("showForms", true);
-    FlowRouter.go("forms");
-  },
-  'click .fundraising-admin-link'(e){
-    Session.set("showingUserId", this._id);
-    Session.set("showTripFunds", true);
-    FlowRouter.go("fundraising");
+  'click .user-admin-link'(){
+    FlowRouter.go("adminShowUserHome", {}, {id: this._id});
   },
   'click #show-add-trip'(e){
     e.preventDefault();
-    $("#trip-form").slideDown();
+    $("#trip-form").slideDown(200);
     $("#show-add-trip").prop("disabled",true);
     $("#show-add-trip").css( 'cursor', 'not-allowed' );
   },
@@ -104,7 +103,7 @@ Template.Admin.events({
           e.target.reset();
           $( "#trip-form" ).slideUp();
           // Show the full-trip-form
-          $( "#full-trip-form-div" ).slideDown();
+          $( "#full-trip-form-div" ).slideDown(2000);
 
           $("#show-add-trip").prop("disabled",false);
           $("#show-add-trip").css( 'cursor', 'pointer' );

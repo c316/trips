@@ -21,10 +21,18 @@ Template.registerHelper('submitFormText', function() {
 Template.registerHelper('agreed', function(e) {
   let thisForm = Forms.findOne({formName: e});
   if(thisForm && thisForm.agreed){
-    $("#" + e).button('success');
+    Meteor.setTimeout(()=>{
+      $("#" + e).button('success');
+      $("#" + e).tooltip();
+  }, 200);
     return {
+      "title" : "Agreed to on: " + moment(thisForm.agreedDate).format("MM/DD/YYYY"),
       "disabled": "disabled"
     }
+  }
+  if(Roles.userIsInRole(Meteor.userId(), 'admin')) {
+    // Admins can't agree to terms for another user, only the user can do this
+    return {"disabled": "disabled"};
   }
 
 });

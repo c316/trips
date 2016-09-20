@@ -1,11 +1,5 @@
 import { zipcode } from '/imports/api/validationMethods';
 
-Template.UserRegistration.onCreated(function () {
-  this.autorun(()=>{
-    if (Session.get("showingUserId")) Meteor.subscribe('user', Session.get("showingUserId"));
-  });
-});
-
 Template.UserRegistration.onRendered(()=>{
   zipcode();
 

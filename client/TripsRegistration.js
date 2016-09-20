@@ -21,7 +21,10 @@ Template.TripRegistration.events({
   'click #tripRegistrationFormSubmit, submit #tripRegistrationForm'(e){
     e.preventDefault();
     let tripId = $("[name='trip-id']").val();
-    Meteor.call("form.tripRegistration", tripId, function ( err, res ) {
+    let updateThisId = FlowRouter.getQueryParam('id');
+    console.log(updateThisId);
+
+    Meteor.call("form.tripRegistration", tripId, updateThisId, function ( err, res ) {
       if(err) console.error(err);
       else {
         console.log(res);
