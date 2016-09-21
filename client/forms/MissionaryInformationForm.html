@@ -1,519 +1,536 @@
 <template name="MissionaryInformationForm">
-    <form id="missionaryInformationForm">
-        <div class="form-body">
-            <div class="alert alert-danger display-hide">
-                <button class="close" data-close="alert"></button> You have some form errors. Please check below.
-            </div>
+    {{#with missionaryInformation}}
+        <form id="missionaryInformationForm">
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button> You have some form errors. Please check below.
+                </div>
 
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="preferredName">
-                <label for="preferredName">Name you prefer to be called</label>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="firstName">
-                <label for="firstName">First Name</label>
-                <span class="help-block"> (as it appears on your passport) </span>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="middleName">
-                <label for="middleName">Middle Name</label>
-                <span class="help-block"> (as it appears on your passport) </span>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="lastName">
-                <label for="lastName">Last Name</label>
-                <span class="help-block"> (as it appears on your passport) </span>
-            </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="preferredName" value="{{preferredName}}">
+                    <label for="preferredName">Name you prefer to be called</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="firstName" value="{{passportFirstName}}">
+                    <label for="firstName">First Name</label>
+                    <span class="help-block"> (as it appears on your passport) </span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="middleName" value="{{passportMiddleName}}">
+                    <label for="middleName">Middle Name</label>
+                    <span class="help-block"> (as it appears on your passport) </span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="lastName" value="{{passportLastName}}">
+                    <label for="lastName">Last Name</label>
+                    <span class="help-block"> (as it appears on your passport) </span>
+                </div>
 
-            <div class="form-group form-md-radios">
-                <label>Do you have a passport?</label>
-                <div class="md-radio-list">
-                    <div class="md-radio">
-                        <input type="radio" id="radio111" name="passportStatus" class="md-radiobtn" value="yes">
-                        <label for="radio111">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Yes </label>
+                <div class="form-group form-md-radios">
+                    <label>Do you have a passport?</label>
+                    <div class="md-radio-list">
+                        <div class="md-radio">
+                            <input type="radio"
+                                   id="radio111"
+                                   name="passportStatus"
+                                   class="md-radiobtn"
+                                   {{checked 'passportStatus' 'yes'}}
+                                   value="yes">
+                            <label for="radio111">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Yes </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio"
+                                   id="radio112"
+                                   name="passportStatus"
+                                   class="md-radiobtn"
+                                   {{checked 'passportStatus' 'in-progress'}}
+                                   value="in-progress">
+                            <label for="radio112">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> No, but I have submitted my passport application </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio"
+                                   id="radio113"
+                                   name="passportStatus"
+                                   class="md-radiobtn"
+                                   {{checked 'passportStatus' 'no-not-applied'}}
+                                   value="no-not-applied">
+                            <label for="radio113">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> No, and I have not applied for one yet </label>
+                        </div>
                     </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio112" name="passportStatus" class="md-radiobtn" value="in-progress">
-                        <label for="radio112">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> No, but I have submitted my passport application </label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control date-picker" name="passportExpirationDate">
+                    <label for="passportExpirationDate">Passport expiration date</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control date-picker" name="birthdate">
+                    <label for="birthdate">Birthdate</label>
+                </div>
+                <div class="form-group form-md-radios">
+                    <label>Gender</label>
+                    <div class="md-radio-inline">
+                        <div class="md-radio">
+                            <input type="radio" id="radio98" name="gender" class="md-radiobtn" value="male">
+                            <label for="radio98">
+                                <span class="inc"></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Male </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio99" name="gender" class="md-radiobtn" value="female">
+                            <label for="radio99">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Female </label>
+                        </div>
                     </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio113" name="passportStatus" class="md-radiobtn" value="no-not-applied">
-                        <label for="radio113">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> No, and I have not applied for one yet </label>
+                </div>
+                <hr>
+                <h3>Emergency contact information</h3>
+
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="emergencyContactFirstName">
+                    <label for="emergencyContactFirstName">First name</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="emergencyContactLastName">
+                    <label for="emergencyContactLastName">Last name</label>
+                </div>
+
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="emergencyContactAddressLine1">
+                    <label for="emergencyContactAddressLine1">Address Line 1</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="emergencyContactAddressLine2">
+                    <label for="emergencyContactAddressLine2">Address Line 2</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="emergencyContactCity">
+                    <label for="emergencyContactCity">City</label>
+                </div>
+
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <select class="form-control" name="emergencyContactState">
+                        <option value=""></option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District Of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+                    <label for="emergencyContactState">State</label>
+                </div>
+
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="emergencyContactAddressZip">
+                    <label for="emergencyContactAddressZip">Zip</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="emergencyContactPhone">
+                    <label for="emergencyContactPhone">Phone Number</label>
+                </div>
+                <hr>
+
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="beneficiaryFirstName">
+                    <label for="beneficiaryFirstName">Beneficiary First name</label>
+                    <span class="help-block">For Life Insurance</span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="beneficiaryLastName">
+                    <label for="beneficiaryLastName">Beneficiary Last name</label>
+                </div>
+
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="beneficiaryRelationship">
+                    <label for="beneficiaryRelationship">Your relationship to beneficiary</label>
+                    <span class="help-block">You are their what - child, spouse, etc?</span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="homeChurchName">
+                    <label for="homeChurchName">Home Church Name</label>
+                </div>
+
+                <div class="form-group form-md-radios">
+                    <label>Blood Type</label>
+                    <div class="md-radio-list">
+                        <div class="md-radio">
+                            <input type="radio" id="radio11" name="bloodType" class="md-radiobtn" value="o+">
+                            <label for="radio11">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> O Positive </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio12" name="bloodType" class="md-radiobtn" value="o-">
+                            <label for="radio12">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> O Negative </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio13" name="bloodType" class="md-radiobtn" value="a+">
+                            <label for="radio13">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> A Positive </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio14" name="bloodType" class="md-radiobtn" value="a-">
+                            <label for="radio14">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> A Negative </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio15" name="bloodType" class="md-radiobtn" value="b+">
+                            <label for="radio15">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> B Positive </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio16" name="bloodType" class="md-radiobtn" value="b-">
+                            <label for="radio16">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> B Negative </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio17" name="bloodType" class="md-radiobtn" value="ab+">
+                            <label for="radio17">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> AB Positive </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio18" name="bloodType" class="md-radiobtn" value="ab-">
+                            <label for="radio18">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> AB Negative </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-md-radios">
+                    <label>T-shirt Size</label>
+                    <div class="md-radio-list">
+                        <div class="md-radio">
+                            <input type="radio" id="radio21" name="tShirtSize" class="md-radiobtn" value="small">
+                            <label for="radio21">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Small </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio22" name="tShirtSize" class="md-radiobtn" value="medium">
+                            <label for="radio22">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Medium </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio23" name="tShirtSize" class="md-radiobtn" value="large">
+                            <label for="radio23">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Large </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio24" name="tShirtSize" class="md-radiobtn" value="x-large">
+                            <label for="radio24">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> X-Large </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio25" name="tShirtSize" class="md-radiobtn" value="xx-large">
+                            <label for="radio25">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> XX-Large </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio26" name="tShirtSize" class="md-radiobtn" value="xxx-large">
+                            <label for="radio26">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> XXX-Large </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control" name="lastTetanusShotYear">
+                    <label for="lastTetanusShotYear">Year of Last Tetanus Shot</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <textarea class="form-control" name="allergiesOrHealthConditions" rows="3"></textarea>
+                    <label for="allergiesOrHealthConditions">Do you have any allergies or serious health conditions?</label>
+                    <span class="help-block">If so, please list here.</span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <textarea class="form-control" name="medicationsBeingTaken" rows="3"></textarea>
+                    <label for="medicationsBeingTaken">Please list any medications/prescriptions you are currently taking</label>
+                </div>
+                <div class="form-group form-md-radios">
+                    <label>Have you ever been convicted of a crime?</label>
+                    <span class="help-block">Felony or misdemeanor</span>
+                    <div class="md-radio-list">
+                        <div class="md-radio">
+                            <input type="radio" id="radio38" name="convictedOfACrime" class="md-radiobtn" value="yes">
+                            <label for="radio38">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Yes </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio39" name="convictedOfACrime" class="md-radiobtn" value="no">
+                            <label for="radio39">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> No </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <textarea class="form-control" name="allergiesOrHealthConditions" rows="3"></textarea>
+                    <label for="allergiesOrHealthConditions">If yes, then please explain</label>
+                </div>
+                <div class="form-group form-md-radios">
+                    <label>Do we have permission to run a background check?</label>
+                    <div class="md-radio-list">
+                        <div class="md-radio">
+                            <input type="radio" id="radio41" name="permissionToRunBackgroundCheck" class="md-radiobtn" value="yes">
+                            <label for="radio41">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Yes </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio42" name="permissionToRunBackgroundCheck" class="md-radiobtn" value="no">
+                            <label for="radio42">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> No </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-md-radios">
+                    <label>Do you speak other languages?</label>
+                    <div class="md-radio-list">
+                        <div class="md-radio">
+                            <input type="radio" id="radio51" name="speaksOtherLanguages" class="md-radiobtn" value="yes">
+                            <label for="radio51">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Yes </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio52" name="speaksOtherLanguages" class="md-radiobtn" value="no">
+                            <label for="radio52">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> No </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <textarea class="form-control" name="languageProficiencyExplained" rows="3"></textarea>
+                    <label for="languageProficiencyExplained">If you indicated yes above, what languages?</label>
+                    <span class="help-block">Also, rate your fluency for each. 1 being barely fluent and 10 being fluent.</span>
+                </div>
+
+                <div class="form-group form-md-radios">
+                    <label>I have been on a prior TMP trip</label>
+                    <div class="md-radio-list">
+                        <div class="md-radio">
+                            <input type="radio" id="radio61" name="beenOnATMPTrip" class="md-radiobtn" value="yes">
+                            <label for="radio61">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Yes </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio62" name="beenOnATMPTrip" class="md-radiobtn" value="no">
+                            <label for="radio62">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> No </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <textarea class="form-control" name="beenOnATMPTripExplained" rows="3"></textarea>
+                    <label for="beenOnATMPTripExplained">If you have been on a prior TMP trip, when and where?</label>
+                </div>
+                <div class="form-group form-md-radios">
+                    <label>Have you traveled out of the U.S. before?</label>
+                    <div class="md-radio-list">
+                        <div class="md-radio">
+                            <input type="radio" id="radio71" name="traveledOutsideTheUS" class="md-radiobtn" value="yes">
+                            <label for="radio71">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Yes </label>
+                        </div>
+                        <div class="md-radio">
+                            <input type="radio" id="radio72" name="traveledOutsideTheUS" class="md-radiobtn" value="no">
+                            <label for="radio72">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> No </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <textarea class="form-control" name="outsideUSTravelExplained" rows="3"></textarea>
+                    <label for="outsideUSTravelExplained">If you have traveled out of the U.S., where, when, duration, purpose.</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <textarea class="form-control" name="whyDoYouWantToJoinThisTeam" rows="3"></textarea>
+                    <label for="whyDoYouWantToJoinThisTeam">Why do you want to join this team?</label>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <textarea class="form-control" name="whatThreeSkills" rows="3" style="margin-top: 10px;"></textarea>
+                    <label for="whatThreeSkills">What are three skills or abilities you possess and desire to use on the trip that you believe will be beneficial to this team?</label>
+                </div>
+
+                <div class="form-group form-md-checkboxes">
+                    <label>If opportunity arises, in which areas would you like to participate?</label>
+                    <div class="md-checkbox-list">
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="checkbox1" class="md-check" value="arts+crafts" name="iWouldLikeToParticipateIn">
+                            <label for="checkbox1">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Arts/Crafts </label>
+                        </div>
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="checkbox9" class="md-check" value="construction" name="iWouldLikeToParticipateIn">
+                            <label for="checkbox9">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Construction </label>
+                        </div>
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="checkbox11" class="md-check" value="kidMinistry" name="iWouldLikeToParticipateIn">
+                            <label for="checkbox11">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Kid's Ministry </label>
+                        </div>
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="checkbox12" class="md-check" value="medical" name="iWouldLikeToParticipateIn">
+                            <label for="checkbox12">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Medical </label>
+                        </div>
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="checkbox13" class="md-check" value="music" name="iWouldLikeToParticipateIn">
+                            <label for="checkbox13">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Music </label>
+                        </div>
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="checkbox14" class="md-check" value="other" name="iWouldLikeToParticipateIn">
+                            <label for="checkbox14">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> Other </label>
+                        </div>
+                    </div>
+                    <span class="help-block">Check all that apply and list any experience you have in those areas in the text box below.</span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <textarea class="form-control" name="opportunityDetails" rows="3"></textarea>
+                    <label for="opportunityDetails">Opportunity Details</label>
+                </div>
+
+                <div class="form-group form-md-checkboxes">
+                    <label>
+                        I UNDERSTAND that if I miss any paperwork or financial
+                        deadlines that Trash Mountain Project reserves the right
+                        to cancel my participation in this trip. I HAVE ATTACHED
+                        a color copy of my passport (or the completed passport
+                        application because I do not yet have my passport).
+                    </label>
+                    <div class="md-checkbox-list">
+                        <div class="md-checkbox">
+                            <input type="checkbox" id="checkbox20" name="iagree" class="md-check" value="iagree">
+                            <label for="checkbox20">
+                                <span></span>
+                                <span class="check"></span>
+                                <span class="box"></span> I agree </label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control date-picker" name="passportExpirationDate">
-                <label for="passportExpirationDate">Passport expiration date</label>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control date-picker" name="birthdate">
-                <label for="birthdate">Birthdate</label>
-            </div>
-            <div class="form-group form-md-radios">
-                <label>Gender</label>
-                <div class="md-radio-inline">
-                    <div class="md-radio">
-                        <input type="radio" id="radio98" name="gender" class="md-radiobtn" value="male">
-                        <label for="radio98">
-                            <span class="inc"></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Male </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio99" name="gender" class="md-radiobtn" value="female">
-                        <label for="radio99">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Female </label>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn dark" name="submitMissionaryInformationForm" {{submitFormText}}>Submit</button>
                     </div>
                 </div>
             </div>
-            <hr>
-            <h3>Emergency contact information</h3>
-
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="emergencyContactFirstName">
-                <label for="emergencyContactFirstName">First name</label>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="emergencyContactLastName">
-                <label for="emergencyContactLastName">Last name</label>
-            </div>
-
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="emergencyContactAddressLine1">
-                <label for="emergencyContactAddressLine1">Address Line 1</label>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="emergencyContactAddressLine2">
-                <label for="emergencyContactAddressLine2">Address Line 2</label>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="emergencyContactCity">
-                <label for="emergencyContactCity">City</label>
-            </div>
-
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <select class="form-control" name="emergencyContactState">
-                    <option value=""></option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
-                    <option value="CT">Connecticut</option>
-                    <option value="DE">Delaware</option>
-                    <option value="DC">District Of Columbia</option>
-                    <option value="FL">Florida</option>
-                    <option value="GA">Georgia</option>
-                    <option value="HI">Hawaii</option>
-                    <option value="ID">Idaho</option>
-                    <option value="IL">Illinois</option>
-                    <option value="IN">Indiana</option>
-                    <option value="IA">Iowa</option>
-                    <option value="KS">Kansas</option>
-                    <option value="KY">Kentucky</option>
-                    <option value="LA">Louisiana</option>
-                    <option value="ME">Maine</option>
-                    <option value="MD">Maryland</option>
-                    <option value="MA">Massachusetts</option>
-                    <option value="MI">Michigan</option>
-                    <option value="MN">Minnesota</option>
-                    <option value="MS">Mississippi</option>
-                    <option value="MO">Missouri</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NV">Nevada</option>
-                    <option value="NH">New Hampshire</option>
-                    <option value="NJ">New Jersey</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="NY">New York</option>
-                    <option value="NC">North Carolina</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="OH">Ohio</option>
-                    <option value="OK">Oklahoma</option>
-                    <option value="OR">Oregon</option>
-                    <option value="PA">Pennsylvania</option>
-                    <option value="RI">Rhode Island</option>
-                    <option value="SC">South Carolina</option>
-                    <option value="SD">South Dakota</option>
-                    <option value="TN">Tennessee</option>
-                    <option value="TX">Texas</option>
-                    <option value="UT">Utah</option>
-                    <option value="VT">Vermont</option>
-                    <option value="VA">Virginia</option>
-                    <option value="WA">Washington</option>
-                    <option value="WV">West Virginia</option>
-                    <option value="WI">Wisconsin</option>
-                    <option value="WY">Wyoming</option>
-                </select>
-                <label for="emergencyContactState">State</label>
-            </div>
-
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="emergencyContactAddressZip">
-                <label for="emergencyContactAddressZip">Zip</label>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="emergencyContactPhone">
-                <label for="emergencyContactPhone">Phone Number</label>
-            </div>
-            <hr>
-
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="beneficiaryFirstName">
-                <label for="beneficiaryFirstName">Beneficiary First name</label>
-                <span class="help-block">For Life Insurance</span>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="beneficiaryLastName">
-                <label for="beneficiaryLastName">Beneficiary Last name</label>
-            </div>
-
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="beneficiaryRelationship">
-                <label for="beneficiaryRelationship">Your relationship to beneficiary</label>
-                <span class="help-block">You are their what - child, spouse, etc?</span>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="homeChurchName">
-                <label for="homeChurchName">Home Church Name</label>
-            </div>
-
-            <div class="form-group form-md-radios">
-                <label>Blood Type</label>
-                <div class="md-radio-list">
-                    <div class="md-radio">
-                        <input type="radio" id="radio11" name="bloodType" class="md-radiobtn" value="o+">
-                        <label for="radio11">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> O Positive </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio12" name="bloodType" class="md-radiobtn" value="o-">
-                        <label for="radio12">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> O Negative </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio13" name="bloodType" class="md-radiobtn" value="a+">
-                        <label for="radio13">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> A Positive </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio14" name="bloodType" class="md-radiobtn" value="a-">
-                        <label for="radio14">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> A Negative </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio15" name="bloodType" class="md-radiobtn" value="b+">
-                        <label for="radio15">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> B Positive </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio16" name="bloodType" class="md-radiobtn" value="b-">
-                        <label for="radio16">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> B Negative </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio17" name="bloodType" class="md-radiobtn" value="ab+">
-                        <label for="radio17">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> AB Positive </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio18" name="bloodType" class="md-radiobtn" value="ab-">
-                        <label for="radio18">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> AB Negative </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group form-md-radios">
-                <label>T-shirt Size</label>
-                <div class="md-radio-list">
-                    <div class="md-radio">
-                        <input type="radio" id="radio21" name="tShirtSize" class="md-radiobtn" value="small">
-                        <label for="radio21">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Small </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio22" name="tShirtSize" class="md-radiobtn" value="medium">
-                        <label for="radio22">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Medium </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio23" name="tShirtSize" class="md-radiobtn" value="large">
-                        <label for="radio23">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Large </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio24" name="tShirtSize" class="md-radiobtn" value="x-large">
-                        <label for="radio24">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> X-Large </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio25" name="tShirtSize" class="md-radiobtn" value="xx-large">
-                        <label for="radio25">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> XX-Large </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio26" name="tShirtSize" class="md-radiobtn" value="xxx-large">
-                        <label for="radio26">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> XXX-Large </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <input type="text" class="form-control" name="lastTetanusShotYear">
-                <label for="lastTetanusShotYear">Year of Last Tetanus Shot</label>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="allergiesOrHealthConditions" rows="3"></textarea>
-                <label for="allergiesOrHealthConditions">Do you have any allergies or serious health conditions?</label>
-                <span class="help-block">If so, please list here.</span>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="medicationsBeingTaken" rows="3"></textarea>
-                <label for="medicationsBeingTaken">Please list any medications/prescriptions you are currently taking</label>
-            </div>
-            <div class="form-group form-md-radios">
-                <label>Have you ever been convicted of a crime?</label>
-                <span class="help-block">Felony or misdemeanor</span>
-                <div class="md-radio-list">
-                    <div class="md-radio">
-                        <input type="radio" id="radio38" name="convictedOfACrime" class="md-radiobtn" value="yes">
-                        <label for="radio38">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Yes </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio39" name="convictedOfACrime" class="md-radiobtn" value="no">
-                        <label for="radio39">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> No </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="allergiesOrHealthConditions" rows="3"></textarea>
-                <label for="allergiesOrHealthConditions">If yes, then please explain</label>
-            </div>
-            <div class="form-group form-md-radios">
-                <label>Do we have permission to run a background check?</label>
-                <div class="md-radio-list">
-                    <div class="md-radio">
-                        <input type="radio" id="radio41" name="permissionToRunBackgroundCheck" class="md-radiobtn" value="yes">
-                        <label for="radio41">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Yes </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio42" name="permissionToRunBackgroundCheck" class="md-radiobtn" value="no">
-                        <label for="radio42">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> No </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group form-md-radios">
-                <label>Do you speak other languages?</label>
-                <div class="md-radio-list">
-                    <div class="md-radio">
-                        <input type="radio" id="radio51" name="speaksOtherLanguages" class="md-radiobtn" value="yes">
-                        <label for="radio51">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Yes </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio52" name="speaksOtherLanguages" class="md-radiobtn" value="no">
-                        <label for="radio52">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> No </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="languageProficiencyExplained" rows="3"></textarea>
-                <label for="languageProficiencyExplained">If you indicated yes above, what languages?</label>
-                <span class="help-block">Also, rate your fluency for each. 1 being barely fluent and 10 being fluent.</span>
-            </div>
-
-            <div class="form-group form-md-radios">
-                <label>I have been on a prior TMP trip</label>
-                <div class="md-radio-list">
-                    <div class="md-radio">
-                        <input type="radio" id="radio61" name="beenOnATMPTrip" class="md-radiobtn" value="yes">
-                        <label for="radio61">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Yes </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio62" name="beenOnATMPTrip" class="md-radiobtn" value="no">
-                        <label for="radio62">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> No </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="beenOnATMPTripExplained" rows="3"></textarea>
-                <label for="beenOnATMPTripExplained">If you have been on a prior TMP trip, when and where?</label>
-            </div>
-            <div class="form-group form-md-radios">
-                <label>Have you traveled out of the U.S. before?</label>
-                <div class="md-radio-list">
-                    <div class="md-radio">
-                        <input type="radio" id="radio71" name="traveledOutsideTheUS" class="md-radiobtn" value="yes">
-                        <label for="radio71">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Yes </label>
-                    </div>
-                    <div class="md-radio">
-                        <input type="radio" id="radio72" name="traveledOutsideTheUS" class="md-radiobtn" value="no">
-                        <label for="radio72">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> No </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="outsideUSTravelExplained" rows="3"></textarea>
-                <label for="outsideUSTravelExplained">If you have traveled out of the U.S., where, when, duration, purpose.</label>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="whyDoYouWantToJoinThisTeam" rows="3"></textarea>
-                <label for="whyDoYouWantToJoinThisTeam">Why do you want to join this team?</label>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="whatThreeSkills" rows="3" style="margin-top: 10px;"></textarea>
-                <label for="whatThreeSkills">What are three skills or abilities you possess and desire to use on the trip that you believe will be beneficial to this team?</label>
-            </div>
-
-            <div class="form-group form-md-checkboxes">
-                <label>If opportunity arises, in which areas would you like to participate?</label>
-                <div class="md-checkbox-list">
-                    <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox1" class="md-check" value="arts+crafts" name="iWouldLikeToParticipateIn">
-                        <label for="checkbox1">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Arts/Crafts </label>
-                    </div>
-                    <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox9" class="md-check" value="construction" name="iWouldLikeToParticipateIn">
-                        <label for="checkbox9">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Construction </label>
-                    </div>
-                    <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox11" class="md-check" value="kidMinistry" name="iWouldLikeToParticipateIn">
-                        <label for="checkbox11">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Kid's Ministry </label>
-                    </div>
-                    <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox12" class="md-check" value="medical" name="iWouldLikeToParticipateIn">
-                        <label for="checkbox12">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Medical </label>
-                    </div>
-                    <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox13" class="md-check" value="music" name="iWouldLikeToParticipateIn">
-                        <label for="checkbox13">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Music </label>
-                    </div>
-                    <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox14" class="md-check" value="other" name="iWouldLikeToParticipateIn">
-                        <label for="checkbox14">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> Other </label>
-                    </div>
-                </div>
-                <span class="help-block">Check all that apply and list any experience you have in those areas in the text box below.</span>
-            </div>
-            <div class="form-group form-md-line-input form-md-floating-label">
-                <textarea class="form-control" name="opportunityDetails" rows="3"></textarea>
-                <label for="opportunityDetails">Opportunity Details</label>
-            </div>
-
-            <div class="form-group form-md-checkboxes">
-                <label>
-                    I UNDERSTAND that if I miss any paperwork or financial
-                    deadlines that Trash Mountain Project reserves the right
-                    to cancel my participation in this trip. I HAVE ATTACHED
-                    a color copy of my passport (or the completed passport
-                    application because I do not yet have my passport).
-                </label>
-                <div class="md-checkbox-list">
-                    <div class="md-checkbox">
-                        <input type="checkbox" id="checkbox20" name="iagree" class="md-check" value="iagree">
-                        <label for="checkbox20">
-                            <span></span>
-                            <span class="check"></span>
-                            <span class="box"></span> I agree </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-actions">
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="submit" class="btn dark" name="submitMissionaryInformationForm" {{submitFormText}}>Submit</button>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
+    {{/with}}
 </template>

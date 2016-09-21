@@ -89,15 +89,6 @@ Template.UserRegistration.onRendered(()=>{
 });
 
 Template.UserRegistration.helpers({
-  user(){
-    let userId = Session.get("showingUserId");
-    if(userId){
-      console.log("Showing other user for admin");
-      return Meteor.users.findOne({_id: userId});
-    } else {
-      return Meteor.user();
-    }
-  },
   getStates(){
     const states = [
       { stateAbbr: "", name: ""},

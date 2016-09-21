@@ -50,6 +50,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/es5-shim/4.6.14/web.browser/import_globals.js" />
         <item url="file://$USER_HOME$/.meteor/packages/es5-shim/4.6.14/web.browser/console.js" />
         <item url="file://$USER_HOME$/.meteor/packages/es5-shim/4.6.14/web.browser/export_globals.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/zimme_active-route/2.3.2/web.browser/packages/zimme_active-route.js" />
         <item url="file://$USER_HOME$/.meteor/packages/allow-deny/1.0.5/web.browser/allow-deny.js" />
         <item url="file://$USER_HOME$/.meteor/packages/allow-deny/1.0.5/web.browser/allow-deny-tests.js" />
         <item url="file://$USER_HOME$/.meteor/packages/check/1.2.3/web.browser/match.js" />
@@ -226,6 +227,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/mongo-id/1.0.5/web.browser/id.js" />
         <item url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/roles_common.js" />
         <item url="file://$USER_HOME$/.meteor/packages/random/1.0.10/web.browser/random.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/arillo_flow-router-helpers/0.5.2/web.browser/client/helpers.coffee" />
         <item url="file://$USER_HOME$/.meteor/packages/random/1.0.10/web.browser/random_tests.js" />
         <item url="file://$USER_HOME$/.meteor/packages/reload/1.1.10/web.browser/reload.js" />
         <item url="file://$USER_HOME$/.meteor/packages/reload/1.1.10/web.browser/deprecated.js" />
@@ -287,6 +289,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/es5-shim/4.6.14/web.browser/import_globals.js" />
       <root url="file://$USER_HOME$/.meteor/packages/es5-shim/4.6.14/web.browser/console.js" />
       <root url="file://$USER_HOME$/.meteor/packages/es5-shim/4.6.14/web.browser/export_globals.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/zimme_active-route/2.3.2/web.browser/packages/zimme_active-route.js" />
       <root url="file://$USER_HOME$/.meteor/packages/allow-deny/1.0.5/web.browser/allow-deny.js" />
       <root url="file://$USER_HOME$/.meteor/packages/allow-deny/1.0.5/web.browser/allow-deny-tests.js" />
       <root url="file://$USER_HOME$/.meteor/packages/check/1.2.3/web.browser/match.js" />
@@ -463,6 +466,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/mongo-id/1.0.5/web.browser/id.js" />
       <root url="file://$USER_HOME$/.meteor/packages/alanning_roles/1.2.15/web.browser/roles_common.js" />
       <root url="file://$USER_HOME$/.meteor/packages/random/1.0.10/web.browser/random.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/arillo_flow-router-helpers/0.5.2/web.browser/client/helpers.coffee" />
       <root url="file://$USER_HOME$/.meteor/packages/random/1.0.10/web.browser/random_tests.js" />
       <root url="file://$USER_HOME$/.meteor/packages/reload/1.1.10/web.browser/reload.js" />
       <root url="file://$USER_HOME$/.meteor/packages/reload/1.1.10/web.browser/deprecated.js" />

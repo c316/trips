@@ -19,7 +19,7 @@ Template.registerHelper('submitFormText', function() {
 });
 
 Template.registerHelper('agreed', function(e) {
-  let thisForm = Forms.findOne({formName: e});
+  let thisForm = Forms.findOne({formName: e, userId: this._id});
   if(thisForm && thisForm.agreed){
     Meteor.setTimeout(()=>{
       $("#" + e).button('success');

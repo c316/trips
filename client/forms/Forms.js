@@ -14,8 +14,8 @@ Template.Forms.onCreated(function () {
   this.autorun(() => {
     Meteor.subscribe('files.images');
     Meteor.subscribe('Trips');
-    if(Session.get("showingUserId")){
-      Meteor.subscribe('Forms', Session.get("showingUserId"));
+    if(this.data && this.data._id){
+      Meteor.subscribe('Forms', this.data._id);
     } else {
       Meteor.subscribe('Forms');
     }
@@ -35,29 +35,32 @@ Template.Forms.events({
     Session.delete("passportPhotoThumbnail");
     Session.delete("passportPhotoOriginal");
   },
-  'change #missionaryInformationForm, change #mediaReleaseForm, change #missionTripCodeOfConductForm, change #releaseAndWaiverOfLiabilityForm'(e){
+  'change #missionaryInformationForm'(e, tmpl){
     if(!e.target.value) return;
-    $('#' + e.currentTarget.id).valid();
+    $('#missionaryInformationForm').valid();
     let formInfo = {
-      formName: e.currentTarget.id,
-      form: $('#' + [e.currentTarget.id]).serializeArray()
+      formName: 'missionaryInformationForm',
+      form: $('#missionaryInformationForm').serializeArray()
     };
 
-    let updateThisId = FlowRouter.getQueryParam('id');
+    let updateThisId = tmpl && tmpl.data._id;
     // TODO: need a way of knowing if the form is completed.
     // If it is then we need to pass the completed: true, or even better do this on the server side
     updateForm(formInfo, updateThisId);
   },
-  'click #expand-missionaryInformationForm'(e){
-    let formName = "missionaryInformationForm";
+  'click #expand-missionaryInformationForm'(e, tmpl){
+    console.log(e.target);
+    console.log(tmpl);
+    /*let formName = "missionaryInformationForm";
     let userId;
-    if(Session.get("showingUserId")){
-      userId = Session.get("showingUserId");
+    if(this._id){
+      console.log(this._id);
+      userId = this._id;
     } else {
       userId = Meteor.userId();
     }
     let thisFormData = Forms.findOne({userId: userId, formName: formName});
-    if(thisFormData && thisFormData.form) fillFormData(thisFormData.form);
+    if(thisFormData && thisFormData.form) fillFormData(thisFormData.form);*/
   },
   'click #code-of-conduct'(e){
     e.preventDefault();

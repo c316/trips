@@ -1,23 +1,20 @@
-Template.Home.onCreated(function () {
-  this.autorun(()=>{
-    if(Session.get("showingUserId")){
-      console.log(Session.get("showingUserId"));
-      Meteor.subscribe('user', Session.get("showingUserId"));
-    }
-  });
-});
-
 Template.Home.helpers({
   title(){
     return "Home";
   },
+  otherUser(){
+    if (Session.get("showingOtherUser")) {
+      return true;
+    }
+  },
   user(){
-    return Meteor.users.findOne({_id: Session.get("showingUserId")})
+    if (!Session.get("showingOtherUser")) {
+      return Meteor.user();
+    } else {
+      return this;
+    }
   },
   userFullName(){
-    let user = Meteor.users.findOne({_id: Session.get("showingUserId")});
-    if(user && user.profile) {
-      return user.profile && user.profile.firstName + " " + user.profile.lastName;
-    }
+    return this.profile && this.profile.firstName + " " + this.profile.lastName;
   }
 });

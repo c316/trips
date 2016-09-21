@@ -1,22 +1,18 @@
-
 function redirectIfNotAdmin (ctx, redirect) {
   if (!Meteor.userId() || !Roles.userIsInRole(Meteor.userId(), 'admin')) {
     redirect('/')
   }
 }
 
+function redirectIfAdmin (ctx, redirect) {
+  if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
+    redirect('/admin')
+  }
+}
+
 FlowRouter.route( '/', {
   name: 'home',
-  action() {
-    BlazeLayout.render('main', { top: "Header", main: "Home", footer: "Footer" });
-  }
-});
-
-FlowRouter.route( '/admin/showuserhome', {
-  name: 'adminShowUserHome',
-  triggersEnter: function( context ) {
-    Session.set( 'showingUserId', context && context.queryParams.id);
-  },
+  triggersEnter: [redirectIfAdmin],
   action() {
     BlazeLayout.render('main', { top: "Header", main: "Home", footer: "Footer" });
   }
@@ -61,21 +57,24 @@ FlowRouter.route( '/admin', {
   }
 });
 
-FlowRouter.route( '/admin/:trip', {
-  name: 'trip',
-  triggersEnter: [redirectIfNotAdmin],
+FlowRouter.route( '/admin/showuserhome', {
+  name: 'adminShowUserHome',
+  triggersEnter: function( context, redirect ) {
+    Session.set("showingOtherUser", true);
+    Session.set( 'showingUserId', context && context.queryParams.id);
+    redirectIfNotAdmin(context, redirect);
+  },
   action() {
-    const tripId = FlowRouter.getParam("trip");
-    BlazeLayout.render( 'main', { top: "Header", main: 'TripAdmin', footer: "Footer" } );
+    BlazeLayout.render('main', { top: "Header", main: "ShowUserHome", footer: "Footer" });
   }
 });
 
-FlowRouter.route( '/admin/:trip/:fundraiser', {
-  name: 'tripFundraiserDetails',
-  triggersEnter: [redirectIfNotAdmin],
+FlowRouter.route( '/admin/print-all', {
+  name: 'print-all',
+  triggersEnter: function ( context, redirect ) {
+    Session.set("showingOtherUser", true);
+  },
   action() {
-    const tripId = FlowRouter.getParam("trip");
-    const fundraiserId = FlowRouter.getParam("fundraiser");
-    BlazeLayout.render( 'main', { top: 'Header', main: 'Fundraising', footer: "Footer" } );
+    BlazeLayout.render('main', { top: "Header", main: "PrintAll", footer: "Footer" });
   }
 });

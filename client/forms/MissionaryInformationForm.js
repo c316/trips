@@ -3,7 +3,6 @@ import { BootstrapDatePicker } from '/imports/ui/js/bootstrap-datepicker';
 import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
 import { phoneUS, zipcode } from '/imports/api/validationMethods';
 
-
 Template.MissionaryInformationForm.onRendered(()=>{
   phoneUS();
   zipcode();
@@ -94,6 +93,18 @@ Template.MissionaryInformationForm.onRendered(()=>{
       }, 500);
     }
   });
+});
+
+Template.MissionaryInformationForm.helpers({
+  missionaryInformation(){
+    let thisForm = Forms.findOne({formName: 'missionaryInformationForm', userId: this._id});
+    return thisForm;
+  },
+  checked(name, value){
+    // TODO: check if [passportStatus, gender, bloodType, etc] matches value of arg
+    // if it does, return {'selected': 'selected'}
+    console.log(name, value);
+  }
 });
 
 Template.MissionaryInformationForm.events({
