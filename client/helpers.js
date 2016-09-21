@@ -80,3 +80,27 @@ Template.registerHelper('oddEven', function(index) {
   if((index % 2) === 0) return 'even';
   else return 'odd';
 });
+
+Template.registerHelper('selected', function(key, value) {
+  if(this[key] && this[key] === value){
+    return {'selected': 'selected'};
+  }
+});
+
+
+Template.registerHelper('checked', function(name, value) {
+  if(this[name] && this[name] === value){
+    return {'checked': 'checked'};
+  }
+});
+
+
+Template.registerHelper('multiChecked', function(name, value) {
+  if(this[name] && this[name].indexOf(value) !== -1){
+    return {'checked': 'checked'};
+  }
+});
+
+Template.registerHelper('editedClass', function(value) {
+  if(value) return 'edited';
+});

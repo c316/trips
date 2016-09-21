@@ -33,6 +33,19 @@
     margin-top: 0;
 }
 
+.page-break-after {
+    page-break-after: always;
+}
+
+.page-break-before {
+    page-break-before: always;
+}
+
 @media print {
-    .no-print { display: none; }
+    .no-print { display: none !important;; }
+    .tools { display: none !important;; }
+    .actions { display: none !important;; }
+    .no-border-on-print {
+        border: none !important;
+    }
 }

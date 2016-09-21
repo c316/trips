@@ -1,4 +1,4 @@
-import { updateForm, fillFormData, statuses } from '/imports/api/miscFunctions';
+import { statuses } from '/imports/api/miscFunctions';
 
 const agreeToForm = (name, data) =>{
   Meteor.call("form.agree", name, function ( err, res ) {
@@ -10,6 +10,7 @@ const agreeToForm = (name, data) =>{
     }
   });
 };
+
 Template.Forms.onCreated(function () {
   this.autorun(() => {
     Meteor.subscribe('files.images');
@@ -34,33 +35,6 @@ Template.Forms.events({
     Meteor.call("delete.passportPhoto");
     Session.delete("passportPhotoThumbnail");
     Session.delete("passportPhotoOriginal");
-  },
-  'change #missionaryInformationForm'(e, tmpl){
-    if(!e.target.value) return;
-    $('#missionaryInformationForm').valid();
-    let formInfo = {
-      formName: 'missionaryInformationForm',
-      form: $('#missionaryInformationForm').serializeArray()
-    };
-
-    let updateThisId = tmpl && tmpl.data._id;
-    // TODO: need a way of knowing if the form is completed.
-    // If it is then we need to pass the completed: true, or even better do this on the server side
-    updateForm(formInfo, updateThisId);
-  },
-  'click #expand-missionaryInformationForm'(e, tmpl){
-    console.log(e.target);
-    console.log(tmpl);
-    /*let formName = "missionaryInformationForm";
-    let userId;
-    if(this._id){
-      console.log(this._id);
-      userId = this._id;
-    } else {
-      userId = Meteor.userId();
-    }
-    let thisFormData = Forms.findOne({userId: userId, formName: formName});
-    if(thisFormData && thisFormData.form) fillFormData(thisFormData.form);*/
   },
   'click #code-of-conduct'(e){
     e.preventDefault();

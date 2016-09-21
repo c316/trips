@@ -11,34 +11,81 @@ Meteor.methods({
         'Cannot delete a passport photo without permission');
     }
   },
-  'update.form'(formInfo, updateThisId){
-    check( formInfo, {
-      'formName':   String,
-      'form':       [{name: String, value: String}],
+  'update.form'(form, updateThisId){
+    check( form, {
+      "allergiesOrHealthConditions":  Match.Maybe(String),
+      "beenOnATMPTrip":               Match.Maybe(String),
+      "beenOnATMPTripExplained":      Match.Maybe(String),
+      "beneficiaryFirstName":         Match.Maybe(String),
+      "beneficiaryLastName":          Match.Maybe(String),
+      "beneficiaryRelationship":      Match.Maybe(String),
+      "birthdate":                    Match.Maybe(String),
+      "bloodType":                    Match.Maybe(String),
+      "convictedOfACrime":            Match.Maybe(String),
+      "emergencyContactCity":         Match.Maybe(String),
+      "emergencyContactAddressLine1": Match.Maybe(String),
+      "emergencyContactAddressLine2": Match.Maybe(String),
+      "emergencyContactAddressZip":   Match.Maybe(String),
+      "emergencyContactFirstName":    Match.Maybe(String),
+      "emergencyContactLastName":     Match.Maybe(String),
+      "emergencyContactPhone":        Match.Maybe(String),
+      "emergencyContactState":        Match.Maybe(String),
+      "formName":                     String,
+      "gender":                       Match.Maybe(String),
+      "homeChurchName":               Match.Maybe(String),
+      "iagree":                       Match.Maybe(String),
+      "iWouldLikeToParticipateIn":    Match.Maybe([String]),
+      "languageProficiencyExplained": Match.Maybe(String),
+      "lastTetanusShotYear":          Match.Maybe(String),
+      "medicationsBeingTaken":        Match.Maybe(String),
+      "opportunityDetails":           Match.Maybe(String),
+      "outsideUSTravelExplained":     Match.Maybe(String),
+      "passportExpirationDate":       Match.Maybe(String),
+      "passportFirstName":            Match.Maybe(String),
+      "passportLastName":             Match.Maybe(String),
+      "passportMiddleName":           Match.Maybe(String),
+      "passportStatus":               Match.Maybe(String),
+      "permissionToRunBackgroundCheck":Match.Maybe(String),
+      "preferredName":                String,
+      "speaksOtherLanguages":         Match.Maybe(String),
+      "traveledOutsideTheUS":         Match.Maybe(String),
+      "tShirtSize":                   Match.Maybe(String),
+      "whatThreeSkills":              Match.Maybe(String),
+      "whyDoYouWantToJoinThisTeam":   Match.Maybe(String)
     } );
     check(updateThisId, Match.Maybe(String));
-    let userId;
+
+    // TODO: make sure to add in the completed: true/false var
+    function formIsComplete(form){
+      let formLength = Object.keys(form).length;
+      console.log(formLength);
+      if(form.passportStatus && form.passportStatus === 'yes'){
+        if(formLength >= 40){
+          return true;
+        }
+        return false;
+      } else {
+        return false;
+      }
+    }
 
     if ( Roles.userIsInRole(this.userId, 'admin') ) {
       logger.info( "Got to update.form as an admin user" );
       if(updateThisId) {
         logger.info( "There was a updateThisId param passed in and it was: ", updateThisId );
-        userId = updateThisId;
+        form.userId = updateThisId;
       } else {
-        userId = this.userId;
+        form.userId = this.userId;
       }
     } else if ( this.userId ) {
       logger.info( "Got to update.form as a standard user" );
-      userId = this.userId;
+      form.userId = this.userId;
     } else {
       return;
     }
-    Forms.upsert( { userId, formName: formInfo.formName }, {
-      userId,
-      formName:  formInfo.formName,
-      form:      formInfo.form,
-      updatedOn: new Date()
-    } );
+    form.updatedOn = new Date();
+    form.completed = formIsComplete(form);
+    Forms.upsert( { userId: form.userId, formName: form.formName }, form );
   },
   /**
    * Get the Donor Tools split data and expand that to include the donation
