@@ -90,17 +90,7 @@
                                     <a id="print-all"
                                        class="dt-button buttons-html5 btn dark btn-outline"
                                         tabindex="0"
-                                        href="{{pathFor 'print-all'}}"><span>Print All</span>
-                                    </a>
-                                    <a id="pdf-all"
-                                       class="dt-button buttons-html5 btn green btn-outline"
-                                        tabindex="0"
-                                        href=""><span>PDF</span>
-                                    </a>
-                                    <a  id="csv-all"
-                                        class="dt-button buttons-html5 btn purple btn-outline"
-                                        tabindex="0"
-                                        href=""><span>CSV</span>
+                                        href="{{pathFor 'print-all'}}"><span><i class="fa fa-print"></i> Print All</span>
                                     </a>
                                 </div>
                             </div>
@@ -154,30 +144,10 @@
                                     <td class="clickable-cell user-admin-link">{{{raisedAmount}}}</td>
                                     <td class="clickable-cell user-admin-link">{{{formsStatus}}}</td>
                                     <td>
-                                        <div class="btn-group">
-                                            <button class="btn green btn-xs btn-outline dropdown-toggle"
-                                                    data-toggle="dropdown">Tools
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="" class="print-user">
-                                                        <i class="fa fa-print"></i>
-                                                        Print </a>
-                                                </li>
-                                                <li>
-                                                    <a href="" class="pdf-user">
-                                                        <i class="fa fa-file-pdf-o"></i>
-                                                        Save as PDF </a>
-                                                </li>
-                                                <li>
-                                                    <a href="" class="csv-user">
-                                                        <i class="fa fa-file-excel-o"></i>
-                                                        Export to Excel </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <button class="btn dark btn-xs btn-outline user-admin-link"
+                                        <button class="btn dark btn-xs btn-outline print-user"
+                                                data-toggle="dropdown"><i class="fa fa-print"></i> Print
+                                        </button>
+                                        <button class="btn green btn-xs btn-outline user-admin-link"
                                                 data-toggle="dropdown">Details
                                         </button>
                                     </td>

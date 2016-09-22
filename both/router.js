@@ -35,7 +35,7 @@ FlowRouter.route( '/fundraising', {
 FlowRouter.route( '/profile', {
   name: 'profile',
   action() {
-    BlazeLayout.render('main', { top: "Header", main: "UserRegistration", footer: "Footer" });
+    BlazeLayout.render('main', { top: "Header", main: "Profile", footer: "Footer" });
   }
 });
 
@@ -73,8 +73,22 @@ FlowRouter.route( '/admin/print-all', {
   name: 'print-all',
   triggersEnter: function ( context, redirect ) {
     Session.set("showingOtherUser", true);
+    redirectIfNotAdmin(context, redirect);
   },
   action() {
     BlazeLayout.render('main', { top: "Header", main: "PrintAll", footer: "Footer" });
+  }
+});
+
+
+FlowRouter.route( '/admin/print-one', {
+  name: 'print-one',
+  triggersEnter: function ( context, redirect ) {
+    Session.set("showingOtherUser", true);
+    Session.set( 'showingUserId', context && context.queryParams.id);
+    redirectIfNotAdmin(context, redirect);
+  },
+  action() {
+    BlazeLayout.render('main', { top: "Header", main: "PrintOne", footer: "Footer" });
   }
 });

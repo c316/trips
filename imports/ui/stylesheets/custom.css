@@ -41,11 +41,18 @@
     page-break-before: always;
 }
 
+.grey-background {
+    background-color: #eee;
+}
+
 @media print {
     .no-print { display: none !important;; }
     .tools { display: none !important;; }
     .actions { display: none !important;; }
-    .no-border-on-print {
+    .bordered {
         border: none !important;
+    }
+    p, li {
+        font-size: .8em !important;
     }
 }

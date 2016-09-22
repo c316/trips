@@ -109,6 +109,7 @@ Template.MissionaryInformationForm.events({
     if (dateValue) $(e.currentTarget).addClass('edited');
   },
   'change #missionaryInformationForm'(e, tmpl){
+    console.log(e.target.name);
     // This will be called several times when the form renders, make sure
     // you check to see if the value being passed is empty
     // Then check that if is is empty that is was empty in the document
@@ -124,7 +125,7 @@ Template.MissionaryInformationForm.events({
     }
 
     // Validate that the form has all the required fields
-    $('#missionaryInformationForm').valid();
+    $(e.target).valid();
 
     // Get all the form data, convert it to an object and for the array of
     // checkboxes called, 'iWouldLikeToParticipateIn' push them into one key,

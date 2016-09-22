@@ -1,79 +1,81 @@
 <template name="UserRegistration">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="portlet light portlet-fit bordered">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <span class="caption-subject bold uppercase font-dark">Traveler information</span>
+    {{#if Template.subscriptionsReady}}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <span class="caption-subject bold uppercase font-dark">Traveler information</span>
+                        </div>
+                        <div class="tools">
+                            <span class="text-right text-success"> <i class="btn-icon-only btn-lg icon-check"></i> Completed</span>
+                            <a href="" class="expand" data-original-title="" title="" id="expand-userRegistrationForm"> </a>
+                        </div>
                     </div>
-                    <div class="tools">
-                        <span class="text-right text-success"> <i class="btn-icon-only btn-lg icon-check"></i> Completed</span>
-                        <a href="" class="expand" data-original-title="" title="" id="expand-userRegistrationForm"> </a>
-                    </div>
-                </div>
-                <div class="portlet-body" style="display: none;">
-                    <div class="center-block">
-                        <form id="userRegistrationForm">
-                            <div class="form-body">
-                                <div class="alert alert-danger display-hide">
-                                    <button class="close" data-close="alert"></button> You have some form errors. Please check below.
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input type="text" class="form-control edited" name="firstName" value="{{profile.firstName}}">
-                                    <label for="firstName">First Name</label>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input type="text" class="form-control edited" name="lastName" value="{{profile.lastName}}">
-                                    <label for="lastName">Last Name</label>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input type="text" class="form-control edited" name="address" value="{{profile.address.address}}">
-                                    <label for="address">Address</label>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input type="text" class="form-control edited" name="city" value="{{profile.address.city}}">
-                                    <label for="city">City</label>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <select class="form-control edited" name="state">
-                                        {{#each getStates}}
-                                            <option value="{{stateAbbr}}" selected="{{selected}}">{{name}}</option>
-                                        {{/each}}
-                                    </select>
-                                    <label for="state">State</label>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input type="text" class="form-control edited" name="zip" value="{{profile.address.zip}}">
-                                    <label for="zip">Zip</label>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input type="text" class="form-control edited" name="phone" value="{{profile.phone}}">
-                                    <label for="phone">Phone Number</label>
-                                </div>
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control edited" name="email" value="{{emails.[0].address}}">
-                                        <label for="email">Email</label>
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-envelope"></i>
-                                        </span>
+                    <div class="portlet-body" style="display: none;">
+                        <div class="center-block">
+                            <form id="userRegistrationForm">
+                                <div class="form-body">
+                                    <div class="alert alert-danger display-hide">
+                                        <button class="close" data-close="alert"></button> You have some form errors. Please check below.
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <input type="text" class="form-control edited" name="firstName" value="{{profile.firstName}}">
+                                        <label for="firstName">First Name</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <input type="text" class="form-control edited" name="lastName" value="{{profile.lastName}}">
+                                        <label for="lastName">Last Name</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <input type="text" class="form-control edited" name="address" value="{{profile.address.address}}">
+                                        <label for="address">Address</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <input type="text" class="form-control edited" name="city" value="{{profile.address.city}}">
+                                        <label for="city">City</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <select class="form-control edited" name="state">
+                                            {{#each getStates}}
+                                                <option value="{{stateAbbr}}" selected="{{selected}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                        <label for="state">State</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <input type="text" class="form-control edited" name="zip" value="{{profile.address.zip}}">
+                                        <label for="zip">Zip</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <input type="text" class="form-control edited" name="phone" value="{{profile.phone}}">
+                                        <label for="phone">Phone Number</label>
+                                    </div>
+                                    <div class="form-group form-md-line-input form-md-floating-label">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control edited" name="email" value="{{emails.[0].address}}">
+                                            <label for="email">Email</label>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-envelope"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="submit"
-                                                class="btn dark"
-                                                name="submitUserRegistrationForm"
-                                                {{submitFormText}}>Update</button>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit"
+                                                    class="btn dark no-print"
+                                                    name="submitUserRegistrationForm"
+                                                    {{submitFormText}}>Update</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {{/if}}
 </template>

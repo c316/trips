@@ -71,6 +71,9 @@ Template.Admin.events({
   'click .user-admin-link'(){
     FlowRouter.go("adminShowUserHome", {}, {id: this._id});
   },
+  'click .print-user'(){
+    FlowRouter.go("print-one", {}, {id: this._id});
+  },
   'click #show-add-trip'(e){
     e.preventDefault();
     $("#trip-form").slideDown(200);

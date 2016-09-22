@@ -1,4 +1,5 @@
 import { getRaisedTotal, getDeadlineTotal, statuses } from '/imports/api/miscFunctions';
+import '/imports/ui/stylesheets/custom.css';
 
 Template.Fundraising.onRendered(function () {
   if(Session.equals("showTripFunds", true)){

@@ -1,8 +1,4 @@
-Template.PrintAll.onCreated(function () {
-  Meteor.subscribe('users');
-});
-
-Template.PrintAll.onRendered(function () {
+Template.PrintOne.onRendered(function () {
   Meteor.setTimeout( ()=> {
     $(".expand").click();
   },1500);
@@ -19,10 +15,4 @@ Template.PrintAll.onRendered(function () {
   Meteor.setTimeout(()=>{
     window.print();
   }, 2000);
-});
-
-Template.PrintAll.helpers({
-  users(){
-    return Meteor.users.find();
-  }
 });

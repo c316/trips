@@ -102,5 +102,6 @@ Template.registerHelper('multiChecked', function(name, value) {
 });
 
 Template.registerHelper('editedClass', function(value) {
-  if(value) return 'edited';
+  if(value)
+  return 'edited';
 });
