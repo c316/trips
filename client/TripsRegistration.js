@@ -8,13 +8,17 @@ Template.TripRegistration.onCreated(function () {
 
 Template.TripRegistration.helpers({
   status(){
-    let tripForm = Forms.findOne({formName: 'tripRegistration'});
+    let tripForm = Forms.findOne({name: 'tripRegistration'});
     if(tripForm && tripForm.tripId){
       return statuses.completed;
     } else {
       return statuses.notStarted;
     }
-  }
+  },
+  tripName(){
+    let trip = Trips.findOne({tripId: this.tripId});
+    return trip && trip.name;
+  },
 });
 
 Template.TripRegistration.events({

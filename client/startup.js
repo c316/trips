@@ -1,6 +1,4 @@
-Meteor.startup(() => {
-  Bert.defaults = {
-    hideDelay: 10000,
-    style: 'fixed-top',
-  };
-});
+Bert.defaults = {
+  hideDelay: 10000,
+  style: 'fixed-top',
+};

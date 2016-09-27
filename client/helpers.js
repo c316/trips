@@ -19,7 +19,7 @@ Template.registerHelper('submitFormText', function() {
 });
 
 Template.registerHelper('agreed', function(e) {
-  let thisForm = Forms.findOne({formName: e, userId: this._id});
+  let thisForm = Forms.findOne({name: e, userId: this._id});
   if(thisForm && thisForm.agreed){
     Meteor.setTimeout(()=>{
       $("#" + e).button('success');
@@ -49,13 +49,8 @@ Template.registerHelper('passportPhotoOriginal', function() {
   }
 });
 
-Template.registerHelper('tripId', function() {
-  let tripForm = Forms.findOne({formName: 'tripRegistration'});
-  return tripForm && tripForm.tripId;
-});
-
 Template.registerHelper('noTripRegistration', function() {
-  let tripForm = Forms.findOne({formName: 'tripRegistration'});
+  let tripForm = Forms.findOne({name: 'tripRegistration'});
   if(tripForm && tripForm.tripId){
     return;
   } else{
@@ -66,7 +61,7 @@ Template.registerHelper('noTripRegistration', function() {
 });
 
 Template.registerHelper('noTripRegistrationExpand', function() {
-  let tripForm = Forms.findOne({formName: 'tripRegistration'});
+  let tripForm = Forms.findOne({name: 'tripRegistration'});
   if(tripForm && tripForm.tripId){
     return;
   } else{
@@ -104,4 +99,8 @@ Template.registerHelper('multiChecked', function(name, value) {
 Template.registerHelper('editedClass', function(value) {
   if(value)
   return 'edited';
+});
+
+Template.registerHelper('appVersion', function(){
+  return '1.0.0'
 });

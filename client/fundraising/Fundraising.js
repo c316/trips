@@ -4,6 +4,9 @@ import '/imports/ui/stylesheets/custom.css';
 Template.Fundraising.onRendered(function () {
   if(Session.equals("showTripFunds", true)){
     $("#expand-trip-funds").click();
+    $('html, body').animate({
+      scrollTop: ($('#fundraising-portlet').offset().top - 170)
+    },500);
   }
 });
 
@@ -56,7 +59,7 @@ Template.Fundraising.helpers({
     return this.amount_in_cents && (this.amount_in_cents/100).toFixed(2);
   },
   status(){
-    let tripForm = Forms.findOne({formName: 'tripRegistration'});
+    let tripForm = Forms.findOne({name: 'tripRegistration'});
     if(tripForm && tripForm.tripId){
       let deadlineTotal = getDeadlineTotal();
       let raisedTotal   = getRaisedTotal();

@@ -26,6 +26,9 @@ Template.Forms.onCreated(function () {
 Template.Forms.onRendered(function () {
   if(Session.equals("showForms", true)){
     $("#expand-forms-button").click();
+    $('html, body').animate({
+      scrollTop: ($('#forms-portlet').offset().top - 170)
+    },500);
   }
 });
 
@@ -67,10 +70,10 @@ Template.Forms.helpers({
     return Images.find().fetch()[0];
   },
   status(){
-    let tripForm = Forms.findOne( { formName:  'tripRegistration' } );
+    let tripForm = Forms.findOne( { name:  'tripRegistration' } );
     if(tripForm && tripForm._id){
       let forms = Forms.find({
-        formName:  {
+        name:  {
           $ne: 'tripRegistration'
         },
         $or: [{completed: true}, {agreed: true}]
@@ -88,7 +91,7 @@ Template.Forms.helpers({
   unfinishedForms(){
     // todo: find how many forms there are (don't include the trip id form) and return the number left to complete
     let forms = Forms.find({
-      formName:  {
+      name:  {
         $ne: 'tripRegistration'
       },
       $or: [{completed: true}, {agreed: true}]
@@ -98,7 +101,7 @@ Template.Forms.helpers({
   },
   unfinishedFormsPercent(){
     let forms = Forms.find({
-      formName:  {
+      name:  {
         $ne: 'tripRegistration'
       },
       $or: [{completed: true}, {agreed: true}]

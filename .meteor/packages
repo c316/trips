@@ -32,7 +32,6 @@ kadira:flow-router
 aldeed:simple-schema
 alanning:roles
 
-# need to find a good upload package
 twbs:bootstrap
 fortawesome:fontawesome
 themeteorchef:jquery-validation
@@ -44,3 +43,5 @@ themeteorchef:bert
 wylio:winston-papertrail
 arillo:flow-router-helpers
 meteortoys:allthings
+wylio:mandrill
+

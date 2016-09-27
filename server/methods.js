@@ -30,7 +30,7 @@ Meteor.methods({
       "emergencyContactLastName":     Match.Maybe(String),
       "emergencyContactPhone":        Match.Maybe(String),
       "emergencyContactState":        Match.Maybe(String),
-      "formName":                     String,
+      "name":                         String,
       "gender":                       Match.Maybe(String),
       "homeChurchName":               Match.Maybe(String),
       "iagree":                       Match.Maybe(String),
@@ -85,7 +85,7 @@ Meteor.methods({
     }
     form.updatedOn = new Date();
     form.completed = formIsComplete(form);
-    Forms.upsert( { userId: form.userId, formName: form.formName }, form );
+    Forms.upsert( { userId: form.userId, name: form.name }, form );
   },
   /**
    * Get the Donor Tools split data and expand that to include the donation
@@ -107,17 +107,17 @@ Meteor.methods({
    * Change the agreement status for a simple agree form
    *
    * @method form.agree
-   * @param {String} formName
+   * @param {String} name
    */
-  'form.agree'(formName){
-    check(formName, String);
-    logger.info("Started form.agree with formName: ", formName);
+  'form.agree'(name){
+    check(name, String);
+    logger.info("Started form.agree with name: ", name);
     if ( this.userId ) {
       this.unblock();
 
-      Forms.upsert( { userId: this.userId, formName: formName }, {
+      Forms.upsert( { userId: this.userId, name }, {
         userId:     this.userId,
-        formName:   formName,
+        name,
         agreed:     true,
         agreedDate: new Date()
       } );
@@ -152,12 +152,14 @@ Meteor.methods({
     } else {
       return;
     }
-    Forms.upsert( { userId, formName: 'tripRegistration' }, {
+    Forms.upsert( { userId, name: 'tripRegistration' }, {
       userId,
-      formName:     'tripRegistration',
+      name:     'tripRegistration',
       tripId:       Number( tripId ),
       registeredOn: new Date()
     } );
+
+    Meteor.users.update({_id: userId}, {$set: {tripId: Number( tripId )}});
   },
   /**
    * Admin method to check DonorTools for a tripId and then add the trip if it exists

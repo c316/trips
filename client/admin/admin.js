@@ -26,12 +26,15 @@ Template.Admin.helpers({
   user(){
     return Meteor.users.find();
   },
+  trips(){
+    return Trips.find();
+  },
   formsStatus(){
-    let tripForm = Forms.findOne( { formName:  'tripRegistration', userId: this._id } );
+    let tripForm = Forms.findOne( { name:  'tripRegistration', userId: this._id } );
     if(tripForm && tripForm._id){
       let forms = Forms.find({
         userId: this._id,
-        formName:  {
+        name:  {
           $ne: 'tripRegistration'
         },
         $or: [{completed: true}, {agreed: true}]
@@ -59,8 +62,13 @@ Template.Admin.helpers({
       return statuses.notStarted;
     }
   },
+  tripName(){
+    let trip = Trips.findOne({tripId: this.tripId});
+    return trip && trip.name;
+  },
   tripId(){
-    return Session.get("tripId");
+    let trip = this.tripId ? "- Trip ID: " + this.tripId : 'No trip';
+    return trip;
   },
   newTrip(){
     return Trips.findOne({tripId: Number(Session.get("tripId"))});
@@ -69,6 +77,15 @@ Template.Admin.helpers({
 
 Template.Admin.events({
   'click .user-admin-link'(){
+    Session.set("showUserRegistration", true);
+    FlowRouter.go("adminShowUserHome", {}, {id: this._id});
+  },
+  'click .funding-admin-link'(){
+    Session.set("showTripFunds", true);
+    FlowRouter.go("adminShowUserHome", {}, {id: this._id});
+  },
+  'click .form-admin-link'(){
+    Session.set("showForms", true);
     FlowRouter.go("adminShowUserHome", {}, {id: this._id});
   },
   'click .print-user'(){
@@ -83,7 +100,6 @@ Template.Admin.events({
   'submit form'(e){
     e.preventDefault();
     let formId = e.target.id;
-    console.log(e.target.id);
     let btn = $('#' + e.target.id + "-button");
     btn.button("loading");
     if (formId === "trip-form") {

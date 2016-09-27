@@ -113,10 +113,27 @@ Template.LoginContent.events({
     $( '.forget-form' ).hide();
     $( '.login-form' ).show();
   },
-  'click #forget-password'(){
+  'click #forget-password'(e){
+    e.preventDefault();
     $( '.login-form' ).hide();
     $( '.register-form' ).hide();
     $( '.forget-form' ).show();
+  },
+  'submit .forget-form'(e){
+    e.preventDefault();
+    Accounts.forgotPassword({email: e.target.email.value}, ( err )=> {
+      if(err) console.error(err);
+      else {
+        Bert.alert({
+          title: 'Email sent',
+          message: 'Check your email inbox for the password reset email.',
+          type: 'success',
+          style: 'growl-bottom-right',
+          icon: 'fa-thumbs-up'
+        });
+        FlowRouter.go('login');
+      }
+    });
   }
 });
 

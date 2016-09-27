@@ -23,6 +23,6 @@ Template.PrintAll.onRendered(function () {
 
 Template.PrintAll.helpers({
   users(){
-    return Meteor.users.find();
+    return Meteor.users.find({tripId: Session.get("tripId")});
   }
 });

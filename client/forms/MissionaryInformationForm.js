@@ -98,7 +98,7 @@ Template.MissionaryInformationForm.onRendered(()=>{
 
 Template.MissionaryInformationForm.helpers({
   missionaryInformation(){
-    let thisForm = Forms.findOne({formName: 'missionaryInformationForm', userId: this._id});
+    let thisForm = Forms.findOne({name: 'missionaryInformationForm', userId: this._id});
     return thisForm || {};
   },
 });
@@ -143,7 +143,7 @@ Template.MissionaryInformationForm.events({
       }
     });
     form.iWouldLikeToParticipateIn = iWouldLikeToParticipateIn;
-    form.formName = 'missionaryInformationForm';
+    form.name = 'missionaryInformationForm';
 
     let updateThisId = tmpl && tmpl.data._id;
     // TODO: need a way of knowing if the form is completed.

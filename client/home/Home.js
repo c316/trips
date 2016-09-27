@@ -18,3 +18,9 @@ Template.Home.helpers({
     return this.profile && this.profile.firstName + " " + this.profile.lastName;
   }
 });
+
+Template.Home.onDestroyed(function () {
+  Session.delete("showTripFunds");
+  Session.delete("showForms");
+  Session.delete("showUserRegistration");
+});

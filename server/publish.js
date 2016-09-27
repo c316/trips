@@ -6,7 +6,7 @@ Meteor.publish({
         if(userId) {
           let tripForm = Forms.findOne( {
             userId,
-            formName: 'tripRegistration'
+            name: 'tripRegistration'
           } );
           if( tripForm && tripForm.tripId ) {
             let tripId = tripForm.tripId;
@@ -17,7 +17,7 @@ Meteor.publish({
       } else {
         let tripForm = Forms.findOne( {
           userId:   this.userId,
-          formName: 'tripRegistration'
+          name: 'tripRegistration'
         } );
         if( tripForm && tripForm.tripId ) {
           let tripId = tripForm.tripId;
@@ -33,7 +33,7 @@ Meteor.publish({
       } else {
         let tripForm = Forms.findOne( {
           userId:   this.userId,
-          formName: 'tripRegistration'
+          name: 'tripRegistration'
         } );
         if( tripForm && tripForm.tripId ) {
           let name = Meteor.users.findOne( { _id: this.userId } ).profile &&

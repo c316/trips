@@ -65,33 +65,42 @@
                         <i class="icon-settings font-dark"></i>
                         <span class="caption-subject bold uppercase">Trips Admin</span>
                     </div>
-                    <div class="tools"></div>
+                    <div class="actions">
+                        <div class="btn-group">
+                            <a class="btn btn-circle btn-default " href="" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user"></i> Print Trip
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                {{#each trips}}
+                                    <li>
+                                        <a href="{{pathFor '/admin/print-all/:tripId' tripId=this.tripId query='print=yes'}}">{{name}} </a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <a id="show-add-trip" href="" class="btn btn-circle red-sunglo ">
+                            <i class="fa fa-plus"></i> Add Trip</a>
+                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="" data-original-title="" title=""> </a>
+                        <form id="trip-form"
+                              style="display: none;"
+                              class="no-top-margin navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Trip ID" name="trip-id">
+                            </div>
+                            <button type="submit" {{submitFormText}}
+                                    id="trip-form-button"
+                                    class="dt-button buttons-html5 btn green-seagreen btn-outline">Submit</button>
+                            <button id="trip-form-cancel-button" type="button" class="dt-button buttons-html5 btn btm-gray btn-outline">Cancel</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper no-footer">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="dt-buttons">
-                                    <form id="trip-form"
-                                          style="display: none;"
-                                          class="no-top-margin navbar-form navbar-left">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Trip ID" name="trip-id">
-                                        </div>
-                                        <button type="submit" {{submitFormText}}
-                                                id="trip-form-button"
-                                                class="dt-button buttons-html5 btn green-seagreen btn-outline">Submit</button>
-                                    </form>
-                                    <a id="show-add-trip"
-                                       class="dt-button buttons-html5 btn red-mint btn-outline"
-                                        tabindex="0"
-                                        href=""><span>Add Trip</span>
-                                    </a>
-                                    <a id="print-all"
-                                       class="dt-button buttons-html5 btn dark btn-outline"
-                                        tabindex="0"
-                                        href="{{pathFor 'print-all'}}"><span><i class="fa fa-print"></i> Print All</span>
-                                    </a>
+
                                 </div>
                             </div>
                         </div>
@@ -117,6 +126,12 @@
                                     aria-label="Name">
                                     Name
                                 </th>
+                                <th class="min-phone-l sorting" tabindex="0"
+                                    rowspan="1"
+                                    colspan="1"
+                                    aria-label="Name">
+                                    Trip
+                                </th>
                                 <th class="min-tablet sorting" tabindex="0"
                                     rowspan="1"
                                     colspan="1"
@@ -141,8 +156,9 @@
                             {{#each user}}
                                 <tr role="row" class="{{oddEven @index}}">
                                     <td class="clickable-cell user-admin-link">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
-                                    <td class="clickable-cell user-admin-link">{{{raisedAmount}}}</td>
-                                    <td class="clickable-cell user-admin-link">{{{formsStatus}}}</td>
+                                    <td class="clickable-cell funding-admin-link">{{tripName}} {{tripId}}</td>
+                                    <td class="clickable-cell funding-admin-link">{{{raisedAmount}}}</td>
+                                    <td class="clickable-cell form-admin-link">{{{formsStatus}}}</td>
                                     <td>
                                         <button class="btn dark btn-xs btn-outline print-user"
                                                 data-toggle="dropdown"><i class="fa fa-print"></i> Print

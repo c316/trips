@@ -25,6 +25,13 @@ FlowRouter.route( '/login', {
   }
 });
 
+FlowRouter.route( '/reset-password/:token', {
+  name: 'resetPassword',
+  action() {
+    BlazeLayout.render( 'login', { login: 'ResetPassword', footer: "Footer" } );
+  }
+});
+
 FlowRouter.route( '/fundraising', {
   name: 'fundraising',
   action() {
@@ -69,10 +76,11 @@ FlowRouter.route( '/admin/showuserhome', {
   }
 });
 
-FlowRouter.route( '/admin/print-all', {
+FlowRouter.route( '/admin/print-all/:tripId', {
   name: 'print-all',
   triggersEnter: function ( context, redirect ) {
     Session.set("showingOtherUser", true);
+    Session.set("tripId", context && context.params.tripId);
     redirectIfNotAdmin(context, redirect);
   },
   action() {

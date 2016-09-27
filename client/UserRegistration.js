@@ -85,6 +85,9 @@ Template.UserRegistration.onRendered(()=>{
 
   if(Session.equals("showUserRegistration", true)){
     $("#expand-userRegistrationForm").click();
+    $('html, body').animate({
+      scrollTop: ($('#userRegistrationForm').offset().top - 170)
+    },500);
   }
 });
 
