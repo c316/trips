@@ -17,12 +17,21 @@ Template.PrintAll.onRendered(function () {
   }, 2100);
 
   Meteor.setTimeout(()=>{
-    window.print();
+    if(Session.get("tripId") && Meteor.users.findOne( { tripId: Session.get("tripId") } ) ) {
+      window.print();
+    }
   }, 2000);
 });
 
 Template.PrintAll.helpers({
   users(){
-    return Meteor.users.find({tripId: Session.get("tripId")});
+    if(Session.get("tripId")){
+      return Meteor.users.find({tripId: Session.get("tripId")});
+    }
   }
+});
+
+Template.PrintAll.onDestroyed(function () {
+  Session.delete("showingOtherUser");
+  Session.delete("tripId");
 });

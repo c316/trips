@@ -68,13 +68,29 @@
                     <div class="actions">
                         <div class="btn-group">
                             <a class="btn btn-circle btn-default " href="" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-user"></i> Print Trip
+                                <i class="fa fa-eye"></i> Show Trip
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a id="show-all-trips" href="">All Trips</a>
+                                </li>
+                                {{#each trips}}
+                                    <li>
+                                        <a class="filter-trip" href="">{{name}} </a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-circle btn-default " href="" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-print"></i> Print Trip
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 {{#each trips}}
                                     <li>
-                                        <a href="{{pathFor '/admin/print-all/:tripId' tripId=this.tripId query='print=yes'}}">{{name}} </a>
+                                        <a href="{{pathFor '/admin/print-all/:tripId' tripId=this.tripId}}">{{name}} </a>
                                     </li>
                                 {{/each}}
                             </ul>
@@ -101,17 +117,6 @@
                             <div class="col-md-12">
                                 <div class="dt-buttons">
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <div class="dataTables_length">
-                                    <label>Filter Trips
-                                        <input type="search"
-                                               class="form-control input-sm input-small input-inline"
-                                               placeholder="ID or Trip Name">
-                                    </label>
                                 </div>
                             </div>
                         </div>

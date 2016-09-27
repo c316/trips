@@ -52,7 +52,14 @@
     .bordered {
         border: none !important;
     }
-    p, li {
+    p, li, label{
         font-size: .8em !important;
+    }
+
+    .form-group.form-md-line-input.form-md-floating-label {
+        margin-bottom: 5px;
+    }
+    .md-radio, .md-checkbox {
+        margin-bottom: 3px !important;
     }
 }

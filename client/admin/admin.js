@@ -24,7 +24,11 @@ Template.Admin.onRendered(()=>{
 
 Template.Admin.helpers({
   user(){
-    return Meteor.users.find();
+    if(Session.get("tripId")){
+      return Meteor.users.find({tripId: Session.get("tripId")});
+    } else {
+      return Meteor.users.find();
+    }
   },
   trips(){
     return Trips.find();
@@ -97,6 +101,12 @@ Template.Admin.events({
     $("#show-add-trip").prop("disabled",true);
     $("#show-add-trip").css( 'cursor', 'not-allowed' );
   },
+  'click .filter-trip'(){
+    Session.set("tripId", this.tripId);
+  },
+  'click #show-all-trips'(){
+    Session.delete("tripId");
+  },
   'submit form'(e){
     e.preventDefault();
     let formId = e.target.id;
@@ -151,4 +161,9 @@ Template.Admin.events({
       });
     }
   },
+  'click #trip-form-cancel-button'(){
+    $("#show-add-trip").prop("disabled",false);
+    $("#show-add-trip").css( 'cursor', 'pointer' );
+    $( "#trip-form" ).slideUp();
+  }
 });

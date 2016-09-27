@@ -47,7 +47,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row page-break-after">
                         <div class="col-md-12">
                             <div class="table-scrollable table-scrollable-borderless">
                                 <h2>Donation Details</h2>
@@ -70,40 +70,42 @@
                                             </tr>
                                         {{/each}}
                                     </tbody>
-                                    <br>
-                                    <br>
-                                    <h2>Deadlines</h2>
-                                    <thead>
-                                    <tr class="uppercase">
-                                        <th>
-                                            Deadline Name
-                                        </th>
-                                        <th>
-                                            Due on
-                                        </th>
-                                        <th class="text-left">
-                                            Deadline Amount
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {{#each Deadlines}}
-                                        <tr>
-                                            <td>
-                                                {{this.name}}
-                                            </td>
-                                            <td>
-                                                {{this.due}}
-                                            </td>
-                                            <td>
-                                                ${{this.amount}}
-                                            </td>
-                                        </tr>
-                                    {{/each}}
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <h2 class="">Deadlines</h2>
+                        <table class="table table-light table-striped table-hover table-scrollable dt-responsive no-footer dtr-inline">
+                            <thead>
+                            <tr class="uppercase">
+                                <th>
+                                    Deadline Name
+                                </th>
+                                <th>
+                                    Due on
+                                </th>
+                                <th class="text-left">
+                                    Deadline Amount
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each Deadlines}}
+                                <tr>
+                                    <td>
+                                        {{this.name}}
+                                    </td>
+                                    <td>
+                                        {{this.due}}
+                                    </td>
+                                    <td>
+                                        ${{this.amount}}
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
                     </div>
                     <div class="row">
                         <div class="col col-md-4">

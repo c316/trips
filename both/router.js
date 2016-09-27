@@ -80,7 +80,7 @@ FlowRouter.route( '/admin/print-all/:tripId', {
   name: 'print-all',
   triggersEnter: function ( context, redirect ) {
     Session.set("showingOtherUser", true);
-    Session.set("tripId", context && context.params.tripId);
+    Session.set("tripId", Number(context && context.params.tripId));
     redirectIfNotAdmin(context, redirect);
   },
   action() {
