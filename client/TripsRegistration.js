@@ -28,11 +28,11 @@ Template.TripRegistration.events({
     let updateThisId = FlowRouter.getQueryParam('id');
 
     Meteor.call("form.tripRegistration", tripId, updateThisId, function ( err, res ) {
-      if(err) console.error(err);
-      else {
-        console.log(res);
-        // TODO: stop and start fund and form subscriptions
-
+      if(err) {
+        console.error(err);
+        Bert.alert( err.reason, 'danger');
+      } else {
+        Bert.alert( 'Ok, you are registered for this trip.', 'success');
       }
     });
   },

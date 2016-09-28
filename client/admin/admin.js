@@ -1,4 +1,4 @@
-import { getRaisedTotal, getDeadlineTotal, statuses } from '/imports/api/miscFunctions';
+import { getRaisedTotal, getDeadlineTotal, getDeadlineAdjustments, statuses } from '/imports/api/miscFunctions';
 import { repeater } from '/imports/ui/js/jquery.repeater';
 import { repeaterSetup } from '/imports/api/miscFunctions';
 
@@ -9,6 +9,7 @@ Template.Admin.onCreated(function () {
     Meteor.subscribe('users');
     Meteor.subscribe('Trips');
     Meteor.subscribe('Forms');
+    Meteor.subscribe('DeadlineAdjustments');
     Meteor.subscribe('Deadlines');
     Meteor.subscribe('DTSplits');
   });
@@ -33,6 +34,16 @@ Template.Admin.helpers({
   trips(){
     return Trips.find();
   },
+  trip(){
+    if(this.tripId){
+      return Trips.findOne({tripId: this.tripId});
+    }
+  },
+  deadlines(){
+    if(this.tripId){
+      return Deadlines.find({tripId: this.tripId});
+    }
+  },
   formsStatus(){
     let tripForm = Forms.findOne( { name:  'tripRegistration', userId: this._id } );
     if(tripForm && tripForm._id){
@@ -56,12 +67,14 @@ Template.Admin.helpers({
   raisedAmount(){
     let raisedTotal = getRaisedTotal(this._id);
     let deadlineTotal  = getDeadlineTotal(this._id);
+    let deadlineAdjustments  = getDeadlineAdjustments(this._id);
     let needToRaiseThisAmount = deadlineTotal - raisedTotal;
+    let deadlineTotalWithAdjustments = Number(deadlineTotal) + Number(deadlineAdjustments);
     if(raisedTotal > 0){
       if(needToRaiseThisAmount <= 0){
-        return '$' + raisedTotal + ' raised of ' + deadlineTotal + ' total';
+        return '$' + raisedTotal + ' raised of ' + deadlineTotalWithAdjustments + ' total';
       }
-      return '$' + raisedTotal + ' raised of ' + deadlineTotal + ' total';
+      return '$' + raisedTotal + ' raised of ' + deadlineTotalWithAdjustments + ' total';
     } else {
       return statuses.notStarted;
     }
@@ -76,6 +89,11 @@ Template.Admin.helpers({
   },
   newTrip(){
     return Trips.findOne({tripId: Number(Session.get("tripId"))});
+  },
+  deadlineAdjustmentValue(){
+    let user = Template.parentData(2);
+    let deadlineAdjustment = DeadlineAdjustments.findOne({tripId: user.tripId, userId: user._id, deadlineId: this._id});
+    return deadlineAdjustment && deadlineAdjustment.adjustmentAmount;
   }
 });
 
@@ -85,12 +103,22 @@ Template.Admin.events({
     FlowRouter.go("adminShowUserHome", {}, {id: this._id});
   },
   'click .funding-admin-link'(){
-    Session.set("showTripFunds", true);
+    let trip = Trips.findOne({tripId: this.tripId});
+    if(trip && trip.name){
+      Session.set("showTripFunds", true);
+    }
     FlowRouter.go("adminShowUserHome", {}, {id: this._id});
   },
   'click .form-admin-link'(){
-    Session.set("showForms", true);
+    let trip = Trips.findOne({tripId: this.tripId});
+    if(trip && trip.name){
+      Session.set("showForms", true);
+    }
     FlowRouter.go("adminShowUserHome", {}, {id: this._id});
+  },
+  'click .deadlines-admin-link'(){
+    console.log("Clicked deadlines for: ", this._id);
+    $("#collapse-edit-" + this._id).toggle();
   },
   'click .print-user'(){
     FlowRouter.go("print-one", {}, {id: this._id});
@@ -110,6 +138,7 @@ Template.Admin.events({
   'submit form'(e){
     e.preventDefault();
     let formId = e.target.id;
+    let formName = e.target.name;
     let btn = $('#' + e.target.id + "-button");
     btn.button("loading");
     if (formId === "trip-form") {
@@ -147,6 +176,27 @@ Template.Admin.events({
       let formatedRepeaterForm = $('.mt-repeater').repeaterVal();
       let tripId = Session.get("tripId");
       Meteor.call("add.deadline", formatedRepeaterForm.deadlines, tripId, function ( err, res ) {
+        if(err) {
+          console.error(err);
+          Bert.alert(" " + err, 'danger');
+          btn.button('error');
+        } else {
+          console.log(res);
+          Bert.alert( 'Thanks for adding the deadlines, users can now join this trip.', 'success');
+          $( "#full-trip-form-div" ).slideUp();
+          btn.button('success');
+          e.target.reset();
+        }
+      });
+    } else if (formName === 'update-deadline') {
+      console.log(e.target.getAttribute('data-userid'));
+      let user = Meteor.users.findOne({_id: e.target.getAttribute('data-userid')});
+
+      let deadlines = [];
+      let deadlineAdjustments = Deadlines.find({tripId: user.tripId}).map(function ( deadline ) {
+        deadlines.push({deadlineId: deadline._id, adjustmentAmount: e.target[deadline._id].value});
+      });
+      Meteor.call("update.user.deadline", deadlines, user._id, user.tripId, function ( err, res ) {
         if(err) {
           console.error(err);
           Bert.alert(" " + err, 'danger');

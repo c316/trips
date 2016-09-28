@@ -72,9 +72,10 @@
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li>
+                                <li class="text-center">
                                     <a id="show-all-trips" href="">All Trips</a>
                                 </li>
+                                <li class="divider"> </li>
                                 {{#each trips}}
                                     <li>
                                         <a class="filter-trip" href="">{{name}} </a>
@@ -171,6 +172,38 @@
                                         <button class="btn green btn-xs btn-outline user-admin-link"
                                                 data-toggle="dropdown">Details
                                         </button>
+                                        {{#if tripName}}
+                                            <button type="button"
+                                                title="Adjust deadlines"
+                                                class="btn red-haze btn-xs btn-outline deadlines-admin-link"
+                                                data-target="#collapse-edit-{{_id}}"
+                                                aria-expanded="false"
+                                                aria-controls="collapse-edit-{{_id}}">Adjust deadlines
+                                            </button>
+                                        {{/if}}
+                                    </td>
+                                </tr>
+                                <tr role="row" class="hiddenRow" id="collapse-edit-{{_id}}">
+                                    <td colspan="5">
+                                        <form name="update-deadline" data-userid="{{_id}}">
+                                            {{#with trip}}
+                                                {{#if deadlines}}
+                                                    {{#each deadlines}}
+                                                        <div class="form-group form-md-line-input form-md-floating-label">
+                                                            <input type="text" class="form-control edited"
+                                                                   value="{{deadlineAdjustmentValue}}"
+                                                                   name="{{this._id}}">
+                                                            <label for="{{this._id}}">{{this.name}}</label>
+                                                        </div>
+                                                    {{/each}}
+                                                {{/if}}
+                                            {{/with}}
+                                            <div>
+                                                <button type="submit"
+                                                    {{submitFormText}}
+                                                        class="btn btn-primary">Update</button>
+                                            </div>
+                                        </form>
                                     </td>
                                 </tr>
                             {{/each}}

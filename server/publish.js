@@ -1,3 +1,17 @@
+Meteor.publish( {
+  'DeadlineAdjustments'(){
+    if( this.userId ) {
+      if( Roles.userIsInRole(this.userId, 'admin') ){
+        return DeadlineAdjustments.find();
+      } else {
+        let user = this.user();
+        if( user && user.tripId ) {
+          return DeadlineAdjustments.find({userId: user._id, tripId: user.tripId});
+        }
+      }
+    }
+  }
+});
 Meteor.publish({
   'Deadlines'(userId){
     check(userId, Match.Maybe(String));

@@ -45,6 +45,10 @@
     background-color: #eee;
 }
 
+.hiddenRow {
+    display: none;
+}
+
 @media print {
     .no-print { display: none !important;; }
     .tools { display: none !important;; }

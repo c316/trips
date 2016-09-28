@@ -152,14 +152,19 @@ Meteor.methods({
     } else {
       return;
     }
-    Forms.upsert( { userId, name: 'tripRegistration' }, {
-      userId,
-      name:     'tripRegistration',
-      tripId:       Number( tripId ),
-      registeredOn: new Date()
-    } );
+    let trip = Trips.findOne({tripId: tripId});
+    if(trip && trip._id){
+      Forms.upsert( { userId, name: 'tripRegistration' }, {
+                      userId,
+        name:     'tripRegistration',
+        tripId:       Number( tripId ),
+        registeredOn: new Date()
+      } );
 
-    Meteor.users.update({_id: userId}, {$set: {tripId: Number( tripId )}});
+      Meteor.users.update({_id: userId}, {$set: {tripId: Number( tripId )}});
+    } else {
+      throw new Meteor.Error(400,"Hmmm...I couldn't find that trip.");
+    }
   },
   /**
    * Admin method to check DonorTools for a tripId and then add the trip if it exists
@@ -216,7 +221,7 @@ Meteor.methods({
         name: String
       }]);
     check(tripId, String);
-    logger.info( "Started add.trip with tripId: ", deadlines, tripId );
+    logger.info( "Started add.trip with data: ", deadlines, tripId );
 
     if( Roles.userIsInRole( this.userId, 'admin' ) ) {
       deadlines.forEach(function ( deadline, index ) {
@@ -229,6 +234,35 @@ Meteor.methods({
         });
       });
       return 'Inserted all deadlines'
+    }
+  },
+  /**
+   * Admin method to update the deadline adjustment for a user's trip deadline
+   *
+   * @method update.user.deadline
+   * @param {Object} deadlines
+   * @param {String} deadlines.adjustmentAmount
+   * @param {String} userId
+   */
+  'update.user.deadline'(deadlines, userId, tripId){
+    check( deadlines, [{
+      adjustmentAmount: String,
+      deadlineId: String,
+    }] );
+    check(userId, String);
+    check(tripId, Number);
+
+    logger.info( "Started update.user.deadline with data: ", deadlines );
+
+    if( Roles.userIsInRole( this.userId, 'admin' ) ) {
+      deadlines.forEach(function ( deadline, index ) {
+        DeadlineAdjustments.upsert({tripId, userId, deadlineId: deadline.deadlineId}, {
+          adjustmentAmount: Number(deadline.adjustmentAmount),
+          deadlineId:       deadline.deadlineId,
+          tripId,
+          userId,
+        });
+      });
     }
   }
 });

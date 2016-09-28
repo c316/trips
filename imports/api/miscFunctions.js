@@ -62,6 +62,26 @@ export const getDeadlineTotal = (userId)=>{
   return (total).toFixed( 2 );
 };
 
+
+export const getDeadlineAdjustments = (userId)=>{
+  let total = 0;
+  if(userId){
+    let user = Meteor.users.findOne({_id: userId});
+    if(user && user.tripId){
+      DeadlineAdjustments.find({tripId: user.tripId, userId: user._id}).map( function ( doc ) {
+        total += doc.adjustmentAmount;
+      } );
+    }
+  } else {
+    if(Meteor.user() && Meteor.user.tripId){
+      DeadlineAdjustments.find({tripId: Meteor.user().tripId, userId: user._id}).map( function ( doc ) {
+        total += doc.adjustmentAmount;
+      } );
+    }
+  }
+  return (total).toFixed( 2 );
+};
+
 export const repeaterSetup = () =>{
   $('.mt-repeater').each(function(){
     $(this).repeater({
