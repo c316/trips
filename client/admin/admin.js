@@ -132,6 +132,19 @@ Template.Admin.events({
   'click .filter-trip'(){
     Session.set("tripId", this.tripId);
   },
+  'click .export-trip-mif'(){
+    Meteor.call("export.formByTrip", this.tripId, function ( err, fileContent ) {
+      if( err ) {
+        console.error( err );
+        Bert.alert( err.reason, 'danger');
+      } else if(fileContent){
+        var nameFile = 'Missionary Information Forms for Trip ' + this.tripId + '.csv';
+        var blob = new Blob([fileContent], {type: "text/plain;charset=utf-8"});
+        import fileSaver from 'file-saver';
+        fileSaver.saveAs(blob, nameFile);
+      }
+    });
+  },
   'click #show-all-trips'(){
     Session.delete("tripId");
   },
@@ -148,7 +161,7 @@ Template.Admin.events({
       Meteor.call( "add.trip", tripId, function ( err, res ) {
         if( err ) {
           console.error( err );
-          Bert.alert( " " + err, 'danger');
+          Bert.alert( err.reason, 'danger');
           btn.button('error');
 
           $("#show-add-trip").prop("disabled",false);
@@ -178,7 +191,7 @@ Template.Admin.events({
       Meteor.call("add.deadline", formatedRepeaterForm.deadlines, tripId, function ( err, res ) {
         if(err) {
           console.error(err);
-          Bert.alert(" " + err, 'danger');
+          Bert.alert(err.reason, 'danger');
           btn.button('error');
         } else {
           console.log(res);
@@ -199,7 +212,7 @@ Template.Admin.events({
       Meteor.call("update.user.deadline", deadlines, user._id, user.tripId, function ( err, res ) {
         if(err) {
           console.error(err);
-          Bert.alert(" " + err, 'danger');
+          Bert.alert(err.reason, 'danger');
           btn.button('error');
         } else {
           console.log(res);

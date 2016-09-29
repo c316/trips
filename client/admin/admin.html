@@ -96,6 +96,20 @@
                                 {{/each}}
                             </ul>
                         </div>
+                        <div class="btn-group">
+                            <a class="btn btn-circle btn-default " href="" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-save"></i> Export Missionary Form
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li class="divider"> </li>
+                                {{#each trips}}
+                                    <li>
+                                        <a class="export-trip-mif" href="">{{name}} </a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>
                         <a id="show-add-trip" href="" class="btn btn-circle red-sunglo ">
                             <i class="fa fa-plus"></i> Add Trip</a>
                         <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="" data-original-title="" title=""> </a>

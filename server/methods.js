@@ -263,5 +263,23 @@ Meteor.methods({
         });
       });
     }
+  },
+  /**
+   * Admin method to export a collection to a CSV format
+   *
+   * @method export.formByTrip
+   * @param {String} tripId
+   */
+  'export.formByTrip'(tripId){
+    check(tripId, Number);
+    logger.info( "Started export.formByTrip with tripId: ", tripId );
+
+    if( Roles.userIsInRole( this.userId, 'admin' ) ) {
+
+      import Papa from 'papaparse';
+      let usersOnThisTrip = Meteor.users.find({tripId}).map(function(user){return user._id});
+      let collection = Forms.find({name: 'missionaryInformationForm', userId: {$in: usersOnThisTrip}}).fetch();
+      return Papa.unparse(collection);
+    }
   }
 });
