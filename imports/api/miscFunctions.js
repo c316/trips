@@ -24,7 +24,6 @@ export const statuses = {
 
 export const getRaisedTotal = (userId)=>{
   let total = 0;
-  // TODO: change this to look for user id params instead of session var
   let adminUserId = userId || Session.get('showingUserId');
   if(Roles.userIsInRole(Meteor.userId(), 'admin')){
     let thisUser = Meteor.users.findOne({_id: adminUserId});

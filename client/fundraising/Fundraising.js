@@ -45,7 +45,6 @@ Template.Fundraising.helpers({
     return getRaisedTotal(Session.get('showingUserId'));
   },
   totalDeadlineAmount(){
-    // TODO: need to fix this so the right amount shows up whether viewing as an admin or user
     if(this && this.count() > 0) {
       let deadlineTotal = getDeadlineTotal(Session.get('showingUserId'));
       let raisedTotal   = getRaisedTotal(Session.get('showingUserId'));

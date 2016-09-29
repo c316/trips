@@ -4,8 +4,6 @@ const agreeToForm = (name, data) =>{
   Meteor.call("form.agree", name, function ( err, res ) {
     if(err) console.error(err);
     else {
-      console.log(res);
-      // TODO: update the button
       return res;
     }
   });
@@ -34,7 +32,6 @@ Template.Forms.onRendered(function () {
 
 Template.Forms.events({
   'click #delete-passport-photo'(){
-    console.log("delete");
     Meteor.call("delete.passportPhoto");
     Session.delete("passportPhotoThumbnail");
     Session.delete("passportPhotoOriginal");
@@ -89,7 +86,6 @@ Template.Forms.helpers({
     }
   },
   unfinishedForms(){
-    // todo: find how many forms there are (don't include the trip id form) and return the number left to complete
     let forms = Forms.find({
       name:  {
         $ne: 'tripRegistration'

@@ -55,7 +55,6 @@ Meteor.methods({
     } );
     check(updateThisId, Match.Maybe(String));
 
-    // TODO: make sure to add in the completed: true/false var
     function formIsComplete(form){
       let formLength = Object.keys(form).length;
       console.log(formLength);
@@ -152,7 +151,7 @@ Meteor.methods({
     } else {
       return;
     }
-    let trip = Trips.findOne({tripId: tripId});
+    let trip = Trips.findOne({tripId: Number(tripId)});
     if(trip && trip._id){
       Forms.upsert( { userId, name: 'tripRegistration' }, {
                       userId,
