@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74b9c952-8467-423c-85f4-d13d20929dae" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/trips.iml" afterPath="$PROJECT_DIR$/.idea/trips.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/admin/admin.html" afterPath="$PROJECT_DIR$/client/admin/admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/admin/admin.js" afterPath="$PROJECT_DIR$/client/admin/admin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/methods.js" afterPath="$PROJECT_DIR$/server/methods.js" />
     </list>
     <ignored path="trips.iws" />
@@ -40,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="admin.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/admin/admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
+            <state relative-caret-position="217">
+              <caret line="137" column="29" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
               <folding>
                 <element signature="e#0#112#0" expanded="true" />
               </folding>
@@ -72,16 +68,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="methods.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="methods.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/methods.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="278" column="33" selection-start-line="278" selection-start-column="33" selection-end-line="278" selection-end-column="33" />
+            <state relative-caret-position="552">
+              <caret line="283" column="82" selection-start-line="283" selection-start-column="82" selection-end-line="283" selection-end-column="82" />
               <folding>
                 <element signature="e#117#389#0" expanded="false" />
                 <element signature="e#3734#3903#0" expanded="false" />
                 <element signature="e#4335#4675#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/api/utils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="183">
+              <caret line="29" column="3" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="3" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -150,9 +156,9 @@
         <option value="$PROJECT_DIR$/client/fundraising/Fundraising.js" />
         <option value="$PROJECT_DIR$/imports/api/miscFunctions.js" />
         <option value="$PROJECT_DIR$/client/admin/admin.html" />
-        <option value="$PROJECT_DIR$/server/methods.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/client/admin/admin.js" />
+        <option value="$PROJECT_DIR$/server/methods.js" />
       </list>
     </option>
   </component>
@@ -403,12 +409,12 @@
       <workItem from="1474682225196" duration="13000" />
       <workItem from="1474772245572" duration="23000" />
       <workItem from="1474905491346" duration="15646000" />
-      <workItem from="1475074047193" duration="15226000" />
+      <workItem from="1475074047193" duration="15338000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="322053000" />
+    <option name="totallyTimeSpent" value="322165000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -421,7 +427,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1600" y="23" width="1600" height="872" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1918936" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32820514" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -431,7 +437,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290653" sideWeight="0.4977834" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24952501" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37435898" sideWeight="0.4927169" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37435898" sideWeight="0.4927169" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -479,13 +485,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/home/Home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -513,6 +512,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -520,6 +520,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" column="86" selection-start-line="31" selection-start-column="86" selection-end-line="31" selection-end-column="86" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -583,6 +584,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -820,18 +822,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/methods.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="278" column="33" selection-start-line="278" selection-start-column="33" selection-end-line="278" selection-end-column="33" />
-          <folding>
-            <element signature="e#117#389#0" expanded="false" />
-            <element signature="e#3734#3903#0" expanded="false" />
-            <element signature="e#4335#4675#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.meteor/local/build/programs/server/npm/node_modules/file-saver/FileSaver.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2461">
@@ -855,7 +845,7 @@
         <state relative-caret-position="-60">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
             <element signature="e#463#5418#0" expanded="false" />
           </folding>
         </state>
@@ -863,10 +853,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/admin/admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
+        <state relative-caret-position="217">
+          <caret line="137" column="29" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
           <folding>
             <element signature="e#0#112#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="29" column="3" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/methods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="283" column="82" selection-start-line="283" selection-start-column="82" selection-end-line="283" selection-end-column="82" />
+          <folding>
+            <element signature="e#117#389#0" expanded="false" />
+            <element signature="e#3734#3903#0" expanded="false" />
+            <element signature="e#4335#4675#0" expanded="false" />
           </folding>
         </state>
       </provider>
