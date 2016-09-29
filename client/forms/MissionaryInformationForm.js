@@ -109,7 +109,6 @@ Template.MissionaryInformationForm.events({
     if (dateValue) $(e.currentTarget).addClass('edited');
   },
   'change #missionaryInformationForm'(e, tmpl){
-    console.log(e.target.name);
     // This will be called several times when the form renders, make sure
     // you check to see if the value being passed is empty
     // Then check that if is is empty that is was empty in the document

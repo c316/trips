@@ -147,7 +147,13 @@ Template.UserRegistration.helpers({
       { stateAbbr: "WI", name: "Wisconsin"},
       { stateAbbr: "WY", name: "Wyoming"}
     ];
-    const state = this && this.profile && this.profile.address && this.profile.address.state;
+    let state;
+    if(Session.get("showingOtherUser")){
+      let user = Meteor.users.findOne({_id: Session.get("showingUserId")});
+      state = user && user.profile && user.profile.address && user.profile.address.state;
+    } else {
+      state = this && this.profile && this.profile.address && this.profile.address.state;
+    }
     states.map(function (thisState) {
       if(thisState.stateAbbr === state){
         thisState.selected = "selected";

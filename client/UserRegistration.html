@@ -38,7 +38,7 @@
                                     <div class="form-group form-md-line-input form-md-floating-label">
                                         <select class="form-control edited" name="state">
                                             {{#each getStates}}
-                                                <option value="{{stateAbbr}}" selected="{{selected}}">{{name}}</option>
+                                                <option value="{{stateAbbr}}" {{this.selected}}>{{name}}</option>
                                             {{/each}}
                                         </select>
                                         <label for="state">State</label>
