@@ -115,10 +115,20 @@
                         <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="" data-original-title="" title=""> </a>
                         <form id="trip-form"
                               style="display: none;"
-                              class="no-top-margin navbar-form navbar-left">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Trip ID" name="trip-id">
+                              class="no-top-margin">
+                            <div class="form-group form-md-line-input form-md-floating-label">
+                                <input type="text" class="form-control date-picker"
+                                       name="tripExpirationDate">
+                                <label for="tripExpirationDate">Trip expiration date</label>
                             </div>
+                            <div class="form-group form-md-line-input form-md-floating-label no-top-margin">
+                                <input type="text" class="form-control"
+                                       name="trip-id">
+                                <label for="trip-id">Trip ID</label>
+                                <span class="help-block"> (from Donor Tools) </span>
+                            </div>
+
+
                             <button type="submit" {{submitFormText}}
                                     id="trip-form-button"
                                     class="dt-button buttons-html5 btn green-seagreen btn-outline">Submit</button>
@@ -128,13 +138,6 @@
                 </div>
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper no-footer">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="dt-buttons">
-
-                                </div>
-                            </div>
-                        </div>
                         <table class="table table-bordered table-striped table-condensed flip-content"
                                width="100%" id="sample_1" role="grid"
                                style="width: 100%;">

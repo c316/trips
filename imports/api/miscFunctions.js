@@ -85,7 +85,7 @@ export const repeaterSetup = () =>{
   $('.mt-repeater').each(function(){
     $(this).repeater({
       show: function () {
-        $(this).slideDown(2000);
+        $(this).slideDown(1000);
         $('.date-picker').datepicker({
           orientation: "left",
           autoclose: true

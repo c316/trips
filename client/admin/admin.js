@@ -18,9 +18,16 @@ Template.Admin.onCreated(function () {
 Template.Admin.onRendered(()=>{
   repeaterSetup();
   $('.date-picker').datepicker({
-    orientation: "left",
+    orientation: "bottom",
     autoclose: true
   });
+
+  $('.date-picker').datepicker()
+    .on('change', function(e) {
+      // `e` here contains the extra attributes
+      console.log(e.currentTarget);
+      $(e.currentTarget).addClass('edited');
+    });
 });
 
 Template.Admin.helpers({
@@ -156,9 +163,11 @@ Template.Admin.events({
     btn.button("loading");
     if (formId === "trip-form") {
       let tripId = $( "[name='trip-id']" ).val();
+      let tripExpirationDate = $( "[name='tripExpirationDate']" ).val();
       if(!tripId) return;
+      if(!tripExpirationDate) return;
       Session.set("tripId", tripId);
-      Meteor.call( "add.trip", tripId, function ( err, res ) {
+      Meteor.call( "add.trip", tripId, tripExpirationDate, function ( err, res ) {
         if( err ) {
           console.error( err );
           Bert.alert( err.reason, 'danger');

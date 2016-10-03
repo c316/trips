@@ -170,10 +170,12 @@ Meteor.methods({
    *
    * @method add.trip
    * @param {String} tripId
+   * @param {String} tripExpirationDate
    */
-  'add.trip'(tripId){
+  'add.trip'(tripId, tripExpirationDate){
     check(tripId, String);
-    logger.info("Started add.trip with tripId: ", tripId);
+    check(tripExpirationDate, String);
+    logger.info("Started add.trip with data: ", tripId, tripExpirationDate);
 
     if ( Roles.userIsInRole(this.userId, 'admin') ) {
       let collecitonTrip = Trips.findOne({tripId: Number(tripId)});
@@ -192,11 +194,12 @@ Meteor.methods({
           'There was a problem contacting Donor Tools or getting a result from them');
       }
       Trips.insert( {
-        adminId:    this.userId,
-        name:       DTTrip.name,
-        tripId:     DTTrip.id,
-        createdOn:  new Date(),
-        raised:     DTTrip.raised.cents
+        adminId:        this.userId,
+        createdOn:      new Date(),
+        expires:        new Date(tripExpirationDate),
+        name:           DTTrip.name,
+        raised:         DTTrip.raised.cents,
+        tripId:         DTTrip.id
       } );
 
       return DTTrip;

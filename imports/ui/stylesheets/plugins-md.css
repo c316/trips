@@ -1473,7 +1473,7 @@ Fullcalendar
 
 .portlet.calendar .mobile .fc-header-left {
   position: absolute;
-  z-index: 10; }
+  z-index: 1032; }
   .portlet.calendar .mobile .fc-header-left .fc-button {
     top: -2px; }
 
