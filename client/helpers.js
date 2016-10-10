@@ -104,3 +104,8 @@ Template.registerHelper('editedClass', function(value) {
 Template.registerHelper('appVersion', function(){
   return '1.0.0'
 });
+
+
+Template.registerHelper('thisUserIsInRole', function(_id, role){
+  return Roles.userIsInRole(_id, role);
+});

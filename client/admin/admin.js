@@ -237,5 +237,20 @@ Template.Admin.events({
     $("#show-add-trip").prop("disabled",false);
     $("#show-add-trip").css( 'cursor', 'pointer' );
     $( "#trip-form" ).slideUp();
+  },
+  'click .make-admin-link'(){
+    Meteor.call( "add.roleToUser", this._id, 'admin', function ( err, res ) {
+        if( err ) console.error( err );
+        else {
+          console.log( res );
+          Bert.alert({
+            title: 'Admin',
+            message: 'This user has been updated.',
+            type: 'success',
+            style: 'growl-bottom-right',
+            icon: 'fa-thumbs-up'
+          });
+        }
+      } );
   }
 });

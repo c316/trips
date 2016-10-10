@@ -127,8 +127,6 @@
                                 <label for="trip-id">Trip ID</label>
                                 <span class="help-block"> (from Donor Tools) </span>
                             </div>
-
-
                             <button type="submit" {{submitFormText}}
                                     id="trip-form-button"
                                     class="dt-button buttons-html5 btn green-seagreen btn-outline">Submit</button>
@@ -170,6 +168,12 @@
                                 <th class="desktop sorting" tabindex="0"
                                     rowspan="1"
                                     colspan="1"
+                                    aria-label="Roles">
+                                    Roles
+                                </th>
+                                <th class="desktop sorting" tabindex="0"
+                                    rowspan="1"
+                                    colspan="1"
                                     aria-label="Tools">
                                     Tools
                                 </th>
@@ -182,6 +186,7 @@
                                     <td class="clickable-cell funding-admin-link">{{tripName}} {{tripId}}</td>
                                     <td class="clickable-cell funding-admin-link">{{{raisedAmount}}}</td>
                                     <td class="clickable-cell form-admin-link">{{{formsStatus}}}</td>
+                                    <td class="">{{roles}}</td>
                                     <td>
                                         <button class="btn dark btn-xs btn-outline print-user"
                                                 data-toggle="dropdown"><i class="fa fa-print"></i> Print
@@ -189,6 +194,13 @@
                                         <button class="btn green btn-xs btn-outline user-admin-link"
                                                 data-toggle="dropdown">Details
                                         </button>
+                                        {{#if isInRole 'super-admin'}}
+                                            {{#unless thisUserIsInRole this._id 'admin'}}
+                                                <button class="btn red-haze btn-xs btn-outline make-admin-link"
+                                                        data-toggle="dropdown">Make admin
+                                                </button>
+                                            {{/unless}}
+                                        {{/if}}
                                         {{#if tripName}}
                                             <button type="button"
                                                 title="Adjust deadlines"

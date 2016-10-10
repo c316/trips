@@ -287,5 +287,23 @@ Meteor.methods({
         throw new Meteor.Error( 400, 'No forms for that trip have been started' );
       }
     }
+  },
+  /**
+   * Super-admin method to add a new role to a user
+   *
+   * @method add.roleToUser
+   * @param {String} userId
+   * @param {String} role
+   */
+  'add.roleToUser'(userId, role){
+    check(userId, String);
+    check(role, String);
+    logger.info( "Started add.roleToUser with user: " + userId + " and role: ", role );
+
+    if( Roles.userIsInRole( this.userId, 'super-admin' ) ) {
+      return Roles.addUsersToRoles(userId, role);
+    } else {
+      throw new Meteor.Error( 400, 'Need to have the proper permission to do this' );
+    }
   }
 });
