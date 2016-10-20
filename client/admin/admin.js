@@ -163,11 +163,12 @@ Template.Admin.events({
     btn.button("loading");
     if (formId === "trip-form") {
       let tripId = $( "[name='trip-id']" ).val();
+      let tripStartDate = $( "[name='tripStartDate']" ).val();
+      let tripEndDate = $( "[name='tripEndDate']" ).val();
       let tripExpirationDate = $( "[name='tripExpirationDate']" ).val();
-      if(!tripId) return;
-      if(!tripExpirationDate) return;
+      if(!tripId || !tripStartDate || !tripEndDate || !tripExpirationDate) return;
       Session.set("tripId", tripId);
-      Meteor.call( "add.trip", tripId, tripExpirationDate, function ( err, res ) {
+      Meteor.call( "add.trip", tripId, { tripStartDate, tripEndDate, tripExpirationDate }, function ( err, res ) {
         if( err ) {
           console.error( err );
           Bert.alert( err.reason, 'danger');

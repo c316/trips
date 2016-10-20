@@ -100,6 +100,7 @@ Meteor.methods({
       this.unblock();
       const splitData = getDTSplitData( fundId );
       logger.info( splitData );
+      return splitData && 'success';
     }
   },
   /**
@@ -161,8 +162,27 @@ Meteor.methods({
       } );
 
       Meteor.users.update({_id: userId}, {$set: {tripId: Number( tripId )}});
+      Roles.addUsersToRoles(userId, 'trip-member');
+      // TODO: send to the custom method call
+      if(Meteor.settings.Give && Meteor.settings.Give.tripsManagerPassword) {
+        let user = Meteor.users.findOne(userId);
+        let tripMemberData = {
+          fname:  user.profile.firstName,
+          lname:  user.profile.lastName,
+          email:  user.emails[0].address,
+          fundId: tripId
+        };
+        Meteor.call( "runGiveMethod", "insertFundraisersWithTrip", tripMemberData, function ( err, res ) {
+          if( err ) {
+            logger.error( err );
+          } else {
+            logger.info( res );
+          }
+        } );
+      }
+
     } else {
-      throw new Meteor.Error(400,"Hmmm...I couldn't find that trip.");
+      throw new Meteor.Error(400, "Hmmm...I couldn't find that trip, ask your Trip coordinator if this is the right ID.");
     }
   },
   /**
@@ -172,19 +192,23 @@ Meteor.methods({
    * @param {String} tripId
    * @param {String} tripExpirationDate
    */
-  'add.trip'(tripId, tripExpirationDate){
+  'add.trip'(tripId, data){
     check(tripId, String);
-    check(tripExpirationDate, String);
-    logger.info("Started add.trip with data: ", tripId, tripExpirationDate);
+    check(data, {
+      tripEndDate: String,
+      tripStartDate: String,
+      tripExpirationDate: String
+    });
+    logger.info("Started add.trip with data: ", tripId, data);
 
     if ( Roles.userIsInRole(this.userId, 'admin') ) {
-      let collecitonTrip = Trips.findOne({tripId: Number(tripId)});
-      logger.info(collecitonTrip);
-      if(collecitonTrip){
+      let tripCollection = Trips.findOne({tripId: Number(tripId)});
+      logger.info(tripCollection);
+      if(tripCollection){
         throw new Meteor.Error(400,
           'This tripId already exists in the trips collection');
       }
-      this.unblock();
+      //this.unblock();
 
       let DTTrip = http_get_donortools("settings/funds/" + tripId + ".json");
       if(DTTrip && DTTrip.statusCode === 200){
@@ -193,16 +217,37 @@ Meteor.methods({
         throw new Meteor.Error(DTTrip.statusCode,
           'There was a problem contacting Donor Tools or getting a result from them');
       }
+
       Trips.insert( {
         adminId:        this.userId,
         createdOn:      new Date(),
-        expires:        new Date(tripExpirationDate),
+        expires:        new Date(data.tripExpirationDate),
+        starts:         new Date(data.tripStartDate),
+        ends:           new Date(data.tripEndDate),
         name:           DTTrip.name,
         raised:         DTTrip.raised.cents,
         tripId:         DTTrip.id
       } );
 
-      return DTTrip;
+      if(Meteor.settings.Give && Meteor.settings.Give.tripsManagerPassword) {
+        let tripData = {
+          active:         true,
+          fundId:         DTTrip.id.toString(),
+          fundTotal:      DTTrip.raised.cents,
+          endDate:        new Date(data.tripEndDate),
+          expires:        new Date(data.tripExpirationDate),
+          startDate:      new Date(data.tripStartDate),
+        };
+        Meteor.call("runGiveMethod", "insertTrip", tripData, function ( err, res ) {
+          if(err) {
+            logger.error(err);
+          } else {
+            logger.info(res);
+          }
+        } );
+      }
+
+      return DTTrip && 'success';
     }
   },
   /**
@@ -304,6 +349,40 @@ Meteor.methods({
       return Roles.addUsersToRoles(userId, role);
     } else {
       throw new Meteor.Error( 400, 'Need to have the proper permission to do this' );
+    }
+  },
+  /**
+   * Runs a Give method
+   *
+   * @method runGiveMethod
+   */
+  'runGiveMethod'(method, args){
+    check(method, String);
+    check(args, Match.Maybe(Object));
+
+    logger.info( "Started DDP connection with the runGiveMethod method with: " + method );
+    if( (Roles.userIsInRole( this.userId, ['super-admin', 'admin'] ) ) || ( method === "insertFundraisersWithTrip" && Roles.userIsInRole( this.userId, 'trip-member' ) ) ) {
+      import { connectToGive } from '/imports/api/utils';
+      if(args){
+        connectToGive().call(method, args, function ( err, res ) {
+          if(err) {
+            console.error(err);
+          } else {
+            console.log(res);
+          }
+        });
+      } else {
+        connectToGive().call(method, function ( err, res ) {
+          if(err) {
+            console.error(err);
+          } else {
+            console.log(res);
+          }
+        });
+      }
+      connectToGive().disconnect();
+    } else {
+      throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
     }
   }
 });

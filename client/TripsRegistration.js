@@ -30,9 +30,21 @@ Template.TripRegistration.events({
     Meteor.call("form.tripRegistration", tripId, updateThisId, function ( err, res ) {
       if(err) {
         console.error(err);
-        Bert.alert( err.reason, 'danger');
+        Bert.alert({
+          title: 'Error',
+          message: err.reason,
+          type: 'danger',
+          style: 'growl-bottom-right',
+          icon: 'fa-thumbs-down'
+        });
       } else {
-        Bert.alert( 'Ok, you are registered for this trip.', 'success');
+        Bert.alert({
+          title: 'Registered',
+          message: 'Ok, you are registered for this trip.',
+          type: 'success',
+          style: 'growl-bottom-right',
+          icon: 'fa-thumbs-up'
+        });
       }
     });
   },

@@ -1,4 +1,23 @@
 /**
+ * DDP connection method for connecting to the give app
+ *
+ * @method connectToGive
+ */
+export const connectToGive = () =>{
+  logger.info( "Started DDP connection using connectToGive" );
+  let connection = DDP.connect(Meteor.settings.Give.URL);
+  console.log(connection);
+  connection.call('login', {
+    "password": Meteor.settings.Give.tripsManagerPassword,
+    "user": {
+      "email": Meteor.settings.Give.tripsManagerEmail
+    }
+  });
+  console.log(connection);
+  return connection;
+};
+
+/**
  * General purpose http gettter
  * cRud (R in CRUD)
  * http://docs.meteor.com/#/full/http_call
@@ -15,15 +34,15 @@ export const http_get_donortools = ( getQuery )=>{
 
   if( DTBaseURL && getQuery) {
     console.log("Donor Tools URL to use in get:", DTBaseURL);
-    /*try {*/
+    try {
       let getResource = HTTP.get( DTBaseURL + getQuery, {
         auth: Meteor.settings.DT.user + ":" + Meteor.settings.DT.pass
       } );
       return getResource;
-    /*} catch( e ) {
+    } catch( e ) {
       // The statusCode should show us if there was a connection problem or network error
       throw new Meteor.Error( e.statusCode, e );
-    }*/
+    }
   } else {
     console.error( 'No DonorTools url setup' );
     throw new Meteor.Error( 400, 'No DonorTools url setup' );
@@ -52,7 +71,6 @@ const _Donation = ( splitId )=>{
   console.log(data.data);
   return data.data.donation;
 };
-
 
 const _Person = ( persona_id )=>{
   console.log(persona_id);
