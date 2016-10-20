@@ -2,7 +2,7 @@
   "name": "trips",
   "private": true,
   "scripts": {
-    "start": "meteor run --port 3003 --settings settings.json --verbose"
+    "start": "meteor run --port 3003 --settings settings.json"
   },
   "dependencies": {
     "apollo-client": "^0.4.14",
