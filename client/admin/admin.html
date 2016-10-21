@@ -196,7 +196,9 @@
                                     <td class="clickable-cell funding-admin-link">{{tripName}} {{tripId}}</td>
                                     <td class="clickable-cell funding-admin-link">{{{raisedAmount}}}</td>
                                     <td class="clickable-cell form-admin-link">{{{formsStatus}}}</td>
-                                    <td class="">{{roles}}</td>
+                                    <td class="">{{#each roles}}
+                                        <span class="label label-sm label-success">{{this}} </span>
+                                    {{/each}}</td>
                                     <td>
                                         <button class="btn dark btn-xs btn-outline print-user"
                                                 data-toggle="dropdown"><i class="fa fa-print"></i> Print
