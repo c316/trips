@@ -72,10 +72,11 @@ Meteor.publish('Forms', function(userId){
   }
 });
 
-Meteor.publish('files.images', function () {
+Meteor.publish('files.images', function (showingUserId) {
+  check(showingUserId, Match.Maybe(String));
   if( this.userId ) {
     if( Roles.userIsInRole(this.userId, 'admin') ) {
-      return Images.find().cursor;
+      return Images.find({userId: showingUserId}).cursor;
     } else {
       return Images.find( { userId: this.userId } ).cursor;
     }

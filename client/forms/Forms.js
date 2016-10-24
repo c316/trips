@@ -10,8 +10,9 @@ const agreeToForm = (name, data) =>{
 };
 
 Template.Forms.onCreated(function () {
+  Meteor.call("updateExpiredSignedURLS");
   this.autorun(() => {
-    Meteor.subscribe('files.images');
+    Meteor.subscribe('files.images', Session.get("showingUserId"));
     Meteor.subscribe('Trips');
     if(this.data && this.data._id){
       Meteor.subscribe('Forms', this.data._id);

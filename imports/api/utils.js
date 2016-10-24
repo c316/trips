@@ -6,14 +6,12 @@
 export const connectToGive = () =>{
   logger.info( "Started DDP connection using connectToGive" );
   let connection = DDP.connect(Meteor.settings.Give.URL);
-  console.log(connection);
   connection.call('login', {
     "password": Meteor.settings.Give.tripsManagerPassword,
     "user": {
       "email": Meteor.settings.Give.tripsManagerEmail
     }
   });
-  console.log(connection);
   return connection;
 };
 
@@ -28,12 +26,11 @@ export const connectToGive = () =>{
 export const http_get_donortools = ( getQuery )=>{
   const DTBaseURL = Meteor.settings.DT.baseURL;
 
-  console.log( "Started http_get_donortools" );
-  console.log( "getQuery:", getQuery );
-
+  logger.info( "Started http_get_donortools" );
+  logger.info( "getQuery:", getQuery );
 
   if( DTBaseURL && getQuery) {
-    console.log("Donor Tools URL to use in get:", DTBaseURL);
+    logger.info("Donor Tools URL to use in get:", DTBaseURL);
     try {
       let getResource = HTTP.get( DTBaseURL + getQuery, {
         auth: Meteor.settings.DT.user + ":" + Meteor.settings.DT.pass
@@ -50,12 +47,12 @@ export const http_get_donortools = ( getQuery )=>{
 };
 
 const _Splits = ( fundId )=>{
-  console.log(fundId);
+  logger.info(fundId);
   let newValue = [];
   const getQuery = 'funds/' + fundId + '/splits.json';
 
   const data = http_get_donortools(getQuery);
-  console.log(data);
+  logger.info(data);
 
   data.data.forEach( function ( donationSplit ) {
     newValue.push( donationSplit.split );
@@ -67,13 +64,13 @@ const _Donation = ( splitId )=>{
   const getQuery = 'donations/' + splitId + '.json';
 
   const data = http_get_donortools(getQuery);
-  console.log("_Donation result:");
-  console.log(data.data);
+  logger.info("_Donation result:");
+  logger.info(data.data);
   return data.data.donation;
 };
 
 const _Person = ( persona_id )=>{
-  console.log(persona_id);
+  logger.info(persona_id);
   const getQuery = 'people/' + persona_id + '.json';
 
   const data = http_get_donortools(getQuery);
@@ -83,12 +80,12 @@ const _Person = ( persona_id )=>{
 export const getDTSplitData = ( fundId )=>{
   let allData = _Splits(fundId);
   allData.map((split)=> {
-    console.log( "split map ", split );
+    logger.info( "split map ", split );
     split.donation = _Donation( split.donation_id );
     split.persona = _Person( split.donation.persona_id );
     return split;
   });
-  console.log(allData);
+  logger.info(allData);
   allData.forEach((split)=>{
     DTSplits.upsert({_id: split.id}, split);
   });

@@ -324,12 +324,19 @@ Meteor.methods({
 
     if( Roles.userIsInRole( this.userId, 'admin' ) ) {
       import Papa from 'papaparse';
-      let usersOnThisTrip = Meteor.users.find({tripId}).map(function(user){return user._id});
+      let usersOnThisTrip = Meteor.users.find({tripId: tripId}).map(function(user){return user._id});
       if(usersOnThisTrip && usersOnThisTrip.length > 0){
         let collection = Forms.find({name: 'missionaryInformationForm', userId: {$in: usersOnThisTrip}}).fetch();
-        return Papa.unparse(collection);
+        logger.info(collection.length);
+
+        if(collection && collection.length > 0){
+          logger.info("Using Papa Parse to unparse those docs");
+          return Papa.unparse(collection);
+        } else {
+          throw new Meteor.Error( 400, 'No MIFs for that trip have been started.' );
+        }
       } else {
-        throw new Meteor.Error( 400, 'No forms for that trip have been started' );
+        throw new Meteor.Error( 400, 'No users are registered for that trip.' );
       }
     }
   },
@@ -383,6 +390,50 @@ Meteor.methods({
       connectToGive().disconnect();
     } else {
       throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
+    }
+  },
+  /**
+   * Checks for expired image URLs and updates them
+   *
+   * @method updateExpiredSignedURLS
+   */
+  'updateExpiredSignedURLS'(){
+    if( this.userId ) {
+      import knox from 'knox';
+      import { getSignedURLs } from '/imports/api/miscFunctions';
+      var client = knox.createClient({
+        key: Meteor.settings.AWS.key,
+        secret: Meteor.settings.AWS.secret,
+        bucket: Meteor.settings.AWS.bucket,
+        region: Meteor.settings.AWS.region
+      });
+      let images;
+
+      logger.info( "Started updateExpiredSignedURLS method with user: " + this.userId, );
+      if( Roles.userIsInRole( this.userId, 'admin' ) ) {
+        images = Images.find().cursor;
+      } else {
+        images = Images.find( { userId: this.userId } ).cursor;
+      }
+      images.forEach(function ( image ) {
+        let date = new Date();
+        let time = date.getTime();
+        if (time > (image.versions &&
+          image.versions.original &&
+          image.versions.original.meta &&
+          image.versions.original.meta.expires) ) {
+          logger.info("this image has expired, updating signed expiration");
+
+          getSignedURLs(client, 'thumbnail', image._id, function(err, res){
+            if (err) logger.error(err);
+            else logger.log(res);
+          });
+          getSignedURLs(client, 'original', image._id, function(err, res){
+            if (err) logger.error(err);
+            else logger.log(res);
+          });
+        }
+      });
     }
   }
 });

@@ -1,4 +1,5 @@
 import casual from 'casual-browserify';
+
 export const fillForms = ()=>{
   const password = casual.password;
   $("[name='firstname']").val(casual.first_name);
@@ -100,4 +101,32 @@ export const repeaterSetup = () =>{
       }
     });
   });
+};
+
+export const getSignedURLs = (client, type, file_id) =>{
+  let image = Images.findOne({_id: file_id});
+  if(image && image._id) {
+    if(type === 'thumbnail') {
+      let signedThumbnailURL = client.signedUrl(image.versions.thumbnail.meta.pipePath,
+        new Date((new Date().getTime() + 600000)));
+      Images.update({_id: image._id}, {
+        $set: {
+          'versions.thumbnail.meta.signedURL':  signedThumbnailURL,
+          'versions.thumbnail.meta.expires':    (new Date().getTime() + 600000)
+        }});
+    } else {
+      let signedOriginalURL = client.signedUrl(image.versions.original.meta.pipePath,
+        new Date((new Date().getTime() + 600000)));
+
+      Images.update({_id: image._id}, {
+        $set: {
+          'versions.original.meta.signedURL':  signedOriginalURL,
+          'versions.original.meta.expires':    (new Date().getTime() + 600000)
+        }});
+    }
+    return 'completed';
+  } else {
+    logger.error("No image found");
+    return;
+  }
 };

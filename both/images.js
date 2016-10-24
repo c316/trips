@@ -1,16 +1,17 @@
 import { FilesCollection } from 'meteor/ostrio:files';
 import { Random } from 'meteor/random'
+import { getSignedURLs } from '/imports/api/miscFunctions';
 import gm from 'gm';
+import knox from 'knox';
 
-var knox, bound, client, Request, cfdomain, createThumbnails, getSignedURLs;
 
+var bound, client, Request, cfdomain, createThumbnails;
 
 if (Meteor.isServer) {
   // Fix CloudFront certificate issue
   // Read: https://github.com/chilts/awssum/issues/164
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
-  knox    = Npm.require('knox');
   Request = Npm.require('request');
   bound = Meteor.bindEnvironment(function(callback) {
     return callback();
@@ -49,33 +50,6 @@ if (Meteor.isServer) {
 
     return fut.wait();
   };
-  getSignedURLs = function(type, file_id){
-    let image = Images.findOne({_id: file_id});
-    if(image && image._id) {
-      if(type === 'thumbnail') {
-        let signedThumbnailURL = client.signedUrl(image.versions.thumbnail.meta.pipePath,
-          new Date((new Date().getTime() + 600000)));
-        Images.update({_id: image._id}, {
-          $set: {
-            'versions.thumbnail.meta.signedURL':  signedThumbnailURL,
-            'versions.thumbnail.meta.expires':    (new Date().getTime() + 600000)
-          }});
-      } else {
-        let signedOriginalURL = client.signedUrl(image.versions.original.meta.pipePath,
-          new Date((new Date().getTime() + 600000)));
-
-        Images.update({_id: image._id}, {
-          $set: {
-            'versions.original.meta.signedURL':  signedOriginalURL,
-            'versions.original.meta.expires':    (new Date().getTime() + 600000)
-          }});
-      }
-      return 'completed';
-    } else {
-      console.error("No image found");
-      return;
-    }
-  }
 }
 
 Images = new FilesCollection({
@@ -117,7 +91,7 @@ Images = new FilesCollection({
                   // Unlink original files from FS
                   // after successful upload to AWS:S3
                   self.unlink(self.collection.findOne(fileRef._id), version);
-                  getSignedURLs(version, fileRef._id, function(err, res){
+                  getSignedURLs(client, version, fileRef._id, function(err, res){
                     if (err) console.error(err);
                     else console.log(res);
                   });
