@@ -5,7 +5,6 @@ import { updateSplits } from '/imports/api/utils';
 Meteor.startup(() => {
   setupPapertrail();
 
-
   SyncedCron.remove('Get Trip Fund Data (morning)');
   SyncedCron.remove('Get Trip Fund Data (evening)');
 
