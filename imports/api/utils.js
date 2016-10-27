@@ -91,3 +91,20 @@ export const getDTSplitData = ( fundId )=>{
   });
   return allData;
 };
+
+/**
+ * Get the Donor Tools split data and expand that to include the donation
+ * and person objects
+ *
+ * @method updateSplits
+ */
+export const updateSplits = () =>{
+  logger.info("Started updateSplits");
+  const activeTrips = Trips.find({expires: {$gte: new Date()}});
+  activeTrips.forEach(function ( trip ) {
+    // Get and store the combined split data
+    const splitData = getDTSplitData( trip.tripId );
+    logger.info( splitData );
+  });
+  return 'success';
+};

@@ -1,6 +1,6 @@
 import rp from 'request-promise';
 
-const DTBaseURL = 'https://trashmountain.donortools.com/';
+const DTBaseURL = Meteor.settings.DT.baseURL;
 const getFromDT = (getQuery) => {
   const data = rp( DTBaseURL + getQuery, {
     'auth': {
@@ -14,7 +14,6 @@ const getFromDT = (getQuery) => {
     });
   return data;
 };
-
 
 
 export const resolvers = {
