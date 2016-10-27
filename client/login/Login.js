@@ -72,17 +72,17 @@ Template.LoginContent.onRendered(()=>{
 Template.LoginContent.events({
   'submit .register-form'(e){
     e.preventDefault();
-    const emailVar = e.target.email.value;
+    const emailVar = e.target.email.value.trim();
     const passwordVar = e.target.password.value;
     const profile = {
-      firstName: e.target.firstname.value,
-      lastName: e.target.lastname.value,
-      phone: e.target.phone.value,
+      firstName: e.target.firstname.value.trim(),
+      lastName: e.target.lastname.value.trim(),
+      phone: e.target.phone.value.trim(),
       address: {
-        address: e.target.address.value,
-        city: e.target.city.value,
-        state: e.target.state.value,
-        zip: e.target.zip.value,
+        address: e.target.address.value.trim(),
+        city: e.target.city.value.trim(),
+        state: e.target.state.value.trim(),
+        zip: e.target.zip.value.trim(),
       },
     };
     Accounts.createUser({

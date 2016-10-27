@@ -1,4 +1,4 @@
 Bert.defaults = {
-  hideDelay: 10000,
+  hideDelay: 99999,
   style: 'fixed-top',
 };
