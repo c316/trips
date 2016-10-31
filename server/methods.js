@@ -94,11 +94,19 @@ Meteor.methods({
    * @param {Number} fundId
    */
   'update.splits'(fundId){
-    check(fundId, Number);
-    logger.info("Started update.splits with fundId: ", fundId);
+    check(fundId, Match.Maybe(Number));
+    logger.info("Started update.splits with fundId: ", fundId ? fundId : "All funds");
     if ( Roles.userIsInRole(this.userId, 'admin') ) {
       this.unblock();
-      const splitData = getDTSplitData( fundId );
+      let splitData;
+      if(!fundId){
+        let trips = Trips.find().map(function ( trip ) {
+          return getDTSplitData( trip.tripId );
+        });
+        splitData = trips;
+      } else {
+        splitData = getDTSplitData( fundId );
+      }
       logger.info( splitData );
       return splitData && 'success';
     }

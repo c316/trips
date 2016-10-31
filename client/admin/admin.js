@@ -136,6 +136,36 @@ Template.Admin.events({
     $("#show-add-trip").prop("disabled",true);
     $("#show-add-trip").css( 'cursor', 'not-allowed' );
   },
+  'click #update-dt-funds'(e){
+    e.preventDefault();
+    Meteor.call("update.splits", function ( err, res ) {
+      if(err){
+        console.error(err);
+        Bert.alert({
+          message: 'Hmm...there was a problem getting updated. Try again in a few minutes and then contact the admin if you still have trouble.',
+          type: 'danger',
+          style: 'growl-bottom-right',
+          icon: 'fa-thumbs-down'
+        });
+      } else {
+        console.log(res);
+        Bert.alert({
+          title: 'Success',
+          message: 'The DonorTools funds have been updated.',
+          type: 'success',
+          style: 'growl-bottom-right',
+          icon: 'fa-thumbs-up'
+        });
+      }
+    });
+    Bert.alert({
+      title: 'Checking',
+      message: 'Just asked DonorTools for an update, it might be a minute.',
+      type: 'success',
+      style: 'growl-bottom-right',
+      icon: 'fa-refresh'
+    });
+  },
   'click .filter-trip'(){
     Session.set("tripId", this.tripId);
   },
