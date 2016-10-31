@@ -51,7 +51,7 @@ Meteor.publish('DTSplits', function(){
       if( tripForm && tripForm.tripId ) {
         let name = Meteor.users.findOne( { _id: this.userId } ).profile &&
           (Meteor.users.findOne( { _id: this.userId } ).profile.firstName + " " + Meteor.users.findOne( { _id: this.userId } ).profile.lastName);
-        return DTSplits.find( { fund_id: tripForm.tripId, memo: name } );
+        return DTSplits.find( { fund_id: tripForm.tripId }, {memo: {$regex: name}} );
       }
     }
   }
