@@ -6,6 +6,7 @@ Security.permit(['insert', 'update', 'remove'])
       Deadlines,
       Forms,
       Fundraisers,
+      Meteor.users,
       Trips
     ])
   .ifHasRole('admin')

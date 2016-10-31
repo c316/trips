@@ -69,16 +69,29 @@ Template.UserRegistration.onRendered(()=>{
           "zip":     $( "[name='zip']" ).val()
         }
       };
-      Meteor.users.update({_id: Meteor.userId()}, {$set: {profile: formData}}, (err, affectedDocs)=>{
-        if (err) {
-          btn.button('error');
-          console.error(err);
-        } else {
-          setTimeout(function () {
-            btn.button('success')
-          }, 500);
-        }
-      });
+      if(Session.get("showingUserId")) {
+        Meteor.users.update({_id: Session.get("showingUserId")}, {$set: {profile: formData}}, (err, affectedDocs)=>{
+          if (err) {
+            btn.button('error');
+            console.error(err);
+          } else {
+            setTimeout(function () {
+              btn.button('success')
+            }, 500);
+          }
+        });
+      } else {
+        Meteor.users.update({_id: Meteor.userId()}, {$set: {profile: formData}}, (err, affectedDocs)=>{
+          if (err) {
+            btn.button('error');
+            console.error(err);
+          } else {
+            setTimeout(function () {
+              btn.button('success')
+            }, 500);
+          }
+        });
+      }
 
     }
   });
