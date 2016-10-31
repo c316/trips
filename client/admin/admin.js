@@ -1,6 +1,7 @@
 import { getRaisedTotal, getDeadlineTotal, getDeadlineAdjustments, statuses } from '/imports/api/miscFunctions';
 import { repeater } from '/imports/ui/js/jquery.repeater';
 import { repeaterSetup } from '/imports/api/miscFunctions';
+import '/imports/ui/stylesheets/admin-print.css';
 
 
 Template.Admin.onCreated(function () {
@@ -283,5 +284,9 @@ Template.Admin.events({
           });
         }
       } );
+  },
+  'click #print-page'(e){
+    e.preventDefault();
+    window.print();
   }
 });

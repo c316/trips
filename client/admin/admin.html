@@ -177,13 +177,13 @@
                                     aria-label="Forms">
                                     Forms
                                 </th>
-                                <th class="desktop sorting" tabindex="0"
+                                <th class="desktop sorting no-print" tabindex="0"
                                     rowspan="1"
                                     colspan="1"
                                     aria-label="Roles">
                                     Roles
                                 </th>
-                                <th class="desktop sorting" tabindex="0"
+                                <th class="desktop sorting no-print" tabindex="0"
                                     rowspan="1"
                                     colspan="1"
                                     aria-label="Tools">
@@ -198,10 +198,10 @@
                                     <td class="clickable-cell funding-admin-link">{{tripName}} {{tripId}}</td>
                                     <td class="clickable-cell funding-admin-link">{{{raisedAmount}}}</td>
                                     <td class="clickable-cell form-admin-link">{{{formsStatus}}}</td>
-                                    <td class="">{{#each roles}}
+                                    <td class="no-print">{{#each roles}}
                                         <span class="label label-sm label-success">{{this}} </span>
                                     {{/each}}</td>
-                                    <td>
+                                    <td class="no-print">
                                         <button class="btn dark btn-xs btn-outline print-user"
                                                 data-toggle="dropdown"><i class="fa fa-print"></i> Print
                                         </button>
@@ -253,6 +253,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="row no-print"><a class="btn dark" id="print-page">Print this page</a></div>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->
