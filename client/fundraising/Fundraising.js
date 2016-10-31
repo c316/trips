@@ -29,7 +29,6 @@ Template.Fundraising.helpers({
     if(Session.get("showingUserId")){
       let user = Meteor.users.findOne({_id: Session.get("showingUserId")});
       let name = user && user.profile && (user.profile.firstName + " " + user.profile.lastName);
-      //DTSplits.find({$text: {$search: name
       return DTSplits.find({memo: {$regex: name}});
     } else {
       let name = Meteor.user() && Meteor.user().profile && (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
@@ -60,8 +59,8 @@ Template.Fundraising.helpers({
   status(){
     let tripForm = Forms.findOne({name: 'tripRegistration'});
     if(tripForm && tripForm.tripId){
-      let deadlineTotal = getDeadlineTotal();
-      let raisedTotal   = getRaisedTotal();
+      let deadlineTotal = getDeadlineTotal(this._id);
+      let raisedTotal   = getRaisedTotal(this._id);
       let needToRaiseThisAmount = deadlineTotal - raisedTotal;
       if(raisedTotal > 0){
         if(needToRaiseThisAmount <= 0){
