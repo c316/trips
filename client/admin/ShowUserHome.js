@@ -12,4 +12,5 @@ Template.ShowUserHome.helpers({
 
 Template.ShowUserHome.onDestroyed(function () {
   Session.delete("showingOtherUser");
+  Session.delete("showingUserId");
 });

@@ -1,6 +1,8 @@
 function redirectIfNotAdmin (ctx, redirect) {
   if (!Meteor.userId() || !Roles.userIsInRole(Meteor.userId(), 'admin')) {
-    redirect('/')
+    Session.delete("showingOtherUser");
+    Session.delete("showingUserId");
+    redirect('/');
   }
 }
 

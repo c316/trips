@@ -58,15 +58,14 @@ Template.UserRegistration.onRendered(()=>{
       btn.button("loading");
 
       let formData = {
-        "firstName":  $( "[name='firstName']" ).val(),
-        "middleName": $( "[name='middleName']" ).val(),
-        "lastName":   $( "[name='lastName']" ).val(),
-        "phone":      $( "[name='phone']" ).val(),
+        "firstName":  $( "[name='firstName']" ).val().trim(),
+        "lastName":   $( "[name='lastName']" ).val().trim(),
+        "phone":      $( "[name='phone']" ).val().trim(),
         "address":    {
-          "address": $( "[name='address']" ).val(),
-          "city":    $( "[name='city']" ).val(),
-          "state":   $( "[name='state']" ).val(),
-          "zip":     $( "[name='zip']" ).val()
+          "address": $( "[name='address']" ).val().trim(),
+          "city":    $( "[name='city']" ).val().trim(),
+          "state":   $( "[name='state']" ).val().trim(),
+          "zip":     $( "[name='zip']" ).val().trim()
         }
       };
       if(Session.get("showingUserId")) {
@@ -76,7 +75,19 @@ Template.UserRegistration.onRendered(()=>{
             console.error(err);
           } else {
             setTimeout(function () {
-              btn.button('success')
+              btn.button('success');
+              // TODO: call a method to update the name changes in Give
+              Meteor.call("runGiveMethod", "updateFundraiserName", {
+                fname: formData.firstName,
+                lname: formData.lastName,
+                email: Meteor.users.findOne({_id: Session.get("showingUserId")}).emails[0].address
+              }, function ( err, res ) {
+                if (err) {
+                  console.error(err);
+                } else {
+                  console.log(res);
+                }
+              });
             }, 500);
           }
         });
@@ -87,7 +98,18 @@ Template.UserRegistration.onRendered(()=>{
             console.error(err);
           } else {
             setTimeout(function () {
-              btn.button('success')
+              btn.button('success');
+              Meteor.call("runGiveMethod", "updateFundraiserName", {
+                fname: formData.firstName,
+                lname: formData.lastName,
+                email: Meteor.user().emails[0].address
+              }, function ( err, res ) {
+                if (err) {
+                  console.error(err);
+                } else {
+                  console.log(res);
+                }
+              });
             }, 500);
           }
         });
@@ -180,9 +202,14 @@ Template.UserRegistration.helpers({
 Template.UserRegistration.events({
   'click #expand-userRegistrationForm'(){
     $("[name='phone']").inputmask({"mask": "(999) 999-9999"});
+  },
+  'submit #userRegistrationForm'(e){
+    e.preventDefault();
+    console.log('test');
   }
 });
 
 Template.UserRegistration.onDestroyed(function () {
   Session.delete("showingUserId");
+  Session.delete("showingOtherUser");
 });

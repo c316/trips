@@ -172,7 +172,7 @@ Meteor.methods({
 
       Meteor.users.update({_id: userId}, {$set: {tripId: Number( tripId )}});
       Roles.addUsersToRoles(userId, 'trip-member');
-      // TODO: send to the custom method call
+
       if(Meteor.settings.Give && Meteor.settings.Give.tripsManagerPassword) {
         let user = Meteor.users.findOne(userId);
         let tripMemberData = {
@@ -377,7 +377,9 @@ Meteor.methods({
     check(args, Match.Maybe(Object));
 
     logger.info( "Started DDP connection with the runGiveMethod method with: " + method );
-    if( (Roles.userIsInRole( this.userId, ['super-admin', 'admin'] ) ) || ( method === "insertFundraisersWithTrip" && Roles.userIsInRole( this.userId, 'trip-member' ) ) ) {
+    if( (Roles.userIsInRole( this.userId, ['super-admin', 'admin'] ) ) ||
+      ( method === "insertFundraisersWithTrip" && Roles.userIsInRole( this.userId, 'trip-member' ) ) ||
+      ( method === "updateFundraiserName" && Roles.userIsInRole( this.userId, 'trip-member' )) ) {
       import { connectToGive } from '/imports/api/utils';
       if(args){
         connectToGive().call(method, args, function ( err, res ) {
