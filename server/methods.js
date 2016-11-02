@@ -22,6 +22,7 @@ Meteor.methods({
       "birthdate":                    Match.Maybe(String),
       "bloodType":                    Match.Maybe(String),
       "convictedOfACrime":            Match.Maybe(String),
+      "convictedOfACrimeExplained":   Match.Maybe(String),
       "emergencyContactCity":         Match.Maybe(String),
       "emergencyContactAddressLine1": Match.Maybe(String),
       "emergencyContactAddressLine2": Match.Maybe(String),
