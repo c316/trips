@@ -141,6 +141,33 @@
                                 <label for="trip-id">Trip ID</label>
                                 <span class="help-block"> (from Donor Tools) </span>
                             </div>
+                            <div class="form-group form-md-radios">
+                                <label>Show the fundraising module to trip participants?</label>
+                                <div class="md-radio-list">
+                                    <div class="md-radio">
+                                        <input type="radio"
+                                               id="financial-module-yes"
+                                               name="passportStatus"
+                                               class="md-radiobtn"
+                                               value="yes">
+                                        <label for="financial-module-yes">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> Yes </label>
+                                    </div>
+                                    <div class="md-radio">
+                                        <input type="radio"
+                                               id="financial-module-no"
+                                               name="passportStatus"
+                                               class="md-radiobtn"
+                                               value="no">
+                                        <label for="financial-module-no">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> No</label>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" {{submitFormText}}
                                     id="trip-form-button"
                                     class="dt-button buttons-html5 btn green-seagreen btn-outline">Submit</button>
@@ -198,7 +225,15 @@
                                 <tr role="row" class="{{oddEven @index}}">
                                     <td class="clickable-cell user-admin-link">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
                                     <td class="clickable-cell funding-admin-link">{{tripName}} {{tripId}}</td>
-                                    <td class="clickable-cell funding-admin-link">{{{raisedAmount}}}</td>
+                                    <td class="clickable-cell funding-admin-link">{{#if this.tripId}}
+                                        {{#if showFundraisingModule}}
+                                            {{{raisedAmount}}}
+                                        {{else}}
+                                            {{showTripRaisedTotal}}
+                                        {{/if}}
+                                        {{else}}
+                                        No trip
+                                    {{/if}}</td>
                                     <td class="clickable-cell form-admin-link">{{{formsStatus}}}</td>
                                     <td class="no-print">{{#each roles}}
                                         <span class="label label-sm label-success">{{this}} </span>
@@ -255,7 +290,12 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row no-print"><a class="btn dark" id="print-page">Print this page</a></div>
+                    <div class="row no-print">
+                        <p>
+                            <a class="btn dark" id="print-page">Print this page</a><br>
+                        </p>
+                        <p>** Stared fundraising numbers reflect the total raised for the trip, not just for the individual</p>
+                    </div>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

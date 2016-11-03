@@ -80,9 +80,9 @@ Template.Admin.helpers({
     let deadlineTotalWithAdjustments = Number(deadlineTotal) + Number(deadlineAdjustments);
     if(raisedTotal > 0){
       if(needToRaiseThisAmount <= 0){
-        return '$' + raisedTotal + ' raised of ' + deadlineTotalWithAdjustments + ' total';
+        return '$' + raisedTotal + ' raised of $' + deadlineTotalWithAdjustments.toFixed( 2 ) + ' total';
       }
-      return '$' + raisedTotal + ' raised of ' + deadlineTotalWithAdjustments + ' total';
+      return '$' + raisedTotal + ' raised of $' + deadlineTotalWithAdjustments.toFixed( 2 ) + ' total';
     } else {
       return statuses.notStarted;
     }
@@ -102,6 +102,30 @@ Template.Admin.helpers({
     let user = Template.parentData(2);
     let deadlineAdjustment = DeadlineAdjustments.findOne({tripId: user.tripId, userId: user._id, deadlineId: this._id});
     return deadlineAdjustment && deadlineAdjustment.adjustmentAmount;
+  },
+  showFundraisingModule(){
+    let trip = Trips.findOne({tripId: this.tripId});
+    if(trip){
+      return trip.show;
+    }
+  },
+  showTripRaisedTotal(){
+    let splits = DTSplits.find({fund_id: this.tripId});
+    if(splits && splits.count() > 0){
+      let total_in_cents = splits.map(function ( item ) {
+        return item.amount_in_cents;
+      });
+      let sum = total_in_cents.reduce(add, 0);
+
+      function add(a, b) {
+        return a + b;
+      }
+      let deadlineTotal  = getDeadlineTotal(this._id);
+      let returnAmount = (sum / 100).toFixed( 2 );
+      return '** $' + returnAmount + ' raised of $' + deadlineTotal + ' total';
+    } else {
+      return "** 0";
+    }
   }
 });
 
@@ -197,9 +221,21 @@ Template.Admin.events({
       let tripStartDate = $( "[name='tripStartDate']" ).val();
       let tripEndDate = $( "[name='tripEndDate']" ).val();
       let tripExpirationDate = $( "[name='tripExpirationDate']" ).val();
-      if(!tripId || !tripStartDate || !tripEndDate || !tripExpirationDate) return;
+      let showFundraisingModule = $('#financial-module-no').is(':checked') ? 'no' : $('#financial-module-yes').is(':checked') ? 'yes' : false;
+      if(!showFundraisingModule){
+        Bert.alert( 'Please choose one of the options for the fundraising module', 'danger');
+        btn.button("reset");
+        return;
+      } else {
+        showFundraisingModule === 'yes' ? showFundraisingModule = true : showFundraisingModule = false;
+      }
+      if(!tripId || !tripStartDate || !tripEndDate || !tripExpirationDate) {
+        Bert.alert( 'Please make sure you have a trip start date, end date, expiration date and a trip id', 'danger');
+        btn.button("reset");
+        return;
+      }
       Session.set("tripId", tripId);
-      Meteor.call( "add.trip", tripId, { tripStartDate, tripEndDate, tripExpirationDate }, function ( err, res ) {
+      Meteor.call( "add.trip", tripId, { tripStartDate, tripEndDate, tripExpirationDate, showFundraisingModule }, function ( err, res ) {
         if( err ) {
           console.error( err );
           Bert.alert( err.reason, 'danger');
@@ -268,6 +304,8 @@ Template.Admin.events({
   'click #trip-form-cancel-button'(){
     $("#show-add-trip").prop("disabled",false);
     $("#show-add-trip").css( 'cursor', 'pointer' );
+    $('#financial-module-no').prop('checked', false);
+    $('#financial-module-yes').prop('checked', false);
     $( "#trip-form" ).slideUp();
   },
   'click .make-admin-link'(){

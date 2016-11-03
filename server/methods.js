@@ -198,15 +198,20 @@ Meteor.methods({
    * Admin method to check DonorTools for a tripId and then add the trip if it exists
    *
    * @method add.trip
-   * @param {String} tripId
-   * @param {String} tripExpirationDate
+   * @param {String} tripId - The DonorTools fund id
+   * @param {Object} data
+   * @param {String} data.showFundraisingModule - Should we show the fundraising module to trip participants? Should we show the trip on the Give page?
+   * @param {String} data.tripEndDate - What is the last day of the mission trip?
+   * @param {String} data.tripExpirationDate - When should this trip stop appearing in the admin module and on the Give page?
+   * @param {String} data.tripStartDate - What is the first day of the mission trip?
    */
   'add.trip'(tripId, data){
     check(tripId, String);
     check(data, {
+      showFundraisingModule: Boolean,
       tripEndDate: String,
-      tripStartDate: String,
-      tripExpirationDate: String
+      tripExpirationDate: String,
+      tripStartDate: String
     });
     logger.info("Started add.trip with data: ", tripId, data);
 
@@ -224,18 +229,19 @@ Meteor.methods({
         DTTrip = DTTrip.data.fund;
       } else {
         throw new Meteor.Error(DTTrip.statusCode,
-          'There was a problem contacting Donor Tools or getting a result from them');
+          'There was a problem contacting Donor Tools or getting a result from them, try again in a little while, then contact the admin if you are still having trouble');
       }
 
       Trips.insert( {
-        adminId:        this.userId,
-        createdOn:      new Date(),
-        expires:        new Date(data.tripExpirationDate),
-        starts:         new Date(data.tripStartDate),
-        ends:           new Date(data.tripEndDate),
-        name:           DTTrip.name,
-        raised:         DTTrip.raised.cents,
-        tripId:         DTTrip.id
+        adminId:                this.userId,
+        createdOn:              new Date(),
+        expires:                new Date(data.tripExpirationDate),
+        starts:                 new Date(data.tripStartDate),
+        ends:                   new Date(data.tripEndDate),
+        name:                   DTTrip.name,
+        raised:                 DTTrip.raised.cents,
+        tripId:                 DTTrip.id,
+        showFundraisingModule:  data.showFundraisingModule
       } );
 
       if(Meteor.settings.Give && Meteor.settings.Give.tripsManagerPassword) {
@@ -246,6 +252,7 @@ Meteor.methods({
           endDate:        new Date(data.tripEndDate),
           expires:        new Date(data.tripExpirationDate),
           startDate:      new Date(data.tripStartDate),
+          show:           data.showFundraisingModule
         };
         Meteor.call("runGiveMethod", "insertTrip", tripData, function ( err, res ) {
           if(err) {
@@ -446,5 +453,19 @@ Meteor.methods({
         }
       });
     }
+  },
+  updateUserDoc(formData){
+    check( formData, {
+      "firstName": String,
+      "lastName":  String,
+      "phone":     String,
+      "address":   {
+        "address": String,
+        "city":    String,
+        "state":   String,
+        "zip":     String
+      }
+    } );
+    return Meteor.users.update( { _id: Meteor.userId() }, { $set: { profile: formData } } );
   }
 });

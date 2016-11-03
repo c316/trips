@@ -92,7 +92,7 @@ Template.UserRegistration.onRendered(()=>{
           }
         });
       } else {
-        Meteor.users.update({_id: Meteor.userId()}, {$set: {profile: formData}}, (err, affectedDocs)=>{
+        Meteor.call("updateUserDoc", formData, function ( err, res ) {
           if (err) {
             btn.button('error');
             console.error(err);
@@ -114,7 +114,6 @@ Template.UserRegistration.onRendered(()=>{
           }
         });
       }
-
     }
   });
 

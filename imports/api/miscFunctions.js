@@ -44,22 +44,19 @@ export const getRaisedTotal = (userId)=>{
 
 export const getDeadlineTotal = (userId)=>{
   let total = 0;
-  if(userId){
-    let trip = Forms.findOne({name: 'tripRegistration', userId});
-    if(trip && trip.tripId){
-      Deadlines.find({tripId: trip.tripId}).map( function ( doc ) {
-        total += doc.amount;
-      } );
-    }
+  let user;
+  if(userId) {
+    user = Meteor.users.findOne( { _id: userId } );
   } else {
-    let trip = Forms.findOne({name: 'tripRegistration', userId: Meteor.userId()});
-    if(trip){
-      Deadlines.find({tripId: trip.tripId}).map( function ( doc ) {
+    user = Meteor.user();
+  }
+  if(user && user.tripId){
+      Deadlines.find({tripId: user.tripId}).map( function ( doc ) {
         total += doc.amount;
       } );
-    }
+    return (total).toFixed( 2 );
   }
-  return (total).toFixed( 2 );
+  return;
 };
 
 

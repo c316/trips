@@ -29,6 +29,20 @@ Template.Home.helpers({
   },
   userFullName(){
     return this.profile && this.profile.firstName + " " + this.profile.lastName;
+  },
+  doNotShowFundraisingModule(){
+    let user;
+    if (!Session.get("showingOtherUser")) {
+      user = Meteor.user();
+    } else {
+      user = this;
+    }
+    if (user && user.tripId) {
+      let trip = Trips.findOne({tripId: user.tripId});
+      return trip && trip.show;
+    } else {
+      return true;
+    }
   }
 });
 
