@@ -39,6 +39,13 @@ Meteor.publish('Deadlines', function(userId){
   }
 });
 
+Meteor.publish('TripDeadlines', function(tripId){
+  check(tripId, Number);
+  if( Roles.userIsInRole(this.userId, 'admin') ){
+    return Deadlines.find( { tripId } );
+  }
+});
+
 Meteor.publish('DTSplits', function(){
   if( this.userId ) {
     if( Roles.userIsInRole(this.userId, 'admin') ){
@@ -83,14 +90,16 @@ Meteor.publish('files.images', function (showingUserId) {
   }
 });
 
-Meteor.publish('Trips', function(){
+Meteor.publish('Trips', function(tripId){
+  check(tripId, Match.Maybe(Number));
   if( this.userId ) {
     if( Roles.userIsInRole(this.userId, 'admin') ){
-      return Trips.find();
+      if(tripId) return Trips.find({tripId});
+      else return Trips.find();
     } else {
       let user = Meteor.users.findOne( { _id: this.userId } );
-      let tripId = user && user.tripId;
-      if( tripId ) return Trips.find( { tripId: tripId } );
+      let thisTripId = user && user.tripId;
+      if( thisTripId ) return Trips.find( { tripId: thisTripId } );
     }
   }
 });

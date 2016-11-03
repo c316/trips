@@ -109,3 +109,7 @@ Template.registerHelper('appVersion', function(){
 Template.registerHelper('thisUserIsInRole', function(_id, role){
   return Roles.userIsInRole(_id, role);
 });
+
+Template.registerHelper('formatDate', function(date) {
+    return moment(new Date(date)).format('MM/DD/YYYY');
+});

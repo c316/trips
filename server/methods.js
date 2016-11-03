@@ -292,7 +292,7 @@ Meteor.methods({
           deadlineNumber: index+1,
           tripId: Number(tripId),
           amount: Number(deadline.amount),
-          due:    deadline.due,
+          due:    new Date(deadline.due),
           name:   deadline.name
         });
       });
@@ -454,6 +454,11 @@ Meteor.methods({
       });
     }
   },
+  /**
+   * Since users can't update their profile on the client side this method does this for them.
+   *
+   * @method updateUserDoc
+   */
   updateUserDoc(formData){
     check( formData, {
       "firstName": String,
@@ -466,6 +471,110 @@ Meteor.methods({
         "zip":     String
       }
     } );
-    return Meteor.users.update( { _id: Meteor.userId() }, { $set: { profile: formData } } );
+    logger.info( "Started updateUserDoc method with user: " + this.userId, );
+
+    return Meteor.users.update( { _id: this.userId }, { $set: { profile: formData } } );
+  },
+  /**
+   * This method inserts a deadline and shifts the existing deadlines around so they are still in date order
+   *
+   * @method insert.deadline
+   */
+  'insert.deadline'(deadline, tripId){
+    check( deadline, {
+      "name":     String,
+      "amount":   Number,
+      "due":      Date,
+    } );
+    check(tripId, Number);
+
+    if( Roles.userIsInRole( this.userId, 'admin' ) ) {
+      deadline.tripId = tripId;
+      console.log(deadline);
+      logger.info( "Started insert.deadline method with user: " + this.userId );
+      let deadlines = Deadlines.find({tripId: tripId}).fetch();
+      deadlines.push(deadline);
+      deadlines = _.sortBy( deadlines, 'due' );
+      deadlines.forEach(function ( deadline, index ) {
+        if(deadline._id){
+          Deadlines.update({_id: deadline._id}, {
+            deadlineNumber: index+1,
+            tripId: Number(tripId),
+            amount: Number(deadline.amount),
+            due:    deadline.due,
+            name:   deadline.name
+          });
+        } else {
+          Deadlines.insert({
+            deadlineNumber: index+1,
+            tripId: Number(tripId),
+            amount: Number(deadline.amount),
+            due:    deadline.due,
+            name:   deadline.name
+          });
+        }
+      });
+    } else {
+      throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
+    }
+
+  },
+  /**
+   * This method updates an existing deadline
+   *
+   * @method update.deadline
+   */
+  'update.deadline'(deadline){
+    check( deadline, {
+      "_id":     String,
+      "amount":  Number,
+      "due":     Date,
+      "name":    String,
+      "tripId":  Number
+    } );
+
+    if( Roles.userIsInRole( this.userId, 'admin' ) ) {
+      console.log(deadline);
+      logger.info( "Started update.deadline method with user: " + this.userId );
+      let deadlines = Deadlines.find({tripId: deadline.tripId}).fetch();
+      deadlines.push(deadline);
+      deadlines = _.sortBy( deadlines, 'due' );
+      deadlines.forEach(function ( deadline, index ) {
+        if(deadline._id){
+          Deadlines.update({_id: deadline._id}, {
+            deadlineNumber: index+1,
+            tripId:  deadline.tripId,
+            amount:  deadline.amount,
+            due:    deadline.due,
+            name:   deadline.name
+          });
+        } else {
+          Deadlines.insert({
+            deadlineNumber: index+1,
+            tripId: tripId,
+            amount: deadline.amount,
+            due:    deadline.due,
+            name:   deadline.name
+          });
+        }
+      });
+    } else {
+      throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
+    }
+  },
+  /**
+   * This method deletes a single deadline
+   *
+   * @method delete.deadline
+   */
+  'delete.deadline'(deadlineId){
+    check( deadlineId, String);
+
+    if( Roles.userIsInRole( this.userId, 'admin' ) ) {
+      logger.info( "Started deleted.deadline method with deadlineId: " + deadlineId );
+      return Deadlines.remove({_id: deadlineId});
+    } else {
+      throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
+    }
   }
 });

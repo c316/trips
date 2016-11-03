@@ -90,6 +90,17 @@ FlowRouter.route( '/admin/print-all/:tripId', {
   }
 });
 
+FlowRouter.route( '/admin/edit/:tripId', {
+  name: 'edit-trip',
+  triggersEnter: function ( context, redirect ) {
+    Session.set("tripId", Number(context && context.params.tripId));
+    redirectIfNotAdmin(context, redirect);
+  },
+  action() {
+    BlazeLayout.render('main', { top: "Header", main: "EditTrip", footer: "Footer" });
+  }
+});
+
 
 FlowRouter.route( '/admin/print-one', {
   name: 'print-one',

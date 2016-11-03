@@ -72,13 +72,22 @@
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li class="text-center">
-                                    <a id="show-all-trips" href="">All Trips</a>
-                                </li>
-                                <li class="divider"> </li>
                                 {{#each trips}}
                                     <li>
                                         <a class="filter-trip" href="">{{name}} </a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-circle btn-default " href="" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-pencil"></i> Edit Trip
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                {{#each trips}}
+                                    <li>
+                                        <a href="{{pathFor '/admin/edit/:tripId' tripId=this.tripId}}">{{name}} </a>
                                     </li>
                                 {{/each}}
                             </ul>

@@ -1,0 +1,84 @@
+<template name="EditTrip">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            {{#with trip}}
+                                <h3 class="mt-repeater-title">Trip Name: {{name}}</h3>
+                                <h3 class="mt-repeater-title">Trip ID: {{tripId}}</h3>
+                            {{/with}}
+                            {{#each Deadlines}}
+                                <form class="form-inline margin-bottom-40" role="form" id="{{_id}}">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" name="deadlineName" class="form-control" value="{{name}}" placeholder="Deadline Name">
+                                        <div class="form-control-focus"> </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input type="text" name="amount" class="form-control" value="{{amount}}" placeholder="Deadline Amount">
+                                        <div class="form-control-focus"> </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input has-success">
+                                        <input class="input-group form-control form-control-inline date date-picker"
+                                               placeholder="Due by Date"
+                                               size="16"
+                                               type="text"
+                                               name="due"
+                                               value="{{formatDate due}}"
+                                               data-date-format="mm/dd/yyyy">
+                                        <div class="form-control-focus"> </div>
+                                    </div>
+                                    <button type="submit" {{submitFormText}}
+                                            class="btn green-seagreen btn-outline">Update</button>
+                                    <button href="" class="btn red-haze btn-outline delete-me" data-deadline-id="{{_id}}">
+                                        <i class="fa fa-close"></i> Delete</button>
+                                    <input type="hidden" value="{{tripId}}" name="trip-id">
+                                </form>
+                            {{/each}}
+                            <a href="" data-repeater-create="" class="btn green-haze btn-outline add-deadline">
+                                <i class="fa fa-plus"></i> Add</a>
+                            <div class="row" id="new-deadline" style="display: none;">
+                                <div class="col-md-12">
+                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                    <div class="portlet light bordered">
+                                        <div class="portlet-body form">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <form class="form-inline margin-bottom-40" role="form" id="insert-new-deadline">
+                                                        <div class="form-group form-md-line-input has-success">
+                                                            <input type="text" name="deadlineName" class="form-control" placeholder="Deadline Name">
+                                                            <div class="form-control-focus"> </div>
+                                                        </div>
+                                                        <div class="form-group form-md-line-input has-success">
+                                                            <input type="text" name="amount" class="form-control" placeholder="Deadline Amount">
+                                                            <div class="form-control-focus"> </div>
+                                                        </div>
+                                                        <div class="form-group form-md-line-input has-success">
+                                                            <input class="input-group form-control form-control-inline date date-picker"
+                                                                   placeholder="Due by Date"
+                                                                   size="16"
+                                                                   type="text"
+                                                                   name="due"
+                                                                   data-date-format="mm/dd/yyyy">
+                                                            <div class="form-control-focus"> </div>
+                                                        </div>
+                                                        <button type="submit" {{submitFormText}}
+                                                                class="dt-button buttons-html5 btn btn-lg green-seagreen btn-outline" id="insert-new-deadline-button">Insert</button>
+                                                        <input type="hidden" value="{{tripId}}" name="trip-id">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END EXAMPLE TABLE PORTLET-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

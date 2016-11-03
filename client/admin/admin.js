@@ -149,7 +149,6 @@ Template.Admin.events({
     FlowRouter.go("adminShowUserHome", {}, {id: this._id});
   },
   'click .deadlines-admin-link'(){
-    console.log("Clicked deadlines for: ", this._id);
     $("#collapse-edit-" + this._id).toggle();
   },
   'click .print-user'(){
@@ -218,9 +217,9 @@ Template.Admin.events({
     btn.button("loading");
     if (formId === "trip-form") {
       let tripId = $( "[name='trip-id']" ).val();
-      let tripStartDate = $( "[name='tripStartDate']" ).val();
-      let tripEndDate = $( "[name='tripEndDate']" ).val();
-      let tripExpirationDate = $( "[name='tripExpirationDate']" ).val();
+      let tripStartDate = new Date($( "[name='tripStartDate']" ).val());
+      let tripEndDate = new Date($( "[name='tripEndDate']" ).val());
+      let tripExpirationDate = new Date($( "[name='tripExpirationDate']" ).val());
       let showFundraisingModule = $('#financial-module-no').is(':checked') ? 'no' : $('#financial-module-yes').is(':checked') ? 'yes' : false;
       if(!showFundraisingModule){
         Bert.alert( 'Please choose one of the options for the fundraising module', 'danger');
