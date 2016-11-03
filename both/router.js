@@ -91,7 +91,7 @@ FlowRouter.route( '/admin/print-all/:tripId', {
 });
 
 FlowRouter.route( '/admin/edit/:tripId', {
-  name: 'edit-trip',
+  name: 'admin-edit-trip',
   triggersEnter: function ( context, redirect ) {
     Session.set("tripId", Number(context && context.params.tripId));
     redirectIfNotAdmin(context, redirect);

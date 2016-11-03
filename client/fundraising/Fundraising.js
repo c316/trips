@@ -33,7 +33,7 @@ Template.Fundraising.helpers({
     } else {
       let name = Meteor.user() && Meteor.user().profile && (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
       if (name){
-        return DTSplits.find({memo: {$regex: name}});
+        return DTSplits.find();
       }
     }
   },

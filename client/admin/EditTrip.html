@@ -10,6 +10,10 @@
                                 <h3 class="mt-repeater-title">Trip Name: {{name}}</h3>
                                 <h3 class="mt-repeater-title">Trip ID: {{tripId}}</h3>
                             {{/with}}
+                            <br>
+                            {{#if NoDeadlines}}
+                                <p><strong>No deadlines are setup for this trip</strong></p>
+                            {{/if}}
                             {{#each Deadlines}}
                                 <form class="form-inline margin-bottom-40" role="form" id="{{_id}}">
                                     <div class="form-group form-md-line-input has-success">

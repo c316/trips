@@ -30,7 +30,7 @@ Template.Home.helpers({
   userFullName(){
     return this.profile && this.profile.firstName + " " + this.profile.lastName;
   },
-  doNotShowFundraisingModule(){
+  ShowFundraisingModule(){
     let user;
     if (!Session.get("showingOtherUser")) {
       user = Meteor.user();
@@ -39,7 +39,7 @@ Template.Home.helpers({
     }
     if (user && user.tripId) {
       let trip = Trips.findOne({tripId: user.tripId});
-      return trip && trip.show;
+      return trip && trip.showFundraisingModule;
     } else {
       return true;
     }

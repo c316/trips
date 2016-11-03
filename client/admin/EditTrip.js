@@ -95,5 +95,8 @@ Template.EditTrip.helpers({
   },
   tripId(){
     return Trips.findOne() && Trips.findOne().tripId;
+  },
+  NoDeadlines(){
+    return Deadlines.find() && Deadlines.find().count() === 0;
   }
 });

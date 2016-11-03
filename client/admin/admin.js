@@ -106,7 +106,7 @@ Template.Admin.helpers({
   showFundraisingModule(){
     let trip = Trips.findOne({tripId: this.tripId});
     if(trip){
-      return trip.show;
+      return trip.showFundraisingModule;
     }
   },
   showTripRaisedTotal(){
