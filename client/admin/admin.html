@@ -63,7 +63,7 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Trips Admin</span>
+                        <span class="caption-subject bold uppercase">Trips Admin {{#if filteringTrip}}<p><span style="color: darkred">{{tripName}} - {{numberOfTripParticipants}} Participants</span></p>{{/if}}</span>
                     </div>
                     <div class="actions">
                         <div class="btn-group">
@@ -72,6 +72,10 @@
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu pull-right">
+                                <li class="text-center">
+                                    <a id="show-all-trips" href="">All Trips</a>
+                                </li>
+                                <li class="divider"> </li>
                                 {{#each trips}}
                                     <li>
                                         <a class="filter-trip" href="">{{name}} </a>

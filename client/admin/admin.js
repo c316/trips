@@ -126,6 +126,18 @@ Template.Admin.helpers({
     } else {
       return "** 0";
     }
+  },
+  filteringTrip(){
+    return Session.get("tripId");
+  },
+  numberOfTripParticipants(){
+    let tripId = Session.get("tripId");
+    let users = Meteor.users.find({tripId: tripId});
+    return users.count();
+  },
+  tripName(){
+    let tripId = Session.get("tripId");
+    return Trips.findOne({tripId}) && Trips.findOne({tripId}).name;
   }
 });
 
