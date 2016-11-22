@@ -136,7 +136,7 @@ Template.Admin.helpers({
     return users.count();
   },
   tripName(){
-    let tripId = Session.get("tripId");
+    let tripId = this.tripId || Session.get("tripId");
     return Trips.findOne({tripId}) && Trips.findOne({tripId}).name;
   }
 });

@@ -3,7 +3,7 @@ import { BootstrapDatePicker } from '/imports/ui/js/bootstrap-datepicker';
 import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
 import { phoneUS, zipcode } from '/imports/api/validationMethods';
 
-Template.MissionaryInformationForm.onRendered(()=>{
+Template.MissionaryInformationForm.onRendered(function(){
   phoneUS();
   zipcode();
 
@@ -15,33 +15,113 @@ Template.MissionaryInformationForm.onRendered(()=>{
 
   // for more info visit the official plugin documentation:
   // http://docs.jquery.com/Plugins/Validation
-  var missionaryInformationForm = $('#missionaryInformationForm');
-  var error1 = $('.alert-danger', missionaryInformationForm);
-  var success1 = $('.alert-success', missionaryInformationForm);
+  var missionaryInformationFormVar = $('#missionaryInformationForm');
+  var error1 = $('.alert-danger', missionaryInformationFormVar);
+  var success1 = $('.alert-success', missionaryInformationFormVar);
 
-  missionaryInformationForm.validate({
+  missionaryInformationFormVar.validate({
     errorElement: 'span', //default input error message container
     errorClass: 'help-block help-block-error', // default input error message class
-    focusInvalid: true, // do not focus the last invalid input
+    focusInvalid: false,
     rules: {
       preferredName: {
         required: true,
         minlength: 2
       },
+      passportStatus:{
+        required: true
+      },
       passportExpirationDate: {
-        date: true,
+        required: function () {
+          if( $( "input:radio[name=passportStatus]" ).is( ":checked" ) ) {
+            if( $( 'input[name=passportStatus]:checked' ).val() === 'yes' ) {
+              return true;
+            }
+          }
+          return false;
+        }
       },
       birthdate: {
-        date: true
+        required: true,
+        date: true,
       },
-      lastTetanusShotYear: {
-        number: true
+      gender: {
+        required: true,
       },
-      emergencyContactPhone: {
-        phoneUS: true
+      emergencyContactFirstName: {
+        required: true,
+      },
+      emergencyContactLastName: {
+        required: true,
+      },
+      emergencyContactAddressLine1: {
+        required: true,
+      },
+      emergencyContactCity: {
+        required: true,
+      },
+      emergencyContactState: {
+        required: true,
       },
       emergencyContactAddressZip: {
-        zipcode: true
+        zipcode: true,
+        required: true,
+      },
+      emergencyContactPhone: {
+        phoneUS: true,
+        required: true,
+      },
+      beneficiaryFirstName: {
+        required: true,
+      },
+      beneficiaryLastName: {
+        required: true,
+      },
+      beneficiaryRelationship: {
+        required: true,
+      },
+      homeChurchName: {
+        required: true,
+      },
+      bloodType: {
+        required: true,
+      },
+      tShirtSize: {
+        required: true,
+      },
+      lastTetanusShotYear: {
+        number: true,
+        required: true,
+      },
+      convictedOfACrime: {
+        required: true,
+      },
+      permissionToRunBackgroundCheck: {
+        required: true,
+      },
+      speaksOtherLanguages: {
+        required: true,
+      },
+      beenOnATMPTrip: {
+        required: true,
+      },
+      traveledOutsideTheUS: {
+        required: true,
+      },
+      whyDoYouWantToJoinThisTeam: {
+        required: true,
+      },
+      whatThreeSkills: {
+        required: true
+      },
+      iWouldLikeToParticipateIn: {
+        required: true
+      },
+      opportunityDetails: {
+        required: true
+      },
+      iagree: {
+        required: true
       }
     },
     messages: {
@@ -54,6 +134,11 @@ Template.MissionaryInformationForm.onRendered(()=>{
     invalidHandler: function(event, validator) { //display error alert on form submit
       success1.hide();
       error1.show();
+
+      if (!validator.numberOfInvalids())
+        return;
+
+
     },
 
     errorPlacement: function(error, element) {
@@ -66,31 +151,24 @@ Template.MissionaryInformationForm.onRendered(()=>{
       }
     },
 
-    highlight: function(element) { // hightlight error inputs
-      $(element)
-        .closest('.form-group').addClass('has-error'); // set error class to the control group
+    highlight: function(element) { // highlight error inputs
+      $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
     },
 
-    unhighlight: function(element) { // revert the change done by hightlight
-      $(element)
-        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+    unhighlight: function(element) { // revert the change done by highlight
+      $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
     },
 
     success: function(label) {
-      label
-        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+      label.closest('.form-group').removeClass('has-error'); // set success class to the control group
     },
 
     submitHandler: function(form) {
-      let btn = $('[name="submitMissionaryInformationForm"]');
-      btn.button("loading");
+      console.log("Submitted");
 
       success1.show();
       error1.hide();
-
-      setTimeout(function () {
-        btn.button('success')
-      }, 500);
+      form.submit();
     }
   });
 
@@ -124,7 +202,7 @@ Template.MissionaryInformationForm.events({
     }
 
     // Validate that the form has all the required fields
-    $(e.target).valid();
+    $('#missionaryInformationForm').valid();
 
     // Get all the form data, convert it to an object and for the array of
     // checkboxes called, 'iWouldLikeToParticipateIn' push them into one key,

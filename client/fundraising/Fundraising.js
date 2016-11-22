@@ -48,7 +48,7 @@ Template.Fundraising.helpers({
       let deadlineTotal = getDeadlineTotal(Session.get('showingUserId'));
       let raisedTotal   = getRaisedTotal(Session.get('showingUserId'));
       let needToRaiseThisAmount = deadlineTotal - raisedTotal;
-      return needToRaiseThisAmount;
+      return needToRaiseThisAmount.toFixed(2);
     } else {
       return getDeadlineTotal();
     }

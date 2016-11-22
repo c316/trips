@@ -47,18 +47,16 @@ Meteor.publish('TripDeadlines', function(tripId){
 });
 
 Meteor.publish('DTSplits', function(){
+  console.log(this.userId);
   if( this.userId ) {
     if( Roles.userIsInRole(this.userId, 'admin') ){
       return DTSplits.find();
     } else {
-      let tripForm = Forms.findOne( {
-        userId:   this.userId,
-        name: 'tripRegistration'
-      } );
-      if( tripForm && tripForm.tripId ) {
+      let user = Meteor.users.findOne({_id: this.userId });
+      if( user && user.tripId ) {
         let name = Meteor.users.findOne( { _id: this.userId } ).profile &&
           (Meteor.users.findOne( { _id: this.userId } ).profile.firstName + " " + Meteor.users.findOne( { _id: this.userId } ).profile.lastName);
-        return DTSplits.find( {$and: [{ fund_id: tripForm.tripId }, {$text: { $search: name } }]} );
+        return DTSplits.find( {$and: [{ fund_id: user.tripId }, {$text: { $search: '\"' + name + '\"'} }]} );
       }
     }
   }

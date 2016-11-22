@@ -59,8 +59,8 @@ Meteor.methods({
     function formIsComplete(form){
       let formLength = Object.keys(form).length;
       console.log(formLength);
-      if(form.passportStatus && form.passportStatus === 'yes'){
-        if(formLength >= 40){
+      if(form.passportStatus && (form.passportStatus === 'yes' || form.passportStatus === 'in-progress')){
+        if(formLength >= 33){
           return true;
         }
         return false;

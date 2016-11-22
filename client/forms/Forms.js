@@ -15,9 +15,13 @@ Template.Forms.onCreated(function () {
     Meteor.subscribe('files.images', Session.get("showingUserId"));
     Meteor.subscribe('Trips');
     if(this.data && this.data._id){
+      console.log(this.data._id);
+      console.log(this.data);
       Meteor.subscribe('Forms', this.data._id);
     } else {
-      Meteor.subscribe('Forms');
+      if(Roles.userIsInRole(Meteor.userId(), 'admin')){
+        Meteor.subscribe('Forms');
+      }
     }
   });
 });

@@ -51,7 +51,7 @@ FlowRouter.route( '/profile', {
 FlowRouter.route( '/forms', {
   name: 'forms',
   action() {
-    BlazeLayout.render('main', { top: "Header", main: "Forms", footer: "Footer" });
+    BlazeLayout.render('main', { top: "Header", main: "FormsPage", footer: "Footer" });
   }
 });
 
