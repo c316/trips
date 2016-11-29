@@ -101,7 +101,7 @@ Meteor.methods({
       this.unblock();
       let splitData;
       if(!fundId){
-        let trips = Trips.find().map(function ( trip ) {
+        let trips = Trips.find({expires: {$gte: new Date()}}).map(function ( trip ) {
           return getDTSplitData( trip.tripId );
         });
         splitData = trips;
