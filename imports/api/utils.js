@@ -16,7 +16,7 @@ export const connectToGive = () =>{
 };
 
 /**
- * General purpose http gettter
+ * General purpose http getter
  * cRud (R in CRUD)
  * http://docs.meteor.com/#/full/http_call
  *
@@ -52,7 +52,6 @@ const _Splits = ( fundId )=>{
   const getQuery = 'funds/' + fundId + '/splits.json';
 
   const data = http_get_donortools(getQuery);
-  logger.info(data);
 
   data.data.forEach( function ( donationSplit ) {
     newValue.push( donationSplit.split );
@@ -65,7 +64,6 @@ const _Donation = ( splitId )=>{
 
   const data = http_get_donortools(getQuery);
   logger.info("_Donation result:");
-  logger.info(data.data);
   return data.data.donation;
 };
 
@@ -80,7 +78,7 @@ const _Person = ( persona_id )=>{
 export const getDTSplitData = ( fundId )=>{
   let allData = _Splits(fundId);
   allData.map((split)=> {
-    logger.info( "split map ", split );
+    logger.info( "split.id: ", split.id );
     split.donation = _Donation( split.donation_id );
     split.persona = _Person( split.donation.persona_id );
     return split;
@@ -104,7 +102,6 @@ export const updateSplits = () =>{
   activeTrips.forEach(function ( trip ) {
     // Get and store the combined split data
     const splitData = getDTSplitData( trip.tripId );
-    logger.info( splitData );
   });
   return 'success';
 };
