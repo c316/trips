@@ -1,4 +1,10 @@
-import { getRaisedTotal, getDeadlineTotal, getDeadlineAdjustments, statuses } from '/imports/api/miscFunctions';
+import { getRaisedTotal,
+  getRaisedTotalForTrip,
+  getDeadlineTotal,
+  getDeadlineAdjustments,
+  getDeadlinesTotalForTrip,
+  getDeadlineAdjustmentsForTrip,
+  statuses } from '/imports/api/miscFunctions';
 import { repeater } from '/imports/ui/js/jquery.repeater';
 import { repeaterSetup } from '/imports/api/miscFunctions';
 import '/imports/ui/stylesheets/admin-print.css';
@@ -138,6 +144,17 @@ Template.Admin.helpers({
   tripName(){
     let tripId = this.tripId || Session.get("tripId");
     return Trips.findOne({tripId}) && Trips.findOne({tripId}).name;
+  },
+  totalRaisedForTrip(){
+    let totalRaised = getRaisedTotalForTrip(Session.get("tripId"));
+    let totalAdjustments = getDeadlineAdjustmentsForTrip(Session.get("tripId"));
+    return totalRaised - totalAdjustments;
+  },
+  totalNeededForTrip(){
+    let tripId = Session.get("tripId");
+    let totalNeeded = getDeadlinesTotalForTrip(tripId);
+    let users = Meteor.users.find({tripId: tripId});
+    return totalNeeded * users.count();
   }
 });
 

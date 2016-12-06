@@ -42,6 +42,14 @@ export const getRaisedTotal = (userId)=>{
   return (total / 100).toFixed( 2 );
 };
 
+export const getRaisedTotalForTrip = (tripId)=>{
+  let total = 0;
+  DTSplits.find({fund_id: tripId}).map( function ( doc ) {
+    total += doc.amount_in_cents;
+  } );
+  return (total / 100).toFixed( 2 );
+};
+
 export const getDeadlineTotal = (userId)=>{
   let total = 0;
   let user;
@@ -59,6 +67,27 @@ export const getDeadlineTotal = (userId)=>{
   return;
 };
 
+export const getDeadlinesTotalForTrip = (tripId)=>{
+  let total = 0;
+
+  if(tripId){
+      Deadlines.find({tripId}).map( function ( doc ) {
+        total += doc.amount;
+      } );
+    return (total).toFixed( 2 );
+  }
+  return;
+};
+
+export const getDeadlineAdjustmentsForTrip = (tripId)=>{
+  let total = 0;
+  if(tripId){
+    DeadlineAdjustments.find({tripId}).map( function ( doc ) {
+      total += doc.adjustmentAmount;
+    } );
+  }
+  return (total).toFixed( 2 );
+};
 
 export const getDeadlineAdjustments = (userId)=>{
   let total = 0;

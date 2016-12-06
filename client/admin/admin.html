@@ -63,7 +63,15 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Trips Admin {{#if filteringTrip}}<p><span style="color: darkred">{{tripName}} - {{numberOfTripParticipants}} Participants</span></p>{{/if}}</span>
+                        <span class="caption-subject bold uppercase">Trips Admin {{#if filteringTrip}}
+                            <p>
+                                <span style="color: darkred">{{tripName}} - {{numberOfTripParticipants}} Participants</span>
+                            </p>
+                            <p>
+                                <span style="color: darkred">${{totalRaisedForTrip}} raised of ${{totalNeededForTrip}} total</span>
+                            </p>
+                            {{/if}}
+                        </span>
                     </div>
                     <div class="actions">
                         <div class="btn-group">
