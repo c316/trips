@@ -209,9 +209,9 @@ Meteor.methods({
     check(tripId, String);
     check(data, {
       showFundraisingModule: Boolean,
-      tripEndDate: String,
-      tripExpirationDate: String,
-      tripStartDate: String
+      tripEndDate: Date,
+      tripExpirationDate: Date,
+      tripStartDate: Date
     });
     logger.info("Started add.trip with data: ", tripId, data);
 
