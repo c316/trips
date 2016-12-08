@@ -394,6 +394,7 @@ Meteor.methods({
             console.error(err);
           } else {
             console.log(res);
+            connectToGive().disconnect();
           }
         });
       } else {
@@ -402,10 +403,10 @@ Meteor.methods({
             console.error(err);
           } else {
             console.log(res);
+            connectToGive().disconnect();
           }
         });
       }
-      connectToGive().disconnect();
     } else {
       throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
     }

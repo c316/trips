@@ -101,6 +101,9 @@ Template.Admin.helpers({
     let trip = this.tripId ? "- Trip ID: " + this.tripId : 'No trip';
     return trip;
   },
+  thisTripId(){
+    return Session.get("tripId");
+  },
   newTrip(){
     return Trips.findOne({tripId: Number(Session.get("tripId"))});
   },
@@ -262,7 +265,6 @@ Template.Admin.events({
         btn.button("reset");
         return;
       }
-      Session.set("tripId", tripId);
       Meteor.call( "add.trip", tripId, { tripStartDate, tripEndDate, tripExpirationDate, showFundraisingModule }, function ( err, res ) {
         if( err ) {
           console.error( err );
@@ -273,6 +275,8 @@ Template.Admin.events({
           $("#show-add-trip").css( 'cursor', 'pointer' );
         } else {
           console.log( res );
+          Session.set("tripId", tripId);
+
           Bert.alert( 'Ok, we have a trip now add the details, please.', 'success');
           btn.button('success');
           // reset the add-trip form
