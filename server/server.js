@@ -11,5 +11,5 @@ const schema = makeExecutableSchema({
 
 createApolloServer({
   graphiql: true,
-  schema,
+  schema
 });
