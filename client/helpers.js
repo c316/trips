@@ -53,7 +53,7 @@ Template.registerHelper('noTripRegistration', function() {
   let tripForm = Forms.findOne({name: 'tripRegistration'});
   if(tripForm && tripForm.tripId){
     return;
-  } else{
+  } else {
     return {
       style: 'background-color: #eee'
     }
@@ -63,12 +63,11 @@ Template.registerHelper('noTripRegistration', function() {
 Template.registerHelper('noTripRegistrationExpand', function() {
   let tripForm = Forms.findOne({name: 'tripRegistration'});
   if(tripForm && tripForm.tripId){
-    return;
-  } else{
     return {
       style: 'display: none;'
     }
   }
+  return;
 });
 
 Template.registerHelper('oddEven', function(index) {

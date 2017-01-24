@@ -1,10 +1,13 @@
 import {getDTSplitData, http_get_donortools} from '/imports/api/utils';
 
 Meteor.methods({
-  'delete.passportPhoto'() {
+  'delete.passportPhoto'(userId) {
+    check(userId, Match.Maybe(String));
     logger.info("Got to delete.passportPhoto");
 
-    if ( this.userId ) {
+    if ( Roles.userIsInRole(this.userId, 'admin') && userId) {
+      Images.remove({ userId });
+    } else if ( this.userId ) {
       Images.remove({ userId: this.userId });
     } else {
       throw new Meteor.Error('delete.passportPhoto.unauthorized',

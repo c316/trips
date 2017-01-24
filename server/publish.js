@@ -104,19 +104,22 @@ Meteor.publish('Trips', function(tripId){
 
 Meteor.publish('users', function(){
   if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
-    return Meteor.users.find();
+    return Meteor.users.find({},
+      {
+        fields: {
+          services: 0
+        }
+      });
   }
 });
 
 Meteor.publish('user', function(userId){
   check(userId, Match.Maybe(String));
   if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
-    if(userId) return Meteor.users.find({_id: userId});
-    else return Meteor.users.find();
-  } else if (this.userId) {
-    return Meteor.users.find(this.userId, {
+    if(userId) return Meteor.users.find({_id: userId},
+    {
       fields: {
-        tripId: 1
+        services: 0
       }
     });
   }

@@ -198,6 +198,7 @@ Template.Admin.events({
       if(err){
         console.error(err);
         Bert.alert({
+          title: "Sorry",
           message: 'Hmm...there was a problem getting updated. Try again in a few minutes and then contact the admin if you still have trouble.',
           type: 'danger',
           style: 'growl-bottom-right',

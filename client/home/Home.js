@@ -32,16 +32,16 @@ Template.Home.helpers({
   },
   ShowFundraisingModule(){
     let user;
-    if (!Session.get("showingOtherUser")) {
-      user = Meteor.user();
-    } else {
+    if (Session.get("showingOtherUser")) {
       user = this;
+    } else {
+      user = Meteor.user();
     }
     if (user && user.tripId) {
       let trip = Trips.findOne({tripId: user.tripId});
       return trip && trip.showFundraisingModule;
     } else {
-      return true;
+      return false;
     }
   }
 });

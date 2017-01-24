@@ -69,7 +69,7 @@ Accounts.emailTemplates.enrollAccount.html = function(user, url) {
           },
           {
             name:    'DEV',
-            content: Meteor.settings.dev
+            content: Meteor.settings.dev || ""
           }
         ]
       }
@@ -99,7 +99,7 @@ Accounts.emailTemplates.resetPassword.html = function(user, url) {
           },
           {
             name:    'DEV',
-            content: Meteor.settings.dev
+            content: Meteor.settings.dev || ""
           }
         ]
       }

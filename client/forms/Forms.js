@@ -15,8 +15,6 @@ Template.Forms.onCreated(function () {
     Meteor.subscribe('files.images', Session.get("showingUserId"));
     Meteor.subscribe('Trips');
     if(this.data && this.data._id){
-      console.log(this.data._id);
-      console.log(this.data);
       Meteor.subscribe('Forms', this.data._id);
     } else {
       if(Roles.userIsInRole(Meteor.userId(), 'admin')){
@@ -37,7 +35,7 @@ Template.Forms.onRendered(function () {
 
 Template.Forms.events({
   'click #delete-passport-photo'(){
-    Meteor.call("delete.passportPhoto");
+    Meteor.call("delete.passportPhoto", Session.get("showingUserId"));
     Session.delete("passportPhotoThumbnail");
     Session.delete("passportPhotoOriginal");
   },
