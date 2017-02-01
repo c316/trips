@@ -1,14 +1,12 @@
-Meteor.publish('DeadlineAdjustments', function(){
-  if( this.userId ) {
-    if( Roles.userIsInRole(this.userId, 'admin') ){
-      return DeadlineAdjustments.find();
-    } else {
-      let user = this.user();
-      if( user && user.tripId ) {
-        return DeadlineAdjustments.find({userId: user._id, tripId: user.tripId});
-      }
+Meteor.publish('userEverywhere', function(){
+  if( this.userId) {
+    return Meteor.users.find(this.userId,
+      {
+        fields: {
+          services: 0
+        }
+      });
     }
-  }
 });
 
 Meteor.publish('Deadlines', function(userId){
@@ -88,10 +86,16 @@ Meteor.publish('files.images', function (showingUserId) {
   }
 });
 
+Meteor.publish('Images', function () {
+  if( Roles.userIsInRole(this.userId, 'admin') ) {
+    return Images.find().cursor;
+  }
+});
+
 Meteor.publish('Trips', function(tripId){
   check(tripId, Match.Maybe(Number));
   if( this.userId ) {
-    if( Roles.userIsInRole(this.userId, 'admin') ){
+    if( Roles.userIsInRole(this.userId, 'admin, leader') ){
       if(tripId) return Trips.find({tripId});
       else return Trips.find();
     } else {
@@ -116,11 +120,48 @@ Meteor.publish('users', function(){
 Meteor.publish('user', function(userId){
   check(userId, Match.Maybe(String));
   if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
-    if(userId) return Meteor.users.find({_id: userId},
-    {
-      fields: {
-        services: 0
-      }
-    });
+    if(userId) {
+      return Meteor.users.find({_id: userId},
+        {
+          fields: {
+            services: 0
+          }
+        });
+    }
   }
 });
+
+Meteor.publishComposite("TripLeader", function(tripId) {
+  logger.info("Started publish function, TripLeader");
+  check(tripId, Number);
+  if( this.userId ) {
+    if( Roles.userIsInRole(this.userId, 'admin, leader') ){
+      return {
+        find: function() {
+          return Meteor.users.find({tripId});
+        },
+        children: [
+          {
+            find: function( user ) {
+              // Find the charges associated with this customer
+              return Forms.find( { userId: user._id } );
+            }
+          },
+          {
+            find: function( user ) {
+              // Find the subscriptions associated with this customer
+              return Images.find( { userId: user._id } );
+            }
+          },
+          {
+            find: function(  ) {
+              // Find the subscriptions associated with this customer
+              return DTSplits.find( { fund_id: tripId } );
+            }
+          }
+        ]
+      };
+    }
+  }
+});
+

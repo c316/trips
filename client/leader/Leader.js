@@ -5,25 +5,20 @@ import { getRaisedTotal,
   getDeadlinesTotalForTrip,
   getDeadlineAdjustmentsForTrip,
   statuses } from '/imports/api/miscFunctions';
-import { repeater } from '/imports/ui/js/jquery.repeater';
-import { repeaterSetup } from '/imports/api/miscFunctions';
-import '/imports/ui/stylesheets/admin-print.css';
 
-
-Template.Admin.onCreated(function () {
+Template.Leader.onCreated(function () {
   Session.delete("showingUserId");
   this.autorun(()=>{
     Meteor.subscribe('users');
-    Meteor.subscribe('Trips');
-    Meteor.subscribe('Forms');
-    Meteor.subscribe('Deadlines');
-    Meteor.subscribe('DTSplits');
-    Meteor.subscribe('Images');
+    if(Session.get("tripId")){
+      Meteor.subscribe('Trips', Session.get("tripId"));
+      Meteor.subscribe('TripLeader', Session.get("tripId"));
+    }
+
   });
 });
 
-Template.Admin.onRendered(()=>{
-  repeaterSetup();
+Template.Leader.onRendered(()=>{
   $('.date-picker').datepicker({
     orientation: "bottom",
     autoclose: true
@@ -35,9 +30,10 @@ Template.Admin.onRendered(()=>{
       console.log(e.currentTarget);
       $(e.currentTarget).addClass('edited');
     });
+  Session.set("tripId", Meteor.user().tripId);
 });
 
-Template.Admin.helpers({
+Template.Leader.helpers({
   user(){
     if(Session.get("tripId")){
       return Meteor.users.find({tripId: Session.get("tripId")});
@@ -60,8 +56,6 @@ Template.Admin.helpers({
   },
   formsStatus(){
     let tripForm = Forms.findOne( { name:  'tripRegistration', userId: this._id } );
-    let passportImage = Images.findOne( { userId: this._id } );
-
     if(tripForm && tripForm._id){
       let forms = Forms.find({
         userId: this._id,
@@ -72,11 +66,7 @@ Template.Admin.helpers({
       } );
       let totalNumberOfForms = forms && forms.count();
       if (totalNumberOfForms === 4){
-        if(passportImage){
-          return statuses.completed;
-        } else {
-          return statuses.needPassportPic;
-        }
+        return statuses.completed;
       } else {
         return statuses.inProgress;
       }
@@ -167,7 +157,7 @@ Template.Admin.helpers({
   }
 });
 
-Template.Admin.events({
+Template.Leader.events({
   'click .user-admin-link'(){
     Session.set("showUserRegistration", true);
     FlowRouter.go("adminShowUserHome", {}, {id: this._id});
@@ -349,18 +339,18 @@ Template.Admin.events({
   },
   'click .make-admin-link'(){
     Meteor.call( "add.roleToUser", this._id, 'admin', function ( err, res ) {
-        if( err ) console.error( err );
-        else {
-          console.log( res );
-          Bert.alert({
-            title: 'Admin',
-            message: 'This user has been updated.',
-            type: 'success',
-            style: 'growl-bottom-right',
-            icon: 'fa-thumbs-up'
-          });
-        }
-      } );
+      if( err ) console.error( err );
+      else {
+        console.log( res );
+        Bert.alert({
+          title: 'Leader',
+          message: 'This user has been updated.',
+          type: 'success',
+          style: 'growl-bottom-right',
+          icon: 'fa-thumbs-up'
+        });
+      }
+    } );
   },
   'click #print-page'(e){
     e.preventDefault();

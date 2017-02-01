@@ -80,7 +80,10 @@ Template.Forms.helpers({
       } );
       let totalNumberOfForms = forms && forms.count();
       if (totalNumberOfForms === 4){
-        return statuses.completed;
+        if(Images.find().count()){
+          return statuses.completed;
+        }
+        return statuses.inProgress;
       } else {
         return statuses.inProgress;
       }

@@ -1,0 +1,240 @@
+<template name="Leader">
+    <div class="row" id="full-trip-form-div" style="display: none;">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <form id="full-trip-form" class="mt-repeater form-horizontal">
+                                <h3 class="mt-repeater-title">Trip Name: {{name}}</h3>
+                                <h3 class="mt-repeater-title">Trip ID: {{tripId}}</h3>
+                                <div data-repeater-list="deadlines">
+                                    <div data-repeater-item="" class="mt-repeater-item">
+                                        <div class="mt-repeater-input">
+                                            <label class="control-label">Deadline Name</label>
+                                            <br>
+                                            <input type="text" name="name" class="form-control">
+                                        </div>
+                                        <div class="mt-repeater-input">
+                                            <label class="control-label">Deadline Amount</label>
+                                            <br>
+                                            <input type="text" name="amount" class="form-control">
+                                        </div>
+                                        <div class="mt-repeater-input">
+                                            <label class="control-label">Due by date</label>
+                                            <br>
+                                            <input class="input-group form-control form-control-inline date date-picker"
+                                                   size="16"
+                                                   type="text"
+                                                   name="due"
+                                                   data-date-format="mm/dd/yyyy">
+                                        </div>
+                                        <div class="mt-repeater-input">
+                                            <a href="" data-repeater-delete="" class="btn red-haze btn-outline mt-repeater-delete">
+                                                <i class="fa fa-close"></i> Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="" data-repeater-create="" class="btn green-haze btn-outline mt-repeater-add">
+                                    <i class="fa fa-plus"></i> Add</a>
+                                <br>
+                                <br>
+                                <input type="hidden" value="{{tripId}}" id="trip-id-for-full-form">
+
+                                <button id="full-trip-form-button"
+                                        type="submit"
+                                    {{submitFormText}}
+                                        class="dt-button buttons-html5 btn btn-lg green-seagreen btn-outline">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <span class="caption-subject bold uppercase">{{#if filteringTrip}}
+                            <p>
+                                <span style="color: darkred">{{tripName}} <br> ID: {{thisTripId}} <br> {{numberOfTripParticipants}} Participant(s)</span>
+                            </p>
+                            <p>
+                                <span style="color: darkred">${{totalRaisedForTrip}} raised of ${{totalNeededForTrip}} total</span>
+                            </p>
+                        {{/if}}
+                        </span>
+                    </div>
+                    <div class="actions">
+                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body flip-scroll">
+                    <div class="dataTables_wrapper no-footer">
+                        <table class="table table-bordered table-striped table-condensed flip-content"
+                               width="100%" id="sample_1" role="grid"
+                               style="width: 100%;">
+                            <thead>
+                            <tr role="row">
+                                <th class="min-phone-l sorting" tabindex="0"
+                                    rowspan="1"
+                                    colspan="1"
+                                    aria-label="Name">
+                                    Name
+                                </th>
+                                <th class="min-tablet sorting" tabindex="1"
+                                    rowspan="1"
+                                    colspan="1"
+                                    aria-label="Fundraising">
+                                    Fundraising
+                                </th>
+                                <th class="desktop sorting no-print" tabindex="3"
+                                    rowspan="1"
+                                    colspan="1"
+                                    aria-label="Passport Image">
+                                    Passport
+                                </th>
+                                <th class="desktop sorting no-print" tabindex="4"
+                                    rowspan="1"
+                                    colspan="1"
+                                    aria-label="Missionary Information Form">
+                                    Miss. Form
+                                </th>
+                                <th class="desktop sorting no-print" tabindex="5"
+                                    rowspan="1"
+                                    colspan="1"
+                                    aria-label="Waiver">
+                                    Waiver
+                                </th>
+                                <th class="desktop sorting no-print" tabindex="6"
+                                    rowspan="1"
+                                    colspan="1"
+                                    aria-label="Code of Conduct">
+                                    C. of C.
+                                </th>
+                                <th class="desktop sorting no-print" tabindex="6"
+                                    rowspan="1"
+                                    colspan="1"
+                                    aria-label="Media Release">
+                                    Media Release
+                                </th>
+                                <th class="desktop sorting no-print" tabindex="7"
+                                    rowspan="1"
+                                    colspan="1"
+                                    aria-label="Verifiy this participants forms">Verifiy
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each user}}
+                                <tr role="row" class="{{oddEven @index}}">
+                                    <td class="">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
+                                    <td class="">{{#if this.tripId}}
+                                        {{#if showFundraisingModule}}
+                                            {{{raisedAmount}}}
+                                        {{else}}
+                                            {{showTripRaisedTotal}}
+                                        {{/if}}
+                                    {{else}}
+                                        No trip
+                                    {{/if}}</td>
+                                    <td class="no-print">
+                                        <img src="/img/avatar1.jpg">
+                                    </td>
+                                    <td class="no-print">
+                                        <div class="md-checkbox-list">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="checkbox30" class="md-check" disabled checked="">
+                                                <label for="checkbox30">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span> Completed </label>
+                                            </div>
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="checkbox31" class="md-check" disabled>
+                                                <label for="checkbox31">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span> Verified </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="no-print">
+                                        <div class="md-checkbox-list">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="checkbox30" class="md-check" disabled checked="">
+                                                <label for="checkbox30">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span> Completed </label>
+                                            </div>
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="checkbox31" class="md-check" disabled>
+                                                <label for="checkbox31">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span> Verified </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="no-print">
+                                        <div class="md-checkbox-list">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="checkbox30" class="md-check" disabled >
+                                                <label for="checkbox30">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span> Completed </label>
+                                            </div>
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="checkbox31" class="md-check" disabled>
+                                                <label for="checkbox31">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span> Verified </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="no-print">
+                                        <div class="md-checkbox-list">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="checkbox30" class="md-check" disabled checked="">
+                                                <label for="checkbox30">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span> Completed </label>
+                                            </div>
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="checkbox31" class="md-check" disabled>
+                                                <label for="checkbox31">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span> Verified </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="no-print">
+                                        <button class="btn dark btn-xs btn-outline"><!--<i class="fa fa-check"></i>--> Verify Form Completeness
+                                        </button>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row no-print">
+                        <p>
+                        </p>
+                        <p>** Stared fundraising numbers reflect the total raised for the trip, not just for the individual</p>
+                    </div>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</template>

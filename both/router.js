@@ -6,11 +6,23 @@ function redirectIfNotAdmin (ctx, redirect) {
   }
 }
 
+function redirectIfNotLeader (ctx, redirect) {
+  if (!Meteor.userId() || !Roles.userIsInRole(Meteor.userId(), 'leader')) {
+    Session.delete("showingOtherUser");
+    Session.delete("showingUserId");
+    redirect('/');
+  }
+}
+
 function redirectIfAdmin (ctx, redirect) {
   if (Roles.userIsInRole(Meteor.userId(), 'admin')) {
     redirect('/admin')
   }
 }
+
+FlowRouter.subscriptions = function() {
+  this.register('userEverywhere', Meteor.subscribe('userEverywhere'));
+};
 
 FlowRouter.route( '/', {
   name: 'home',
@@ -101,7 +113,6 @@ FlowRouter.route( '/admin/edit/:tripId', {
   }
 });
 
-
 FlowRouter.route( '/admin/print-one', {
   name: 'print-one',
   triggersEnter: function ( context, redirect ) {
@@ -111,5 +122,15 @@ FlowRouter.route( '/admin/print-one', {
   },
   action() {
     BlazeLayout.render('main', { top: "Header", main: "PrintOne", footer: "Footer" });
+  }
+});
+
+// Leader routes
+
+FlowRouter.route( '/leader', {
+  name: 'leader',
+  triggersEnter: [redirectIfNotLeader],
+  action() {
+    BlazeLayout.render('main', { top: "Header", main: "Leader", footer: "Footer" });
   }
 });

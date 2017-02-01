@@ -765,7 +765,7 @@ body {
     opacity: 1 ;
     filter: alpha(opacity=100) ; }
   .form-md-radios.has-error label {
-    color: #fbe1e3; }
+    color: #D50000; }
   .form-md-radios.has-info label {
     color: #e0ebf9; }
   .form-md-radios.has-success label {
