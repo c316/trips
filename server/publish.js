@@ -95,7 +95,7 @@ Meteor.publish('Images', function () {
 Meteor.publish('Trips', function(tripId){
   check(tripId, Match.Maybe(Number));
   if( this.userId ) {
-    if( Roles.userIsInRole(this.userId, 'admin, leader') ){
+    if( Roles.userIsInRole(this.userId, ['admin', 'leader']) ){
       if(tripId) return Trips.find({tripId});
       else return Trips.find();
     } else {
@@ -135,7 +135,7 @@ Meteor.publishComposite("TripLeader", function(tripId) {
   logger.info("Started publish function, TripLeader");
   check(tripId, Number);
   if( this.userId ) {
-    if( Roles.userIsInRole(this.userId, 'admin, leader') ){
+    if( Roles.userIsInRole(this.userId, ['admin', 'leader']) ){
       return {
         find: function() {
           return Meteor.users.find({tripId});
