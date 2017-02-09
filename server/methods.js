@@ -590,5 +590,23 @@ Meteor.methods({
     } else {
       throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
     }
+  },
+  /**
+   * This method updates an image that was uploaded by an admin
+   * it changes the userId and then adds
+   * the admin's ID into the meta so we know that it was uploaded by an admin
+   *
+   * @method update.imageUserId
+   */
+  'update.imageUserId'(fileId, changeUserIdToThisId){
+    check( fileId, String);
+    check( changeUserIdToThisId, String);
+
+    if( Roles.userIsInRole( this.userId, 'admin' ) ) {
+      logger.info( "Started update.imageUserId method with fileId: " + fileId + "and changeUserIdToThisId: " + changeUserIdToThisId );
+      return Images.update({_id: fileId}, {$set: {userId: changeUserIdToThisId, meta: {"uploadedByAdmin": true, "adminId": this.userId}}});
+    } else {
+      throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
+    }
   }
 });

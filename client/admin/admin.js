@@ -9,7 +9,6 @@ import { repeater } from '/imports/ui/js/jquery.repeater';
 import { repeaterSetup } from '/imports/api/miscFunctions';
 import '/imports/ui/stylesheets/admin-print.css';
 
-
 Template.Admin.onCreated(function () {
   Session.delete("showingUserId");
   this.autorun(()=>{

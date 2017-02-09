@@ -59,13 +59,13 @@ Images = new FilesCollection({
   collectionName: 'Images',
   allowClientCode: false,
   onAfterUpload: function(fileRef) {
-
     let createdThumbnail = createThumbnails(this.collection, fileRef);
     Meteor.setTimeout(()=>{
       // In onAfterUpload callback we will move file to AWS:S3
       var self = this;
       let updatedFileVersions = Images.findOne({_id: fileRef._id});
-      _.each(updatedFileVersions.versions, function(vRef, version) {
+
+        _.each(updatedFileVersions.versions, function(vRef, version) {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering
         // As after viewing this code it will be easy
@@ -102,8 +102,6 @@ Images = new FilesCollection({
         });
       });
     },2000);
-
-
   },
   interceptDownload: function(http, fileRef, version) {
     var path, ref, ref1, ref2;

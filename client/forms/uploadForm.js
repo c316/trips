@@ -15,6 +15,7 @@ Template.uploadForm.events({
       // multiple files were selected
       var upload = Images.insert({
         file: e.currentTarget.files[0],
+        meta: {otherUserId: Session.get("showingUserId")},
         streams: 'dynamic',
         chunkSize: 'dynamic'
       }, false);
@@ -28,6 +29,16 @@ Template.uploadForm.events({
           alert('Error during upload: ' + error);
         } else {
           alert('File "' + fileObj.name + '" successfully uploaded');
+          if (Session.get("showingOtherUser")) {
+            // todo: call the update method to change the user ID
+            Meteor.call("update.imageUserId", fileObj._id, Session.get("showingUserId"), function (err, res) {
+              if(err) {
+                console.error("There was a problem with this method call:", err);
+              } else {
+                console.log(res);
+              }
+            })
+          }
         }
         template.currentUpload.set(false);
       });
