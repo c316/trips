@@ -1,9 +1,6 @@
 import { getRaisedTotal,
-  getRaisedTotalForTrip,
   getDeadlineTotal,
   getDeadlineAdjustments,
-  getDeadlinesTotalForTrip,
-  getDeadlineAdjustmentsForTrip,
   statuses } from '/imports/api/miscFunctions';
 import { repeater } from '/imports/ui/js/jquery.repeater';
 import { repeaterSetup } from '/imports/api/miscFunctions';
@@ -39,9 +36,9 @@ Template.Admin.onRendered(()=>{
 Template.Admin.helpers({
   user(){
     if(Session.get("tripId")){
-      return Meteor.users.find({tripId: Session.get("tripId")});
+      return Meteor.users.find({tripId: Session.get("tripId")}, {sort: {'profile.lastName': 1}});
     } else {
-      return Meteor.users.find();
+      return Meteor.users.find({}, {sort: {'profile.lastName': 1}});
     }
   },
   trips(){
@@ -83,21 +80,6 @@ Template.Admin.helpers({
       return statuses.notStarted;
     }
   },
-  raisedAmount(){
-    let raisedTotal = getRaisedTotal(this._id);
-    let deadlineTotal  = getDeadlineTotal(this._id);
-    let deadlineAdjustments  = getDeadlineAdjustments(this._id);
-    let needToRaiseThisAmount = deadlineTotal - raisedTotal;
-    let deadlineTotalWithAdjustments = Number(deadlineTotal) + Number(deadlineAdjustments);
-    if(raisedTotal > 0){
-      if(needToRaiseThisAmount <= 0){
-        return '$' + raisedTotal + ' raised of $' + deadlineTotalWithAdjustments.toFixed( 2 ) + ' total';
-      }
-      return '$' + raisedTotal + ' raised of $' + deadlineTotalWithAdjustments.toFixed( 2 ) + ' total';
-    } else {
-      return statuses.notStarted;
-    }
-  },
   tripName(){
     let trip = Trips.findOne({tripId: this.tripId});
     return trip && trip.name;
@@ -117,30 +99,6 @@ Template.Admin.helpers({
     let deadlineAdjustment = DeadlineAdjustments.findOne({tripId: user.tripId, userId: user._id, deadlineId: this._id});
     return deadlineAdjustment && deadlineAdjustment.adjustmentAmount;
   },
-  showFundraisingModule(){
-    let trip = Trips.findOne({tripId: this.tripId});
-    if(trip){
-      return trip.showFundraisingModule;
-    }
-  },
-  showTripRaisedTotal(){
-    let splits = DTSplits.find({fund_id: this.tripId});
-    if(splits && splits.count() > 0){
-      let total_in_cents = splits.map(function ( item ) {
-        return item.amount_in_cents;
-      });
-      let sum = total_in_cents.reduce(add, 0);
-
-      function add(a, b) {
-        return a + b;
-      }
-      let deadlineTotal  = getDeadlineTotal(this._id);
-      let returnAmount = (sum / 100).toFixed( 2 );
-      return '** $' + returnAmount + ' raised of $' + deadlineTotal + ' total';
-    } else {
-      return "** 0";
-    }
-  },
   filteringTrip(){
     return Session.get("tripId");
   },
@@ -152,17 +110,6 @@ Template.Admin.helpers({
   tripName(){
     let tripId = this.tripId || Session.get("tripId");
     return Trips.findOne({tripId}) && Trips.findOne({tripId}).name;
-  },
-  totalRaisedForTrip(){
-    let totalRaised = getRaisedTotalForTrip(Session.get("tripId"));
-    let totalAdjustments = getDeadlineAdjustmentsForTrip(Session.get("tripId"));
-    return totalRaised - totalAdjustments;
-  },
-  totalNeededForTrip(){
-    let tripId = Session.get("tripId");
-    let totalNeeded = getDeadlinesTotalForTrip(tripId);
-    let users = Meteor.users.find({tripId: tripId});
-    return totalNeeded * users.count();
   }
 });
 
@@ -360,6 +307,27 @@ Template.Admin.events({
           });
         }
       } );
+  },
+  'click .make-trip-leader'(){
+    const updateThisUser = Meteor.users.findOne({_id: this._id});
+    Session.set("showingUserId", this._id);
+    if(updateThisUser && updateThisUser.tripId) {
+      Meteor.call("add.roleToUser", this._id, 'leader', function (err, res) {
+        if (err) console.error(err);
+        else {
+          console.log(res);
+          Bert.alert({
+            title: 'Leader',
+            message: 'This user is now a trip leader.',
+            type: 'success',
+            style: 'growl-bottom-right',
+            icon: 'fa-thumbs-up'
+          });
+        }
+      });
+    } else {
+      $('#trips-modal').modal();
+    }
   },
   'click #print-page'(e){
     e.preventDefault();

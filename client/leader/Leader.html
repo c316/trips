@@ -1,59 +1,4 @@
 <template name="Leader">
-    <div class="row" id="full-trip-form-div" style="display: none;">
-        <div class="col-md-12">
-            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet light bordered">
-                <div class="portlet-body form">
-                    <div class="form-body">
-                        <div class="form-group">
-                            <form id="full-trip-form" class="mt-repeater form-horizontal">
-                                <h3 class="mt-repeater-title">Trip Name: {{name}}</h3>
-                                <h3 class="mt-repeater-title">Trip ID: {{tripId}}</h3>
-                                <div data-repeater-list="deadlines">
-                                    <div data-repeater-item="" class="mt-repeater-item">
-                                        <div class="mt-repeater-input">
-                                            <label class="control-label">Deadline Name</label>
-                                            <br>
-                                            <input type="text" name="name" class="form-control">
-                                        </div>
-                                        <div class="mt-repeater-input">
-                                            <label class="control-label">Deadline Amount</label>
-                                            <br>
-                                            <input type="text" name="amount" class="form-control">
-                                        </div>
-                                        <div class="mt-repeater-input">
-                                            <label class="control-label">Due by date</label>
-                                            <br>
-                                            <input class="input-group form-control form-control-inline date date-picker"
-                                                   size="16"
-                                                   type="text"
-                                                   name="due"
-                                                   data-date-format="mm/dd/yyyy">
-                                        </div>
-                                        <div class="mt-repeater-input">
-                                            <a href="" data-repeater-delete="" class="btn red-haze btn-outline mt-repeater-delete">
-                                                <i class="fa fa-close"></i> Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="" data-repeater-create="" class="btn green-haze btn-outline mt-repeater-add">
-                                    <i class="fa fa-plus"></i> Add</a>
-                                <br>
-                                <br>
-                                <input type="hidden" value="{{tripId}}" id="trip-id-for-full-form">
-
-                                <button id="full-trip-form-button"
-                                        type="submit"
-                                    {{submitFormText}}
-                                        class="dt-button buttons-html5 btn btn-lg green-seagreen btn-outline">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -81,52 +26,52 @@
                                style="width: 100%;">
                             <thead>
                             <tr role="row">
-                                <th class="min-phone-l sorting" tabindex="0"
+                                <th class="min-phone-l no-print  text-center" tabindex="0"
                                     rowspan="1"
                                     colspan="1"
                                     aria-label="Name">
                                     Name
                                 </th>
-                                <th class="min-tablet sorting" tabindex="1"
+                                <th class="min-tablet no-print  text-center" tabindex="1"
                                     rowspan="1"
                                     colspan="1"
                                     aria-label="Fundraising">
                                     Fundraising
                                 </th>
-                                <th class="desktop sorting no-print" tabindex="3"
+                                <th class="desktop no-print text-center" tabindex="3"
                                     rowspan="1"
                                     colspan="1"
                                     aria-label="Passport Image">
                                     Passport
                                 </th>
-                                <th class="desktop sorting no-print" tabindex="4"
+                                <th class="desktop no-print text-center" tabindex="4"
                                     rowspan="1"
                                     colspan="1"
                                     aria-label="Missionary Information Form">
-                                    Miss. Form
+                                    Missionary Info
                                 </th>
-                                <th class="desktop sorting no-print" tabindex="5"
+                                <th class="desktop no-print text-center" tabindex="5"
                                     rowspan="1"
                                     colspan="1"
                                     aria-label="Waiver">
-                                    Waiver
+                                    Waiver of Liability
                                 </th>
-                                <th class="desktop sorting no-print" tabindex="6"
+                                <th class="desktop no-print text-center" tabindex="6"
                                     rowspan="1"
                                     colspan="1"
                                     aria-label="Code of Conduct">
-                                    C. of C.
+                                    Code of Conduct
                                 </th>
-                                <th class="desktop sorting no-print" tabindex="6"
+                                <th class="desktop no-print text-center" tabindex="6"
                                     rowspan="1"
                                     colspan="1"
                                     aria-label="Media Release">
                                     Media Release
                                 </th>
-                                <th class="desktop sorting no-print" tabindex="7"
+                                <th class="desktop no-print text-center" tabindex="7"
                                     rowspan="1"
                                     colspan="1"
-                                    aria-label="Verifiy this participants forms">Verifiy
+                                    aria-label="Verifiy this participants forms">
                                 </th>
                             </tr>
                             </thead>
@@ -138,99 +83,177 @@
                                         {{#if showFundraisingModule}}
                                             {{{raisedAmount}}}
                                         {{else}}
-                                            {{showTripRaisedTotal}}
+                                            N/A
                                         {{/if}}
                                     {{else}}
                                         No trip
                                     {{/if}}</td>
                                     <td class="no-print">
-                                        <img src="/img/avatar1.jpg">
-                                    </td>
-                                    <td class="no-print">
                                         <div class="md-checkbox-list">
-                                            <div class="md-checkbox">
-                                                <input type="checkbox" id="checkbox30" class="md-check" disabled checked="">
-                                                <label for="checkbox30">
-                                                    <span></span>
-                                                    <span class="check"></span>
-                                                    <span class="box"></span> Completed </label>
-                                            </div>
-                                            <div class="md-checkbox">
-                                                <input type="checkbox" id="checkbox31" class="md-check" disabled>
-                                                <label for="checkbox31">
-                                                    <span></span>
-                                                    <span class="check"></span>
-                                                    <span class="box"></span> Verified </label>
-                                            </div>
+                                            {{#if formVerified "passportImage"}}
+                                                <div class="md-checkbox has-success">
+                                                    <input type="checkbox" id="checkboxMIFVerified" class="md-check" disabled checked="">
+                                                    <label for="checkboxMIFVerified">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Verified </label>
+                                                </div>
+                                            {{/if}}
+                                        </div>
+                                        <div class="dashboard-stat2 bordered text-center">
+                                            <form style="">
+                                                {{#if imageExists}}
+                                                    {{#with images}}
+                                                        <p class="center-block">
+                                                            <a id="delete-passport-photo" class="btn btn-primary">Delete Photo</a>
+                                                        </p>
+                                                        <p>
+                                                            {{#if versions.original.meta.signedURL}}
+                                                                <a href="{{versions.original.meta.signedURL}}">
+                                                                    <img src="{{versions.thumbnail.meta.signedURL}}" height="50px;" />
+                                                                </a>
+                                                            {{else}}
+                                                                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                                                                <span class="sr-only">Loading...</span>
+                                                            {{/if}}
+                                                        </p>
+                                                    {{/with}}
+                                                {{else}}
+                                                    {{> uploadForm}}
+                                                {{/if}}
+                                                <div class="dz-default dz-message">
+                                                    <span></span></div>
+                                            </form>
                                         </div>
                                     </td>
                                     <td class="no-print">
                                         <div class="md-checkbox-list">
-                                            <div class="md-checkbox">
-                                                <input type="checkbox" id="checkbox30" class="md-check" disabled checked="">
-                                                <label for="checkbox30">
-                                                    <span></span>
-                                                    <span class="check"></span>
-                                                    <span class="box"></span> Completed </label>
-                                            </div>
-                                            <div class="md-checkbox">
-                                                <input type="checkbox" id="checkbox31" class="md-check" disabled>
-                                                <label for="checkbox31">
-                                                    <span></span>
-                                                    <span class="check"></span>
-                                                    <span class="box"></span> Verified </label>
-                                            </div>
+                                            {{#if formCompleted "missionaryInformationForm"}}
+                                                <div class="md-checkbox has-success">
+                                                    <input type="checkbox" id="checkboxMIFCompleted" class="md-check" disabled checked="">
+                                                    <label for="checkboxMIFCompleted">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Completed </label>
+                                                </div>
+                                            {{else}}
+                                                <div class="md-checkbox small-bottom-margin" style="color: #f36a5a">
+                                                    <i class="fa fa-2x fa-times" style="color: #f36a5a"></i> <span class="greyed-out">Not Completed</span>
+                                                </div>
+                                            {{/if}}
+                                            {{#if formVerified "missionaryInformationForm"}}
+                                                <div class="md-checkbox has-success">
+                                                    <input type="checkbox" id="checkboxMIFVerified" class="md-check" disabled checked="">
+                                                    <label for="checkboxMIFVerified">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Verified </label>
+                                                </div>
+                                            {{else}}
+                                                <div class="md-checkbox small-bottom-margin" style="color: #f36a5a">
+                                                    <i class="fa fa-2x fa-times"></i> <span class="greyed-out">Not Verified</span>
+                                                </div>
+                                            {{/if}}
                                         </div>
                                     </td>
                                     <td class="no-print">
                                         <div class="md-checkbox-list">
-                                            <div class="md-checkbox">
-                                                <input type="checkbox" id="checkbox30" class="md-check" disabled >
-                                                <label for="checkbox30">
-                                                    <span></span>
-                                                    <span class="check"></span>
-                                                    <span class="box"></span> Completed </label>
-                                            </div>
-                                            <div class="md-checkbox">
-                                                <input type="checkbox" id="checkbox31" class="md-check" disabled>
-                                                <label for="checkbox31">
-                                                    <span></span>
-                                                    <span class="check"></span>
-                                                    <span class="box"></span> Verified </label>
-                                            </div>
+                                            {{#if formCompleted "waiver-of-liability"}}
+                                                <div class="md-checkbox has-success">
+                                                    <input type="checkbox" id="checkboxWaiverCompleted" class="md-check" disabled checked="">
+                                                    <label for="checkboxWaiverCompleted">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Completed </label>
+                                                </div>
+                                            {{else}}
+                                                <div class="md-checkbox small-bottom-margin" style="color: #f36a5a">
+                                                    <i class="fa fa-2x fa-times"></i>  <span class="greyed-out">Not Completed</span>
+                                                </div>
+                                            {{/if}}
+                                            {{#if formVerified "waiver-of-liability"}}
+                                                <div class="md-checkbox has-success">
+                                                    <input type="checkbox" id="checkboxWaiverVerified" class="md-check" disabled checked="">
+                                                    <label for="checkboxWaiverVerified">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Verified </label>
+                                                </div>
+                                            {{else}}
+                                                <div class="md-checkbox small-bottom-margin" style="color: #f36a5a">
+                                                    <i class="fa fa-2x fa-times"></i>  <span class="greyed-out">Not Verified</span>
+                                                </div>
+                                            {{/if}}
                                         </div>
                                     </td>
                                     <td class="no-print">
                                         <div class="md-checkbox-list">
-                                            <div class="md-checkbox">
-                                                <input type="checkbox" id="checkbox30" class="md-check" disabled checked="">
-                                                <label for="checkbox30">
-                                                    <span></span>
-                                                    <span class="check"></span>
-                                                    <span class="box"></span> Completed </label>
-                                            </div>
-                                            <div class="md-checkbox">
-                                                <input type="checkbox" id="checkbox31" class="md-check" disabled>
-                                                <label for="checkbox31">
-                                                    <span></span>
-                                                    <span class="check"></span>
-                                                    <span class="box"></span> Verified </label>
-                                            </div>
+                                            {{#if formCompleted "code-of-conduct"}}
+                                                <div class="md-checkbox has-success">
+                                                    <input type="checkbox" id="checkboxCCCompleted" class="md-check" disabled checked="">
+                                                    <label for="checkboxCCCompleted">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Completed </label>
+                                                </div>
+                                            {{else}}
+                                                <div class="md-checkbox small-bottom-margin" style="color: #f36a5a">
+                                                    <i class="fa fa-2x fa-times"></i>  <span class="greyed-out">Not Completed</span>
+                                                </div>
+                                            {{/if}}
+                                            {{#if formVerified "code-of-conduct"}}
+                                                <div class="md-checkbox has-success">
+                                                    <input type="checkbox" id="checkboxCCVerified" class="md-check" disabled checked="">
+                                                    <label for="checkboxCCVerified">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Verified </label>
+                                                </div>
+                                            {{else}}
+                                                <div class="md-checkbox small-bottom-margin" style="color: #f36a5a">
+                                                    <i class="fa fa-2x fa-times"></i>  <span class="greyed-out">Not Verified</span>
+                                                </div>
+                                            {{/if}}
                                         </div>
                                     </td>
                                     <td class="no-print">
-                                        <button class="btn dark btn-xs btn-outline"><!--<i class="fa fa-check"></i>--> Verify Completed Forms
+                                        <div class="md-checkbox-list">
+                                            {{#if formCompleted "media-release"}}
+                                                <div class="md-checkbox has-success">
+                                                    <input type="checkbox" id="checkboxMRCompleted" class="md-check" disabled checked="">
+                                                    <label for="checkboxMRCompleted">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Completed </label>
+                                                </div>
+                                            {{else}}
+                                                <div class="md-checkbox small-bottom-margin" style="color: #f36a5a">
+                                                    <i class="fa fa-2x fa-times"></i>  <span class="greyed-out">Not Completed</span>
+                                                </div>
+                                            {{/if}}
+                                            {{#if formVerified "media-release"}}
+                                                <div class="md-checkbox has-success">
+                                                    <input type="checkbox" id="checkboxMRVerified" class="md-check" disabled checked="">
+                                                    <label for="checkboxMRVerified">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Verified </label>
+                                                </div>
+                                            {{else}}
+                                                <div class="md-checkbox small-bottom-margin" style="color: #f36a5a">
+                                                    <i class="fa fa-2x fa-times"></i>  <span class="greyed-out">Not Verified</span>
+                                                </div>
+                                            {{/if}}
+                                        </div>
+                                    </td>
+                                    <td class="no-print">
+                                        <button class="btn dark btn-xs btn-outline verify-forms"><!--<i class="fa fa-check"></i>--> Verify Completed Forms
                                         </button>
                                     </td>
                                 </tr>
                             {{/each}}
                             </tbody>
                         </table>
-                    </div>
-                    <div class="row no-print">
-                        <p>
-                        </p>
-                        <p>** Stared fundraising numbers reflect the total raised for the trip, not just for the individual</p>
                     </div>
                 </div>
             </div>

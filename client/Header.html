@@ -45,6 +45,13 @@
                                     </a>
                                 </li>
                             {{/if}}
+                            {{#if isInRole 'leader'}}
+                                <li>
+                                    <a href="/leader" class="leader-button">
+                                        <i class="icon-rocket"></i> Leader
+                                    </a>
+                                </li>
+                            {{/if}}
                             <li>
                                 <a href="" class="profile-button">
                                     <i class="icon-user"></i> My Profile

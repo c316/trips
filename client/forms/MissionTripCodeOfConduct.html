@@ -47,8 +47,11 @@
                     <button type="submit"
                             class="btn dark"
                             id="code-of-conduct"
-                            {{submitFormText}}
+                            {{submitFormText 'code-of-conduct'}}
                             {{agreed 'code-of-conduct'}}>I agree</button>
+                    <input type="hidden"
+                           name="verified"
+                           value="{{verified}}">
                 </form>
             </div>
         </div>

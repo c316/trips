@@ -1,0 +1,38 @@
+<template name="AddTripIdToUserModal">
+    <div class="modal fade in" id="trips-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">This user isn't associated with a trip.</h4>
+                </div>
+                <div class="portlet light bordered">
+                <div class="modal-body">
+                    <p><strong>First select the trip this user should be the leader of, then click SAVE CHANGE.</strong></p>
+                    <form class="form-horizontal">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Dropdown</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" id="trips">
+                                        <option disabled selected value=""></option>
+                                        {{#each trip}}
+                                            <option value="{{tripId}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn green" id="save-change">Save change</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</template>

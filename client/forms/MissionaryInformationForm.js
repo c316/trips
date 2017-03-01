@@ -221,11 +221,9 @@ Template.MissionaryInformationForm.events({
     });
     form.iWouldLikeToParticipateIn = iWouldLikeToParticipateIn;
     form.name = 'missionaryInformationForm';
+    form.verified = form.verified ? true : false;
 
     let updateThisId = tmpl && tmpl.data._id;
-    // TODO: need a way of knowing if the form is completed.
-    // If it is then we need to pass the completed: true, or even better do this on the server side
-
     Meteor.call("update.form", form, updateThisId, function(err, res){
       if(err) console.error(err);
       else console.log(res);

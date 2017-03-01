@@ -125,8 +125,11 @@
                 <button type="submit"
                         class="btn dark"
                         id="waiver-of-liability"
-                    {{submitFormText}}
-                    {{agreed 'waiver-of-liability'}}>I agree</button>
+                        {{submitFormText 'waiver-of-liability'}}
+                        {{agreed 'waiver-of-liability'}}>I agree</button>
+                <input type="hidden"
+                       name="verified"
+                       value="{{verified}}">
             </div>
         </div>
     </form>

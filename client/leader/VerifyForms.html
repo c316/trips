@@ -1,0 +1,176 @@
+<template name="VerifyForms">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered" id="form_wizard">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class=" icon-layers font-red"></i>
+                        <span class="caption-subject font-red bold uppercase"> Verify This User's Forms </span>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    {{#with user}}
+                        <form class="">
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <ul class="nav nav-pills nav-justified steps">
+                                        <li class="active">
+                                            <a href="#tab1" data-toggle="tab" class="step" aria-expanded="true">
+                                                <span class="number"> 1 </span>
+                                                <span class="desc"><i class="fa fa-check"></i> Missionary Info </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab2" data-toggle="tab" class="step">
+                                                <span class="number"> 2 </span>
+                                                <span class="desc"><i class="fa fa-check"></i> Waiver of Liability </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab3" data-toggle="tab" class="step active">
+                                                <span class="number"> 3 </span>
+                                                <span class="desc"><i class="fa fa-check"></i> Code of Conduct </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab4" data-toggle="tab" class="step">
+                                                <span class="number"> 4 </span>
+                                                <span class="desc"><i class="fa fa-check"></i> Media Release </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab5" data-toggle="tab" class="step">
+                                                <span class="number"> 5 </span>
+                                                <span class="desc"><i class="fa fa-check"></i> Passport Photo </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <!--<div id="bar" class="progress progress-striped" role="progressbar">
+                                        <div class="progress-bar progress-bar-success" style="width: 25%;"> </div>
+                                    </div>-->
+                                    <div class="tab-content">
+                                        <div class="alert alert-danger display-none">
+                                            <button class="close" data-dismiss="alert"></button> You have some form errors. Please check below. </div>
+                                        <div class="alert alert-success display-none">
+                                            <button class="close" data-dismiss="alert"></button> Your form validation is successful! </div>
+                                        <div role="tabpanel" class="tab-pane active" id="tab1">
+                                            {{#unless formStarted "missionaryInformationForm"}}
+                                                <div class="alert alert-danger">
+                                                    <strong>Sorry,</strong> looks like the user hasn't started working on this form</div>
+                                            {{/unless}}
+                                            <fieldset disabled="disabled">
+                                                {{> MissionaryInformationForm}}
+                                            </fieldset>
+                                            {{#if formStarted "missionaryInformationForm"}}
+                                                <button type="button"
+                                                        class="btn green-haze verified"
+                                                        data-form-name="missionaryInformationForm"
+                                                        title="I have verified this form">Click to Verify</button>
+                                            {{else}}
+                                                <span class="label label-sm label-danger">Sorry, looks like the user hasn't started working on this form</span>
+                                            {{/if}}
+                                            <button type="button" class="btn dark next">Skip to the next form</button>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="tab2">
+                                            {{#unless formCompleted "waiver-of-liability"}}
+                                                <div class="alert alert-danger">
+                                                    <strong>Sorry,</strong> looks like the user hasn't agreed to this form so it can't be verified </div>
+                                            {{/unless}}
+                                            <fieldset disabled="disabled">
+                                                {{> ReleaseAndWaiverOfLiability}}
+                                            </fieldset>
+                                            {{#if formCompleted "waiver-of-liability"}}
+                                                <button type="button"
+                                                        class="btn green-haze verified"
+                                                        data-form-name="waiver-of-liability"
+                                                        title="I have verified this form">Click to Verify</button>
+                                            {{/if}}
+                                            <button type="button" class="btn dark next">Skip to the next form</button>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="tab3">
+                                            {{#unless formCompleted "code-of-conduct"}}
+                                                <div class="alert alert-danger">
+                                                    <strong>Sorry,</strong> looks like the user hasn't agreed to this form so it can't be verified </div>
+                                            {{/unless}}
+                                            <fieldset disabled="disabled">
+                                                {{> MissionTripCodeOfConduct}}
+                                            </fieldset>
+                                            {{#if formCompleted "code-of-conduct"}}
+                                                <button type="button"
+                                                        class="btn green-haze verified"
+                                                        data-form-name="code-of-conduct"
+                                                        title="I have verified this form">Click to Verify</button>
+                                            {{/if}}
+                                            <button type="button" class="btn dark next">Skip to the next form</button>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="tab4">
+                                            {{#unless formCompleted "media-release"}}
+                                                <div class="alert alert-danger">
+                                                    <strong>Sorry,</strong> looks like the user hasn't agreed to this form so it can't be verified </div>
+                                            {{/unless}}
+                                            <fieldset disabled="disabled">
+                                                {{> MediaReleaseForm}}
+                                            </fieldset>
+                                            {{#if formCompleted "media-release"}}
+                                                <button type="button"
+                                                        class="btn green-haze verified"
+                                                        data-form-name="media-release"
+                                                        title="I have verified this form">Click to Verify</button>
+                                            {{/if}}
+                                            <button type="button" class="btn dark next">Skip to the next form</button>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="tab5">
+                                            {{#unless thisUserImageExists}}
+                                                <div class="alert alert-danger">
+                                                    <strong>Sorry,</strong> looks like the user hasn't uploaded a photo yet so it can't be verified </div>
+                                            {{/unless}}
+                                            <fieldset disabled="disabled">
+                                                <div class="dashboard-stat2 bordered">
+                                                    <form class="dropzone dropzone-file-area dz-clickable"
+                                                          id="my-dropzone"
+                                                          style="width: 300px; margin-top: 5px;">
+                                                        <h5 class="sbold">Color Photocopy of Passport</h5>
+                                                        {{#if thisUserImageExists}}
+                                                            {{#with thisUserImages}}
+                                                                <p>
+                                                                    <a id="delete-passport-photo" class="btn btn-primary">Delete Photo</a>
+                                                                </p>
+                                                                <p>
+                                                                    {{#if versions.original.meta.signedURL}}
+                                                                        <a href="{{versions.original.meta.signedURL}}">
+                                                                            <img src="{{versions.thumbnail.meta.signedURL}}" />
+                                                                        </a>
+                                                                    {{else}}
+                                                                        <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                                                                        <span class="sr-only">Loading...</span>
+                                                                    {{/if}}
+                                                                </p>
+                                                            {{/with}}
+                                                        {{else}}
+                                                            {{> uploadForm}}
+                                                        {{/if}}
+                                                        <div class="dz-default dz-message">
+                                                            <span></span></div>
+                                                    </form>
+                                                </div>
+                                            </fieldset>
+                                            {{#if thisUserImageExists}}
+                                                <button type="button"
+                                                        id="verified-photo"
+                                                        class="btn green-haze verified"
+                                                        data-form-name="passportImage"
+                                                        title="I have verified this passport image">Click to Verify</button>
+                                            {{/if}}
+                                            <button id="skip-photo" type="button" class="btn dark">Skip and return to the leader page</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    {{/with}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>

@@ -246,19 +246,21 @@
                                 <tr role="row" class="{{oddEven @index}}">
                                     <td class="clickable-cell user-admin-link">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
                                     <td class="clickable-cell funding-admin-link">{{tripName}} {{tripId}}</td>
-                                    <td class="clickable-cell funding-admin-link">{{#if this.tripId}}
-                                        {{#if showFundraisingModule}}
-                                            {{{raisedAmount}}}
+                                    <td class="{{#if showFundraisingModule}}clickable-cell{{/if}} funding-admin-link">
+                                        {{#if this.tripId}}
+                                            {{#if showFundraisingModule}}
+                                                {{{raisedAmount}}}
+                                            {{else}}
+                                                N/A
+                                            {{/if}}
                                         {{else}}
-                                            {{showTripRaisedTotal}}
+                                            No trip
                                         {{/if}}
-                                        {{else}}
-                                        No trip
-                                    {{/if}}</td>
+                                    </td>
                                     <td class="clickable-cell form-admin-link">{{{formsStatus}}}</td>
                                     <td class="no-print">{{#each roles}}
-                                        <span class="label label-sm label-success">{{this}} </span>
-                                    {{/each}}</td>
+                                        <span class="label label-sm label-success">{{this}}</span>
+                                    {{/each}}&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                     <td class="no-print">
                                         <button class="btn dark btn-xs btn-outline print-user"
                                                 data-toggle="dropdown"><i class="fa fa-print"></i> Print
@@ -270,6 +272,13 @@
                                             {{#unless thisUserIsInRole this._id 'admin'}}
                                                 <button class="btn red-haze btn-xs btn-outline make-admin-link"
                                                         data-toggle="dropdown">Make admin
+                                                </button>
+                                            {{/unless}}
+                                        {{/if}}
+                                        {{#if isInRole 'admin'}}
+                                            {{#unless thisUserIsInRole this._id 'admin, leader'}}
+                                                <button class="btn blue btn-xs btn-outline make-trip-leader"
+                                                        data-toggle="dropdown">Make trip leader
                                                 </button>
                                             {{/unless}}
                                         {{/if}}
@@ -315,11 +324,12 @@
                         <p>
                             <a class="btn dark" id="print-page">Print this page</a><br>
                         </p>
-                        <p>** Stared fundraising numbers reflect the total raised for the trip, not just for the individual</p>
+                        <p>** Starred fundraising numbers reflect the total raised for the trip, not just for the individual</p>
                     </div>
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->
         </div>
     </div>
+    {{> AddTripIdToUserModal}}
 </template>

@@ -134,3 +134,14 @@ FlowRouter.route( '/leader', {
     BlazeLayout.render('main', { top: "Header", main: "Leader", footer: "Footer" });
   }
 });
+
+FlowRouter.route( '/leader/verify-forms/:userId', {
+  name: 'verify-forms',
+  triggersEnter: function(context, redirect){
+    Session.set("userId", context && context.params.userId);
+    redirectIfNotLeader(context, redirect);
+  },
+  action() {
+    BlazeLayout.render('main', { top: "Header", main: "VerifyForms", footer: "Footer" });
+  }
+});

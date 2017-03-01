@@ -115,3 +115,8 @@ Template.Forms.helpers({
     };
   }
 });
+
+Template.Forms.onDestroyed(function () {
+  Session.delete("showForms");
+  Session.delete("showUserRegistration");
+});

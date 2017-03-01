@@ -5,7 +5,12 @@
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button> You have some form errors. Please check below.
                 </div>
-
+                <input type="hidden"
+                       name="verified"
+                       value="{{verified}}">
+                <input type="hidden"
+                       name="verifiedDate"
+                       value="{{verifiedDate}}">
                 <div class="form-group form-md-line-input form-md-floating-label">
                     <input type="text" class="form-control {{editedClass preferredName}}"
                            name="preferredName"

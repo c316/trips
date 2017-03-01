@@ -69,17 +69,31 @@ Meteor.publish('Forms', function(userId){
       } else {
           return Forms.find();
       }
+    } else if( Roles.userIsInRole(this.userId, 'leader') ){
+      const leaderUser = Meteor.users.findOne(this.userId);
+      const tripUser = Meteor.users.findOne(userId);
+      if(leaderUser.tripId === tripUser.tripId){
+        return Forms.find( { userId } );
+      } else {
+        return;
+      }
     } else {
       return Forms.find( { userId: this.userId } );
     }
   }
 });
 
-Meteor.publish('files.images', function (showingUserId) {
+Meteor.publish('files.images', function (showingUserId, showingTripId) {
   check(showingUserId, Match.Maybe(String));
+  check(showingTripId, Match.Maybe(Number));
   if( this.userId ) {
     if( Roles.userIsInRole(this.userId, 'admin') ) {
       return Images.find({userId: showingUserId}).cursor;
+    } else if( Roles.userIsInRole(this.userId, 'leader') && showingTripId){
+      const users = Meteor.users.find({tripId: showingTripId}).map(function (user) {
+        return user._id;
+      });
+      return Images.find( { userId: {$in: users} } ).cursor;
     } else {
       return Images.find( { userId: this.userId } ).cursor;
     }
@@ -94,10 +108,16 @@ Meteor.publish('Images', function () {
 
 Meteor.publish('Trips', function(tripId){
   check(tripId, Match.Maybe(Number));
+  logger.info("Started to publish Trips with: " + tripId);
+
   if( this.userId ) {
-    if( Roles.userIsInRole(this.userId, ['admin', 'leader']) ){
+    if( Roles.userIsInRole(this.userId, 'admin') ){
       if(tripId) return Trips.find({tripId});
       else return Trips.find();
+    } else if( Roles.userIsInRole(this.userId, 'leader') ){
+      if(tripId && (tripId === Meteor.users.findOne({_id: this.userId}).tripId) ) {
+        return Trips.find({tripId});
+      }
     } else {
       let user = Meteor.users.findOne( { _id: this.userId } );
       let thisTripId = user && user.tripId;
@@ -107,6 +127,8 @@ Meteor.publish('Trips', function(tripId){
 });
 
 Meteor.publish('users', function(){
+  logger.info("Started to publish users");
+
   if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
     return Meteor.users.find({},
       {
@@ -119,6 +141,8 @@ Meteor.publish('users', function(){
 
 Meteor.publish('user', function(userId){
   check(userId, Match.Maybe(String));
+  logger.info("Started to publish user with: " + userId);
+
   if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
     if(userId) {
       return Meteor.users.find({_id: userId},
@@ -128,40 +152,47 @@ Meteor.publish('user', function(userId){
           }
         });
     }
+  } else if( Roles.userIsInRole(this.userId, 'leader') && userId ){
+    const leaderUser = Meteor.users.findOne(this.userId);
+    const tripUser = Meteor.users.findOne(userId);
+    if(leaderUser && tripUser && (leaderUser.tripId === tripUser.tripId) ){
+      return Meteor.users.find({_id: userId},
+        {
+          fields: {
+            services: 0
+          }
+        });
+    } else {
+      return;
+    }
   }
 });
 
 Meteor.publishComposite("TripLeader", function(tripId) {
-  logger.info("Started publish function, TripLeader");
+  logger.info("Started publish function, TripLeader with tripId: " + tripId);
   check(tripId, Number);
-  if( this.userId ) {
-    if( Roles.userIsInRole(this.userId, ['admin', 'leader']) ){
-      return {
-        find: function() {
-          return Meteor.users.find({tripId});
-        },
-        children: [
-          {
-            find: function( user ) {
-              // Find the charges associated with this customer
-              return Forms.find( { userId: user._id } );
-            }
-          },
-          {
-            find: function( user ) {
-              // Find the subscriptions associated with this customer
-              return Images.find( { userId: user._id } );
-            }
-          },
-          {
-            find: function(  ) {
-              // Find the subscriptions associated with this customer
-              return DTSplits.find( { fund_id: tripId } );
-            }
+  if( Roles.userIsInRole(this.userId, ['admin', 'leader']) ){
+    return {
+      find: function() {
+        return Meteor.users.find({tripId});
+      },
+      children: [
+        {
+          find: function( user ) {
+            // Find the charges associated with this customer
+            const forms =  Forms.find( { userId: user._id } );
+            return forms;
           }
-        ]
-      };
-    }
+        },
+        {
+          find: function(  ) {
+            // Find the subscriptions associated with this customer
+            const splits = DTSplits.find( { fund_id: tripId } );
+            return splits;
+          }
+        }
+      ]
+    };
   }
 });
 

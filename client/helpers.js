@@ -1,20 +1,36 @@
 import moment from 'moment';
+import { getRaisedTotalForTrip,
+  getDeadlinesTotalForTrip,
+  getDeadlineAdjustmentsForTrip,
+  getRaisedTotal,
+  getDeadlineTotal,
+  getDeadlineAdjustments,
+  statuses
+  } from '/imports/api/miscFunctions';
 
 Template.registerHelper('formatTime', function(context) {
   if (context) {
     return moment( context ).format( 'MM/DD/YYYY, hh:mma' );
   }
 });
+
 Template.registerHelper('showTools', function() {
   const routeName = FlowRouter.getRouteName();
   if(routeName) return routeName.includes("admin");
 });
 
-Template.registerHelper('submitFormText', function() {
+Template.registerHelper('submitFormText', function(e) {
+  let agreed;
+  if(e) {
+    let thisForm = Forms.findOne({name: e, userId: this._id});
+    if (thisForm && thisForm.agreed) {
+      agreed = "Agreed to on: " + moment(thisForm.agreedDate).format("MM/DD/YYYY") + " <i class='fa fa-check'></i>";
+    }
+  }
   return {
     "data-loading-text": "Processing... <i class='fa fa-spinner fa-spin'></i>",
     "data-error-text":   "Hmm...that didn't work. Please look over your form and try again <i class='fa fa-exclamation-triangle'></i>",
-    "data-success-text": "Got it! <i class='fa fa-check'></i>"
+    "data-success-text": agreed || "Got it! <i class='fa fa-check'></i>"
   }
 });
 
@@ -24,13 +40,12 @@ Template.registerHelper('agreed', function(e) {
     Meteor.setTimeout(()=>{
       $("#" + e).button('success');
       $("#" + e).tooltip();
-  }, 200);
+    }, 200);
     return {
-      "title" : "Agreed to on: " + moment(thisForm.agreedDate).format("MM/DD/YYYY"),
       "disabled": "disabled"
     }
   }
-  if(Roles.userIsInRole(Meteor.userId(), 'admin')) {
+  if(Roles.userIsInRole(Meteor.userId(), 'admin') && Meteor.user()._id !== Session.get("showingUserId")) {
     // Admins can't agree to terms for another user, only the user can do this
     return {"disabled": "disabled"};
   }
@@ -101,14 +116,73 @@ Template.registerHelper('editedClass', function(value) {
 });
 
 Template.registerHelper('appVersion', function(){
-  return '1.0.4'
+  return '1.1.0'
 });
 
 
 Template.registerHelper('thisUserIsInRole', function(_id, role){
-  return Roles.userIsInRole(_id, role);
+  return Roles.userIsInRole(_id, role.split(", "));
 });
 
 Template.registerHelper('formatDate', function(date) {
     return moment(new Date(date)).format('MM/DD/YYYY');
+});
+
+Template.registerHelper('totalRaisedForTrip', function() {
+  let totalRaised = getRaisedTotalForTrip(Session.get("tripId"));
+  let totalAdjustments = getDeadlineAdjustmentsForTrip(Session.get("tripId"));
+  return Number(totalRaised - totalAdjustments).toLocaleString();
+});
+
+Template.registerHelper('totalNeededForTrip', function() {
+  let tripId = Session.get("tripId");
+  let totalNeeded = getDeadlinesTotalForTrip(tripId);
+  let users = Meteor.users.find({tripId: tripId});
+  return Number(totalNeeded * users.count()).toLocaleString();
+});
+
+
+Template.registerHelper('raisedAmount', function() {
+  let raisedTotal = getRaisedTotal(this._id);
+  let deadlineTotal  = getDeadlineTotal(this._id);
+  let deadlineAdjustments  = getDeadlineAdjustments(this._id);
+  let needToRaiseThisAmount = deadlineTotal - raisedTotal;
+  let deadlineTotalWithAdjustments = Number(deadlineTotal) + Number(deadlineAdjustments);
+  if(raisedTotal > 0){
+    if(needToRaiseThisAmount <= 0){
+      return '$' + Number(raisedTotal).toLocaleString() + ' raised of $' + Number(deadlineTotalWithAdjustments).toLocaleString() + ' total';
+    }
+    return '$' + Number(raisedTotal).toLocaleString() + ' raised of $' + Number(deadlineTotalWithAdjustments).toLocaleString() + ' total';
+  } else {
+    return statuses.notStarted;
+  }
+});
+
+
+Template.registerHelper('showTripRaisedTotal', function() {
+  let splits = DTSplits.find({fund_id: this.tripId});
+  if(splits && splits.count() > 0){
+    let total_in_cents = splits.map(function ( item ) {
+      return item.amount_in_cents;
+    });
+    let sum = total_in_cents.reduce(add, 0);
+
+    function add(a, b) {
+      return a + b;
+    }
+    let deadlineTotal  = getDeadlineTotal(this._id);
+    let returnAmount = (sum / 100).toFixed( 2 );
+    return '** $' + Number(returnAmount).toLocaleString() + ' raised of $' + Number(deadlineTotal).toLocaleString() + ' total';
+  } else {
+    return "** 0";
+  }
+});
+
+Template.registerHelper('showFundraisingModule', function() {
+  if(this.tripId){
+    let trip = Trips.findOne({tripId: this.tripId});
+    if(trip){
+      return trip.showFundraisingModule;
+    }
+  }
 });

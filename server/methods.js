@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import {getDTSplitData, http_get_donortools} from '/imports/api/utils';
 
 Meteor.methods({
@@ -7,8 +8,17 @@ Meteor.methods({
 
     if ( Roles.userIsInRole(this.userId, 'admin') && userId) {
       Images.remove({ userId });
-    } else if ( this.userId ) {
-      Images.remove({ userId: this.userId });
+    } else if ( Roles.userIsInRole(this.userId, 'leader') && userId) {
+      const leaderTripId = Meteor.users.findOne({_id: this.userId}).tripId;
+      const passedInUserTripId = Meteor.users.findOne({_id: userId}).tripId;
+      if(leaderTripId === passedInUserTripId){
+        Images.remove({ userId });
+      } else {
+        throw new Meteor.Error('delete.passportPhoto.unauthorized',
+          'Cannot delete a passport photo because your tripId does not match the user trip ID you passed in');
+      }
+    } else if ( this.userId && this.userId === userId ) {
+      Images.remove({ userId });
     } else {
       throw new Meteor.Error('delete.passportPhoto.unauthorized',
         'Cannot delete a passport photo without permission');
@@ -55,7 +65,9 @@ Meteor.methods({
       "traveledOutsideTheUS":         Match.Maybe(String),
       "tShirtSize":                   Match.Maybe(String),
       "whatThreeSkills":              Match.Maybe(String),
-      "whyDoYouWantToJoinThisTeam":   Match.Maybe(String)
+      "whyDoYouWantToJoinThisTeam":   Match.Maybe(String),
+      "verified":                     Match.Maybe(Boolean),
+      "verifiedDate":                 Match.Maybe(Date)
     } );
     check(updateThisId, Match.Maybe(String));
 
@@ -383,6 +395,8 @@ Meteor.methods({
 
     if( Roles.userIsInRole( this.userId, 'super-admin' ) ) {
       return Roles.addUsersToRoles(userId, role);
+    } else if( Roles.userIsInRole( this.userId, 'admin' ) && role === 'leader') {
+      return Roles.addUsersToRoles(userId, role);
     } else {
       throw new Meteor.Error( 400, 'Need to have the proper permission to do this' );
     }
@@ -444,6 +458,12 @@ Meteor.methods({
       logger.info( "Started updateExpiredSignedURLS method with user: " + this.userId, );
       if( Roles.userIsInRole( this.userId, 'admin' ) ) {
         images = Images.find().cursor;
+      } else if ( Roles.userIsInRole(this.userId, 'leader')) {
+        const leaderTripId = Meteor.users.findOne({_id: this.userId}).tripId;
+        const users = Meteor.users.find({tripId: leaderTripId}).map(function (user) {
+          return user._id;
+        });
+        images = Images.find( { userId: {$in: users} } ).cursor;
       } else {
         images = Images.find( { userId: this.userId } ).cursor;
       }
@@ -473,7 +493,7 @@ Meteor.methods({
    *
    * @method updateUserDoc
    */
-  updateUserDoc(formData){
+  'updateUserDoc'(formData){
     check( formData, {
       "firstName": String,
       "lastName":  String,
@@ -597,16 +617,70 @@ Meteor.methods({
    * the admin's ID into the meta so we know that it was uploaded by an admin
    *
    * @method update.imageUserId
+   * @param {String} existingImageId - The _id of the image document you want to change
+   * @param {String} changeUserIdToThisId - The userId you want to be the new userId for this document
    */
-  'update.imageUserId'(fileId, changeUserIdToThisId){
-    check( fileId, String);
+  'update.imageUserId'(existingImageId, changeUserIdToThisId){
+    check( existingImageId, String);
     check( changeUserIdToThisId, String);
+    const image = Images.findOne(existingImageId);
+    console.log(image);
+    console.log(image.cursor);
+    logger.info( "Started update.imageUserId method with fileId: " + existingImageId + "and changeUserIdToThisId: " + changeUserIdToThisId );
 
     if( Roles.userIsInRole( this.userId, 'admin' ) ) {
-      logger.info( "Started update.imageUserId method with fileId: " + fileId + "and changeUserIdToThisId: " + changeUserIdToThisId );
-      return Images.update({_id: fileId}, {$set: {userId: changeUserIdToThisId, meta: {"uploadedByAdmin": true, "adminId": this.userId}}});
+      return Images.update({_id: existingImageId}, {$set: {userId: changeUserIdToThisId, meta: {"uploadedByAdmin": true, "adminId": this.userId}}});
+    } else if ( Roles.userIsInRole(this.userId, 'leader')) {
+      const leaderTripId = Meteor.users.findOne({_id: this.userId}).tripId;
+      const passedInUserTripId = Meteor.users.findOne({_id: changeUserIdToThisId}).tripId;
+      console.log(leaderTripId, passedInUserTripId);
+      if(leaderTripId === passedInUserTripId && image.userId === this.userId){
+        return Images.update({_id: existingImageId}, {$set: {userId: changeUserIdToThisId, meta: {"uploadedByLeader": true, "leaderId": this.userId}}});
+      } else {
+        throw new Meteor.Error('update.imageUserId.unauthorized',
+          'Cannot update this image because your tripId does not match the user trip ID you passed in');
+      }
     } else {
       throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
     }
+  },
+  /**
+   * Change the verified status of a form
+   *
+   * @method form.verify
+   * @param {String} name - the form name being verified
+   * @param {String} userId - the userId that owns this form
+   */
+  'form.verify'(name, userId){
+    check(name, String);
+    check(userId, String);
+    logger.info("Started form.verify with form name:", name, "and userId:", userId);
+    if ( Roles.userIsInRole(this.userId, 'leader') ) {
+      this.unblock();
+
+      const leaderTripId = Meteor.users.findOne({_id: this.userId}).tripId;
+      const passedInUserTripId = Meteor.users.findOne({_id: userId}).tripId;
+      let formUpdateStatus;
+
+      if(leaderTripId === passedInUserTripId){
+        if(name === "passportImage"){
+          formUpdateStatus = Forms.upsert( { userId, name }, {
+            userId,
+            name,
+            verified: true,
+            verifiedDate: new Date()
+          });
+        } else {
+          formUpdateStatus = Forms.update( { userId, name }, {
+            $set: {
+              verified: true,
+              verifiedDate: new Date()
+            }
+          });
+        }
+        return formUpdateStatus;
+      }
+    }
+    return;
   }
 });
