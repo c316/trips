@@ -62,14 +62,22 @@
                                                 {{> MissionaryInformationForm}}
                                             </fieldset>
                                             {{#if formStarted "missionaryInformationForm"}}
-                                                <button type="button"
-                                                        class="btn green-haze verified"
-                                                        data-form-name="missionaryInformationForm"
-                                                        title="I have verified this form">Click to Verify</button>
+                                                {{#unless formVerified "missionaryInformationForm"}}
+                                                    <button type="button"
+                                                            class="btn btn-primary verified"
+                                                            data-form-name="missionaryInformationForm"
+                                                            title="I have verified this form">Verify and go to the next form</button>
+                                                    <button type="button" class="btn btn-danger next">Don't verify, skip to the next form</button>
+                                                {{else}}
+                                                    <button type="button"
+                                                            class="btn btn-primary already-verified"
+                                                            data-form-name="missionaryInformationForm"
+                                                            title="This form has already been verified, skip to the next form"><i class="fa fa-check"></i> Already verified, go to the next form</button>
+                                                {{/unless}}
                                             {{else}}
                                                 <span class="label label-sm label-danger">Sorry, looks like the user hasn't started working on this form</span>
+                                                <button type="button" class="btn btn-danger next">Don't verify, skip to the next form</button>
                                             {{/if}}
-                                            <button type="button" class="btn dark next">Skip to the next form</button>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="tab2">
                                             {{#unless formCompleted "waiver-of-liability"}}
@@ -80,12 +88,21 @@
                                                 {{> ReleaseAndWaiverOfLiability}}
                                             </fieldset>
                                             {{#if formCompleted "waiver-of-liability"}}
-                                                <button type="button"
-                                                        class="btn green-haze verified"
-                                                        data-form-name="waiver-of-liability"
-                                                        title="I have verified this form">Click to Verify</button>
+                                                {{#unless formVerified "waiver-of-liability"}}
+                                                    <button type="button"
+                                                            class="btn btn-primary verified"
+                                                            data-form-name="waiver-of-liability"
+                                                            title="I have verified this form">Verify and go to the next form</button>
+                                                    <button type="button" class="btn btn-danger next">Don't verify, skip to the next form</button>
+                                                {{else}}
+                                                    <button type="button"
+                                                            class="btn btn-primary already-verified"
+                                                            data-form-name="waiver-of-liability"
+                                                            title="This form has already been verified, skip to the next form"><i class="fa fa-check"></i> Already verified, go to the next form</button>
+                                                {{/unless}}
+                                                {{else}}
+                                                <button type="button" class="btn btn-danger next">Don't verify, skip to the next form</button>
                                             {{/if}}
-                                            <button type="button" class="btn dark next">Skip to the next form</button>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="tab3">
                                             {{#unless formCompleted "code-of-conduct"}}
@@ -96,12 +113,21 @@
                                                 {{> MissionTripCodeOfConduct}}
                                             </fieldset>
                                             {{#if formCompleted "code-of-conduct"}}
-                                                <button type="button"
-                                                        class="btn green-haze verified"
-                                                        data-form-name="code-of-conduct"
-                                                        title="I have verified this form">Click to Verify</button>
+                                                {{#unless formVerified "code-of-conduct"}}
+                                                    <button type="button"
+                                                            class="btn btn-primary verified"
+                                                            data-form-name="code-of-conduct"
+                                                            title="I have verified this form">Verify and go to the next form</button>
+                                                    <button type="button" class="btn btn-danger next">Don't verify, skip to the next form</button>
+                                                {{else}}
+                                                    <button type="button"
+                                                            class="btn btn-primary already-verified"
+                                                            data-form-name="code-of-conduct"
+                                                            title="This form has already been verified, skip to the next form"><i class="fa fa-check"></i> Already verified, go to the next form</button>
+                                                {{/unless}}
+                                                {{else}}
+                                                <button type="button" class="btn btn-danger next">Don't verify, skip to the next form</button>
                                             {{/if}}
-                                            <button type="button" class="btn dark next">Skip to the next form</button>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="tab4">
                                             {{#unless formCompleted "media-release"}}
@@ -112,12 +138,21 @@
                                                 {{> MediaReleaseForm}}
                                             </fieldset>
                                             {{#if formCompleted "media-release"}}
-                                                <button type="button"
-                                                        class="btn green-haze verified"
+                                                {{#unless formVerified "media-release"}}
+                                                    <button type="button"
+                                                        class="btn btn-primary verified"
                                                         data-form-name="media-release"
-                                                        title="I have verified this form">Click to Verify</button>
+                                                        title="I have verified this form">Verify and go to the next form</button>
+                                                    <button type="button" class="btn btn-danger next">Don't verify, skip to the next form</button>
+                                                {{else}}
+                                                    <button type="button"
+                                                        class="btn btn-primary already-verified"
+                                                        data-form-name="media-release"
+                                                        title="This form has already been verified, skip to the next form"><i class="fa fa-check"></i> Already verified, go to the next form</button>
+                                                {{/unless}}
+                                            {{else}}
+                                                <button type="button" class="btn btn-danger next">Don't verify, skip to the next form</button>
                                             {{/if}}
-                                            <button type="button" class="btn dark next">Skip to the next form</button>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="tab5">
                                             {{#unless thisUserImageExists}}
@@ -147,7 +182,7 @@
                                                                 </p>
                                                             {{/with}}
                                                         {{else}}
-                                                            {{> uploadForm}}
+                                                            <h3>No image found</h3>
                                                         {{/if}}
                                                         <div class="dz-default dz-message">
                                                             <span></span></div>
@@ -155,13 +190,22 @@
                                                 </div>
                                             </fieldset>
                                             {{#if thisUserImageExists}}
-                                                <button type="button"
+                                                {{#unless formVerified "passportImage"}}
+                                                    <button type="button"
                                                         id="verified-photo"
-                                                        class="btn green-haze verified"
+                                                        class="btn btn-primary verified"
                                                         data-form-name="passportImage"
-                                                        title="I have verified this passport image">Click to Verify</button>
+                                                        title="I have verified this passport image">Verify and go back to the leader page</button>
+                                                    <button id="skip-photo" type="button" class="btn btn-danger">Don't verify, skip and return to the leader page</button>
+                                                {{else}}
+                                                    <button type="button"
+                                                        class="btn btn-primary already-verified"
+                                                        data-form-name="passportImage"
+                                                        title="This form has already been verified, skip to the next form"><i class="fa fa-check"></i> Already verified, go back to the leader page</button>
+                                                {{/unless}}
+                                            {{else}}
+                                                <button id="skip-photo" type="button" class="btn btn-danger">Don't verify, skip and return to the leader page</button>
                                             {{/if}}
-                                            <button id="skip-photo" type="button" class="btn dark">Skip and return to the leader page</button>
                                         </div>
                                     </div>
                                 </div>

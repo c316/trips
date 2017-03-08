@@ -53,7 +53,7 @@ if (Meteor.isServer) {
 }
 
 Images = new FilesCollection({
-  debug: true, // Change to `true` for debugging
+  debug: false, // Change to `true` for debugging
   throttle: false,
   storagePath: Meteor.settings.public.File.path,
   collectionName: 'Images',

@@ -1,4 +1,6 @@
 import { statuses } from '/imports/api/miscFunctions';
+import { floatThead } from 'floatthead';
+import { App } from '/imports/ui/js/app';
 
 Template.Leader.onCreated(function () {
   Meteor.call("updateExpiredSignedURLS");
@@ -6,19 +8,16 @@ Template.Leader.onCreated(function () {
   this.autorun(()=>{
     Meteor.subscribe('users');
     if(Session.get("tripId")){
-      Meteor.subscribe('Trips', Session.get("tripId"));
-      Meteor.subscribe('TripLeader', Session.get("tripId"));
-      Meteor.subscribe('files.images', "", Session.get("tripId"));
+      const tripId = Session.get("tripId");
+      Meteor.subscribe('Trips', tripId );
+      Meteor.subscribe('TripDeadlines', tripId );
+      Meteor.subscribe('TripLeader', tripId );
+      Meteor.subscribe('files.images', "", tripId );
     }
   });
 });
 
 Template.Leader.onRendered(()=>{
-  $('.date-picker').datepicker({
-    orientation: "bottom",
-    autoclose: true
-  });
-
   $('.date-picker').datepicker()
     .on('change', function(e) {
       // `e` here contains the extra attributes
@@ -26,9 +25,16 @@ Template.Leader.onRendered(()=>{
       $(e.currentTarget).addClass('edited');
     });
   Session.set("tripId", Meteor.user().tripId);
+
+  Meteor.setTimeout(function () {
+    $('table#leader-table').floatThead({top: 60, floatTableClass: 'grey-background'});
+  }, 500);
 });
 
 Template.Leader.helpers({
+  trip(){
+    return Trips.findOne({ tripId: Number(Session.get("tripId")) });
+  },
   formCompleted(name){
     const form = Forms.findOne( { name: name, userId: this._id,
       $or: [{completed: true}, {agreed: true}]
@@ -53,11 +59,6 @@ Template.Leader.helpers({
   },
   trips(){
     return Trips.find();
-  },
-  trip(){
-    if(this.tripId){
-      return Trips.findOne({tripId: this.tripId});
-    }
   },
   deadlines(){
     if(this.tripId){
@@ -104,6 +105,7 @@ Template.Leader.helpers({
     return deadlineAdjustment && deadlineAdjustment.adjustmentAmount;
   },
   filteringTrip(){
+    console.log(Session.get("tripId"));
     return Session.get("tripId");
   },
   numberOfTripParticipants(){
@@ -126,6 +128,7 @@ Template.Leader.events({
     FlowRouter.go("print-one", {}, {id: this._id});
   },
   'click .verify-forms'(){
+    App.scrollTo($('.page-content'));
     FlowRouter.go("/leader/verify-forms/"  + this._id);
   },
 });

@@ -1,8 +1,12 @@
 import { App } from '/imports/ui/js/app';
 
 Template.VerifyForms.onCreated(function () {
+  Meteor.call("updateExpiredSignedURLS");
+
+  Session.set("verifying", true);
+  const tripId = Meteor.user() && Meteor.user().tripId;
   this.autorun(()=>{
-    Meteor.subscribe('files.images', Session.get("userId"));
+    this.subscribe('files.images', Session.get("userId"), tripId);
     this.subscribe('Forms', Session.get("userId"));
     this.subscribe('user', Session.get("userId"));
   })
@@ -40,6 +44,16 @@ Template.VerifyForms.helpers({
 });
 
 Template.VerifyForms.events({
+  'click .already-verified'(e){
+    var nextId = $(".tab-pane.active").next().attr("id");
+    const formName = e.target.getAttribute('data-form-name');
+    if(formName === "passportImage" ){
+      FlowRouter.go("/leader");
+    } else {
+      $('a[href="#'+nextId+'"]').click();
+    }
+    App.scrollTo($('.steps'));
+  },
   'click .verified'(e){
     var nextId = $(".tab-pane.active").next().attr("id");
     console.log(nextId);
@@ -72,7 +86,8 @@ Template.VerifyForms.events({
       }
     });
 
-  },'click .next'(){
+  },
+  'click .next'(){
     console.log("clicked verified");
     var nextId = $(".tab-pane.active").next().attr("id");
     console.log(nextId);
@@ -89,4 +104,5 @@ Template.VerifyForms.events({
 Template.VerifyForms.onDestroyed(function () {
   Session.delete("userId");
   Session.delete("tripId");
+  Session.delete("verifying");
 });

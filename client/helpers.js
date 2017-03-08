@@ -116,7 +116,7 @@ Template.registerHelper('editedClass', function(value) {
 });
 
 Template.registerHelper('appVersion', function(){
-  return '1.1.0'
+  return '1.3.0'
 });
 
 
@@ -128,6 +128,10 @@ Template.registerHelper('formatDate', function(date) {
     return moment(new Date(date)).format('MM/DD/YYYY');
 });
 
+Template.registerHelper('formatMoney', function(amount) {
+    return amount.toLocaleString();
+});
+
 Template.registerHelper('totalRaisedForTrip', function() {
   let totalRaised = getRaisedTotalForTrip(Session.get("tripId"));
   let totalAdjustments = getDeadlineAdjustmentsForTrip(Session.get("tripId"));
@@ -135,8 +139,9 @@ Template.registerHelper('totalRaisedForTrip', function() {
 });
 
 Template.registerHelper('totalNeededForTrip', function() {
-  let tripId = Session.get("tripId");
+  let tripId = Number(Session.get("tripId"));
   let totalNeeded = getDeadlinesTotalForTrip(tripId);
+  console.log(totalNeeded);
   let users = Meteor.users.find({tripId: tripId});
   return Number(totalNeeded * users.count()).toLocaleString();
 });

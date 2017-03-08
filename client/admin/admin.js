@@ -1,7 +1,4 @@
-import { getRaisedTotal,
-  getDeadlineTotal,
-  getDeadlineAdjustments,
-  statuses } from '/imports/api/miscFunctions';
+import { statuses } from '/imports/api/miscFunctions';
 import { repeater } from '/imports/ui/js/jquery.repeater';
 import { repeaterSetup } from '/imports/api/miscFunctions';
 import '/imports/ui/stylesheets/admin-print.css';
@@ -47,6 +44,9 @@ Template.Admin.helpers({
   trip(){
     if(this.tripId){
       return Trips.findOne({tripId: this.tripId});
+    }
+    if(Session.get("tripId")){
+      return Trips.findOne({ tripId: Number(Session.get("tripId")) });
     }
   },
   deadlines(){

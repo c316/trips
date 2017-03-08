@@ -41,6 +41,12 @@ Meteor.publish('TripDeadlines', function(tripId){
   check(tripId, Number);
   if( Roles.userIsInRole(this.userId, 'admin') ){
     return Deadlines.find( { tripId } );
+  } else if( Roles.userIsInRole(this.userId, 'leader') ){
+    const leaderUser = Meteor.users.findOne(this.userId);
+    if(leaderUser.tripId === tripId){
+      return Deadlines.find( { tripId } );
+    }
+    return;
   }
 });
 

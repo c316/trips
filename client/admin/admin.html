@@ -62,14 +62,26 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-dark">
-                        <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Trips Admin {{#if filteringTrip}}
-                            <p>
-                                <span style="color: darkred">{{tripName}} <br> ID: {{thisTripId}} <br> {{numberOfTripParticipants}} Participants</span>
-                            </p>
-                            <p>
-                                <span style="color: darkred">${{totalRaisedForTrip}} raised of ${{totalNeededForTrip}} total</span>
-                            </p>
+                        <span class="caption-subject bold"><span class="uppercase">General Trip Details</span>
+                            {{#if filteringTrip}}
+                                {{#with trip}}
+                                    <p>
+                                        <span style="color: darkred">{{name}} <br> ID: {{tripId}} <br> {{numberOfTripParticipants}} Participants</span>
+                                    </p>
+                                    <p>
+                                        <span style="color: darkred">${{totalRaisedForTrip}} raised</span>
+                                    </p>
+                                    <p>
+                                        {{#if deadlines}}
+                                            Deadlines:
+                                            <ul>
+                                                {{#each deadlines}}
+                                                    <li style="color: darkred">{{name}} - ${{formatMoney amount}} due on {{formatDate due}} </li>
+                                                {{/each}}
+                                            </ul>
+                                        {{/if}}
+                                    </p>
+                                {{/with}}
                             {{/if}}
                         </span>
                     </div>
@@ -197,6 +209,10 @@
                     </div>
                 </div>
                 <div class="portlet-body flip-scroll">
+                    <h4 class="uppercase bold">
+                        Participant Details
+                    </h4>
+                    <hr>
                     <div class="dataTables_wrapper no-footer">
                         <table class="table table-bordered table-striped table-condensed flip-content"
                                width="100%" id="sample_1" role="grid"
@@ -246,7 +262,7 @@
                                 <tr role="row" class="{{oddEven @index}}">
                                     <td class="clickable-cell user-admin-link">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
                                     <td class="clickable-cell funding-admin-link">{{tripName}} {{tripId}}</td>
-                                    <td class="{{#if showFundraisingModule}}clickable-cell{{/if}} funding-admin-link">
+                                    <td class="{{#if showFundraisingModule}}clickable-cell funding-admin-link{{/if}}">
                                         {{#if this.tripId}}
                                             {{#if showFundraisingModule}}
                                                 {{{raisedAmount}}}
@@ -324,7 +340,6 @@
                         <p>
                             <a class="btn dark" id="print-page">Print this page</a><br>
                         </p>
-                        <p>** Starred fundraising numbers reflect the total raised for the trip, not just for the individual</p>
                     </div>
                 </div>
             </div>

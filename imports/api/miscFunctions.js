@@ -69,6 +69,7 @@ export const getDeadlineTotal = (userId)=>{
 };
 
 export const getDeadlinesTotalForTrip = (tripId)=>{
+  tripId = Number(tripId);
   let total = 0;
 
   if(tripId){

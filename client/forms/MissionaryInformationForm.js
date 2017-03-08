@@ -187,6 +187,11 @@ Template.MissionaryInformationForm.events({
     if (dateValue) $(e.currentTarget).addClass('edited');
   },
   'change #missionaryInformationForm'(e, tmpl){
+    // check to see if the trip leader is looking at the form to verify it, if so, then
+    // exit this change function
+    if(Session.get("verifying")){
+      return;
+    }
     // This will be called several times when the form renders, make sure
     // you check to see if the value being passed is empty
     // Then check that if is is empty that is was empty in the document
