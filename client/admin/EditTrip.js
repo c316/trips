@@ -45,7 +45,7 @@ Template.EditTrip.events({
     let formId = e.target.id;
     let tripId = Session.get( "tripId" );
     let name = e.target.deadlineName.value;
-    let amount = Number(e.target.amount.value);
+    let amount = parseInt(e.target.amount.value);
     let due = new Date(e.target.due.value);
     let deadline = {name, amount, due};
     let btn = $("button[type=submit]", "#" + formId);

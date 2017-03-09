@@ -69,28 +69,6 @@ Template.Forms.helpers({
   images(){
     return Images.find().fetch()[0];
   },
-  status(){
-    let tripForm = Forms.findOne( { name:  'tripRegistration' } );
-    if(tripForm && tripForm._id){
-      let forms = Forms.find({
-        name:  {
-          $ne: 'tripRegistration'
-        },
-        $or: [{completed: true}, {agreed: true}]
-      } );
-      let totalNumberOfForms = forms && forms.count();
-      if (totalNumberOfForms === 4){
-        if(Images.find().count()){
-          return statuses.completed;
-        }
-        return statuses.inProgress;
-      } else {
-        return statuses.inProgress;
-      }
-    } else {
-      return statuses.notStarted;
-    }
-  },
   unfinishedForms(){
     let forms = Forms.find({
       name:  {

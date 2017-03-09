@@ -57,8 +57,8 @@ Template.Fundraising.helpers({
     return this.amount_in_cents && (this.amount_in_cents/100).toFixed(2);
   },
   status(){
-    let tripForm = Forms.findOne({name: 'tripRegistration'});
-    if(tripForm && tripForm.tripId){
+    const tripId = Meteor.users.findOne({_id: this._id}) && Meteor.users.findOne({_id: this._id}).tripId;
+    if(tripId){
       let deadlineTotal = getDeadlineTotal(this._id);
       let raisedTotal   = getRaisedTotal(this._id);
       let needToRaiseThisAmount = deadlineTotal - raisedTotal;

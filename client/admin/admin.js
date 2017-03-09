@@ -54,32 +54,6 @@ Template.Admin.helpers({
       return Deadlines.find({tripId: this.tripId});
     }
   },
-  formsStatus(){
-    let tripForm = Forms.findOne( { name:  'tripRegistration', userId: this._id } );
-    let passportImage = Images.findOne( { userId: this._id } );
-
-    if(tripForm && tripForm._id){
-      let forms = Forms.find({
-        userId: this._id,
-        name:  {
-          $ne: 'tripRegistration'
-        },
-        $or: [{completed: true}, {agreed: true}]
-      } );
-      let totalNumberOfForms = forms && forms.count();
-      if (totalNumberOfForms === 4){
-        if(passportImage){
-          return statuses.completed;
-        } else {
-          return statuses.needPassportPic;
-        }
-      } else {
-        return statuses.inProgress;
-      }
-    } else {
-      return statuses.notStarted;
-    }
-  },
   tripName(){
     let trip = Trips.findOne({tripId: this.tripId});
     return trip && trip.name;

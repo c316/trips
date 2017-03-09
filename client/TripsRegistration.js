@@ -8,8 +8,8 @@ Template.TripRegistration.onCreated(function () {
 
 Template.TripRegistration.helpers({
   status(){
-    let tripForm = Forms.findOne({name: 'tripRegistration'});
-    if(tripForm && tripForm.tripId){
+    let tripId = Meteor.users.findOne({_id: this._id}) && Meteor.users.findOne({_id: this._id}).tripId;
+    if(tripId){
       return statuses.completed;
     } else {
       return statuses.notStarted;

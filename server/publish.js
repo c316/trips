@@ -73,19 +73,18 @@ Meteor.publish('Forms', function(userId){
       if( userId ) {
         return Forms.find( { userId } );
       } else {
-          return Forms.find();
+        return Forms.find();
       }
     } else if( Roles.userIsInRole(this.userId, 'leader') ){
       const leaderUser = Meteor.users.findOne(this.userId);
-      const tripUser = Meteor.users.findOne(userId);
-      if(leaderUser.tripId === tripUser.tripId){
-        return Forms.find( { userId } );
-      } else {
-        return;
+      if( userId ) {
+        const tripUser = Meteor.users.findOne(userId);
+        if(leaderUser.tripId === tripUser.tripId){
+          return Forms.find( { userId } );
+        }
       }
-    } else {
-      return Forms.find( { userId: this.userId } );
     }
+    return Forms.find( { userId: this.userId } );
   }
 });
 
