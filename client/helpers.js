@@ -223,15 +223,3 @@ Template.registerHelper('status', function() {
     return statuses.notStarted;
   }
 });
-
-Template.registerHelper('verifiedStatus', function() {
-  const tripId = Meteor.users.findOne({_id: this._id}) && Meteor.users.findOne({_id: this._id}).tripId;
-
-  if(tripId) {
-    let forms = Forms.find({userId: this._id, verified: true});
-    let totalNumberOfForms = forms && forms.count();
-    if (totalNumberOfForms === 5) {
-      return statuses.verified;
-    }
-  }
-});
