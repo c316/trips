@@ -16,8 +16,7 @@ Template.TripRegistration.helpers({
     }
   },
   tripName(){
-    let trip = Trips.findOne({tripId: this.tripId});
-    return trip && trip.name;
+    return Trips.findOne({tripId: this.tripId}) && Trips.findOne({tripId: this.tripId}).name;
   },
 });
 

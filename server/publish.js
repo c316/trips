@@ -122,6 +122,10 @@ Meteor.publish('Trips', function(tripId){
     } else if( Roles.userIsInRole(this.userId, 'leader') ){
       if(tripId && (tripId === Meteor.users.findOne({_id: this.userId}).tripId) ) {
         return Trips.find({tripId});
+      } else {
+        let user = Meteor.users.findOne( { _id: this.userId } );
+        let thisTripId = user && user.tripId;
+        if( thisTripId ) return Trips.find( { tripId: thisTripId } );
       }
     } else {
       let user = Meteor.users.findOne( { _id: this.userId } );

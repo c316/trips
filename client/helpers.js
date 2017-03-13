@@ -198,7 +198,7 @@ Template.registerHelper('status', function() {
   const passportImage = Images.findOne( { userId: this._id } );
 
   if(tripId){
-    let forms = Forms.find({
+    const forms = Forms.find({
       name:  {
         $ne: 'tripRegistration'
       },
@@ -207,6 +207,11 @@ Template.registerHelper('status', function() {
     let totalNumberOfForms = forms && forms.count();
     if (totalNumberOfForms > 4){
       if(passportImage){
+        const verifiedForms = Forms.find({userId: this._id, verified: true});
+        let totalNumberOfForms = verifiedForms && verifiedForms.count();
+        if (totalNumberOfForms === 5) {
+          return statuses.verified;
+        }
         return statuses.completed;
       } else {
         return statuses.needPassportPic;
@@ -216,5 +221,17 @@ Template.registerHelper('status', function() {
     }
   } else {
     return statuses.notStarted;
+  }
+});
+
+Template.registerHelper('verifiedStatus', function() {
+  const tripId = Meteor.users.findOne({_id: this._id}) && Meteor.users.findOne({_id: this._id}).tripId;
+
+  if(tripId) {
+    let forms = Forms.find({userId: this._id, verified: true});
+    let totalNumberOfForms = forms && forms.count();
+    if (totalNumberOfForms === 5) {
+      return statuses.verified;
+    }
   }
 });
