@@ -24,7 +24,7 @@ Template.TripRegistration.events({
   'click #tripRegistrationFormSubmit, submit #tripRegistrationForm'(e){
     e.preventDefault();
     console.log("Got here");
-    let tripId = $("[name='trip-id']").val();
+    let tripId = $("[name='trip-id']").val().trim();
     let updateThisId = FlowRouter.getQueryParam('id');
     console.log(tripId);
 

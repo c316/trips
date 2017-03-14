@@ -163,7 +163,7 @@ Meteor.methods({
     check(tripId, String);
     check(updateThisId, Match.Maybe(String));
 
-    logger.info("Started form.tripRegistration with tripId: ", tripId);
+    logger.info("Started form.tripRegistration with tripId:", tripId);
     let userId;
 
     if ( Roles.userIsInRole(this.userId, 'admin') ) {
@@ -183,7 +183,7 @@ Meteor.methods({
     let trip = Trips.findOne({tripId: Number(tripId)});
     if(trip && trip._id){
       Forms.upsert( { userId, name: 'tripRegistration' }, {
-                      userId,
+        userId,
         name:     'tripRegistration',
         tripId:       Number( tripId ),
         registeredOn: new Date()

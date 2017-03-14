@@ -16,7 +16,7 @@ Template.AddTripIdToUserModal.events({
   'click #save-change'(e){
     console.log('you clicked', $("#trips").val(), Session.get("showingUserId"));
     $('#trips-modal').modal('hide');
-    Meteor.call("form.tripRegistration", $("#trips").val(), Session.get("showingUserId"), function (err, res) {
+    Meteor.call("form.tripRegistration", $("#trips").val().trim(), Session.get("showingUserId"), function (err, res) {
       if(err){
         console.error(err);
         Bert.alert({
