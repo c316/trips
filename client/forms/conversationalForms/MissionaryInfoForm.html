@@ -1,6 +1,457 @@
-<template name="MissionaryInformationForm">
+<template name="MissionaryInfoForm">
+
     {{#with missionaryInformation}}
-        <form id="missionaryInformationForm">
+    <form id="missionaryInfoForm">
+        <div class="form-body">
+            <input type="hidden"
+                   name="verified"
+                   value="{{verified}}">
+            <input type="hidden"
+                   name="verifiedDate"
+                   value="{{verifiedDate}}">
+                <input type="text" class="form-control {{editedClass preferredName}}"
+                       name="preferredName"
+                       cf-questions="What name do you go by?"
+                       value="{{preferredName}}">
+                <input type="text" class="form-control  {{editedClass passportFirstName}}"
+                       name="passportFirstName"
+                       cf-questions="What is your first name on your passport?"
+                       value="{{passportFirstName}}">
+                <input type="text" class="form-control  {{editedClass passportMiddleName}}"
+                       name="passportMiddleName"
+                       cf-questions="What is your middle name on your passport?"
+                       value="{{passportMiddleName}}">
+                <input type="text" class="form-control {{editedClass passportLastName}}"
+                       name="passportLastName"
+                       cf-questions="What is your last name on your passport?"
+                       value="{{passportLastName}}">
+                        <input type="radio"
+                               id="radio111"
+                               name="passportStatus"
+                               class="md-radiobtn"
+                               cf-questions="Do you have a passport?"
+                               cf-label="Yes"
+                            {{checked 'passportStatus' 'yes'}}
+                               value="yes">
+                        <label for="radio111">Yes</label>
+                        <input type="radio"
+                               id="radio112"
+                               name="passportStatus"
+                               class="md-radiobtn"
+                               cf-label="No, but I have submitted my passport application"
+                            {{checked 'passportStatus' 'in-progress'}}
+                               value="in-progress">
+                        <input type="radio"
+                               id="radio113"
+                               name="passportStatus"
+                               cf-label="No, and I have not applied for one yet"
+                               class="md-radiobtn"
+                            {{checked 'passportStatus' 'no-not-applied'}}
+                               value="no-not-applied">
+                <input type="text" class="form-control {{editedClass passportExpirationDate}} date-picker"
+                       value="{{passportExpirationDate}}"
+                       name="passportExpirationDate">
+                <input type="text" class="form-control {{editedClass birthdate}} date-picker"
+                       value="{{birthdate}}"
+                       name="birthdate">
+                        <input type="radio"
+                               id="radio98"
+                               name="gender"
+                               class="md-radiobtn"
+                            {{checked 'gender' 'male'}}
+                               value="male">
+                        <label for="radio98">
+                            <span class="inc"></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Male </label>
+                        <input type="radio"
+                               id="radio99"
+                               name="gender"
+                               class="md-radiobtn"
+                            {{checked 'gender' 'female'}}
+                               value="female">
+                        <label for="radio99">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Female </label>
+                <input type="text" class="form-control {{editedClass emergencyContactFirstName}}"
+                       value="{{emergencyContactFirstName}}"
+                       name="emergencyContactFirstName">
+                <input type="text" class="form-control {{editedClass emergencyContactLastName}}"
+                       value="{{emergencyContactLastName}}"
+                       name="emergencyContactLastName">
+                <input type="text" class="form-control {{editedClass emergencyContactAddressLine1}}"
+                       value="{{emergencyContactAddressLine1}}"
+                       name="emergencyContactAddressLine1">
+                <input type="text" class="form-control {{editedClass emergencyContactAddressLine2}}"
+                       value="{{emergencyContactAddressLine2}}"
+                       name="emergencyContactAddressLine2">
+                <input type="text" class="form-control {{editedClass emergencyContactCity}}"
+                       value="{{emergencyContactCity}}"
+                       name="emergencyContactCity">
+                <select class="form-control {{editedClass emergencyContactState}}"
+                        name="emergencyContactState"
+                        cf-questions="What state does your emergency contact live in?">
+                    <option disabled selected value=""></option>
+                    <option {{selected "emergencyContactState" "AL"}} value="AL">Alabama</option>
+                    <option {{selected "emergencyContactState" "AK"}} value="AK">Alaska</option>
+                    <option {{selected "emergencyContactState" "AZ"}} value="AZ">Arizona</option>
+                    <option {{selected "emergencyContactState" "AR"}} value="AR">Arkansas</option>
+                    <option {{selected "emergencyContactState" "CA"}} value="CA">California</option>
+                    <option {{selected "emergencyContactState" "CO"}} value="CO">Colorado</option>
+                    <option {{selected "emergencyContactState" "CT"}} value="CT">Connecticut</option>
+                    <option {{selected "emergencyContactState" "DE"}} value="DE">Delaware</option>
+                    <option {{selected "emergencyContactState" "DC"}} value="DC">District Of Columbia</option>
+                    <option {{selected "emergencyContactState" "FL"}} value="FL">Florida</option>
+                    <option {{selected "emergencyContactState" "GA"}} value="GA">Georgia</option>
+                    <option {{selected "emergencyContactState" "HI"}} value="HI">Hawaii</option>
+                    <option {{selected "emergencyContactState" "ID"}} value="ID">Idaho</option>
+                    <option {{selected "emergencyContactState" "IL"}} value="IL">Illinois</option>
+                    <option {{selected "emergencyContactState" "IN"}} value="IN">Indiana</option>
+                    <option {{selected "emergencyContactState" "IA"}} value="IA">Iowa</option>
+                    <option {{selected "emergencyContactState" "KS"}} value="KS">Kansas</option>
+                    <option {{selected "emergencyContactState" "KY"}} value="KY">Kentucky</option>
+                    <option {{selected "emergencyContactState" "LA"}} value="LA">Louisiana</option>
+                    <option {{selected "emergencyContactState" "ME"}} value="ME">Maine</option>
+                    <option {{selected "emergencyContactState" "MD"}} value="MD">Maryland</option>
+                    <option {{selected "emergencyContactState" "MA"}} value="MA">Massachusetts</option>
+                    <option {{selected "emergencyContactState" "MI"}} value="MI">Michigan</option>
+                    <option {{selected "emergencyContactState" "MN"}} value="MN">Minnesota</option>
+                    <option {{selected "emergencyContactState" "MS"}} value="MS">Mississippi</option>
+                    <option {{selected "emergencyContactState" "MO"}} value="MO">Missouri</option>
+                    <option {{selected "emergencyContactState" "MT"}} value="MT">Montana</option>
+                    <option {{selected "emergencyContactState" "NE"}} value="NE">Nebraska</option>
+                    <option {{selected "emergencyContactState" "NV"}} value="NV">Nevada</option>
+                    <option {{selected "emergencyContactState" "NH"}} value="NH">New Hampshire</option>
+                    <option {{selected "emergencyContactState" "NJ"}} value="NJ">New Jersey</option>
+                    <option {{selected "emergencyContactState" "NM"}} value="NM">New Mexico</option>
+                    <option {{selected "emergencyContactState" "NY"}} value="NY">New York</option>
+                    <option {{selected "emergencyContactState" "NC"}} value="NC">North Carolina</option>
+                    <option {{selected "emergencyContactState" "ND"}} value="ND">North Dakota</option>
+                    <option {{selected "emergencyContactState" "OH"}} value="OH">Ohio</option>
+                    <option {{selected "emergencyContactState" "OK"}} value="OK">Oklahoma</option>
+                    <option {{selected "emergencyContactState" "OR"}} value="OR">Oregon</option>
+                    <option {{selected "emergencyContactState" "PA"}} value="PA">Pennsylvania</option>
+                    <option {{selected "emergencyContactState" "RI"}} value="RI">Rhode Island</option>
+                    <option {{selected "emergencyContactState" "SC"}} value="SC">South Carolina</option>
+                    <option {{selected "emergencyContactState" "SD"}} value="SD">South Dakota</option>
+                    <option {{selected "emergencyContactState" "TN"}} value="TN">Tennessee</option>
+                    <option {{selected "emergencyContactState" "TX"}} value="TX">Texas</option>
+                    <option {{selected "emergencyContactState" "UT"}} value="UT">Utah</option>
+                    <option {{selected "emergencyContactState" "VT"}} value="VT">Vermont</option>
+                    <option {{selected "emergencyContactState" "VA"}} value="VA">Virginia</option>
+                    <option {{selected "emergencyContactState" "WA"}} value="WA">Washington</option>
+                    <option {{selected "emergencyContactState" "WV"}} value="WV">West Virginia</option>
+                    <option {{selected "emergencyContactState" "WI"}} value="WI">Wisconsin</option>
+                    <option {{selected "emergencyContactState" "WY"}} value="WY">Wyoming</option>
+                </select>
+                <input type="text" class="form-control {{editedClass emergencyContactAddressZip}}"
+                       value="{{emergencyContactAddressZip}}"
+                       name="emergencyContactAddressZip">
+                <input type="text" class="form-control {{editedClass emergencyContactPhone}}"
+                       value="{{emergencyContactPhone}}"
+                       name="emergencyContactPhone">
+                <input type="text" class="form-control {{editedClass beneficiaryFirstName}}"
+                       value="{{beneficiaryFirstName}}"
+                       name="beneficiaryFirstName">
+                <input type="text" class="form-control {{editedClass beneficiaryLastName}}"
+                       value="{{beneficiaryLastName}}"
+                       name="beneficiaryLastName">
+                <input type="text" class="form-control {{editedClass beneficiaryRelationship}}"
+                       value="{{beneficiaryRelationship}}"
+                       name="beneficiaryRelationship">
+                <input type="text" class="form-control {{editedClass homeChurchName}}"
+                       value="{{homeChurchName}}"
+                       name="homeChurchName">
+                        <input type="radio" id="radio11"
+                               name="bloodType" class="md-radiobtn"
+                            {{checked 'bloodType' 'o+'}}
+                               value="o+" >
+                        <label for="radio11">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> O Positive </label>
+                        <input type="radio" id="radio12" name="bloodType"
+                               class="md-radiobtn"
+                            {{checked 'bloodType' 'o-'}}
+                               value="o-">
+                        <label for="radio12">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> O Negative </label>
+                        <input type="radio" id="radio13" name="bloodType"
+                               class="md-radiobtn"
+                            {{checked 'bloodType' 'a+'}}
+                               value="a+">
+                        <label for="radio13">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> A Positive </label>
+                        <input type="radio" id="radio14" name="bloodType"
+                               class="md-radiobtn"
+                            {{checked 'bloodType' 'a-'}}
+                               value="a-">
+                        <label for="radio14">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> A Negative </label>
+                        <input type="radio" id="radio15" name="bloodType"
+                               class="md-radiobtn"
+                            {{checked 'bloodType' 'b+'}}
+                               value="b+">
+                        <label for="radio15">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> B Positive </label>
+                        <input type="radio" id="radio16" name="bloodType"
+                               class="md-radiobtn"
+                            {{checked 'bloodType' 'b-'}}
+                               value="b-">
+                        <label for="radio16">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> B Negative </label>
+                        <input type="radio" id="radio17" name="bloodType"
+                               class="md-radiobtn"
+                            {{checked 'bloodType' 'ab+'}}
+                               value="ab+">
+                        <label for="radio17">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> AB Positive </label>
+                        <input type="radio" id="radio18" name="bloodType"
+                               class="md-radiobtn"
+                            {{checked 'bloodType' 'ab-'}} value="ab-">
+                        <label for="radio18">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> AB Negative </label>
+                        <input type="radio" id="radio21" name="tShirtSize"
+                               class="md-radiobtn" value="small"
+                            {{checked 'tShirtSize' 'small'}}>
+                        <label for="radio21">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Small </label>
+                        <input type="radio" id="radio22" name="tShirtSize"
+                               class="md-radiobtn" value="medium"
+                            {{checked 'tShirtSize' 'medium'}}>
+                        <label for="radio22">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Medium </label>
+                        <input type="radio" id="radio23" name="tShirtSize"
+                               class="md-radiobtn" value="large"
+                            {{checked 'tShirtSize' 'large'}}>
+                        <label for="radio23">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Large </label>
+                        <input type="radio" id="radio24" name="tShirtSize"
+                               class="md-radiobtn" value="x-large"
+                            {{checked 'tShirtSize' 'x-large'}}>
+                        <label for="radio24">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> X-Large </label>
+                        <input type="radio" id="radio25" name="tShirtSize"
+                               class="md-radiobtn" value="xx-large"
+                            {{checked 'tShirtSize' 'xx-large'}}>
+                        <label for="radio25">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> XX-Large </label>
+                        <input type="radio" id="radio26" name="tShirtSize"
+                               class="md-radiobtn" value="xxx-large"
+                            {{checked 'tShirtSize' 'xxx-large'}}>
+                        <label for="radio26">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> XXX-Large </label>
+                <input type="text" class="form-control {{editedClass lastTetanusShotYear}}"
+                       value="{{lastTetanusShotYear}}" name="lastTetanusShotYear">
+                <label for="lastTetanusShotYear">Year of Last Tetanus Shot</label>
+                    <textarea class="form-control {{editedClass allergiesOrHealthConditions}}"
+                              value="{{allergiesOrHealthConditions}}"
+                              name="allergiesOrHealthConditions" rows="3"></textarea>
+                    <textarea class="form-control {{editedClass medicationsBeingTaken}}"
+                              value="{{medicationsBeingTaken}}"
+                              name="medicationsBeingTaken" rows="3"></textarea>
+                        <input type="radio" id="radio38" name="convictedOfACrime"
+                               class="md-radiobtn" value="yes"
+                            {{checked 'convictedOfACrime' 'yes'}}>
+                        <label for="radio38">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Yes </label>
+                        <input type="radio" id="radio39" name="convictedOfACrime"
+                               class="md-radiobtn" value="no"
+                            {{checked 'convictedOfACrime' 'no'}}>
+                        <label for="radio39">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> No </label>
+                    <textarea class="form-control {{editedClass convictedOfACrimeExplained}}"
+                              value="{{convictedOfACrimeExplained}}"
+                              name="convictedOfACrimeExplained" rows="3"></textarea>
+                        <input type="radio" id="radio41"
+                               name="permissionToRunBackgroundCheck"
+                               class="md-radiobtn" value="yes"
+                            {{checked 'permissionToRunBackgroundCheck' 'yes'}}>
+                        <label for="radio41">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Yes </label>
+                        <input type="radio" id="radio42"
+                               name="permissionToRunBackgroundCheck"
+                               class="md-radiobtn" value="no"
+                            {{checked 'permissionToRunBackgroundCheck' 'no'}}>
+                        <label for="radio42">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> No </label>
+                        <input type="radio" id="radio51"
+                               name="speaksOtherLanguages"
+                               class="md-radiobtn" value="yes"
+                            {{checked 'speaksOtherLanguages' 'yes'}}>
+                        <label for="radio51">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Yes </label>
+                        <input type="radio" id="radio52"
+                               name="speaksOtherLanguages"
+                               class="md-radiobtn" value="no"
+                            {{checked 'speaksOtherLanguages' 'no'}}>
+                        <label for="radio52">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> No </label>
+                    <textarea class="form-control {{editedClass languageProficiencyExplained}}"
+                              value="{{languageProficiencyExplained}}"
+                              name="languageProficiencyExplained" rows="3"></textarea>
+                        <input type="radio" id="radio61"
+                               name="beenOnATMPTrip"
+                               class="md-radiobtn"
+                               value="yes"
+                            {{checked 'beenOnATMPTrip' 'yes'}}>
+                        <label for="radio61">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Yes </label>
+                        <input type="radio" id="radio62"
+                               name="beenOnATMPTrip"
+                               class="md-radiobtn"
+                               value="no"
+                            {{checked 'beenOnATMPTrip' 'no'}}>
+                        <label for="radio62">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> No </label>
+                    <textarea class="form-control {{editedClass beenOnATMPTripExplained}}"
+                              value="{{beenOnATMPTripExplained}}"
+                              name="beenOnATMPTripExplained" rows="3"></textarea>
+                        <input type="radio" id="radio71"
+                               name="traveledOutsideTheUS"
+                               class="md-radiobtn"
+                               value="yes"
+                            {{checked 'traveledOutsideTheUS' 'yes'}}>
+                        <label for="radio71">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Yes </label>
+                        <input type="radio" id="radio72"
+                               name="traveledOutsideTheUS"
+                               class="md-radiobtn"
+                               value="no"
+                            {{checked 'traveledOutsideTheUS' 'no'}}>
+                        <label for="radio72">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> No </label>
+                    <textarea class="form-control {{editedClass outsideUSTravelExplained}}"
+                              value="{{outsideUSTravelExplained}}"
+                              name="outsideUSTravelExplained" rows="3"></textarea>
+                    <textarea class="form-control {{editedClass whyDoYouWantToJoinThisTeam}}"
+                              value="{{whyDoYouWantToJoinThisTeam}}"
+                              name="whyDoYouWantToJoinThisTeam" rows="10"></textarea>
+                    <textarea class="form-control {{editedClass whatThreeSkills}}"
+                              value="{{whatThreeSkills}}"
+                              name="whatThreeSkills" rows="10" style="margin-top: 10px;"></textarea>
+                        <input type="checkbox"
+                               id="checkbox1"
+                               class="md-check"
+                               value="arts+crafts"
+                               name="iWouldLikeToParticipateIn"
+                            {{multiChecked 'iWouldLikeToParticipateIn' 'arts+crafts'}}>
+                        <label for="checkbox1">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Arts/Crafts </label>
+                        <input type="checkbox" id="checkbox9"
+                               class="md-check"
+                               value="construction"
+                               name="iWouldLikeToParticipateIn"
+                            {{multiChecked 'iWouldLikeToParticipateIn' 'construction'}}>
+                        <label for="checkbox9">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Construction </label>
+                        <input type="checkbox" id="checkbox11"
+                               class="md-check" value="kidsMinistry"
+                               name="iWouldLikeToParticipateIn"
+                            {{multiChecked 'iWouldLikeToParticipateIn' 'kidsMinistry'}}>
+                        <label for="checkbox11">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Kid's Ministry </label>
+                        <input type="checkbox" id="checkbox12"
+                               class="md-check" value="medical"
+                               name="iWouldLikeToParticipateIn"
+                            {{multiChecked 'iWouldLikeToParticipateIn' 'medical'}}>
+                        <label for="checkbox12">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Medical </label>
+                        <input type="checkbox" id="checkbox13"
+                               class="md-check" value="music"
+                               name="iWouldLikeToParticipateIn"
+                            {{multiChecked 'iWouldLikeToParticipateIn' 'music'}}>
+                        <label for="checkbox13">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Music </label>
+                        <input type="checkbox" id="checkbox14"
+                               class="md-check" value="other"
+                               name="iWouldLikeToParticipateIn"
+                            {{multiChecked 'iWouldLikeToParticipateIn' 'other'}}>
+                        <label for="checkbox14">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Other </label>
+                    <textarea class="form-control {{editedClass opportunityDetails}}"
+                              value="{{opportunityDetails}}"
+                              name="opportunityDetails" rows="6"></textarea>
+                <label>
+                    I UNDERSTAND that if I miss any paperwork or financial
+                    deadlines that Trash Mountain Project reserves the right
+                    to cancel my participation in this trip. I HAVE ATTACHED
+                    a color copy of my passport (or the completed passport
+                    application because I do not yet have my passport).
+                </label>
+                        <input type="checkbox"
+                               id="iagree"
+                               name="iagree"
+                               class="md-check"
+                            {{checked 'iagree' 'iagree'}}
+                               value="iagree">
+                        <label for="iagree">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> I agree </label>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+        <!--<form id="missionaryInfoForm">
             <div class="form-body">
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button> You have some form errors. Please check below.
@@ -14,12 +465,14 @@
                 <div class="form-group form-md-line-input form-md-floating-label">
                     <input type="text" class="form-control {{editedClass preferredName}}"
                            name="preferredName"
+                           cf-questions="What name do you go by?"
                            value="{{preferredName}}">
                     <label for="preferredName">Name you prefer to be called</label>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
                     <input type="text" class="form-control  {{editedClass passportFirstName}}"
                            name="passportFirstName"
+                           cf-questions="What is your first name on your passport?"
                            value="{{passportFirstName}}">
                     <label for="passportFirstName">First Name</label>
                     <span class="help-block"> (as it appears on your passport) </span>
@@ -27,6 +480,7 @@
                 <div class="form-group form-md-line-input form-md-floating-label">
                     <input type="text" class="form-control  {{editedClass passportMiddleName}}"
                            name="passportMiddleName"
+                           cf-questions="What is your middle name on your passport?"
                            value="{{passportMiddleName}}">
                     <label for="passportMiddleName">Middle Name</label>
                     <span class="help-block"> (as it appears on your passport) </span>
@@ -47,7 +501,7 @@
                                    id="radio111"
                                    name="passportStatus"
                                    class="md-radiobtn"
-                                   {{checked 'passportStatus' 'yes'}}
+                                {{checked 'passportStatus' 'yes'}}
                                    value="yes">
                             <label for="radio111">
                                 <span></span>
@@ -59,7 +513,7 @@
                                    id="radio112"
                                    name="passportStatus"
                                    class="md-radiobtn"
-                                   {{checked 'passportStatus' 'in-progress'}}
+                                {{checked 'passportStatus' 'in-progress'}}
                                    value="in-progress">
                             <label for="radio112">
                                 <span></span>
@@ -71,7 +525,7 @@
                                    id="radio113"
                                    name="passportStatus"
                                    class="md-radiobtn"
-                                   {{checked 'passportStatus' 'no-not-applied'}}
+                                {{checked 'passportStatus' 'no-not-applied'}}
                                    value="no-not-applied">
                             <label for="radio113">
                                 <span></span>
@@ -100,7 +554,7 @@
                                    id="radio98"
                                    name="gender"
                                    class="md-radiobtn"
-                                   {{checked 'gender' 'male'}}
+                                {{checked 'gender' 'male'}}
                                    value="male">
                             <label for="radio98">
                                 <span class="inc"></span>
@@ -112,7 +566,7 @@
                                    id="radio99"
                                    name="gender"
                                    class="md-radiobtn"
-                                   {{checked 'gender' 'female'}}
+                                {{checked 'gender' 'female'}}
                                    value="female">
                             <label for="radio99">
                                 <span></span>
@@ -158,7 +612,8 @@
 
                 <div class="form-group form-md-line-input form-md-floating-label">
                     <select class="form-control {{editedClass emergencyContactState}}"
-                            name="emergencyContactState">
+                            name="emergencyContactState"
+                            cf-questions="What state does your emergency contact live in?">
                         <option disabled selected value=""></option>
                         <option {{selected "emergencyContactState" "AL"}} value="AL">Alabama</option>
                         <option {{selected "emergencyContactState" "AK"}} value="AK">Alaska</option>
@@ -262,7 +717,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio11"
                                    name="bloodType" class="md-radiobtn"
-                                   {{checked 'bloodType' 'o+'}}
+                                {{checked 'bloodType' 'o+'}}
                                    value="o+" >
                             <label for="radio11">
                                 <span></span>
@@ -272,7 +727,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio12" name="bloodType"
                                    class="md-radiobtn"
-                                   {{checked 'bloodType' 'o-'}}
+                                {{checked 'bloodType' 'o-'}}
                                    value="o-">
                             <label for="radio12">
                                 <span></span>
@@ -282,7 +737,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio13" name="bloodType"
                                    class="md-radiobtn"
-                                   {{checked 'bloodType' 'a+'}}
+                                {{checked 'bloodType' 'a+'}}
                                    value="a+">
                             <label for="radio13">
                                 <span></span>
@@ -292,7 +747,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio14" name="bloodType"
                                    class="md-radiobtn"
-                                   {{checked 'bloodType' 'a-'}}
+                                {{checked 'bloodType' 'a-'}}
                                    value="a-">
                             <label for="radio14">
                                 <span></span>
@@ -302,7 +757,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio15" name="bloodType"
                                    class="md-radiobtn"
-                                   {{checked 'bloodType' 'b+'}}
+                                {{checked 'bloodType' 'b+'}}
                                    value="b+">
                             <label for="radio15">
                                 <span></span>
@@ -312,7 +767,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio16" name="bloodType"
                                    class="md-radiobtn"
-                                   {{checked 'bloodType' 'b-'}}
+                                {{checked 'bloodType' 'b-'}}
                                    value="b-">
                             <label for="radio16">
                                 <span></span>
@@ -322,7 +777,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio17" name="bloodType"
                                    class="md-radiobtn"
-                                   {{checked 'bloodType' 'ab+'}}
+                                {{checked 'bloodType' 'ab+'}}
                                    value="ab+">
                             <label for="radio17">
                                 <span></span>
@@ -346,7 +801,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio21" name="tShirtSize"
                                    class="md-radiobtn" value="small"
-                                   {{checked 'tShirtSize' 'small'}}>
+                                {{checked 'tShirtSize' 'small'}}>
                             <label for="radio21">
                                 <span></span>
                                 <span class="check"></span>
@@ -355,7 +810,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio22" name="tShirtSize"
                                    class="md-radiobtn" value="medium"
-                                   {{checked 'tShirtSize' 'medium'}}>
+                                {{checked 'tShirtSize' 'medium'}}>
                             <label for="radio22">
                                 <span></span>
                                 <span class="check"></span>
@@ -364,7 +819,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio23" name="tShirtSize"
                                    class="md-radiobtn" value="large"
-                                   {{checked 'tShirtSize' 'large'}}>
+                                {{checked 'tShirtSize' 'large'}}>
                             <label for="radio23">
                                 <span></span>
                                 <span class="check"></span>
@@ -373,7 +828,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio24" name="tShirtSize"
                                    class="md-radiobtn" value="x-large"
-                                   {{checked 'tShirtSize' 'x-large'}}>
+                                {{checked 'tShirtSize' 'x-large'}}>
                             <label for="radio24">
                                 <span></span>
                                 <span class="check"></span>
@@ -382,7 +837,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio25" name="tShirtSize"
                                    class="md-radiobtn" value="xx-large"
-                                   {{checked 'tShirtSize' 'xx-large'}}>
+                                {{checked 'tShirtSize' 'xx-large'}}>
                             <label for="radio25">
                                 <span></span>
                                 <span class="check"></span>
@@ -391,7 +846,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio26" name="tShirtSize"
                                    class="md-radiobtn" value="xxx-large"
-                                   {{checked 'tShirtSize' 'xxx-large'}}>
+                                {{checked 'tShirtSize' 'xxx-large'}}>
                             <label for="radio26">
                                 <span></span>
                                 <span class="check"></span>
@@ -424,7 +879,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio38" name="convictedOfACrime"
                                    class="md-radiobtn" value="yes"
-                                   {{checked 'convictedOfACrime' 'yes'}}>
+                                {{checked 'convictedOfACrime' 'yes'}}>
                             <label for="radio38">
                                 <span></span>
                                 <span class="check"></span>
@@ -433,7 +888,7 @@
                         <div class="md-radio">
                             <input type="radio" id="radio39" name="convictedOfACrime"
                                    class="md-radiobtn" value="no"
-                                   {{checked 'convictedOfACrime' 'no'}}>
+                                {{checked 'convictedOfACrime' 'no'}}>
                             <label for="radio39">
                                 <span></span>
                                 <span class="check"></span>
@@ -454,7 +909,7 @@
                             <input type="radio" id="radio41"
                                    name="permissionToRunBackgroundCheck"
                                    class="md-radiobtn" value="yes"
-                                   {{checked 'permissionToRunBackgroundCheck' 'yes'}}>
+                                {{checked 'permissionToRunBackgroundCheck' 'yes'}}>
                             <label for="radio41">
                                 <span></span>
                                 <span class="check"></span>
@@ -464,7 +919,7 @@
                             <input type="radio" id="radio42"
                                    name="permissionToRunBackgroundCheck"
                                    class="md-radiobtn" value="no"
-                                   {{checked 'permissionToRunBackgroundCheck' 'no'}}>
+                                {{checked 'permissionToRunBackgroundCheck' 'no'}}>
                             <label for="radio42">
                                 <span></span>
                                 <span class="check"></span>
@@ -480,7 +935,7 @@
                             <input type="radio" id="radio51"
                                    name="speaksOtherLanguages"
                                    class="md-radiobtn" value="yes"
-                                   {{checked 'speaksOtherLanguages' 'yes'}}>
+                                {{checked 'speaksOtherLanguages' 'yes'}}>
                             <label for="radio51">
                                 <span></span>
                                 <span class="check"></span>
@@ -490,7 +945,7 @@
                             <input type="radio" id="radio52"
                                    name="speaksOtherLanguages"
                                    class="md-radiobtn" value="no"
-                                   {{checked 'speaksOtherLanguages' 'no'}}>
+                                {{checked 'speaksOtherLanguages' 'no'}}>
                             <label for="radio52">
                                 <span></span>
                                 <span class="check"></span>
@@ -513,7 +968,7 @@
                                    name="beenOnATMPTrip"
                                    class="md-radiobtn"
                                    value="yes"
-                                   {{checked 'beenOnATMPTrip' 'yes'}}>
+                                {{checked 'beenOnATMPTrip' 'yes'}}>
                             <label for="radio61">
                                 <span></span>
                                 <span class="check"></span>
@@ -524,7 +979,7 @@
                                    name="beenOnATMPTrip"
                                    class="md-radiobtn"
                                    value="no"
-                                   {{checked 'beenOnATMPTrip' 'no'}}>
+                                {{checked 'beenOnATMPTrip' 'no'}}>
                             <label for="radio62">
                                 <span></span>
                                 <span class="check"></span>
@@ -546,7 +1001,7 @@
                                    name="traveledOutsideTheUS"
                                    class="md-radiobtn"
                                    value="yes"
-                                   {{checked 'traveledOutsideTheUS' 'yes'}}>
+                                {{checked 'traveledOutsideTheUS' 'yes'}}>
                             <label for="radio71">
                                 <span></span>
                                 <span class="check"></span>
@@ -557,7 +1012,7 @@
                                    name="traveledOutsideTheUS"
                                    class="md-radiobtn"
                                    value="no"
-                                   {{checked 'traveledOutsideTheUS' 'no'}}>
+                                {{checked 'traveledOutsideTheUS' 'no'}}>
                             <label for="radio72">
                                 <span></span>
                                 <span class="check"></span>
@@ -593,7 +1048,7 @@
                                    class="md-check"
                                    value="arts+crafts"
                                    name="iWouldLikeToParticipateIn"
-                                   {{multiChecked 'iWouldLikeToParticipateIn' 'arts+crafts'}}>
+                                {{multiChecked 'iWouldLikeToParticipateIn' 'arts+crafts'}}>
                             <label for="checkbox1">
                                 <span></span>
                                 <span class="check"></span>
@@ -604,7 +1059,7 @@
                                    class="md-check"
                                    value="construction"
                                    name="iWouldLikeToParticipateIn"
-                                   {{multiChecked 'iWouldLikeToParticipateIn' 'construction'}}>
+                                {{multiChecked 'iWouldLikeToParticipateIn' 'construction'}}>
                             <label for="checkbox9">
                                 <span></span>
                                 <span class="check"></span>
@@ -614,7 +1069,7 @@
                             <input type="checkbox" id="checkbox11"
                                    class="md-check" value="kidsMinistry"
                                    name="iWouldLikeToParticipateIn"
-                                   {{multiChecked 'iWouldLikeToParticipateIn' 'kidsMinistry'}}>
+                                {{multiChecked 'iWouldLikeToParticipateIn' 'kidsMinistry'}}>
                             <label for="checkbox11">
                                 <span></span>
                                 <span class="check"></span>
@@ -624,7 +1079,7 @@
                             <input type="checkbox" id="checkbox12"
                                    class="md-check" value="medical"
                                    name="iWouldLikeToParticipateIn"
-                                   {{multiChecked 'iWouldLikeToParticipateIn' 'medical'}}>
+                                {{multiChecked 'iWouldLikeToParticipateIn' 'medical'}}>
                             <label for="checkbox12">
                                 <span></span>
                                 <span class="check"></span>
@@ -634,7 +1089,7 @@
                             <input type="checkbox" id="checkbox13"
                                    class="md-check" value="music"
                                    name="iWouldLikeToParticipateIn"
-                                   {{multiChecked 'iWouldLikeToParticipateIn' 'music'}}>
+                                {{multiChecked 'iWouldLikeToParticipateIn' 'music'}}>
                             <label for="checkbox13">
                                 <span></span>
                                 <span class="check"></span>
@@ -644,7 +1099,7 @@
                             <input type="checkbox" id="checkbox14"
                                    class="md-check" value="other"
                                    name="iWouldLikeToParticipateIn"
-                                   {{multiChecked 'iWouldLikeToParticipateIn' 'other'}}>
+                                {{multiChecked 'iWouldLikeToParticipateIn' 'other'}}>
                             <label for="checkbox14">
                                 <span></span>
                                 <span class="check"></span>
@@ -674,7 +1129,7 @@
                                    id="iagree"
                                    name="iagree"
                                    class="md-check"
-                                   {{checked 'iagree' 'iagree'}}
+                                {{checked 'iagree' 'iagree'}}
                                    value="iagree">
                             <label for="iagree">
                                 <span></span>
@@ -684,6 +1139,6 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form>-->
     {{/with}}
 </template>

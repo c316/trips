@@ -1,4 +1,5 @@
 import '/imports/ui/stylesheets/bootstrap-datepicker3.css';
+import 'jquery-validation';
 import { BootstrapDatePicker } from '/imports/ui/js/bootstrap-datepicker';
 import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
 import { phoneUS, zipcode } from '/imports/api/validationMethods';
@@ -23,6 +24,7 @@ Template.MissionaryInformationForm.onRendered(function(){
     errorElement: 'span', //default input error message container
     errorClass: 'help-block help-block-error', // default input error message class
     focusInvalid: false,
+    ignore: [],
     rules: {
       preferredName: {
         required: true,
@@ -33,8 +35,8 @@ Template.MissionaryInformationForm.onRendered(function(){
       },
       passportExpirationDate: {
         required: function () {
-          if( $( "input:radio[name=passportStatus]" ).is( ":checked" ) ) {
-            if( $( 'input[name=passportStatus]:checked' ).val() === 'yes' ) {
+          if( $( "input:radio[name='passportStatus']" ).is( ":checked" ) ) {
+            if( $( 'input[name="passportStatus"]:checked' ).val() === 'yes' ) {
               return true;
             }
           }
@@ -94,7 +96,7 @@ Template.MissionaryInformationForm.onRendered(function(){
         required: true,
       },
       convictedOfACrime: {
-        required: true,
+        required: true
       },
       permissionToRunBackgroundCheck: {
         required: true,
@@ -135,10 +137,7 @@ Template.MissionaryInformationForm.onRendered(function(){
       success1.hide();
       error1.show();
 
-      if (!validator.numberOfInvalids())
-        return;
-
-
+      if (!validator.numberOfInvalids()) return;
     },
 
     errorPlacement: function(error, element) {
@@ -161,16 +160,33 @@ Template.MissionaryInformationForm.onRendered(function(){
 
     success: function(label) {
       label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-    },
-
-    submitHandler: function(form) {
-      console.log("Submitted");
-
-      success1.show();
-      error1.hide();
-      form.submit();
     }
   });
+
+  // Show the passport expiration date box if they have a passport
+  if( $( 'input[name="passportStatus"]:checked' ).val() === 'yes' ) {
+    $('#passportExpirationDateDiv').show();
+  }
+
+  // Show the explain box if they have a criminal past
+  if( $( 'input[name="convictedOfACrime"]:checked' ).val() === 'yes' ) {
+    $('#convictedOfACrimeExplainedDiv').show();
+  }
+
+  // Show the explain box if they have traveled outside the US
+  if( $( 'input[name="traveledOutsideTheUS"]:checked' ).val() === 'yes' ) {
+    $('#outsideUSTravelExplainedDiv').show();
+  }
+
+  // Show the explain box if they have traveled with TMP before
+  if( $( 'input[name="beenOnATMPTrip"]:checked' ).val() === 'yes' ) {
+    $('#beenOnATMPTripExplainedDiv').show();
+  }
+
+  // Show the explain box if they do speak other languages
+  if( $( 'input[name="speaksOtherLanguages"]:checked' ).val() === 'yes' ) {
+    $('#languageProficiencyExplainedExplainedDiv').show();
+  }
 
 });
 
@@ -209,6 +225,8 @@ Template.MissionaryInformationForm.events({
     // Validate that the form has all the required fields
     $('#missionaryInformationForm').valid();
 
+    console.log("Got past valid")
+
     // Get all the form data, convert it to an object and for the array of
     // checkboxes called, 'iWouldLikeToParticipateIn' push them into one key,
     // otherwise this value will be overwritten and you'll only get the last value
@@ -227,12 +245,54 @@ Template.MissionaryInformationForm.events({
     form.iWouldLikeToParticipateIn = iWouldLikeToParticipateIn;
     form.name = 'missionaryInformationForm';
     form.verified = form.verified ? true : false;
+    if(form.verified){
+      form.verifiedDate = new Date(form.verifiedDate);
+    }
 
     let updateThisId = tmpl && tmpl.data._id;
     Meteor.call("update.form", form, updateThisId, function(err, res){
       if(err) console.error(err);
       else console.log(res);
     });
-
+  },
+  'change [name="passportStatus"]'(){
+    if( $( 'input[name="passportStatus"]:checked' ).val() === 'yes' ) {
+      $( '#passportExpirationDateDiv').show();
+    } else {
+      $('#passportExpirationDateDiv').hide();
+      $('[name="passportExpirationDate"]').val("");
+    }
+  },
+  'change [name="convictedOfACrime"]'(){
+    if( $( 'input[name="convictedOfACrime"]:checked' ).val() === 'yes' ) {
+      $( '#convictedOfACrimeExplainedDiv').show();
+    } else {
+      $('#convictedOfACrimeExplainedDiv').hide();
+      $('[name="convictedOfACrimeExplained"]').val("");
+    }
+  },
+  'change [name="speaksOtherLanguages"]'(){
+    if( $( 'input[name="speaksOtherLanguages"]:checked' ).val() === 'yes' ) {
+      $( '#languageProficiencyExplainedExplainedDiv').show();
+    } else {
+      $('#languageProficiencyExplainedExplainedDiv').hide();
+      $('[name="languageProficiencyExplained"]').val("");
+    }
+  },
+  'change [name="beenOnATMPTrip"]'(){
+    if( $( 'input[name="beenOnATMPTrip"]:checked' ).val() === 'yes' ) {
+      $( '#beenOnATMPTripExplainedDiv').show();
+    } else {
+      $('#beenOnATMPTripExplainedDiv').hide();
+      $('[name="beenOnATMPTripExplained"]').val("");
+    }
+  },
+  'change [name="traveledOutsideTheUS"]'(){
+    if( $( 'input[name="traveledOutsideTheUS"]:checked' ).val() === 'yes' ) {
+      $( '#outsideUSTravelExplainedDiv').show();
+    } else {
+      $('#outsideUSTravelExplainedDiv').hide();
+      $('[name="outsideUSTravelExplained"]').val("");
+    }
   }
 });

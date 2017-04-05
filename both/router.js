@@ -79,10 +79,9 @@ FlowRouter.route( '/admin', {
 });
 
 FlowRouter.route( '/admin/showuserhome', {
+
   name: 'adminShowUserHome',
   triggersEnter: function( context, redirect ) {
-    Session.set("showingOtherUser", true);
-    Session.set( 'showingUserId', context && context.queryParams.id);
     redirectIfNotAdmin(context, redirect);
   },
   action() {

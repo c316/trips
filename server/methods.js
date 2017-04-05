@@ -29,6 +29,7 @@ Meteor.methods({
     }
   },
   'update.form'(form, updateThisId){
+    logger.info(form);
     check( form, {
       "allergiesOrHealthConditions":  Match.Maybe(String),
       "beenOnATMPTrip":               Match.Maybe(String),
