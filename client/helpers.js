@@ -202,10 +202,11 @@ Template.registerHelper('status', function() {
       name:  {
         $ne: 'tripRegistration'
       },
+      userId: this._id,
       $or: [{completed: true}, {agreed: true}]
     } );
     let totalNumberOfForms = forms && forms.count();
-    if (totalNumberOfForms > 4){
+    if (totalNumberOfForms > 3){
       if(passportImage){
         const verifiedForms = Forms.find({userId: this._id, verified: true});
         let totalNumberOfForms = verifiedForms && verifiedForms.count();

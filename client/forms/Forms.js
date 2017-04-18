@@ -1,5 +1,3 @@
-import { statuses } from '/imports/api/miscFunctions';
-
 const agreeToForm = (name, data) =>{
   Meteor.call("form.agree", name, function ( err, res ) {
     if(err) console.error(err);
