@@ -225,7 +225,7 @@ Template.MissionaryInformationForm.events({
     // Validate that the form has all the required fields
     $('#missionaryInformationForm').valid();
 
-    console.log("Got past valid")
+    console.log("Got past valid");
 
     // Get all the form data, convert it to an object and for the array of
     // checkboxes called, 'iWouldLikeToParticipateIn' push them into one key,

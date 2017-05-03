@@ -6,7 +6,7 @@ Template.Admin.onCreated(function () {
   Session.delete("showingUserId");
   this.autorun(()=>{
     Meteor.subscribe('users');
-    Meteor.subscribe('Trips');
+    Meteor.subscribe('Trips', Session.get("tripId") ? Number(Session.get("tripId")) : null);
     Meteor.subscribe('Forms');
     Meteor.subscribe('Deadlines');
     Meteor.subscribe('DTSplits');
@@ -32,13 +32,13 @@ Template.Admin.onRendered(()=>{
 Template.Admin.helpers({
   user(){
     if(Session.get("tripId")){
-      return Meteor.users.find({tripId: Session.get("tripId")}, {sort: {'profile.lastName': 1}});
+      return Meteor.users.find({tripId: Session.get("tripId")}, {sort: {'profile.lastName': 1, 'profile.firstName': 1}});
     } else {
-      return Meteor.users.find({}, {sort: {'profile.lastName': 1}});
+      return Meteor.users.find({}, {sort: {'profile.lastName': 1, 'profile.firstName': 1}});
     }
   },
   trips(){
-    return Trips.find();
+    return Trips.find({}, { sort: { name: 1 } });
   },
   trip(){
     if(this.tripId){
@@ -306,4 +306,9 @@ Template.Admin.events({
     e.preventDefault();
     window.print();
   }
+});
+
+Template.Admin.onDestroyed(function () {
+  Session.delete("tripId");
+  Session.delete("showingUserId");
 });

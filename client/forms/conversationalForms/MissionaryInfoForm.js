@@ -59,9 +59,9 @@ Template.MissionaryInfoForm.events({
     }
 
     let updateThisId = tmpl && tmpl.data._id;
-    Meteor.call("update.form", form, updateThisId, function(err, res){
+    /*Meteor.call("update.form", form, updateThisId, function(err, res){
       if(err) console.error(err);
       else console.log(res);
-    });
+    });*/
   },
 });
