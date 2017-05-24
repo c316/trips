@@ -60,7 +60,8 @@ Meteor.publish('DTSplits', function(){
       if( user && user.tripId ) {
         let name = Meteor.users.findOne( { _id: this.userId } ).profile &&
           (Meteor.users.findOne( { _id: this.userId } ).profile.firstName + " " + Meteor.users.findOne( { _id: this.userId } ).profile.lastName);
-        return DTSplits.find( {$and: [{ fund_id: user.tripId }, {$text: { $search: '\"' + name + '\"'} }]} );
+
+        return DTSplits.find( {$and: [{ fund_id: user.tripId }, {$text: { $search: '\"' + name + '\"', $caseSensitive: false} }]} );
       }
     }
   }
