@@ -32,7 +32,7 @@ export const getRaisedTotal = (userId)=>{
     let thisUser = Meteor.users.findOne({_id: adminUserId});
     if(thisUser && thisUser.profile && thisUser.profile.firstName) {
       let name = thisUser.profile.firstName + " " + thisUser.profile.lastName;
-      DTSplits.find({memo: {$regex: name}}).map( function ( doc ) {
+      DTSplits.find({memo: {$regex: name, $options: "i"}}).map( function ( doc ) {
         total += doc.amount_in_cents;
       } );
     }

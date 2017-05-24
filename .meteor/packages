@@ -36,7 +36,6 @@ twbs:bootstrap
 fortawesome:fontawesome
 ongoworks:security
 
-ostrio:files
 percolate:synced-cron
 apollo
 themeteorchef:bert
@@ -47,3 +46,4 @@ wylio:mandrill
 reywood:publish-composite
 
 raix:handlebar-helpers
+ostrio:files@=1.7.13

@@ -29,7 +29,7 @@ Template.Fundraising.helpers({
     if(Session.get("showingUserId")){
       let user = Meteor.users.findOne({_id: Session.get("showingUserId")});
       let name = user && user.profile && (user.profile.firstName + " " + user.profile.lastName);
-      return DTSplits.find({memo: {$regex: name}});
+      return DTSplits.find({memo: {$regex: name, $options: "i"}});
     } else {
       let name = Meteor.user() && Meteor.user().profile && (Meteor.user().profile.firstName + " " + Meteor.user().profile.lastName);
       if (name){
