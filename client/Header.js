@@ -16,7 +16,6 @@ Template.Header.onRendered(()=>{
 Template.Header.events({
   'click .logout'(e){
     e.preventDefault();
-    console.log('Logout clicked');
     Meteor.logout();
     FlowRouter.go("login");
   },

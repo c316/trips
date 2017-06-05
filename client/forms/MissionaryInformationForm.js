@@ -225,8 +225,6 @@ Template.MissionaryInformationForm.events({
     // Validate that the form has all the required fields
     $('#missionaryInformationForm').valid();
 
-    console.log("Got past valid");
-
     // Get all the form data, convert it to an object and for the array of
     // checkboxes called, 'iWouldLikeToParticipateIn' push them into one key,
     // otherwise this value will be overwritten and you'll only get the last value
@@ -252,7 +250,6 @@ Template.MissionaryInformationForm.events({
     let updateThisId = tmpl && tmpl.data._id;
     Meteor.call("update.form", form, updateThisId, function(err, res){
       if(err) console.error(err);
-      else console.log(res);
     });
   },
   'change [name="passportStatus"]'(){

@@ -65,14 +65,29 @@ Template.registerHelper('passportPhotoOriginal', function() {
 });
 
 Template.registerHelper('noTripRegistration', function() {
-  let tripId = Meteor.users.findOne({_id: this._id}) && Meteor.users.findOne({_id: this._id}).tripId;
+  let tripId = Meteor.users.findOne({_id: this._id})
+    && Meteor.users.findOne({_id: this._id}).tripId;
   if(tripId){
     return;
   } else {
+    let trips = Meteor.users.findOne({_id: this._id})
+      && Meteor.users.findOne({_id: this._id}).otherTrips;
+    if(trips){
+      return;
+    }
     return {
       style: 'background-color: #eee'
     }
   }
+});
+
+Template.registerHelper('otherTripsRegistration', function() {
+  let trips = Meteor.users.findOne({_id: this._id})
+    && Meteor.users.findOne({_id: this._id}).otherTrips;
+  if(trips){
+    return true;
+  }
+  return false;
 });
 
 Template.registerHelper('noTripRegistrationExpand', function() {
@@ -192,12 +207,13 @@ Template.registerHelper('showFundraisingModule', function() {
   }
 });
 
-
 Template.registerHelper('status', function() {
   const tripId = Meteor.users.findOne({_id: this._id}) && Meteor.users.findOne({_id: this._id}).tripId;
   const passportImage = Images.findOne( { userId: this._id } );
+  let otherTrips = Meteor.users.findOne({_id: this._id})
+    && Meteor.users.findOne({_id: this._id}).otherTrips;
 
-  if(tripId){
+  if(tripId || otherTrips){
     const forms = Forms.find({
       name:  {
         $ne: 'tripRegistration'
@@ -210,7 +226,7 @@ Template.registerHelper('status', function() {
       if(passportImage){
         const verifiedForms = Forms.find({userId: this._id, verified: true});
         let totalNumberOfForms = verifiedForms && verifiedForms.count();
-        if (totalNumberOfForms === 5) {
+        if (totalNumberOfForms === 4) {
           return statuses.verified;
         }
         return statuses.completed;
@@ -222,5 +238,42 @@ Template.registerHelper('status', function() {
     }
   } else {
     return statuses.notStarted;
+  }
+});
+
+Template.registerHelper('formStarted', function(name) {
+  const form = Forms.findOne( { name: name, userId: this._id, archived: { $ne: true } });
+  return form;
+});
+
+Template.registerHelper('formCompleted', function(name) {
+  const form = Forms.findOne( {
+    name: name,
+    userId: this._id,
+    $or: [{completed: true}, {agreed: true}],
+    archived: { $ne: true }
+  } );
+  return form;
+});
+
+Template.registerHelper('formVerified', function(name) {
+  return Forms.findOne( {
+    name: name,
+    userId: this._id,
+    verified: true,
+    archived: { $ne: true }
+  } );
+});
+
+Template.registerHelper('ShowFundraisingModule', function() {
+  let user;
+  if (Session.get("showingOtherUser")) {
+    user = this;
+  } else {
+    user = Meteor.user();
+  }
+  if (user && user.tripId) {
+    let trip = Trips.findOne({tripId: user.tripId});
+    return trip && trip.showFundraisingModule;
   }
 });

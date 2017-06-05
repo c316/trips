@@ -46,7 +46,23 @@ Template.TripRegistration.events({
           style: 'growl-bottom-right',
           icon: 'fa-thumbs-up'
         });
+        location.reload();
       }
     });
   },
+  'click .change-trip'() {
+    Meteor.call("moveCurrentTripToOtherTrips", function (err, res) {
+      if(err) console.error(err);
+      else {
+        Bert.alert({
+          title: 'Old trip removed',
+          message: 'Ok, you can now register for a new trip.',
+          type: 'success',
+          style: 'growl-bottom-right',
+          icon: 'fa-thumbs-up'
+        });
+        location.reload();
+      }
+    });
+  }
 });

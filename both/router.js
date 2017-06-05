@@ -49,7 +49,7 @@ FlowRouter.route( '/reset-password/:token', {
 FlowRouter.route( '/fundraising', {
   name: 'fundraising',
   action() {
-    BlazeLayout.render('main', { top: "Header", main: "Fundraising", footer: "Footer" });
+    BlazeLayout.render('main', { top: "Header", main: "FundraisingPage", footer: "Footer" });
   }
 });
 
@@ -144,3 +144,10 @@ FlowRouter.route( '/leader/verify-forms/:userId', {
     BlazeLayout.render('main', { top: "Header", main: "VerifyForms", footer: "Footer" });
   }
 });
+
+FlowRouter.notFound = {
+  name: 'not-found',
+  action: function() {
+    BlazeLayout.render('main', { top: "Header", main: "NotFound", footer: "Footer" });
+  }
+};

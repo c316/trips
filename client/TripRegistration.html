@@ -8,15 +8,17 @@
                     </div>
                     <div class="tools">
                         {{{status}}}
-                        <!--{{#if noTripRegistration}}-->
-                            <a href="" class="expand" data-original-title="" title=""> </a>
-                        <!--{{/if}}-->
+                        <a href="" class="expand" data-original-title="" title=""> </a>
                     </div>
                 </div>
                 <div class="portlet-body" {{noTripRegistrationExpand}}>
                     <div class="center-block">
                         {{#if this.tripId}}
-                            <h3 class="text-center">{{tripName}} - Trip ID: {{tripId}}</h3>
+                            <div class="text-center">
+                                <a href="" class="btn btn-sm btn-circle red change-trip">
+                                    <i class="icon-wrench"></i> Change Trip </a>
+                                <h3 class="text-center">{{tripName}} - Trip ID: {{tripId}}</h3>
+                            </div>
                         {{else}}
                             <form id="tripRegistrationForm">
                                 <div class="form-body">

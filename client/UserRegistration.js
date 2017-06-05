@@ -1,6 +1,6 @@
 import { zipcode } from '/imports/api/validationMethods';
 
-Template.UserRegistration.onRendered(()=>{
+Template.UserRegistration.onRendered(function () {
   zipcode();
 
   // for more info visit the official plugin documentation:
@@ -121,7 +121,7 @@ Template.UserRegistration.onRendered(()=>{
     $("#expand-userRegistrationForm").click();
     $('html, body').animate({
       scrollTop: ($('#userRegistrationForm').offset().top - 170)
-    },500);
+    },1000);
   }
 });
 

@@ -35,15 +35,6 @@ Template.Leader.helpers({
   trip(){
     return Trips.findOne({ tripId: Number(Session.get("tripId")) });
   },
-  formCompleted(name){
-    const form = Forms.findOne( { name: name, userId: this._id,
-      $or: [{completed: true}, {agreed: true}]
-    } );
-    return form;
-  },
-  formVerified(name){
-    return Forms.findOne( { name: name, userId: this._id, verified: true} );
-  },
   imageExists(){
     return Images.find({userId: this._id}).count();
   },

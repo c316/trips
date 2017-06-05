@@ -28,19 +28,6 @@ Template.VerifyForms.helpers({
   thisUserImages(){
     return Images.find({userId: this._id}).fetch()[0];
   },
-  formStarted(name){
-    const form = Forms.findOne( { name: name, userId: this._id });
-    return form;
-  },
-  formCompleted(name){
-    const form = Forms.findOne( { name: name, userId: this._id,
-      $or: [{completed: true}, {agreed: true}]
-    } );
-    return form;
-  },
-  formVerified(name){
-    return Forms.findOne( { name: name, userId: this._id, verified: true} );
-  },
 });
 
 Template.VerifyForms.events({

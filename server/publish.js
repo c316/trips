@@ -16,7 +16,8 @@ Meteor.publish('Deadlines', function(userId){
       if(userId) {
         let tripForm = Forms.findOne( {
           userId,
-          name: 'tripRegistration'
+          name: 'tripRegistration',
+          archived: { $ne: true }
         } );
         if( tripForm && tripForm.tripId ) {
           let tripId = tripForm.tripId;
@@ -27,7 +28,8 @@ Meteor.publish('Deadlines', function(userId){
     } else {
       let tripForm = Forms.findOne( {
         userId:   this.userId,
-        name: 'tripRegistration'
+        name: 'tripRegistration',
+        archived: { $ne: true }
       } );
       if( tripForm && tripForm.tripId ) {
         let tripId = tripForm.tripId;
@@ -72,20 +74,21 @@ Meteor.publish('Forms', function(userId){
   if( this.userId ) {
     if( Roles.userIsInRole(this.userId, 'admin') ){
       if( userId ) {
-        return Forms.find( { userId } );
+        return Forms.find( { userId, archived: { $ne: true } } );
       } else {
-        return Forms.find();
+        return Forms.find( { archived: { $ne: true } } );
       }
     } else if( Roles.userIsInRole(this.userId, 'leader') ){
       const leaderUser = Meteor.users.findOne(this.userId);
       if( userId ) {
         const tripUser = Meteor.users.findOne(userId);
         if(leaderUser.tripId === tripUser.tripId){
-          return Forms.find( { userId } );
+          return Forms.find( { userId, archived: { $ne: true } } );
         }
       }
     }
-    return Forms.find( { userId: this.userId } );
+    console.log("not an admin or leader")
+    return Forms.find( { userId: this.userId, archived: { $ne: true } } );
   }
 });
 
@@ -190,7 +193,7 @@ Meteor.publishComposite("TripLeader", function(tripId) {
         {
           find: function( user ) {
             // Find the charges associated with this customer
-            const forms =  Forms.find( { userId: user._id } );
+            const forms =  Forms.find( { userId: user._id, archived: { $ne: true } } );
             return forms;
           }
         },

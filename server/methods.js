@@ -201,6 +201,7 @@ Meteor.methods({
           email:  user.emails[0].address,
           fundId: tripId
         };
+        console.log(tripMemberData);
         Meteor.call( "runGiveMethod", "insertFundraisersWithTrip", tripMemberData, function ( err, res ) {
           if( err ) {
             logger.error( err );
@@ -418,27 +419,39 @@ Meteor.methods({
     logger.info( "Started DDP connection with the runGiveMethod method with: " + method );
     if( (Roles.userIsInRole( this.userId, ['super-admin', 'admin'] ) ) ||
       ( method === "insertFundraisersWithTrip" && Roles.userIsInRole( this.userId, 'trip-member' ) ) ||
-      ( method === "updateFundraiserName" && Roles.userIsInRole( this.userId, 'trip-member' )) ) {
+      ( method === "updateFundraiserName" && Roles.userIsInRole( this.userId, 'trip-member' )) ||
+      ( method === "removeFundraiser" && Roles.userIsInRole( this.userId, 'trip-member' )) ) {
+      if(method === "removeFundraiser"){
+        const user = Meteor.users.findOne({ _id: this.userId});
+        if(args.email !== user.emails[0].address){
+          throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
+        }
+      }
       import { connectToGive } from '/imports/api/utils';
       if(args){
         connectToGive().call(method, args, function ( err, res ) {
           if(err) {
             console.error(err);
+            return 'conneciton problem';
           } else {
             console.log(res);
             connectToGive().disconnect();
+            return 'disconnected';
           }
         });
       } else {
         connectToGive().call(method, function ( err, res ) {
           if(err) {
             console.error(err);
+            return 'conneciton problem';
           } else {
             console.log(res);
             connectToGive().disconnect();
+            return 'disconnected';
           }
         });
       }
+      return;
     } else {
       throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
     }
@@ -687,5 +700,48 @@ Meteor.methods({
       }
     }
     return;
+  },
+  /**
+   * Move the current trip into the otherTrips array so that the user can setup a new trip
+   *
+   * @method moveCurrentTripToOtherTrips
+   */
+  'moveCurrentTripToOtherTrips'(){
+    logger.info("Started moveCurrentTripToOtherTrips");
+    if ( this.userId ) {
+      const currentTrip = Meteor.users.findOne({_id: this.userId}) && Meteor.users.findOne( {_id: this.userId} ).tripId;
+      console.log(currentTrip);
+      if( currentTrip ) {
+        const email = Meteor.users.findOne( {_id: this.userId} ) && Meteor.users.findOne( {_id: this.userId} ).emails && Meteor.users.findOne( {_id: this.userId} ).emails[0].address;
+        Meteor.call( "runGiveMethod", "removeFundraiser", {email}, function ( err, res ) {
+          if( err ) {
+            logger.error( err );
+          } else {
+            logger.info( res );
+          }
+        } );
+        Meteor.users.update({_id: this.userId}, {
+          $addToSet: {
+            otherTrips: currentTrip
+          },
+          $unset: {
+            tripId: ""
+          }
+        });
+
+        const tripRegistrationForm = Forms.findOne( { userId: this.userId, archived: { $ne: true }, name: "tripRegistration" });
+        if(tripRegistrationForm){
+          return Forms.update( tripRegistrationForm, {
+            $set: {
+              archived: true
+            }
+          });
+        }
+        return;
+      } else {
+        throw new Meteor.Error('moveCurrentTripToOtherTrips.tripId',
+          'No trip ID found for this user, cannot change this trip because there is no current trip.');
+      }
+    }
   }
 });

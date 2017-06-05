@@ -58,13 +58,17 @@
                                 </a>
                             </li>
                             {{#unless isInRole 'admin'}}
+                                {{#if ShowFundraisingModule}}
                                     <li>
-                                    <a href="" class="trip-funds-button">
-                                        <i class="icon-wallet"></i> Trip Funds </a>
-                                </li>
+                                        <a href="" class="trip-funds-button">
+                                            <i class="icon-wallet"></i> Trip Funds
+                                        </a>
+                                    </li>
+                                {{/if}}
                                 <li>
                                     <a href="" class="forms-button">
-                                        <i class="icon-docs"></i> Forms </a>
+                                        <i class="icon-docs"></i> Forms
+                                    </a>
                                 </li>
                             {{/unless}}
                             <li class="divider"></li>
