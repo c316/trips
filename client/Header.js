@@ -1,9 +1,13 @@
 import '/imports/ui/stylesheets/simple-line-icons.css';
 import { App } from '/imports/ui/js/app';
 import { Layout } from '/imports/ui/js/layout';
+import LogRocket from 'logrocket';
 
 Template.Header.onCreated(function () {
   if (Meteor.isProduction) {
+    if(!LogRocket){
+      LogRocket.init(Meteor.settings.public.logrocketKey);
+    }
     const user = Meteor.user();
     if (user) {
       LogRocket.identify(user._id, {
@@ -15,6 +19,7 @@ Template.Header.onCreated(function () {
       });
     }
   }
+
   this.autorun(()=>{
     Meteor.subscribe('user');
   });

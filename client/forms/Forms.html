@@ -52,7 +52,7 @@
                                             <p>
                                                 <a id="delete-passport-photo" class="btn btn-primary">Delete Photo</a>
                                             </p>
-                                            <p>
+                                            <p class="_lr-hide">
                                                 {{#if versions.original.meta.signedURL}}
                                                 <a href="{{versions.original.meta.signedURL}}">
                                                     <img src="{{versions.thumbnail.meta.signedURL}}" />
@@ -88,9 +88,6 @@
                                 </div>
 
                                 <div class="portlet-body page-break-after" style="display: none;">
-                                    <!--<div id="cf-context-form">
-                                    </div>
-                                    {{> MissionaryInfoForm}}-->
                                     {{> MissionaryInformationForm}}
                                 </div>
                             </div>

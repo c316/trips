@@ -87,7 +87,7 @@
                     <label for="passportExpirationDate">Passport expiration date</label>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass birthdate}} date-picker"
+                    <input type="text" class="form-control {{editedClass birthdate}} date-picker _lr-hide"
                            value="{{birthdate}}"
                            name="birthdate">
                     <label for="birthdate">Birthdate</label>
@@ -125,39 +125,39 @@
                 <h3>Emergency contact information</h3>
 
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass emergencyContactFirstName}}"
+                    <input type="text" class="form-control {{editedClass emergencyContactFirstName}} _lr-hide"
                            value="{{emergencyContactFirstName}}"
                            name="emergencyContactFirstName">
                     <label for="emergencyContactFirstName">First name</label>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass emergencyContactLastName}}"
+                    <input type="text" class="form-control {{editedClass emergencyContactLastName}} _lr-hide"
                            value="{{emergencyContactLastName}}"
                            name="emergencyContactLastName">
                     <label for="emergencyContactLastName">Last name</label>
                 </div>
 
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass emergencyContactAddressLine1}}"
+                    <input type="text" class="form-control {{editedClass emergencyContactAddressLine1}} _lr-hide"
                            value="{{emergencyContactAddressLine1}}"
                            name="emergencyContactAddressLine1">
                     <label for="emergencyContactAddressLine1">Address Line 1</label>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass emergencyContactAddressLine2}}"
+                    <input type="text" class="form-control {{editedClass emergencyContactAddressLine2}} _lr-hide"
                            value="{{emergencyContactAddressLine2}}"
                            name="emergencyContactAddressLine2">
                     <label for="emergencyContactAddressLine2">Address Line 2</label>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass emergencyContactCity}}"
+                    <input type="text" class="form-control {{editedClass emergencyContactCity}} _lr-hide"
                            value="{{emergencyContactCity}}"
                            name="emergencyContactCity">
                     <label for="emergencyContactCity">City</label>
                 </div>
 
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <select class="form-control {{editedClass emergencyContactState}}"
+                    <select class="form-control {{editedClass emergencyContactState}} _lr-hide"
                             name="emergencyContactState">
                         <option disabled selected value=""></option>
                         <option {{selected "emergencyContactState" "AL"}} value="AL">Alabama</option>
@@ -216,13 +216,13 @@
                 </div>
 
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass emergencyContactAddressZip}}"
+                    <input type="text" class="form-control {{editedClass emergencyContactAddressZip}} _lr-hide"
                            value="{{emergencyContactAddressZip}}"
                            name="emergencyContactAddressZip">
                     <label for="emergencyContactAddressZip">Zip</label>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass emergencyContactPhone}}"
+                    <input type="text" class="form-control {{editedClass emergencyContactPhone}} _lr-hide"
                            value="{{emergencyContactPhone}}"
                            name="emergencyContactPhone">
                     <label for="emergencyContactPhone">Phone Number</label>
@@ -230,35 +230,35 @@
                 <hr>
 
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass beneficiaryFirstName}}"
+                    <input type="text" class="form-control {{editedClass beneficiaryFirstName}} _lr-hide"
                            value="{{beneficiaryFirstName}}"
                            name="beneficiaryFirstName">
                     <label for="beneficiaryFirstName">Beneficiary First name</label>
                     <span class="help-block">For Life Insurance</span>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass beneficiaryLastName}}"
+                    <input type="text" class="form-control {{editedClass beneficiaryLastName}} _lr-hide"
                            value="{{beneficiaryLastName}}"
                            name="beneficiaryLastName">
                     <label for="beneficiaryLastName">Beneficiary Last name</label>
                 </div>
 
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass beneficiaryRelationship}}"
+                    <input type="text" class="form-control {{editedClass beneficiaryRelationship}} _lr-hide"
                            value="{{beneficiaryRelationship}}"
                            name="beneficiaryRelationship">
                     <label for="beneficiaryRelationship">Your relationship to beneficiary</label>
                     <span class="help-block">You are their what - child, spouse, etc?</span>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass homeChurchName}}"
+                    <input type="text" class="form-control {{editedClass homeChurchName}} _lr-hide"
                            value="{{homeChurchName}}"
                            name="homeChurchName">
                     <label for="homeChurchName">Home Church Name</label>
                 </div>
                 <div class="form-group form-md-radios">
                     <label>Blood Type</label>
-                    <div class="md-radio-list">
+                    <div class="md-radio-list _lr-hide">
                         <div class="md-radio">
                             <input type="radio" id="radio11"
                                    name="bloodType" class="md-radiobtn"
@@ -351,7 +351,7 @@
                 </div>
                 <div class="form-group form-md-radios">
                     <label>T-shirt Size</label>
-                    <div class="md-radio-list">
+                    <div class="md-radio-list _lr-hide">
                         <div class="md-radio">
                             <input type="radio" id="radio21" name="tShirtSize"
                                    class="md-radiobtn" value="small"
@@ -409,19 +409,19 @@
                     </div>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass lastTetanusShotYear}}"
+                    <input type="text" class="form-control {{editedClass lastTetanusShotYear}} _lr-hide"
                            value="{{lastTetanusShotYear}}" name="lastTetanusShotYear">
                     <label for="lastTetanusShotYear">Year of Last Tetanus Shot</label>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <textarea class="form-control {{editedClass allergiesOrHealthConditions}}"
+                    <textarea class="form-control {{editedClass allergiesOrHealthConditions}} _lr-hide"
                               value="{{allergiesOrHealthConditions}}"
                               name="allergiesOrHealthConditions" rows="3"></textarea>
                     <label for="allergiesOrHealthConditions">Do you have any allergies or serious health conditions?</label>
                     <span class="help-block">If so, please list here.</span>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <textarea class="form-control {{editedClass medicationsBeingTaken}}"
+                    <textarea class="form-control {{editedClass medicationsBeingTaken}} _lr-hide"
                               value="{{medicationsBeingTaken}}"
                               name="medicationsBeingTaken" rows="3"></textarea>
                     <label for="medicationsBeingTaken">Please list any medications/prescriptions you are currently taking</label>
@@ -429,7 +429,7 @@
                 <div class="form-group form-md-radios">
                     <label>Have you ever been convicted of a crime?</label>
                     <span class="help-block">Felony or misdemeanor</span>
-                    <div class="md-radio-list">
+                    <div class="md-radio-list _lr-hide">
                         <div class="md-radio">
                             <input type="radio" id="radio38" name="convictedOfACrime"
                                    class="md-radiobtn" value="yes"
@@ -451,14 +451,14 @@
                     </div>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label" style="display: none;" id="convictedOfACrimeExplainedDiv">
-                    <textarea class="form-control {{editedClass convictedOfACrimeExplained}}"
+                    <textarea class="form-control {{editedClass convictedOfACrimeExplained}} _lr-hide"
                               value="{{convictedOfACrimeExplained}}"
                               name="convictedOfACrimeExplained" rows="3"></textarea>
                     <label for="convictedOfACrimeExplained">Please explain</label>
                 </div>
                 <div class="form-group form-md-radios">
                     <label>Do we have permission to run a background check?</label>
-                    <div class="md-radio-list">
+                    <div class="md-radio-list _lr-hide">
                         <div class="md-radio">
                             <input type="radio" id="radio41"
                                    name="permissionToRunBackgroundCheck"
@@ -484,7 +484,7 @@
 
                 <div class="form-group form-md-radios">
                     <label>Do you speak other languages?</label>
-                    <div class="md-radio-list">
+                    <div class="md-radio-list _lr-hide">
                         <div class="md-radio">
                             <input type="radio" id="radio51"
                                    name="speaksOtherLanguages"
@@ -508,7 +508,7 @@
                     </div>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label" style="display: none;" id="languageProficiencyExplainedExplainedDiv">
-                    <textarea class="form-control {{editedClass languageProficiencyExplained}}"
+                    <textarea class="form-control {{editedClass languageProficiencyExplained}} _lr-hide"
                               value="{{languageProficiencyExplained}}"
                               name="languageProficiencyExplained" rows="3"></textarea>
                     <label for="languageProficiencyExplained">What languages?</label>
@@ -516,7 +516,7 @@
                 </div>
                 <div class="form-group form-md-radios">
                     <label>I have been on a prior TMP trip</label>
-                    <div class="md-radio-list">
+                    <div class="md-radio-list _lr-hide">
                         <div class="md-radio">
                             <input type="radio" id="radio61"
                                    name="beenOnATMPTrip"
@@ -542,14 +542,14 @@
                     </div>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label" style="display: none;" id="beenOnATMPTripExplainedDiv">
-                    <textarea class="form-control {{editedClass beenOnATMPTripExplained}}"
+                    <textarea class="form-control {{editedClass beenOnATMPTripExplained}} _lr-hide"
                               value="{{beenOnATMPTripExplained}}"
                               name="beenOnATMPTripExplained" rows="3"></textarea>
                     <label for="beenOnATMPTripExplained">When were you on a trip and to where?</label>
                 </div>
                 <div class="form-group form-md-radios">
                     <label>Have you traveled out of the U.S. before?</label>
-                    <div class="md-radio-list">
+                    <div class="md-radio-list _lr-hide">
                         <div class="md-radio">
                             <input type="radio" id="radio71"
                                    name="traveledOutsideTheUS"
@@ -575,19 +575,19 @@
                     </div>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label" style="display: none;" id="outsideUSTravelExplainedDiv">
-                    <textarea class="form-control {{editedClass outsideUSTravelExplained}}"
+                    <textarea class="form-control {{editedClass outsideUSTravelExplained}} _lr-hide"
                               value="{{outsideUSTravelExplained}}"
                               name="outsideUSTravelExplained" rows="3"></textarea>
                     <label for="outsideUSTravelExplained">Please list where you traveled out of the U.S., when, duration, and purpose.</label>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <textarea class="form-control {{editedClass whyDoYouWantToJoinThisTeam}}"
+                    <textarea class="form-control {{editedClass whyDoYouWantToJoinThisTeam}} _lr-hide"
                               value="{{whyDoYouWantToJoinThisTeam}}"
                               name="whyDoYouWantToJoinThisTeam" rows="10"></textarea>
                     <label for="whyDoYouWantToJoinThisTeam">Why do you want to join this team?</label>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <textarea class="form-control {{editedClass whatThreeSkills}}"
+                    <textarea class="form-control {{editedClass whatThreeSkills}} _lr-hide"
                               value="{{whatThreeSkills}}"
                               name="whatThreeSkills" rows="10" style="margin-top: 10px;"></textarea>
                     <label for="whatThreeSkills">What are three skills or abilities you possess and desire to use on the trip that you believe will be beneficial to this team?</label>
@@ -595,7 +595,7 @@
 
                 <div class="form-group form-md-checkboxes">
                     <label>If opportunity arises, in which areas would you like to participate?</label>
-                    <div class="md-checkbox-list">
+                    <div class="md-checkbox-list _lr-hide">
                         <div class="md-checkbox">
                             <input type="checkbox"
                                    id="checkbox1"
@@ -663,7 +663,7 @@
                     <span class="help-block">Check all that apply and list any experience you have in those areas in the text box below.</span>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
-                    <textarea class="form-control {{editedClass opportunityDetails}}"
+                    <textarea class="form-control {{editedClass opportunityDetails}} _lr-hide"
                               value="{{opportunityDetails}}"
                               name="opportunityDetails" rows="6"></textarea>
                     <label for="opportunityDetails">Opportunity Details</label>
