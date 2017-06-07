@@ -1,0 +1,29 @@
+<template name="PrintPassportImages">
+    {{#if Template.subscriptionsReady}}
+        {{#each users}}
+            {{#if imageExists}}
+                {{#with images}}
+                    <div class="text-center page-break-after" style="border: 1px solid #000">
+                        <h3>{{fullName ..}}</h3>
+                        <hr/>
+                        <p class="_lr-hide">
+                            {{#if versions.original.meta.signedURL}}
+                                <a href="{{versions.original.meta.signedURL}}">
+                                    <img src="{{versions.original.meta.signedURL}}" max-heigh="600px" alt="{{fullName ..}} passport image"/>
+                                </a>
+                            {{else}}
+                                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                                <span class="sr-only">Loading...</span>
+                            {{/if}}
+                        </p>
+                    </div>
+                {{/with}}
+            {{else}}
+                <div class="text-center no-print">
+                    <h3>No image found for {{fullName ..}}</h3>
+                    <hr/>
+                </div>
+            {{/if}}
+        {{/each}}
+    {{/if}}
+</template>

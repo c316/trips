@@ -58,6 +58,9 @@
 }
 
 @media print {
+    a[href]:after {
+        content: none !important;
+    }
     .no-print { display: none !important;; }
     .tools { display: none !important;; }
     .actions { display: none !important;; }

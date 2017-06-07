@@ -97,15 +97,22 @@ Meteor.publish('files.images', function (showingUserId, showingTripId) {
   check(showingTripId, Match.Maybe(Number));
   if( this.userId ) {
     if( Roles.userIsInRole(this.userId, 'admin') ) {
-      return Images.find({userId: showingUserId}).cursor;
-    } else if( Roles.userIsInRole(this.userId, 'leader') && showingTripId){
+      if(showingUserId){
+        return Images.find({userId: showingUserId}).cursor;
+      } else {
+        // get the users in this trip, then return all of their images
+        const users = Meteor.users.find({tripId: showingTripId}).map(function (user) {
+          return user._id;
+        });
+        return Images.find({userId: {$in: users } }).cursor;
+      }
+    } else if( Roles.userIsInRole(this.userId, 'leader') && showingTripId) {
       const users = Meteor.users.find({tripId: showingTripId}).map(function (user) {
         return user._id;
       });
       return Images.find( { userId: {$in: users} } ).cursor;
-    } else {
-      return Images.find( { userId: this.userId } ).cursor;
     }
+    return Images.find( { userId: this.userId } ).cursor;
   }
 });
 

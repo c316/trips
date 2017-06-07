@@ -35,12 +35,6 @@ Template.Leader.helpers({
   trip(){
     return Trips.findOne({ tripId: Number(Session.get("tripId")) });
   },
-  imageExists(){
-    return Images.find({userId: this._id}).count();
-  },
-  images(){
-    return Images.find({userId: this._id}).fetch()[0];
-  },
   user(){
     if(Session.get("tripId")){
       return Meteor.users.find({tripId: Session.get("tripId")}, {sort: {'profile.lastName': 1}});

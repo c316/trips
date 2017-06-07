@@ -87,6 +87,9 @@ Template.Admin.helpers({
 });
 
 Template.Admin.events({
+  'click .print-passport-images'(){
+
+  },
   'click .user-admin-link'(){
     Session.set("showUserRegistration", true);
     FlowRouter.go("adminShowUserHome", {}, {id: this._id});

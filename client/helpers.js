@@ -277,3 +277,25 @@ Template.registerHelper('ShowFundraisingModule', function() {
     return trip && trip.showFundraisingModule;
   }
 });
+
+Template.registerHelper('imageExists', function() {
+  return Images.find({userId: this._id}).count();
+});
+
+Template.registerHelper('users', function() {
+  if(tripId.get()){
+    return Meteor.users.find({tripId: tripId.get()});
+  }
+});
+
+Template.registerHelper('images', function() {
+  return Images.find({userId: this._id}).fetch()[0];
+});
+
+Template.registerHelper('fullName', function(parentContext) {
+  if(parentContext){
+    const profile = parentContext && parentContext.profile && parentContext.profile;
+    return (profile && profile.firstName) + " " + (profile && profile.lastName);
+  }
+  return (this.profile && this.profile.firstName) + " " + (this.profile && this.profile.lastName);
+});

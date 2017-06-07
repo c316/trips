@@ -70,12 +70,6 @@ Template.Forms.events({
 });
 
 Template.Forms.helpers({
-  imageExists(){
-    return Images.find().count();
-  },
-  images(){
-    return Images.find().fetch()[0];
-  },
   unfinishedForms(){
     let forms = Forms.find({
       name:  {

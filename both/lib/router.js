@@ -92,12 +92,20 @@ FlowRouter.route( '/admin/showuserhome', {
 FlowRouter.route( '/admin/print-all/:tripId', {
   name: 'print-all',
   triggersEnter: function ( context, redirect ) {
-    Session.set("showingOtherUser", true);
-    Session.set("tripId", Number(context && context.params.tripId));
     redirectIfNotAdmin(context, redirect);
   },
   action() {
     BlazeLayout.render('main', { top: "Header", main: "PrintAll", footer: "Footer" });
+  }
+});
+
+FlowRouter.route( '/admin/print-passport-images/:tripId', {
+  name: 'print-passport-images',
+  triggersEnter: function ( context, redirect ) {
+    redirectIfNotAdmin(context, redirect);
+  },
+  action() {
+    BlazeLayout.render('main', { top: "Header", main: "PrintPassportImages", footer: "Footer" });
   }
 });
 

@@ -1,5 +1,8 @@
 Template.PrintAll.onCreated(function () {
-  Meteor.subscribe('users');
+  this.autorun(()=> {
+    Meteor.subscribe('users');
+    tripId = new ReactiveVar(Number(FlowRouter.getParam("tripId")));
+  });
 });
 
 Template.PrintAll.onRendered(function () {
@@ -17,21 +20,8 @@ Template.PrintAll.onRendered(function () {
   }, 2100);
 
   Meteor.setTimeout(()=>{
-    if(Session.get("tripId") && Meteor.users.findOne( { tripId: Session.get("tripId") } ) ) {
+    if(tripId.get() && Meteor.users.findOne( { tripId: tripId.get() } ) ) {
       window.print();
     }
   }, 2000);
-});
-
-Template.PrintAll.helpers({
-  users(){
-    if(Session.get("tripId")){
-      return Meteor.users.find({tripId: Session.get("tripId")});
-    }
-  }
-});
-
-Template.PrintAll.onDestroyed(function () {
-  Session.delete("showingOtherUser");
-  Session.delete("tripId");
 });
