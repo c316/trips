@@ -9,7 +9,7 @@
                         <p class="_lr-hide">
                             {{#if versions.original.meta.signedURL}}
                                 <a href="{{versions.original.meta.signedURL}}">
-                                    <img src="{{versions.original.meta.signedURL}}" max-heigh="600px" alt="{{fullName ..}} passport image"/>
+                                    <img src="{{versions.original.meta.signedURL}}" style="max-height: 600px" alt="{{fullName ..}} passport image"/>
                                 </a>
                             {{else}}
                                 <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
@@ -20,7 +20,7 @@
                 {{/with}}
             {{else}}
                 <div class="text-center no-print">
-                    <h3>No image found for {{fullName ..}}</h3>
+                    <h3>No image found for {{fullName}}</h3>
                     <hr/>
                 </div>
             {{/if}}

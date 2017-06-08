@@ -6,11 +6,3 @@ Template.PrintPassportImages.onCreated(function () {
     Meteor.subscribe('files.images', "", tripId.get() );
   });
 });
-
-Template.PrintPassportImages.onRendered(function () {
-  Meteor.setTimeout(()=>{
-    if(tripId.get() && Meteor.users.findOne( { tripId: tripId.get() } ) ) {
-      window.print();
-    }
-  }, 2000);
-});
