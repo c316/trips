@@ -26,10 +26,7 @@ Template.Home.helpers({
     } else {
       return this;
     }
-  },
-  userFullName(){
-    return this.profile && this.profile.firstName + " " + this.profile.lastName;
-  },
+  }
 });
 
 Template.Home.onDestroyed(function () {

@@ -1,7 +1,7 @@
 <template name="Home">
     {{#with user}}
         <!-- BEGIN PAGE BASE CONTENT -->
-        {{#if otherUser}}<h1 class="text-center" style="color: indianred">Showing {{userFullName}}</h1>{{/if}}
+        {{#if otherUser}}<h1 class="text-center" style="color: indianred">Showing {{fullName}}</h1>{{/if}}
         {{> UserRegistration}}
         {{> TripRegistration}}
         {{#if ShowFundraisingModule}}
