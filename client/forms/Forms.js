@@ -33,7 +33,7 @@ Template.Forms.onRendered(function () {
 
 Template.Forms.events({
   'click #delete-passport-photo'(){
-    Meteor.call("delete.passportPhoto", Session.get("showingUserId"));
+    Meteor.call("delete.passportPhoto", Session.get("showingUserId") || Meteor.userId());
     Session.delete("passportPhotoThumbnail");
     Session.delete("passportPhotoOriginal");
   },

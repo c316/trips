@@ -3,8 +3,6 @@ import {getDTSplitData, http_get_donortools} from '/imports/api/utils';
 
 Meteor.methods({
   'delete.passportPhoto'(userId) {
-
-    // TODO: this is where we need to be removing the verified document too
     check(userId, Match.Maybe(String));
     logger.info("Got to delete.passportPhoto");
 
@@ -21,8 +19,9 @@ Meteor.methods({
         throw new Meteor.Error('delete.passportPhoto.unauthorized',
           'Cannot delete a passport photo because your tripId does not match the user trip ID you passed in');
       }
-    } else if ( this.userId && this.userId === userId ) {
-      Images.remove({ userId });
+    } else if ( this.userId ) {
+      Images.remove({ userId: this.userId });
+      Forms.remove( { userId: this.userId, name: "passportImage" } );
     } else {
       throw new Meteor.Error('delete.passportPhoto.unauthorized',
         'Cannot delete a passport photo without permission');

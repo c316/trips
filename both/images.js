@@ -58,6 +58,18 @@ Images = new FilesCollection({
   storagePath: Meteor.settings.public.File.path,
   collectionName: 'Images',
   allowClientCode: false,
+  onBeforeUpload(file) {
+    // Allow upload files under 20MB, and only in png/jpg/jpeg formats
+    if (file.size <= 20971520 && /png|jpg|jpeg/i.test(file.extension)) {
+      return true;
+    } else {
+      if(file.extension === 'pdf'){
+        return 'Your image cannot be in PDF format. It needs to be jpg, png or jpeg.' +
+          ' Try scanning it again, but scan it as an image, not a document.';
+      }
+      return 'Please upload and image (jpg, png or jpeg), with size less than 20MB';
+    }
+  },
   onAfterUpload: function(fileRef) {
     let createdThumbnail = createThumbnails(this.collection, fileRef);
     Meteor.setTimeout(()=>{
@@ -65,7 +77,7 @@ Images = new FilesCollection({
       var self = this;
       let updatedFileVersions = Images.findOne({_id: fileRef._id});
 
-        _.each(updatedFileVersions.versions, function(vRef, version) {
+      _.each(updatedFileVersions.versions, function(vRef, version) {
         // We use Random.id() instead of real file's _id
         // to secure files from reverse engineering
         // As after viewing this code it will be easy
