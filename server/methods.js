@@ -433,7 +433,7 @@ Meteor.methods({
           if(err) {
             console.error(err);
             connectToGive().disconnect();
-            return 'conneciton problem';
+            return 'connection problem';
           } else {
             console.log(res);
             connectToGive().disconnect();
@@ -445,7 +445,7 @@ Meteor.methods({
           if(err) {
             console.error(err);
             connectToGive().disconnect();
-            return 'conneciton problem';
+            return 'connection problem';
           } else {
             console.log(res);
             connectToGive().disconnect();
