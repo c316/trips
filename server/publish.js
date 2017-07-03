@@ -146,16 +146,46 @@ Meteor.publish('Trips', function(tripId){
   }
 });
 
-Meteor.publish('users', function(){
+Meteor.publish('users', function(search, limit){
   logger.info("Started to publish users");
+  check(search, Match.Maybe(String));
+  check(limit, Match.Maybe(Number));
 
   if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
-    return Meteor.users.find({},
-      {
-        fields: {
-          services: 0
+    const limitValue = limit ? limit : 0;
+    const searchValue = search ? search : '';
+    const options = {
+      sort: {'profile.lastName': 1, 'profile.firstName': 1},
+      limit: limitValue,
+      fields: {
+        services: 0
+      }
+    };
+
+    return Meteor.users.find({
+      $or: [
+        {
+          'profile.firstName': {
+            $regex: searchValue, $options: 'i'
+          }
+        },
+        {
+          'profile.lastName': {
+            $regex: searchValue, $options: 'i'
+          }
+        },
+        {
+          'emails[0].address': {
+            $regex: searchValue,
+            $options: 'i'
+          }
+        },
+        {
+          'id': {
+            $regex: searchValue
+          }
         }
-      });
+      ], }, options );
   }
 });
 

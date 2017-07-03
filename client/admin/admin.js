@@ -1,11 +1,12 @@
 import { repeater } from '/imports/ui/js/jquery.repeater';
-import { repeaterSetup } from '/imports/api/miscFunctions';
+import { repeaterSetup, updateSearchVal } from '/imports/api/miscFunctions';
 import '/imports/ui/stylesheets/admin-print.css';
 
 Template.Admin.onCreated(function () {
   Session.delete("showingUserId");
+  Session.set("documentLimit", 25);
   this.autorun(()=>{
-    Meteor.subscribe('users');
+    Meteor.subscribe('users', Session.get("searchValue"), Session.get("documentLimit"));
     Meteor.subscribe('Trips', Session.get("tripId") ? Number(Session.get("tripId")) : null);
     Meteor.subscribe('Forms');
     Meteor.subscribe('Deadlines');
@@ -87,8 +88,14 @@ Template.Admin.helpers({
 });
 
 Template.Admin.events({
-  'click .print-passport-images'(){
-
+  'keyup, change .search': _.debounce(function() {
+    console.log("test")
+    updateSearchVal();
+  }, 300),
+  'click .clear-button': function() {
+    $(".search").val("").change();
+    Session.set("searchValue", "");
+    Session.set( "documentLimit", 25);
   },
   'click .user-admin-link'(){
     Session.set("showUserRegistration", true);
@@ -314,4 +321,6 @@ Template.Admin.events({
 Template.Admin.onDestroyed(function () {
   Session.delete("tripId");
   Session.delete("showingUserId");
+  Session.delete("searchValue");
+  Session.delete("documentLimit");
 });

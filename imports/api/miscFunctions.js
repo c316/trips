@@ -159,3 +159,17 @@ export const getSignedURLs = (client, type, file_id) =>{
     return;
   }
 };
+
+export const updateSearchVal = () => {
+  let searchValue = $(".search").val();
+
+  if (searchValue || searchValue === "") {
+    // Remove punctuation and make it into an array of words
+    searchValue = searchValue
+      .replace(/[,\/#!$%\^&\*;:{}=\`~()]/g, "")
+      .replace(/\s/g, "");
+
+    Session.set( "searchValue", searchValue );
+    Session.set( "documentLimit", 0 );
+  }
+};
