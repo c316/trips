@@ -414,23 +414,25 @@ Meteor.methods({
   'runGiveMethod'(method, args){
     check(method, String);
     check(args, Match.Maybe(Object));
-
-    logger.info( "Started DDP connection with the runGiveMethod method with: " + method );
+    logger.info( "Started DDP connection with the runGiveMethod method:", method, "and the args:", args );
     if( (Roles.userIsInRole( this.userId, ['super-admin', 'admin'] ) ) ||
       ( method === "insertFundraisersWithTrip" && Roles.userIsInRole( this.userId, 'trip-member' ) ) ||
       ( method === "updateFundraiserName" && Roles.userIsInRole( this.userId, 'trip-member' )) ||
       ( method === "removeFundraiser" && Roles.userIsInRole( this.userId, 'trip-member' )) ) {
-      if(method === "removeFundraiser"){
+      if(method === "removeFundraiser" && !(Roles.userIsInRole( this.userId, ['super-admin', 'admin'] ) ) ){
         const user = Meteor.users.findOne({ _id: this.userId});
         if(args.email !== user.emails[0].address){
           throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
         }
       }
+      console.log("Got here");
       import { connectToGive } from '/imports/api/utils';
       if(args){
+        console.log(args);
         connectToGive().call(method, args, function ( err, res ) {
           if(err) {
             console.error(err);
+            connectToGive().disconnect();
             return 'conneciton problem';
           } else {
             console.log(res);
@@ -442,6 +444,7 @@ Meteor.methods({
         connectToGive().call(method, function ( err, res ) {
           if(err) {
             console.error(err);
+            connectToGive().disconnect();
             return 'conneciton problem';
           } else {
             console.log(res);
@@ -705,30 +708,47 @@ Meteor.methods({
    *
    * @method moveCurrentTripToOtherTrips
    */
-  'moveCurrentTripToOtherTrips'(){
-    logger.info("Started moveCurrentTripToOtherTrips");
+  'moveCurrentTripToOtherTrips'(userId){
+    logger.info("Started moveCurrentTripToOtherTrips with userId:", userId);
+    check(userId, Match.Maybe(String));
     if ( this.userId ) {
-      const currentTrip = Meteor.users.findOne({_id: this.userId}) && Meteor.users.findOne( {_id: this.userId} ).tripId;
-      console.log(currentTrip);
+      let currentTrip, email, tripRegistrationForm;
+      if ( Roles.userIsInRole(this.userId, 'admin') && userId) {
+        currentTrip = Meteor.users.findOne({_id: userId}) && Meteor.users.findOne({_id: userId}).tripId;
+        email = Meteor.users.findOne( {_id: userId} ) && Meteor.users.findOne( {_id: userId} ).emails && Meteor.users.findOne( {_id: userId} ).emails[0].address;
+        tripRegistrationForm = Forms.findOne( { userId: userId, archived: { $ne: true }, name: "tripRegistration" });
+      } else {
+        currentTrip = Meteor.users.findOne({_id: this.userId}) && Meteor.users.findOne({_id: this.userId}).tripId;
+        email = Meteor.users.findOne( {_id: this.userId} ) && Meteor.users.findOne( {_id: this.userId} ).emails && Meteor.users.findOne( {_id: this.userId} ).emails[0].address;
+        tripRegistrationForm = Forms.findOne( { userId: this.userId, archived: { $ne: true }, name: "tripRegistration" });
+      }
       if( currentTrip ) {
-        const email = Meteor.users.findOne( {_id: this.userId} ) && Meteor.users.findOne( {_id: this.userId} ).emails && Meteor.users.findOne( {_id: this.userId} ).emails[0].address;
-        Meteor.call( "runGiveMethod", "removeFundraiser", {email}, function ( err, res ) {
-          if( err ) {
-            logger.error( err );
+        Meteor.call("runGiveMethod", "removeFundraiser", {email}, function (err, res) {
+          if (err) {
+            logger.error(err);
           } else {
-            logger.info( res );
-          }
-        } );
-        Meteor.users.update({_id: this.userId}, {
-          $addToSet: {
-            otherTrips: currentTrip
-          },
-          $unset: {
-            tripId: ""
+            logger.info(res);
           }
         });
-
-        const tripRegistrationForm = Forms.findOne( { userId: this.userId, archived: { $ne: true }, name: "tripRegistration" });
+        if ( Roles.userIsInRole(this.userId, 'admin') && userId) {
+          Meteor.users.update({_id: userId}, {
+            $addToSet: {
+              otherTrips: currentTrip
+            },
+            $unset: {
+              tripId: ""
+            }
+          });
+        } else {
+          Meteor.users.update({_id: this.userId}, {
+            $addToSet: {
+              otherTrips: currentTrip
+            },
+            $unset: {
+              tripId: ""
+            }
+          });
+        }
         if(tripRegistrationForm){
           return Forms.update( tripRegistrationForm, {
             $set: {

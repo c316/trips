@@ -4,7 +4,7 @@ import '/imports/ui/stylesheets/admin-print.css';
 
 Template.Admin.onCreated(function () {
   Session.delete("showingUserId");
-  Session.set("documentLimit", 25);
+  Session.set("documentLimit", 30);
   this.autorun(()=>{
     Meteor.subscribe('users', Session.get("searchValue"), Session.get("documentLimit"));
     Meteor.subscribe('Trips', Session.get("tripId") ? Number(Session.get("tripId")) : null);
@@ -89,13 +89,12 @@ Template.Admin.helpers({
 
 Template.Admin.events({
   'keyup, change .search': _.debounce(function() {
-    console.log("test")
     updateSearchVal();
   }, 300),
   'click .clear-button': function() {
     $(".search").val("").change();
     Session.set("searchValue", "");
-    Session.set( "documentLimit", 25);
+    Session.set( "documentLimit", 30);
   },
   'click .user-admin-link'(){
     Session.set("showUserRegistration", true);

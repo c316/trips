@@ -26,8 +26,6 @@ Template.TripRegistration.events({
     console.log("Got here");
     let tripId = $("[name='trip-id']").val().trim();
     let updateThisId = FlowRouter.getQueryParam('id');
-    console.log(tripId);
-
     Meteor.call("form.tripRegistration", tripId, updateThisId, function ( err, res ) {
       if(err) {
         console.error(err);
@@ -51,7 +49,7 @@ Template.TripRegistration.events({
     });
   },
   'click .change-trip'() {
-    Meteor.call("moveCurrentTripToOtherTrips", function (err, res) {
+    Meteor.call("moveCurrentTripToOtherTrips", Session.get("showingUserId"), function (err, res) {
       if(err) console.error(err);
       else {
         Bert.alert({
