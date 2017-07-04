@@ -1,5 +1,14 @@
 import casual from 'casual-browserify';
 
+const getDocHeight = () => {
+  const D = document;
+  return Math.max(
+    D.body.scrollHeight, D.documentElement.scrollHeight,
+    D.body.offsetHeight, D.documentElement.offsetHeight,
+    D.body.clientHeight, D.documentElement.clientHeight
+  );
+};
+
 export const fillForms = ()=>{
   const password = casual.password;
   $("[name='firstname']").val(casual.first_name);
@@ -172,4 +181,16 @@ export const updateSearchVal = () => {
     Session.set( "searchValue", searchValue );
     Session.set( "documentLimit", 0 );
   }
+};
+
+export const setDocHeight = () => {
+  $( window ).scroll( function() {
+    if ( ($( window ).scrollTop() + $( window ).height() == getDocHeight()) ||
+      ($( window ).scrollTop() + window.innerHeight == getDocHeight()) ) {
+      console.log( "bottom!" );
+      $('[data-toggle="popover"]').popover();
+      let documentLimit = Session.get( "documentLimit" );
+      Session.set( "documentLimit", documentLimit += 30 );
+    }
+  } );
 };

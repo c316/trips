@@ -58,6 +58,7 @@ Template.registerHelper('passportPhotoThumbnail', function() {
     return this.versions.thumbnail.meta.signedURL;
   }
 });
+
 Template.registerHelper('passportPhotoOriginal', function() {
   if(this.versions && this.versions.original) {
     return this.versions.original.meta.signedURL;

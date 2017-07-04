@@ -77,7 +77,6 @@ Meteor.methods({
 
     function formIsComplete(form){
       let formLength = Object.keys(form).length;
-      console.log(formLength);
       if(form.passportStatus && (form.passportStatus === 'yes' || form.passportStatus === 'in-progress')){
         if(formLength >= 33){
           return true;
@@ -200,7 +199,6 @@ Meteor.methods({
           email:  user.emails[0].address,
           fundId: tripId
         };
-        console.log(tripMemberData);
         Meteor.call( "runGiveMethod", "insertFundraisersWithTrip", tripMemberData, function ( err, res ) {
           if( err ) {
             logger.error( err );
@@ -425,7 +423,6 @@ Meteor.methods({
           throw new Meteor.Error( 403, 'You need to have the proper permission to do this' );
         }
       }
-      console.log("Got here");
       import { connectToGive } from '/imports/api/utils';
       if(args){
         console.log(args);
@@ -544,7 +541,6 @@ Meteor.methods({
 
     if( Roles.userIsInRole( this.userId, 'admin' ) ) {
       deadline.tripId = tripId;
-      console.log(deadline);
       logger.info( "Started insert.deadline method with user: " + this.userId );
       let deadlines = Deadlines.find({tripId: tripId}).fetch();
       deadlines.push(deadline);
@@ -588,7 +584,6 @@ Meteor.methods({
     } );
 
     if( Roles.userIsInRole( this.userId, 'admin' ) ) {
-      console.log(deadline);
       logger.info( "Started update.deadline method with user: " + this.userId );
       let deadlines = Deadlines.find({tripId: deadline.tripId}).fetch();
       deadlines.push(deadline);
@@ -644,8 +639,6 @@ Meteor.methods({
     check( existingImageId, String);
     check( changeUserIdToThisId, String);
     const image = Images.findOne(existingImageId);
-    console.log(image);
-    console.log(image.cursor);
     logger.info( "Started update.imageUserId method with fileId: " + existingImageId + "and changeUserIdToThisId: " + changeUserIdToThisId );
 
     if( Roles.userIsInRole( this.userId, 'admin' ) ) {
@@ -653,7 +646,6 @@ Meteor.methods({
     } else if ( Roles.userIsInRole(this.userId, 'leader')) {
       const leaderTripId = Meteor.users.findOne({_id: this.userId}).tripId;
       const passedInUserTripId = Meteor.users.findOne({_id: changeUserIdToThisId}).tripId;
-      console.log(leaderTripId, passedInUserTripId);
       if(leaderTripId === passedInUserTripId && image.userId === this.userId){
         return Images.update({_id: existingImageId}, {$set: {userId: changeUserIdToThisId, meta: {"uploadedByLeader": true, "leaderId": this.userId}}});
       } else {

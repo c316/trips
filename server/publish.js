@@ -146,10 +146,11 @@ Meteor.publish('Trips', function(tripId){
   }
 });
 
-Meteor.publish('users', function(search, limit){
-  logger.info("Started to publish users");
+Meteor.publish('users', function(search, limit, tripId){
+  logger.info("Started to publish users with these args:", {search, limit, tripId});
   check(search, Match.Maybe(String));
   check(limit, Match.Maybe(Number));
+  check(tripId, Match.Maybe(Number));
 
   if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
     const limitValue = limit ? limit : 0;
@@ -162,30 +163,44 @@ Meteor.publish('users', function(search, limit){
       }
     };
 
-    return Meteor.users.find({
-      $or: [
-        {
-          'profile.firstName': {
-            $regex: searchValue, $options: 'i'
+    let searchObject;
+    if(searchValue) {
+      searchObject = {
+        $or: [
+          {
+            'profile.firstName': {
+              $regex: searchValue, $options: 'i'
+            }
+          },
+          {
+            'profile.lastName': {
+              $regex: searchValue, $options: 'i'
+            }
+          },
+          {
+            'emails[0].address': {
+              $regex: searchValue,
+              $options: 'i'
+            }
+          },
+          {
+            'id': {
+              $regex: searchValue
+            }
           }
-        },
-        {
-          'profile.lastName': {
-            $regex: searchValue, $options: 'i'
-          }
-        },
-        {
-          'emails[0].address': {
-            $regex: searchValue,
-            $options: 'i'
-          }
-        },
-        {
-          'id': {
-            $regex: searchValue
-          }
-        }
-      ], }, options );
+        ], };
+    } else {
+      searchObject = {};
+    }
+
+    if(tripId){
+      searchObject = {
+        $and: [
+          { tripId },
+          searchObject
+        ]}
+    }
+    return Meteor.users.find( searchObject, options );
   }
 });
 

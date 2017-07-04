@@ -1,80 +1,94 @@
 .page-footer{
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .clickable-cell {
-    color: #337ab7;
+  color: #337ab7;
 }
 .clickable-cell:hover {
-    cursor: pointer;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .error {
-    color: red;
+  color: red;
 }
 
 
 .form-group.form-md-line-input .form-control.edited:not([readonly]) ~ .help-block-error, .form-group.form-md-line-input .form-control:focus:not([readonly]) ~ .help-block-error {
-    opacity: 1;
-    filter: alpha(opacity=1); }
+  opacity: 1;
+  filter: alpha(opacity=1);
+}
 .form-group.form-md-line-input .form-control.edited:not([readonly]):not(:focus) ~ .help-block {
-    opacity: 1;
-    filter: alpha(opacity=1); }
+  opacity: 1;
+  filter: alpha(opacity=1);
+}
 .form-group.form-md-line-input .form-control.edited:not([readonly]):not(:focus) ~ .help-block-error {
-    opacity: 1;
-    filter: alpha(opacity=1); }
+  opacity: 1;
+  filter: alpha(opacity=1);
+}
 
 .text-info {
-    color: #659be0;
+  color: #659be0;
 }
 
 .no-top-margin {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .page-break-after {
-    page-break-after: always;
+  page-break-after: always;
 }
 
 .page-break-before {
-    page-break-before: always;
+  page-break-before: always;
 }
 
 .grey-background {
-    background-color: #eee;
+  background-color: #eee;
 }
 
-.hiddenRow {
+.hidden-row {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .flip-scroll tbody .hidden-row {
     display: none;
+    vertical-align: top;
+    margin-left: -5px;
+  }
 }
 
+.table > thead > tr > th, .table > tbody > tr > td {
+  min-height: 55px;
+}
 .greyed-out {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .small-bottom-margin {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 @media print {
-    a[href]:after {
-        content: none !important;
-    }
-    .no-print { display: none !important;; }
-    .tools { display: none !important;; }
-    .actions { display: none !important;; }
-    .bordered {
-        border: none !important;
-    }
-    p, li, label{
-        font-size: .8em !important;
-    }
+  a[href]:after {
+    content: none !important;
+  }
+  .no-print { display: none !important;; }
+  .tools { display: none !important;; }
+  .actions { display: none !important;; }
+  .bordered {
+    border: none !important;
+  }
+  p, li, label{
+    font-size: .8em !important;
+  }
 
-    .form-group.form-md-line-input.form-md-floating-label {
-        margin-bottom: 5px;
-    }
-    .md-radio, .md-checkbox {
-        margin-bottom: 3px !important;
-    }
+  .form-group.form-md-line-input.form-md-floating-label {
+    margin-bottom: 5px;
+  }
+  .md-radio, .md-checkbox {
+    margin-bottom: 3px !important;
+  }
 }

@@ -1,12 +1,12 @@
 import { repeater } from '/imports/ui/js/jquery.repeater';
-import { repeaterSetup, updateSearchVal } from '/imports/api/miscFunctions';
+import { repeaterSetup, setDocHeight, updateSearchVal } from '/imports/api/miscFunctions';
 import '/imports/ui/stylesheets/admin-print.css';
 
 Template.Admin.onCreated(function () {
   Session.delete("showingUserId");
   Session.set("documentLimit", 30);
   this.autorun(()=>{
-    Meteor.subscribe('users', Session.get("searchValue"), Session.get("documentLimit"));
+    Meteor.subscribe('users', Session.get("searchValue"), Session.get("documentLimit"), (Session.get("tripId") ? Number(Session.get("tripId")) : null));
     Meteor.subscribe('Trips', Session.get("tripId") ? Number(Session.get("tripId")) : null);
     Meteor.subscribe('Forms');
     Meteor.subscribe('Deadlines');
@@ -17,6 +17,7 @@ Template.Admin.onCreated(function () {
 
 Template.Admin.onRendered(()=>{
   repeaterSetup();
+  setDocHeight();
   $('.date-picker').datepicker({
     orientation: "bottom",
     autoclose: true
@@ -322,4 +323,5 @@ Template.Admin.onDestroyed(function () {
   Session.delete("showingUserId");
   Session.delete("searchValue");
   Session.delete("documentLimit");
+  $(window).unbind('scroll');
 });
