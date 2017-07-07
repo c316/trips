@@ -731,6 +731,7 @@ Meteor.methods({
               tripId: ""
             }
           });
+          Roles.removeUsersFromRoles (userId, 'trip-member');
         } else {
           Meteor.users.update({_id: this.userId}, {
             $addToSet: {
@@ -740,6 +741,7 @@ Meteor.methods({
               tripId: ""
             }
           });
+          Roles.removeUsersFromRoles (userId, 'trip-member');
         }
         if(tripRegistrationForm){
           return Forms.update( tripRegistrationForm, {

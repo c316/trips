@@ -184,13 +184,13 @@ export const updateSearchVal = () => {
 };
 
 export const setDocHeight = () => {
-  $( window ).scroll( function() {
-    if ( ($( window ).scrollTop() + $( window ).height() == getDocHeight()) ||
-      ($( window ).scrollTop() + window.innerHeight == getDocHeight()) ) {
+  $( window ).scroll( _.throttle(function() {
+    if ( ( ($( window ).scrollTop() + $( window ).height() ) == getDocHeight()) ||
+      ( ($( window ).scrollTop() + window.innerHeight  ) == getDocHeight() ) ) {
       console.log( "bottom!" );
       $('[data-toggle="popover"]').popover();
       let documentLimit = Session.get( "documentLimit" );
       Session.set( "documentLimit", documentLimit += 30 );
     }
-  } );
+  }, 1000 ) );
 };
