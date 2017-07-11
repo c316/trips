@@ -360,7 +360,7 @@ Meteor.methods({
       import Papa from 'papaparse';
       let usersOnThisTrip = Meteor.users.find({tripId: tripId}).map(function(user){return user._id});
       if(usersOnThisTrip && usersOnThisTrip.length > 0){
-        let collection = Forms.find({name: 'missionaryInformationForm', userId: {$in: usersOnThisTrip}}).fetch();
+        let collection = Forms.find({name: 'missionaryInformationForm', userId: {$in: usersOnThisTrip}}, { sort: {passportLastName: 1}}).fetch();
         logger.info("Exporting ", collection.length, "records from trip ", tripId);
 
         if(collection && collection.length > 0){
