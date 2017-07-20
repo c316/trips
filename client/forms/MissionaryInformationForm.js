@@ -163,11 +163,6 @@ Template.MissionaryInformationForm.onRendered(function(){
     }
   });
 
-  // Show the passport expiration date box if they have a passport
-  if( $( 'input[name="passportStatus"]:checked' ).val() === 'yes' ) {
-    $('#passportExpirationDateDiv').show();
-  }
-
   // Show the explain box if they have a criminal past
   if( $( 'input[name="convictedOfACrime"]:checked' ).val() === 'yes' ) {
     $('#convictedOfACrimeExplainedDiv').show();

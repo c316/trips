@@ -11,34 +11,6 @@
                 <input type="hidden"
                        name="verifiedDate"
                        value="{{verifiedDate}}">
-                <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass preferredName}}"
-                           name="preferredName"
-                           value="{{preferredName}}">
-                    <label for="preferredName">Name you prefer to be called</label>
-                </div>
-                <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control  {{editedClass passportFirstName}}"
-                           name="passportFirstName"
-                           value="{{passportFirstName}}">
-                    <label for="passportFirstName">First Name</label>
-                    <span class="help-block"> (as it appears on your passport) </span>
-                </div>
-                <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control  {{editedClass passportMiddleName}}"
-                           name="passportMiddleName"
-                           value="{{passportMiddleName}}">
-                    <label for="passportMiddleName">Middle Name</label>
-                    <span class="help-block"> (as it appears on your passport) </span>
-                </div>
-                <div class="form-group form-md-line-input form-md-floating-label">
-                    <input type="text" class="form-control {{editedClass passportLastName}}"
-                           name="passportLastName"
-                           value="{{passportLastName}}">
-                    <label for="passportLastName">Last Name</label>
-                    <span class="help-block"> (as it appears on your passport) </span>
-                </div>
-
                 <div class="form-group form-md-radios">
                     <label>Do you have a passport?</label>
                     <div class="md-radio-list">
@@ -47,7 +19,7 @@
                                    id="radio111"
                                    name="passportStatus"
                                    class="md-radiobtn"
-                                   {{checked 'passportStatus' 'yes'}}
+                                {{checked 'passportStatus' 'yes'}}
                                    value="yes">
                             <label for="radio111">
                                 <span></span>
@@ -59,7 +31,7 @@
                                    id="radio112"
                                    name="passportStatus"
                                    class="md-radiobtn"
-                                   {{checked 'passportStatus' 'in-progress'}}
+                                {{checked 'passportStatus' 'in-progress'}}
                                    value="in-progress">
                             <label for="radio112">
                                 <span></span>
@@ -71,7 +43,7 @@
                                    id="radio113"
                                    name="passportStatus"
                                    class="md-radiobtn"
-                                   {{checked 'passportStatus' 'no-not-applied'}}
+                                {{checked 'passportStatus' 'no-not-applied'}}
                                    value="no-not-applied">
                             <label for="radio113">
                                 <span></span>
@@ -80,17 +52,59 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group form-md-line-input form-md-floating-label" style="display: none;" id="passportExpirationDateDiv">
-                    <input type="text" class="form-control {{editedClass passportExpirationDate}} date-picker"
-                           value="{{passportExpirationDate}}"
-                           name="passportExpirationDate">
-                    <label for="passportExpirationDate">Passport expiration date</label>
+                <h2 class="text-danger bold">STOP. Go get your passport.</h2>
+                <h2 class="text-danger bold">WITH PASSPORT IN HAND, fill out the following information:</h2>
+                <hr class="text-danger"/>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control  {{editedClass passportFirstName}}"
+                           name="passportFirstName"
+                           value="{{passportFirstName}}">
+                    <label for="passportFirstName">First Name</label>
+                    <span class="help-block" style="opacity: 100"> (as it appears on your passport) </span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control  {{editedClass passportMiddleName}}"
+                           name="passportMiddleName"
+                           value="{{passportMiddleName}}">
+                    <label for="passportMiddleName">Middle Name</label>
+                    <span class="help-block" style="opacity: 100"> (as it appears on your passport) </span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control {{editedClass passportLastName}}"
+                           name="passportLastName"
+                           value="{{passportLastName}}">
+                    <label for="passportLastName">Last Name</label>
+                    <span class="help-block" style="opacity: 100"> (as it appears on your passport) </span>
                 </div>
                 <div class="form-group form-md-line-input form-md-floating-label">
                     <input type="text" class="form-control {{editedClass birthdate}} date-picker _lr-hide"
                            value="{{birthdate}}"
                            name="birthdate">
                     <label for="birthdate">Birthdate</label>
+                    <span class="help-block" style="opacity: 100"> (as it appears on your passport) </span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control {{editedClass passportNumber}}"
+                           name="passportNumber"
+                           value="{{passportNumber}}">
+                    <label for="passportNumber">Passport Number</label>
+                    <span class="help-block" style="opacity: 100"> (as it appears on your passport) </span>
+                </div>
+                <div class="form-group form-md-line-input form-md-floating-label" id="passportExpirationDateDiv">
+                    <input type="text" class="form-control {{editedClass passportExpirationDate}} date-picker"
+                           value="{{passportExpirationDate}}"
+                           name="passportExpirationDate">
+                    <label for="passportExpirationDate">Passport expiration date</label>
+                    <span class="help-block" style="opacity: 100"> (as it appears on your passport) </span>
+                </div>
+                <br/>
+                <hr class="text-danger" />
+                <br/>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" class="form-control {{editedClass preferredName}}"
+                           name="preferredName"
+                           value="{{preferredName}}">
+                    <label for="preferredName">Name you prefer to be called if different than name on passport</label>
                 </div>
                 <div class="form-group form-md-radios">
                     <label>Gender</label>
@@ -121,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+                <hr/>
                 <h3>Emergency contact information</h3>
 
                 <div class="form-group form-md-line-input form-md-floating-label">

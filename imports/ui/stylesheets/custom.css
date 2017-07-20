@@ -1,3 +1,9 @@
+hr.text-danger {
+  border-top-color: rgb(237, 107, 117);
+  border-top-width: 10px;
+}
+
+
 .page-footer{
   padding-bottom: 10px;
 }
