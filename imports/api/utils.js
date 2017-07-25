@@ -83,7 +83,6 @@ export const getDTSplitData = ( fundId )=>{
     split.persona = _Person( split.donation.persona_id );
     return split;
   });
-  logger.info(allData);
   allData.forEach((split)=>{
     DTSplits.upsert({_id: split.id}, split);
   });
