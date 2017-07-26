@@ -85,6 +85,17 @@ Template.EditTrip.events({
   },
   'click .add-deadline'(){
     $( "#new-deadline" ).slideDown(1000);
+  },
+  'change [name="showFundraisingModule"]'(e){
+    console.log("Changed");
+    const show = e.target.value === 'yes';
+    Meteor.call("edit.trip.fundraising", Number(Session.get("tripId")), show, function (err, res) {
+      if(err) {
+        console.error(err);
+      } else {
+        console.log(res);
+      }
+    });
   }
 });
 

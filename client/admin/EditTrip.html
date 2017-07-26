@@ -41,9 +41,9 @@
                                     <input type="hidden" value="{{tripId}}" name="trip-id">
                                 </form>
                             {{/each}}
-                            <a href="" data-repeater-create="" class="btn green-haze btn-outline add-deadline">
+                            <a href="" data-repeater-create="" class="btn green-haze btn-outline add-deadline margin-bottom-15">
                                 <i class="fa fa-plus"></i> Add</a>
-                            <div class="row" id="new-deadline" style="display: none;">
+                            <div class="row margin-bottom-15" id="new-deadline" style="display: none;">
                                 <div class="col-md-12">
                                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
                                     <div class="portlet light bordered">
@@ -79,6 +79,41 @@
                                     <!-- END EXAMPLE TABLE PORTLET-->
                                 </div>
                             </div>
+                            {{#with trip}}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group form-md-radios margin-top">
+                                            <label>Show the fundraising module to trip participants?</label>
+                                            <div class="md-radio-list">
+                                                <div class="md-radio">
+                                                    <input type="radio"
+                                                           id="financial-module-yes"
+                                                           name="showFundraisingModule"
+                                                           {{checked 'showFundraisingModule' true}}
+                                                           class="md-radiobtn"
+                                                           value="yes">
+                                                    <label for="financial-module-yes">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Yes </label>
+                                                </div>
+                                                <div class="md-radio">
+                                                    <input type="radio"
+                                                           id="financial-module-no"
+                                                           name="showFundraisingModule"
+                                                           class="md-radiobtn"
+                                                           {{checked 'showFundraisingModule' false}}
+                                                           value="no">
+                                                    <label for="financial-module-no">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> No</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/with}}
                         </div>
                     </div>
                 </div>
