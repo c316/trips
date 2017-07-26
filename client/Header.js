@@ -64,7 +64,7 @@ Template.Header.events({
     Session.delete("showForms");
     Session.delete("showUserRegistration");
     Session.delete("showTripFunds");
-    FlowRouter.go("admin");
+    FlowRouter.go("/admin");
   }
 });
 
