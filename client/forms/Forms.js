@@ -57,16 +57,7 @@ Template.Forms.events({
     btn.button("loading");
     agreeToForm("waiver-of-liability");
     btn.button("success");
-  }/*,
-  'click #expand-missionaryInformationForm'(){
-    console.log("clicked expand")
-    $("#missionaryInfoForm").conversationalForm({
-      context: document.getElementById("cf-context-form"),
-      submitCallback: (e) => {
-        console.log(e);
-      }
-    });
-  }*/
+  }
 });
 
 Template.Forms.helpers({
