@@ -112,10 +112,9 @@ FlowRouter.route( '/admin/print-passport-images/:tripId', {
 FlowRouter.route( '/admin/edit/:tripId', {
   name: 'admin-edit-trip',
   triggersEnter: function ( context, redirect ) {
-    Session.set("tripId", Number(context && context.params.tripId));
     redirectIfNotAdmin(context, redirect);
   },
-  action() {
+  action(params) {
     BlazeLayout.render('main', { top: "Header", main: "EditTrip", footer: "Footer" });
   }
 });
