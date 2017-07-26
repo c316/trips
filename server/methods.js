@@ -286,6 +286,37 @@ Meteor.methods({
     }
   },
   /**
+   * Admin method to edit the fundraising module status
+   *
+   * @method edit.trip.fundraising
+   * @param {String} tripId - The DonorTools fund id
+   * @param {String} showFundraisingModule - Should we show the fundraising module to trip participants? Should we show the trip on the Give page?
+   */
+  'edit.trip.fundraising'(tripId, showFundraisingModule){
+    check(tripId, Number);
+    check(showFundraisingModule, Boolean);
+    logger.info("Started edit.trip.fundraising with tripId:", tripId, "and showFundraisingModule set to:", showFundraisingModule);
+
+    if ( Roles.userIsInRole(this.userId, 'admin') ) {
+      Trips.update( {tripId}, { $set: {
+        showFundraisingModule
+      } } );
+
+      // The corresponding ID in Give is a string, not a number
+      const tripString = tripId.toString();
+
+      if(Meteor.settings.Give && Meteor.settings.Give.tripsManagerPassword) {
+        Meteor.call("runGiveMethod", "updateTripFundraising", {tripId: tripString, showFundraisingModule}, function ( err, res ) {
+          if(err) {
+            logger.error(err);
+          } else {
+            logger.info(res);
+          }
+        } );
+      }
+    }
+  },
+  /**
    * Admin method to check DonorTools for a tripId and then add the trip if it exists
    *
    * @method add.trip
@@ -416,8 +447,8 @@ Meteor.methods({
     logger.info( "Started DDP connection with the runGiveMethod method:", method, "and the args:", args );
     if( (Roles.userIsInRole( this.userId, ['super-admin', 'admin'] ) ) ||
       ( method === "insertFundraisersWithTrip" && Roles.userIsInRole( this.userId, 'trip-member' ) ) ||
-      ( method === "updateFundraiserName" && Roles.userIsInRole( this.userId, 'trip-member' )) ||
-      ( method === "removeFundraiser" && Roles.userIsInRole( this.userId, 'trip-member' )) ) {
+      ( method === "updateFundraiserName" && Roles.userIsInRole( this.userId, 'trip-member' ) ) ||
+      ( method === "removeFundraiser" && Roles.userIsInRole( this.userId, 'trip-member' ) ) ) {
       if(method === "removeFundraiser" && !(Roles.userIsInRole( this.userId, ['super-admin', 'admin'] ) ) ){
         const user = Meteor.users.findOne({ _id: this.userId});
         if(args.email !== user.emails[0].address){
