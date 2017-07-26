@@ -1,4 +1,5 @@
 Template.EditTrip.onCreated(function () {
+  Session.set("tripId", Number(FlowRouter.getParam("tripId")));
   this.autorun(()=>{
     Meteor.subscribe('Trips', Session.get("tripId"));
     Meteor.subscribe('TripDeadlines', Session.get("tripId"));
@@ -86,6 +87,7 @@ Template.EditTrip.events({
     $( "#new-deadline" ).slideDown(1000);
   }
 });
+
 Template.EditTrip.helpers({
   trip(){
     return Trips.findOne();
