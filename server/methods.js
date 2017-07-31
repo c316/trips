@@ -65,7 +65,7 @@ Meteor.methods({
       "passportNumber":               Match.Maybe(String),
       "passportStatus":               Match.Maybe(String),
       "permissionToRunBackgroundCheck":Match.Maybe(String),
-      "preferredName":                String,
+      "preferredName":                Match.Maybe(String),
       "speaksOtherLanguages":         Match.Maybe(String),
       "traveledOutsideTheUS":         Match.Maybe(String),
       "tShirtSize":                   Match.Maybe(String),
