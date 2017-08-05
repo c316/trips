@@ -2,8 +2,6 @@ import '/imports/ui/stylesheets/components-md.css';
 import '/imports/ui/stylesheets/plugins-md.css';
 import '/imports/ui/stylesheets/layout.css';
 import '/imports/ui/stylesheets/custom.css';
-import LogRocket from 'logrocket';
-LogRocket.init(Meteor.settings.public.logrocketKey);
 
 Template.main.onRendered(()=>{
   // Check that the user is logged in or logging in, and redirect to the login

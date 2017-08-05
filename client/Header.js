@@ -1,25 +1,8 @@
 import '/imports/ui/stylesheets/simple-line-icons.css';
 import { App } from '/imports/ui/js/app';
 import { Layout } from '/imports/ui/js/layout';
-import LogRocket from 'logrocket';
 
 Template.Header.onCreated(function () {
-  if (Meteor.isProduction) {
-    if(!LogRocket){
-      LogRocket.init(Meteor.settings.public.logrocketKey);
-    }
-    const user = Meteor.user();
-    if (user) {
-      LogRocket.identify(user._id, {
-        name: `${user.profile.firstName} ${user.profile.lastName}`,
-        email: user.emails[0].address,
-
-        roles: user.roles,
-        tripId: user.tripId,
-      });
-    }
-  }
-
   this.autorun(()=>{
     Meteor.subscribe('user');
   });
