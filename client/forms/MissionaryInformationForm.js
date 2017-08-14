@@ -9,7 +9,8 @@ Template.MissionaryInformationForm.onRendered(function(){
   zipcode();
 
   $('.date-picker').datepicker({
-    autoclose: true
+    autoclose: true,
+    startView: 'decade'
   });
   $("[name='emergencyContactPhone']").inputmask({"mask": "(999) 999-9999"});
   $("[name='lastTetanusShotYear']").inputmask({"mask": "9999"});
