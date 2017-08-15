@@ -286,11 +286,20 @@
                                             No trip
                                         {{/if}}
                                     </td>
-                                    <td class="clickable-cell form-admin-link">{{{status}}}<!--
-                                    TODO: $eq status 'completed' then check for verified--></td>
-                                    <td class="no-print">{{#each roles}}
-                                        <span class="label label-sm label-success">{{this}}</span>
-                                    {{/each}}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td class="clickable-cell form-admin-link">
+                                        {{#each forms}}
+                                            {{#if this.complete}}
+                                                <span class="label label-sm label-success">{{this.name}}</span>
+                                            {{else}}
+                                                <span class="label label-sm label-danger">{{this.name}}</span>
+                                            {{/if}}
+                                        {{/each}}
+                                    </td>
+                                    <td class="no-print">
+                                        {{#each roles}}
+                                            <span class="label label-sm label-success">{{this}}</span>
+                                        {{/each}}
+                                    </td>
                                     <td class="no-print">
                                         <button class="btn dark btn-xs btn-outline print-user"
                                                 data-toggle="dropdown"><i class="fa fa-print"></i> Print

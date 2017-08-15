@@ -33,8 +33,7 @@ Meteor.methods({
       "allergiesOrHealthConditions":  Match.Maybe(String),
       "beenOnATMPTrip":               Match.Maybe(String),
       "beenOnATMPTripExplained":      Match.Maybe(String),
-      "beneficiaryFirstName":         Match.Maybe(String),
-      "beneficiaryLastName":          Match.Maybe(String),
+      "beneficiaryFullName":          Match.Maybe(String),
       "beneficiaryRelationship":      Match.Maybe(String),
       "birthdate":                    Match.Maybe(String),
       "bloodType":                    Match.Maybe(String),
@@ -44,8 +43,7 @@ Meteor.methods({
       "emergencyContactAddressLine1": Match.Maybe(String),
       "emergencyContactAddressLine2": Match.Maybe(String),
       "emergencyContactAddressZip":   Match.Maybe(String),
-      "emergencyContactFirstName":    Match.Maybe(String),
-      "emergencyContactLastName":     Match.Maybe(String),
+      "emergencyContactFullName":     Match.Maybe(String),
       "emergencyContactPhone":        Match.Maybe(String),
       "emergencyContactState":        Match.Maybe(String),
       "name":                         String,
@@ -788,5 +786,35 @@ Meteor.methods({
           'No trip ID found for this user, cannot change this trip because there is no current trip.');
       }
     }
+  },
+  'updateMIF'(){
+    // TODO: remove this method after the existing data is updated with the new form data
+    if ( Roles.userIsInRole(this.userId, 'admin')) {
+      Forms.find({name: 'missionaryInformationForm'})
+        .map( (form) => {
+          console.log(form._id);
+          Forms.update(form._id, {
+            $set: {
+              'beneficiaryFullName': ((form.beneficiaryFirstName ? form.beneficiaryFirstName : " ") +
+                " " +
+                (form.beneficiaryLastName ? form.beneficiaryLastName : " ")),
+            }, $unset: {
+              'beneficiaryFirstName': "",
+              'beneficiaryLastName': ""
+            }
+          });
+          Forms.update(form._id, {
+            $set: {
+              'emergencyContactFullName': ((form.emergencyContactFirstName ? form.emergencyContactFirstName : " ") +
+                " " +
+                (form.emergencyContactLastName ? form.emergencyContactLastName : " "))
+            }, $unset: {
+              'emergencyContactFirstName': "",
+              'emergencyContactLastName': ""
+            }
+          });
+        });
+    }
+
   }
 });

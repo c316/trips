@@ -81,7 +81,7 @@
                         <input type="text" class="form-control {{editedClass birthdate}} date-picker _lr-hide"
                                value="{{birthdate}}"
                                name="birthdate">
-                        <label for="birthdate">Birthdate</label>
+                        <label for="birthdate">Birth Date</label>
                         <span class="help-block" style="opacity: 100"> (as it appears on your passport) </span>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
@@ -140,18 +140,11 @@
                     <h3>Emergency contact information</h3>
 
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control {{editedClass emergencyContactFirstName}} _lr-hide"
-                               value="{{emergencyContactFirstName}}"
-                               name="emergencyContactFirstName">
-                        <label for="emergencyContactFirstName">First name</label>
+                        <input type="text" class="form-control {{editedClass emergencyContactFullName}} _lr-hide"
+                               value="{{emergencyContactFullName}}"
+                               name="emergencyContactFullName">
+                        <label for="emergencyContactFullName">Full Name</label>
                     </div>
-                    <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control {{editedClass emergencyContactLastName}} _lr-hide"
-                               value="{{emergencyContactLastName}}"
-                               name="emergencyContactLastName">
-                        <label for="emergencyContactLastName">Last name</label>
-                    </div>
-
                     <div class="form-group form-md-line-input form-md-floating-label">
                         <input type="text" class="form-control {{editedClass emergencyContactAddressLine1}} _lr-hide"
                                value="{{emergencyContactAddressLine1}}"
@@ -242,29 +235,22 @@
                                name="emergencyContactPhone">
                         <label for="emergencyContactPhone">Phone Number</label>
                     </div>
-                    <hr>
-
+                    <hr/>
+                    <h3>For Life Insurance</h3>
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control {{editedClass beneficiaryFirstName}} _lr-hide"
-                               value="{{beneficiaryFirstName}}"
-                               name="beneficiaryFirstName">
-                        <label for="beneficiaryFirstName">Beneficiary First name</label>
-                        <span class="help-block">For Life Insurance</span>
+                        <input type="text" class="form-control {{editedClass beneficiaryFullName}} _lr-hide"
+                               value="{{beneficiaryFullName}}"
+                               name="beneficiaryFullName">
+                        <label for="beneficiaryFullName">Beneficiary Full name</label>
                     </div>
-                    <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control {{editedClass beneficiaryLastName}} _lr-hide"
-                               value="{{beneficiaryLastName}}"
-                               name="beneficiaryLastName">
-                        <label for="beneficiaryLastName">Beneficiary Last name</label>
-                    </div>
-
                     <div class="form-group form-md-line-input form-md-floating-label">
                         <input type="text" class="form-control {{editedClass beneficiaryRelationship}} _lr-hide"
                                value="{{beneficiaryRelationship}}"
                                name="beneficiaryRelationship">
-                        <label for="beneficiaryRelationship">Your relationship to beneficiary</label>
+                        <label for="beneficiaryRelationship">Your Relationship to Beneficiary</label>
                         <span class="help-block">You are their what - child, spouse, etc?</span>
                     </div>
+                    <hr/>
                     <div class="form-group form-md-line-input form-md-floating-label">
                         <input type="text" class="form-control {{editedClass homeChurchName}} _lr-hide"
                                value="{{homeChurchName}}"

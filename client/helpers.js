@@ -115,7 +115,6 @@ Template.registerHelper('selected', function(key, value) {
 
 Template.registerHelper('checked', function(name, value) {
   if(this[name] === value){
-    console.log('returning checked');
     return {'checked': 'checked'};
   }
 });

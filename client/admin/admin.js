@@ -85,6 +85,110 @@ Template.Admin.helpers({
   tripName(){
     let tripId = this.tripId || Session.get("tripId");
     return Trips.findOne({tripId}) && Trips.findOne({tripId}).name;
+  },
+  forms() {
+
+    const tripId = Meteor.users.findOne({_id: this._id}) && Meteor.users.findOne({_id: this._id}).tripId;
+    const passportImage = Images.findOne( { userId: this._id } );
+
+    // Past trips, some users might have gone on a trip in the past, and completed forms, but don't have a trip that
+    // they are currently registered for
+    let otherTrips = Meteor.users.findOne({_id: this._id})
+      && Meteor.users.findOne({_id: this._id}).otherTrips;
+
+    if(tripId || otherTrips){
+      const forms = Forms.find({
+        name:  {
+          $ne: 'tripRegistration'
+        },
+        userId: this._id,
+        $or: [{completed: true}, {agreed: true}]
+      } );
+      let totalNumberOfForms = forms && forms.count();
+      if (totalNumberOfForms > 3){
+        if(passportImage){
+          const verifiedForms = Forms.find({userId: this._id, verified: true});
+          let totalNumberOfForms = verifiedForms && verifiedForms.count();
+          if (totalNumberOfForms === 4) {
+            return [{name: 'All Verified', complete: true}];
+          }
+          return [{name: 'All Completed', complete: true}];
+        } else {
+          return [
+            {
+              name: 'MIF',
+              complete: true
+            },
+            {
+              name: 'MRF',
+              complete: true
+            },
+            {
+              name: 'CoC',
+              complete: true
+            },
+            {
+              name: 'RWL',
+              complete: true
+            },
+            {
+              name: 'Pic',
+              complete: false
+            }
+          ];
+        }
+      } else {
+        const formStatus = [];
+        const MIF = Forms.find({
+          name: 'missionaryInformationForm',
+          userId: this._id,
+          completed: true
+        });
+        const MRF = Forms.find({
+          name: 'media-release',
+          userId: this._id,
+          agreed: true
+        });
+        const CoC = Forms.find({
+          name: 'media-release',
+          userId: this._id,
+          agreed: true
+        });
+        const RWL = Forms.find({
+          name: 'media-release',
+          userId: this._id,
+          agreed: true
+        });
+        if(passportImage){
+          formStatus.push({name: 'Pic', complete: true});
+        } else {
+          formStatus.push({name: 'Pic', complete: false});
+        }
+        if(MIF){
+          formStatus.push({name: 'MIF', complete: true});
+        } else {
+          formStatus.push({name: 'MIF', complete: false});
+        }
+        if(MRF){
+          formStatus.push({name: 'MRF', complete: true});
+        } else {
+          formStatus.push({name: 'MRF', complete: false});
+        }
+        if(CoC){
+          formStatus.push({name: 'CoC', complete: true});
+        } else {
+          formStatus.push({name: 'CoC', complete: false});
+        }
+        if(RWL){
+          formStatus.push({name: 'RWL', complete: true});
+        } else {
+          formStatus.push({name: 'RWL', complete: false});
+        }
+        return formStatus;
+        }
+    } else {
+      return [{name: 'Not Started', complete: false}];
+    }
   }
 });
 

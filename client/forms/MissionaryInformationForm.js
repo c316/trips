@@ -51,10 +51,7 @@ Template.MissionaryInformationForm.onRendered(function(){
       gender: {
         required: true,
       },
-      emergencyContactFirstName: {
-        required: true,
-      },
-      emergencyContactLastName: {
+      emergencyContactFullName: {
         required: true,
       },
       emergencyContactAddressLine1: {
@@ -74,10 +71,7 @@ Template.MissionaryInformationForm.onRendered(function(){
         phoneUS: true,
         required: true,
       },
-      beneficiaryFirstName: {
-        required: true,
-      },
-      beneficiaryLastName: {
+      beneficiaryFullName: {
         required: true,
       },
       beneficiaryRelationship: {
@@ -252,6 +246,12 @@ Template.MissionaryInformationForm.events({
     if( $( 'input[name="passportStatus"]:checked' ).val() === 'yes' ) {
       $( '#passportExpirationDateDiv').show();
     } else {
+      Bert.alert({
+        message: 'Please enter your passport information and upload a color photocopy of your passport as soon as you get it.',
+        type: 'warning',
+        style: 'fixed-top',
+        icon: 'fa-exclamation'
+      });
       $('#passportExpirationDateDiv').hide();
       $('[name="passportExpirationDate"]').val("");
     }
