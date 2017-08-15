@@ -786,35 +786,5 @@ Meteor.methods({
           'No trip ID found for this user, cannot change this trip because there is no current trip.');
       }
     }
-  },
-  'updateMIF'(){
-    // TODO: remove this method after the existing data is updated with the new form data
-    if ( Roles.userIsInRole(this.userId, 'admin')) {
-      Forms.find({name: 'missionaryInformationForm'})
-        .map( (form) => {
-          console.log(form._id);
-          Forms.update(form._id, {
-            $set: {
-              'beneficiaryFullName': ((form.beneficiaryFirstName ? form.beneficiaryFirstName : " ") +
-                " " +
-                (form.beneficiaryLastName ? form.beneficiaryLastName : " ")),
-            }, $unset: {
-              'beneficiaryFirstName': "",
-              'beneficiaryLastName': ""
-            }
-          });
-          Forms.update(form._id, {
-            $set: {
-              'emergencyContactFullName': ((form.emergencyContactFirstName ? form.emergencyContactFirstName : " ") +
-                " " +
-                (form.emergencyContactLastName ? form.emergencyContactLastName : " "))
-            }, $unset: {
-              'emergencyContactFirstName': "",
-              'emergencyContactLastName': ""
-            }
-          });
-        });
-    }
-
   }
 });
