@@ -61,28 +61,53 @@ Template.Forms.events({
 });
 
 Template.Forms.helpers({
-  unfinishedForms(){
-    let forms = Forms.find({
-      name:  {
-        $ne: 'tripRegistration'
-      },
-      $or: [{completed: true}, {agreed: true}]
-    } );
-    let totalNumberOfForms = forms && forms.count();
-    return 4 - (totalNumberOfForms || 0);
+  MIFCompleteOrNot(){
+    const MIF = Forms.findOne({
+      name: 'missionaryInformationForm',
+      userId: this._id,
+      completed: true
+    });
+    if(MIF){
+      return 'font-dark';
+    } else {
+      return 'font-red';
+    }
   },
-  unfinishedFormsPercent(){
-    let forms = Forms.find({
-      name:  {
-        $ne: 'tripRegistration'
-      },
-      $or: [{completed: true}, {agreed: true}]
-    } );
-    let totalNumberOfForms = forms && forms.count();
-    return {
-      'completed': ( ( ( totalNumberOfForms ? totalNumberOfForms : 0 ) / 4 ) * 100 ),
-      'remaining': Math.abs( ( ( ( totalNumberOfForms ? totalNumberOfForms : 0 ) / 4 ) * 100 ) - 100)
-    };
+  MRFCompleteOrNot(){
+    const form = Forms.findOne({
+      name: 'media-release',
+      userId: this._id,
+      agreed: true
+    });
+    if(form){
+      return 'font-dark';
+    } else {
+      return 'font-red';
+    }
+  },
+  CoCCompleteOrNot(){
+    const form = Forms.findOne({
+      name: 'code-of-conduct',
+      userId: this._id,
+      agreed: true
+    });
+    if(form){
+      return 'font-dark';
+    } else {
+      return 'font-red';
+    }
+  },
+  WoLCompleteOrNot(){
+    const form = Forms.findOne({
+      name: 'waiver-of-liability',
+      userId: this._id,
+      agreed: true
+    });
+    if(form){
+      return 'font-dark';
+    } else {
+      return 'font-red';
+    }
   }
 });
 

@@ -139,23 +139,23 @@ Template.Admin.helpers({
         }
       } else {
         const formStatus = [];
-        const MIF = Forms.find({
+        const MIF = Forms.findOne({
           name: 'missionaryInformationForm',
           userId: this._id,
           completed: true
         });
-        const MRF = Forms.find({
+        const MRF = Forms.findOne({
           name: 'media-release',
           userId: this._id,
           agreed: true
         });
-        const CoC = Forms.find({
-          name: 'media-release',
+        const CoC = Forms.findOne({
+          name: 'code-of-conduct',
           userId: this._id,
           agreed: true
         });
-        const RWL = Forms.find({
-          name: 'media-release',
+        const WoL = Forms.findOne({
+          name: 'waiver-of-liability',
           userId: this._id,
           agreed: true
         });
@@ -179,10 +179,10 @@ Template.Admin.helpers({
         } else {
           formStatus.push({name: 'CoC', complete: false});
         }
-        if(RWL){
-          formStatus.push({name: 'RWL', complete: true});
+        if(WoL){
+          formStatus.push({name: 'WoL', complete: true});
         } else {
-          formStatus.push({name: 'RWL', complete: false});
+          formStatus.push({name: 'WoL', complete: false});
         }
         return formStatus;
         }

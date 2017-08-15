@@ -15,32 +15,6 @@
                 </div>
                 <div class="portlet-body" style="display: none;" id="forms-portlet">
                     <div class="row">
-                        <div class="col-md-6 col-xs-12">
-                            <div class="dashboard-stat2 bordered">
-                                <div class="display">
-                                    <div class="number">
-                                        <h3 class="font-red-haze">
-                                            <span data-counter="counterup" data-value="{{unfinishedForms}}">{{unfinishedForms}}</span>
-                                        </h3>
-                                        <small>UNFINISHED FORMS</small>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="icon-bell"></i>
-                                    </div>
-                                </div>
-                                <div class="progress-info">
-                                    <div class="progress">
-                                <span style="width: {{unfinishedFormsPercent.completed}}%;" class="progress-bar progress-bar-success blue-sharp">
-                                    <span class="sr-only">{{unfinishedFormsPercent.completed}}% left</span>
-                                </span>
-                                    </div>
-                                    <div class="status">
-                                        <div class="status-title"> left </div>
-                                        <div class="status-number"> {{unfinishedFormsPercent.remaining}}% </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-6 col-xs">
                             <div class="dashboard-stat2 bordered">
                                 <form class="dropzone dropzone-file-area dz-clickable"
@@ -77,7 +51,7 @@
                             <div class="portlet light bordered">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <span class="caption-subject bold uppercase font-dark">Missionary Information Form</span>
+                                        <span class="caption-subject bold uppercase {{MIFCompleteOrNot}}">Missionary Information Form</span>
                                     </div>
                                     <div class="tools">
                                         <a href="" class="expand" data-original-title="" title="" id="expand-missionaryInformationForm"> </a>
@@ -96,7 +70,7 @@
                             <div class="portlet light bordered">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <span class="caption-subject bold uppercase font-dark">Missions Trip Code of Conduct</span>
+                                        <span class="caption-subject bold uppercase {{CoCCompleteOrNot}}">Missions Trip Code of Conduct</span>
                                     </div>
                                     <div class="tools">
                                         <a href="" class="expand" data-original-title="" title=""> </a>
@@ -116,7 +90,7 @@
                             <div class="portlet light bordered">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <span class="caption-subject bold uppercase font-dark">Media Release Form</span>
+                                        <span class="caption-subject bold uppercase {{MRFCompleteOrNot}}">Media Release Form</span>
                                         <span class="caption-helper">Consent to Photograph, Film, or Videotape a Participant for Non-Profit Use</span>
                                     </div>
                                     <div class="tools">
@@ -135,7 +109,7 @@
                             <div class="portlet light bordered">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <span class="caption-subject bold uppercase font-dark">Release and Waiver of Liability</span>
+                                        <span class="caption-subject bold uppercase {{WoLCompleteOrNot}}">Release and Waiver of Liability</span>
                                     </div>
                                     <div class="tools">
                                         <a href="" class="expand" data-original-title="" title=""> </a>
