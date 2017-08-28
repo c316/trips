@@ -26,7 +26,6 @@ Template.Admin.onRendered(()=>{
   $('.date-picker').datepicker()
     .on('change', function(e) {
       // `e` here contains the extra attributes
-      console.log(e.currentTarget);
       $(e.currentTarget).addClass('edited');
     });
 });
@@ -233,26 +232,8 @@ Template.Admin.events({
   },
   'click #update-dt-funds'(e){
     e.preventDefault();
-    Meteor.call("update.splits", function ( err, res ) {
-      if(err){
-        console.error(err);
-        Bert.alert({
-          title: "Sorry",
-          message: 'Hmm...there was a problem getting updated. Try again in a few minutes and then contact the admin if you still have trouble.',
-          type: 'danger',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-down'
-        });
-      } else {
-        console.log(res);
-        Bert.alert({
-          title: 'Success',
-          message: 'The DonorTools funds have been updated.',
-          type: 'success',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-up'
-        });
-      }
+    Trips.find({expires: {$gte: new Date()}}).map(function ( trip ) {
+      Meteor.call("update.splits", trip.tripId);
     });
     Bert.alert({
       title: 'Checking',

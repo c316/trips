@@ -31,15 +31,15 @@ export const http_get_donortools = ( getQuery )=>{
 
   if( DTBaseURL && getQuery) {
     logger.info("Donor Tools URL to use in get:", DTBaseURL);
-    try {
+    /*try {*/
       let getResource = HTTP.get( DTBaseURL + getQuery, {
         auth: Meteor.settings.DT.user + ":" + Meteor.settings.DT.pass
       } );
       return getResource;
-    } catch( e ) {
+    /*} catch( e ) {
       // The statusCode should show us if there was a connection problem or network error
       throw new Meteor.Error( e.statusCode, e );
-    }
+    }*/
   } else {
     console.error( 'No DonorTools url setup' );
     throw new Meteor.Error( 400, 'No DonorTools url setup' );
@@ -52,6 +52,7 @@ const _Splits = ( fundId )=>{
   const getQuery = 'funds/' + fundId + '/splits.json';
 
   const data = http_get_donortools(getQuery);
+  logger.info(data);
 
   data.data.forEach( function ( donationSplit ) {
     newValue.push( donationSplit.split );
@@ -61,30 +62,23 @@ const _Splits = ( fundId )=>{
 
 const _Donation = ( splitId )=>{
   const getQuery = 'donations/' + splitId + '.json';
-
   const data = http_get_donortools(getQuery);
-  logger.info("_Donation result:");
   return data.data.donation;
 };
 
 const _Person = ( persona_id )=>{
   logger.info(persona_id);
   const getQuery = 'people/' + persona_id + '.json';
-
   const data = http_get_donortools(getQuery);
   return data.data.persona;
 };
 
-export const getDTSplitData = ( fundId )=>{
+export const getDTSplitData = fundId => {
   let allData = _Splits(fundId);
   allData.map((split)=> {
-    logger.info( "split.id: ", split.id );
     split.donation = _Donation( split.donation_id );
     split.persona = _Person( split.donation.persona_id );
-    return split;
-  });
-  allData.forEach((split)=>{
-    DTSplits.upsert({_id: split.id}, split);
+    const storeMe = DTSplits.upsert({_id: split.id}, split);
   });
   return allData;
 };
@@ -97,8 +91,7 @@ export const getDTSplitData = ( fundId )=>{
  */
 export const updateSplits = () =>{
   logger.info("Started updateSplits");
-  const activeTrips = Trips.find({expires: {$gte: new Date()}});
-  activeTrips.forEach(function ( trip ) {
+  const activeTrips = Trips.find({expires: {$gte: new Date()}}).map(function ( trip ) {
     // Get and store the combined split data
     const splitData = getDTSplitData( trip.tripId );
   });
