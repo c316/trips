@@ -39,10 +39,10 @@
                                 <div class="details">
                                     <div class="number">
                                         {{#with Deadlines}}
-                                            <span data-counter="counterup" data-value="{{totalDeadlineAmount}}">${{totalDeadlineAmount}}</span>
+                                            <span data-counter="counterup">{{{needToRaiseThisAmount}}}</span>
                                         {{/with}}
                                     </div>
-                                    <div class="desc"> You need to raise this much more </div>
+                                    <div class="desc"> You need to raise this much more ^</div>
                                 </div>
                             </a>
                         </div>
@@ -82,10 +82,9 @@
                             <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
                                 <h4 class="widget-thumb-heading">{{this.name}}</h4>
                                 <div class="widget-thumb-wrap">
-                                    <i class="widget-thumb-icon bg-red icon-bulb"></i>
                                     <div class="widget-thumb-body">
-                                        <span class="widget-thumb-subtitle">Due by {{this.due}}</span>
-                                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="180">${{this.amount}}</span>
+                                        <span class="widget-thumb-subtitle">Due by {{formatDate this.due}}</span>
+                                        <span class="widget-thumb-body-stat" data-counter="counterup">${{this.amount}}</span>
                                     </div>
                                 </div>
                             </div>

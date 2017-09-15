@@ -141,7 +141,8 @@ Template.registerHelper('thisUserIsInRole', function(_id, role){
 });
 
 Template.registerHelper('formatDate', function(date) {
-    return moment(new Date(date)).format('MM/DD/YYYY');
+  const newDate = moment(new Date(date)).format('MM/DD/YYYY');
+  return newDate;
 });
 
 Template.registerHelper('formatMoney', function(amount) {
@@ -176,6 +177,21 @@ Template.registerHelper('raisedAmount', function() {
     return '$' + Number(raisedTotal).toLocaleString() + ' raised of $' + Number(deadlineTotalWithAdjustments).toLocaleString() + ' total';
   } else {
     return statuses.notStarted;
+  }
+});
+
+Template.registerHelper('needToRaiseThisAmount', function() {
+  // Is there at least one deadline?
+  if(this && this.count() > 0) {
+    let raisedTotal = getRaisedTotal(Session.get('showingUserId'));
+    let deadlineTotal = getDeadlineTotal(Session.get('showingUserId'));
+    let deadlineAdjustments = getDeadlineAdjustments(Session.get('showingUserId'));
+    let needToRaiseThisAmount = deadlineTotal - raisedTotal;
+    let deadlineTotalWithAdjustments = Number(needToRaiseThisAmount) + Number(deadlineAdjustments);
+    if(deadlineAdjustments){
+      return "Your deadline adjustment = $" + deadlineAdjustments + "<br/>$" + deadlineTotalWithAdjustments;
+    }
+    return "$" + deadlineTotalWithAdjustments;
   }
 });
 

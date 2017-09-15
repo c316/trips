@@ -43,16 +43,6 @@ Template.Fundraising.helpers({
   totalRaised(){
     return getRaisedTotal(Session.get('showingUserId'));
   },
-  totalDeadlineAmount(){
-    if(this && this.count() > 0) {
-      let deadlineTotal = getDeadlineTotal(Session.get('showingUserId'));
-      let raisedTotal   = getRaisedTotal(Session.get('showingUserId'));
-      let needToRaiseThisAmount = deadlineTotal - raisedTotal;
-      return needToRaiseThisAmount.toFixed(2);
-    } else {
-      return getDeadlineTotal();
-    }
-  },
   amount(){
     return this.amount_in_cents && (this.amount_in_cents/100).toFixed(2);
   },

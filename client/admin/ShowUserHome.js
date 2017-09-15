@@ -1,9 +1,3 @@
-/*Template.ShowUserHome.onRendered(function () {
-  Session.set("showingOtherUser", true);
-  Tracker.autorun(function() {
-
-  });
-});*/
 
 Template.ShowUserHome.onCreated(function () {
   this.autorun(()=>{
@@ -13,6 +7,7 @@ Template.ShowUserHome.onCreated(function () {
       Session.set("showingUserId", FlowRouter.current().queryParams.id);
     }
     Meteor.subscribe('user', Session.get("showingUserId"));
+    Meteor.subscribe('DeadlineAdjustments', Session.get("showingUserId"));
   });
 });
 

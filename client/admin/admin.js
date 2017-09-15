@@ -10,6 +10,7 @@ Template.Admin.onCreated(function () {
     Meteor.subscribe('Trips', Session.get("tripId") ? Number(Session.get("tripId")) : null);
     Meteor.subscribe('Forms');
     Meteor.subscribe('Deadlines');
+    Meteor.subscribe('DeadlineAdjustments');
     Meteor.subscribe('DTSplits');
     Meteor.subscribe('Images');
   });

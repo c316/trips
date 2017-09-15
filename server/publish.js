@@ -38,6 +38,27 @@ Meteor.publish('Deadlines', function(userId){
     }
   }
 });
+Meteor.publish('DeadlineAdjustments', function(userId){
+  check(userId, Match.Maybe(String));
+  if( this.userId ) {
+    if( Roles.userIsInRole(this.userId, 'admin') ){
+      if(userId) {
+        let user = Meteor.users.findOne({_id: userId});
+        return DeadlineAdjustments.find( {
+          userId,
+          tripId: user.tripId
+        } );
+      }
+      return DeadlineAdjustments.find();
+    } else {
+      let user = Meteor.users.findOne({_id: this.userId});
+      return DeadlineAdjustments.find( {
+        userId: this.userId,
+        tripId: user.tripId
+      } );
+    }
+  }
+});
 
 Meteor.publish('TripDeadlines', function(tripId){
   check(tripId, Number);
