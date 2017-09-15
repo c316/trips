@@ -346,7 +346,7 @@ Template.Admin.events({
           btn.button('error');
         } else {
           console.log(res);
-          Bert.alert( 'Thanks for adding the deadlines, users can now join this trip.', 'success');
+          Bert.alert( 'Ok, you should now see the deadline adjustment.', 'success');
           $( "#full-trip-form-div" ).slideUp();
           btn.button('success');
           e.target.reset();
