@@ -31,15 +31,15 @@ export const http_get_donortools = ( getQuery )=>{
 
   if( DTBaseURL && getQuery) {
     logger.info("Donor Tools URL to use in get:", DTBaseURL);
-    /*try {*/
+    try {
       let getResource = HTTP.get( DTBaseURL + getQuery, {
         auth: Meteor.settings.DT.user + ":" + Meteor.settings.DT.pass
       } );
       return getResource;
-    /*} catch( e ) {
+    } catch( e ) {
       // The statusCode should show us if there was a connection problem or network error
       throw new Meteor.Error( e.statusCode, e );
-    }*/
+    }
   } else {
     console.error( 'No DonorTools url setup' );
     throw new Meteor.Error( 400, 'No DonorTools url setup' );
