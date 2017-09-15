@@ -188,7 +188,7 @@ Template.registerHelper('needToRaiseThisAmount', function() {
     let deadlineAdjustments = getDeadlineAdjustments(Session.get('showingUserId'));
     let needToRaiseThisAmount = deadlineTotal - raisedTotal;
     let deadlineTotalWithAdjustments = Number(needToRaiseThisAmount) + Number(deadlineAdjustments);
-    if(deadlineAdjustments){
+    if(deadlineAdjustments > 0){
       return "Your deadline adjustment = $" + deadlineAdjustments + "<br/>$" + deadlineTotalWithAdjustments;
     }
     return "$" + deadlineTotalWithAdjustments;
