@@ -93,7 +93,7 @@
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 <li class="text-center">
-                                    <a id="show-all-trips" href="">All Trips</a>
+                                    <a id="show-all-trips" href="">Show All Trips</a>
                                 </li>
                                 <li class="divider"> </li>
                                 {{#each trips}}
@@ -222,7 +222,7 @@
                             </div>
                         {{/if}}
                         <div class="form-group floating-label">
-                            <input type="text" class="form-control search" placeholder="Search by; name, email or user ID">
+                            <input class="form-control search" placeholder="Search by; name, email or user ID" value="{{searchValue}}">
                         </div>
                         <button type="button" class="btn btn-danger btn-block clear-button">
                             Clear
@@ -272,67 +272,68 @@
                             </thead>
                             <tbody>
                             {{#each user}}
-                                <tr role="row" class="odd">
-                                    <td class="clickable-cell user-admin-link">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
-                                    <td class="clickable-cell funding-admin-link">{{tripName}} {{tripId}}</td>
-                                    <td class="{{#if showFundraisingModule}}clickable-cell funding-admin-link{{/if}}">
-                                        {{#if this.tripId}}
-                                            {{#if showFundraisingModule}}
-                                                {{{raisedAmount}}}
+                                {{#unless thisUserIsMe}}
+                                    <tr role="row" class="odd">
+                                        <td class="clickable-cell user-admin-link">{{this.profile.lastName}}, {{this.profile.firstName}}</td>
+                                        <td class="clickable-cell funding-admin-link">{{tripName}} {{tripId}}</td>
+                                        <td class="{{#if showFundraisingModule}}clickable-cell funding-admin-link{{/if}}">
+                                            {{#if this.tripId}}
+                                                {{#if showFundraisingModule}}
+                                                    {{{raisedAmount}}}
+                                                {{else}}
+                                                    N/A
+                                                {{/if}}
                                             {{else}}
-                                                N/A
+                                                No trip
                                             {{/if}}
-                                        {{else}}
-                                            No trip
-                                        {{/if}}
-                                    </td>
-                                    <td class="clickable-cell form-admin-link">
-                                        {{#each forms}}
-                                            {{#if this.complete}}
-                                                <span class="label label-sm label-success">{{this.name}}</span>
-                                            {{else}}
-                                                <span class="label label-sm label-danger">{{this.name}}</span>
-                                            {{/if}}
-                                        {{/each}}
-                                    </td>
-                                    <td class="no-print">
-                                        {{#each roles}}
-                                            <span class="label label-sm label-success">{{this}}</span>
-                                        {{/each}}
-                                    </td>
-                                    <td class="no-print">
-                                        <button class="btn dark btn-xs btn-outline print-user"
-                                                data-toggle="dropdown"><i class="fa fa-print"></i> Print
-                                        </button>
-                                        <button class="btn green btn-xs btn-outline user-admin-link"
-                                                data-toggle="dropdown">Details
-                                        </button>
-                                        {{#if isInRole 'super-admin'}}
-                                            {{#unless thisUserIsInRole this._id 'admin'}}
-                                                <button class="btn red-haze btn-xs btn-outline make-admin-link"
-                                                        data-toggle="dropdown">Make admin
-                                                </button>
-                                            {{/unless}}
-                                        {{/if}}
-                                        {{#if isInRole 'admin'}}
-                                            {{#unless thisUserIsInRole this._id 'admin, leader'}}
-                                                <button class="btn blue btn-xs btn-outline make-trip-leader"
-                                                        data-toggle="dropdown">Make trip leader
-                                                </button>
-                                            {{/unless}}
-                                        {{/if}}
-                                        {{#if tripName}}
-                                            <button type="button"
-                                                title="Adjust deadlines"
-                                                class="btn red-haze btn-xs btn-outline deadlines-admin-link"
-                                                data-target="#collapse-edit-{{_id}}"
-                                                aria-expanded="false"
-                                                aria-controls="collapse-edit-{{_id}}">Adjust deadlines
+                                        </td>
+                                        <td class="clickable-cell form-admin-link">
+                                            {{#each forms}}
+                                                {{#if this.complete}}
+                                                    <span class="label label-sm label-success">{{this.name}}</span>
+                                                {{else}}
+                                                    <span class="label label-sm label-danger">{{this.name}}</span>
+                                                {{/if}}
+                                            {{/each}}
+                                        </td>
+                                        <td class="no-print">
+                                            {{#each roles}}
+                                                <span class="label label-sm label-success">{{this}}</span>
+                                            {{/each}}
+                                        </td>
+                                        <td class="no-print">
+                                            <button class="btn dark btn-xs btn-outline print-user"
+                                                    data-toggle="dropdown"><i class="fa fa-print"></i> Print
                                             </button>
-                                        {{/if}}
-                                    </td>
-                                </tr>
-                                <tr role="row" class="hidden-row" id="collapse-edit-{{_id}}">
+                                            <button class="btn green btn-xs btn-outline user-admin-link"
+                                                    data-toggle="dropdown">Details
+                                            </button>
+                                            {{#if isInRole 'super-admin'}}
+                                                {{#unless thisUserIsInRole this._id 'admin'}}
+                                                    <button class="btn red-haze btn-xs btn-outline make-admin-link"
+                                                            data-toggle="dropdown">Make admin
+                                                    </button>
+                                                {{/unless}}
+                                            {{/if}}
+                                            {{#if isInRole 'admin'}}
+                                                {{#unless thisUserIsInRole this._id 'admin, leader'}}
+                                                    <button class="btn blue btn-xs btn-outline make-trip-leader"
+                                                            data-toggle="dropdown">Make trip leader
+                                                    </button>
+                                                {{/unless}}
+                                            {{/if}}
+                                            {{#if tripName}}
+                                                <button type="button"
+                                                    title="Adjust deadlines"
+                                                    class="btn red-haze btn-xs btn-outline deadlines-admin-link"
+                                                    data-target="#collapse-edit-{{_id}}"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapse-edit-{{_id}}">Adjust deadlines
+                                                </button>
+                                            {{/if}}
+                                        </td>
+                                    </tr>
+                                    <tr role="row" class="hidden-row" id="collapse-edit-{{_id}}">
                                     <td colspan="6" rowspan="1">
                                         <form name="update-deadline" data-userid="{{_id}}">
                                             {{#with trip}}
@@ -355,6 +356,7 @@
                                         </form>
                                     </td>
                                 </tr>
+                                {{/unless}}
                             {{/each}}
                             </tbody>
                         </table>

@@ -48,7 +48,12 @@ Template.Header.events({
     Session.delete("showUserRegistration");
     Session.delete("showTripFunds");
     FlowRouter.go("/admin");
-  }
+  },
+  'click .user-admin-link'(){
+    console.log("Clicked", this._id);
+    Session.set("showUserRegistration", true);
+    FlowRouter.go("adminShowUserHome", {}, {id: Meteor.userId()});
+  },
 });
 
 Template.Header.helpers({

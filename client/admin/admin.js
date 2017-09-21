@@ -6,7 +6,12 @@ Template.Admin.onCreated(function () {
   Session.delete("showingUserId");
   Session.set("documentLimit", 30);
   this.autorun(()=>{
-    Meteor.subscribe('users', Session.get("searchValue"), Session.get("documentLimit"), (Session.get("tripId") ? Number(Session.get("tripId")) : null));
+    Meteor.subscribe('users',
+      Session.get("searchValue"),
+      Session.get("documentLimit"),
+      (Session.get("tripId") ? Number(Session.get("tripId")) : null),
+      (Session.get("showAllTrips") ? Session.get("showAllTrips") : false)
+    );
     Meteor.subscribe('Trips', Session.get("tripId") ? Number(Session.get("tripId")) : null);
     Meteor.subscribe('Forms');
     Meteor.subscribe('Deadlines');
@@ -189,6 +194,15 @@ Template.Admin.helpers({
     } else {
       return [{name: 'Not Started', complete: false}];
     }
+  },
+  thisUserIsMe(){
+    if(!Session.get("tripId") && !Session.get("searchValue") && !Session.get("showAllTrips")){
+      return this._id === Meteor.userId();
+    }
+    return false;
+  },
+  searchValue(){
+    return Session.get("searchValue");
   }
 });
 
@@ -198,7 +212,6 @@ Template.Admin.events({
   }, 300),
   'click .clear-button': function() {
     $(".search").val("").change();
-    Session.set("searchValue", "");
     Session.set( "documentLimit", 30);
   },
   'click .user-admin-link'(){
@@ -262,6 +275,7 @@ Template.Admin.events({
   },
   'click #show-all-trips'(){
     Session.delete("tripId");
+    Session.set("showAllTrips", true);
   },
   'submit form'(e){
     e.preventDefault();

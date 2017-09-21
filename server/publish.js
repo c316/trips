@@ -167,11 +167,12 @@ Meteor.publish('Trips', function(tripId){
   }
 });
 
-Meteor.publish('users', function(search, limit, tripId){
-  logger.info("Started to publish users with these args:", {search, limit, tripId});
+Meteor.publish('users', function(search, limit, tripId, allTrips){
+  logger.info("Started to publish users with these args:", {search, limit, tripId, allTrips});
   check(search, Match.Maybe(String));
   check(limit, Match.Maybe(Number));
   check(tripId, Match.Maybe(Number));
+  check(allTrips, Boolean);
 
   if( this.userId && Roles.userIsInRole(this.userId, 'admin')) {
     const limitValue = limit ? limit : 0;
@@ -220,6 +221,9 @@ Meteor.publish('users', function(search, limit, tripId){
           { tripId },
           searchObject
         ]}
+    }
+    if(!tripId && !searchValue && !allTrips){
+      return null;
     }
     return Meteor.users.find( searchObject, options );
   }
