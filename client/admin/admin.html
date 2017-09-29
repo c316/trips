@@ -340,7 +340,7 @@
                                                 {{#if deadlines}}
                                                     {{#each deadlines}}
                                                         <div class="form-group form-md-line-input form-md-floating-label">
-                                                            <input type="text" class="form-control edited"
+                                                            <input class="form-control edited"
                                                                    value="{{deadlineAdjustmentValue}}"
                                                                    name="{{this._id}}">
                                                             <label for="{{this._id}}">{{this.name}}</label>
@@ -349,9 +349,7 @@
                                                 {{/if}}
                                             {{/with}}
                                             <div>
-                                                <button type="submit"
-                                                    {{submitFormText}}
-                                                        class="btn btn-primary">Update</button>
+                                                <button {{submitFormText}} class="btn btn-primary">Update</button>
                                             </div>
                                         </form>
                                     </td>

@@ -364,7 +364,6 @@ Template.Admin.events({
           Bert.alert( 'Ok, you should now see the deadline adjustment.', 'success');
           $( "#full-trip-form-div" ).slideUp();
           btn.button('success');
-          e.target.reset();
         }
       });
     }
