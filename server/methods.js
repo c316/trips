@@ -613,18 +613,20 @@ Meteor.methods({
     } );
 
     if( Roles.userIsInRole( this.userId, 'admin' ) ) {
-      logger.info( "Started update.deadline method with user: " + this.userId );
+      logger.info( "Started update.deadline method with deadline object:", deadline );
       let deadlines = Deadlines.find({tripId: deadline.tripId}).fetch();
       deadlines.push(deadline);
       deadlines = _.sortBy( deadlines, 'due' );
       deadlines.forEach(function ( deadline, index ) {
         if(deadline._id){
           Deadlines.update({_id: deadline._id}, {
-            deadlineNumber: index+1,
-            tripId:  deadline.tripId,
-            amount:  deadline.amount,
-            due:    deadline.due,
-            name:   deadline.name
+            $set: {
+              deadlineNumber: index + 1,
+              tripId: deadline.tripId,
+              amount: deadline.amount,
+              due: deadline.due,
+              name: deadline.name
+            }
           });
         } else {
           Deadlines.insert({
