@@ -64,4 +64,10 @@ Template.Fundraising.helpers({
       return statuses.waitingForRegistration;
     }
   },
+  recognitionName(){
+    if(this.persona.recognition_name){
+      return this.persona.recognition_name;
+    }
+    return "No recognition name found";
+  }
 });
