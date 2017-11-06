@@ -491,7 +491,7 @@ Meteor.methods({
    */
   'updateExpiredSignedURLS'(){
     if( this.userId ) {
-      import knox from 'knox';
+      import knox from 'knox-s3';
       import { getSignedURLs } from '/imports/api/miscFunctions';
       var client = knox.createClient({
         key: Meteor.settings.AWS.key,

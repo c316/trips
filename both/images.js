@@ -2,7 +2,7 @@ import { FilesCollection } from 'meteor/ostrio:files';
 import { Random } from 'meteor/random'
 import { getSignedURLs } from '/imports/api/miscFunctions';
 import gm from 'gm';
-import knox from 'knox';
+import knox from 'knox-s3';
 
 
 var bound, client, Request, cfdomain, createThumbnails;
