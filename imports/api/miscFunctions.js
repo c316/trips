@@ -39,9 +39,10 @@ export const getRaisedTotal = (userId)=>{
   let adminUserId = userId || Session.get('showingUserId');
   if(Roles.userIsInRole(Meteor.userId(), 'admin')){
     let thisUser = Meteor.users.findOne({_id: adminUserId});
+    let thisUsersTrip = thisUser.tripId;
     if(thisUser && thisUser.profile && thisUser.profile.firstName) {
       let name = thisUser.profile.firstName + " " + thisUser.profile.lastName;
-      DTSplits.find({memo: {$regex: name, $options: "i"}}).map( function ( doc ) {
+      DTSplits.find({memo: {$regex: name, $options: "i"}, fund_id: thisUsersTrip}).map( function ( doc ) {
         total += doc.amount_in_cents;
       } );
     }

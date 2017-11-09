@@ -74,7 +74,6 @@ Meteor.publish('TripDeadlines', function(tripId){
 });
 
 Meteor.publish('DTSplits', function(){
-  console.log(this.userId);
   if( this.userId ) {
     if( Roles.userIsInRole(this.userId, 'admin') ){
       return DTSplits.find();
