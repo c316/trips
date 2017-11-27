@@ -132,7 +132,7 @@ Template.registerHelper('editedClass', function(value) {
 });
 
 Template.registerHelper('appVersion', function(){
-  return '1.3.1'
+  return '1.3.2'
 });
 
 
