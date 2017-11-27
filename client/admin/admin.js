@@ -1,3 +1,5 @@
+import { ReactiveVar } from 'meteor/reactive-var';
+
 import { repeater } from '/imports/ui/js/jquery.repeater';
 import { repeaterSetup, setDocHeight, updateSearchVal } from '/imports/api/miscFunctions';
 import '/imports/ui/stylesheets/admin-print.css';
@@ -5,6 +7,8 @@ import '/imports/ui/stylesheets/admin-print.css';
 Template.Admin.onCreated(function () {
   Session.delete("showingUserId");
   Session.set("documentLimit", 30);
+  Session.set("showExpired", false);
+
   this.autorun(()=>{
     Meteor.subscribe('users',
       Session.get("searchValue"),
@@ -12,7 +16,7 @@ Template.Admin.onCreated(function () {
       (Session.get("tripId") ? Number(Session.get("tripId")) : null),
       (Session.get("showAllTrips") ? Session.get("showAllTrips") : false)
     );
-    Meteor.subscribe('Trips', Session.get("tripId") ? Number(Session.get("tripId")) : null);
+    Meteor.subscribe('Trips', (Session.get("tripId") ? Number(Session.get("tripId")) : null), Session.get("showExpired"));
     Meteor.subscribe('Forms');
     Meteor.subscribe('Deadlines');
     Meteor.subscribe('DeadlineAdjustments');
@@ -37,6 +41,9 @@ Template.Admin.onRendered(()=>{
 });
 
 Template.Admin.helpers({
+  showExpired () {
+    return Session.get("showExpired");
+  },
   user(){
     if(Session.get("tripId")){
       return Meteor.users.find({tripId: Session.get("tripId")}, {sort: {'profile.lastName': 1, 'profile.firstName': 1}});
@@ -59,10 +66,6 @@ Template.Admin.helpers({
     if(this.tripId){
       return Deadlines.find({tripId: this.tripId});
     }
-  },
-  tripName(){
-    let trip = Trips.findOne({tripId: this.tripId});
-    return trip && trip.name;
   },
   tripId(){
     let trip = this.tripId ? "- Trip ID: " + this.tripId : 'No trip';
@@ -92,7 +95,6 @@ Template.Admin.helpers({
     return Trips.findOne({tripId}) && Trips.findOne({tripId}).name;
   },
   forms() {
-
     const tripId = Meteor.users.findOne({_id: this._id}) && Meteor.users.findOne({_id: this._id}).tripId;
     const passportImage = Images.findOne( { userId: this._id } );
 
@@ -207,6 +209,14 @@ Template.Admin.helpers({
 });
 
 Template.Admin.events({
+  'click [name="showExpired"]'(e) {
+    e.preventDefault();
+    Session.set("showExpired", true);
+  },
+  'click [name="hideExpired"]'(e) {
+    e.preventDefault();
+    Session.set("showExpired", false);
+  },
   'keyup, change .search': _.debounce(function() {
     updateSearchVal();
   }, 300),

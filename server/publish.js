@@ -142,15 +142,20 @@ Meteor.publish('Images', function () {
   }
 });
 
-Meteor.publish('Trips', function(tripId){
+Meteor.publish('Trips', function(tripId, showExpired){
   check(tripId, Match.Maybe(Number));
-  logger.info("Started to publish Trips with: " + tripId);
+  check(showExpired, Match.Maybe(Boolean));
+  logger.info("Started to publish Trips with tripId:", tripId, "and showExpired:", showExpired);
 
   if( this.userId ) {
-    if( Roles.userIsInRole(this.userId, 'admin') ){
-      if(tripId) return Trips.find({tripId});
-      else return Trips.find();
-    } else if( Roles.userIsInRole(this.userId, 'leader') ){
+    if( Roles.userIsInRole(this.userId, 'admin') ) {
+      const query = {};
+      if(!showExpired){
+        query.expires = {};
+        query.expires.$gte = new Date();
+      }
+      return Trips.find(query);
+    } else if( Roles.userIsInRole(this.userId, 'leader') ) {
       if(tripId && (tripId === Meteor.users.findOne({_id: this.userId}).tripId) ) {
         return Trips.find({tripId});
       } else {
