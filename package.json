@@ -20,7 +20,7 @@
     "graphql-server-express": "^1.2.0",
     "graphql-tools": "^2.7.2",
     "isomorphic-fetch": "^2.2.1",
-    "jquery": "^1.9.1",
+    "jquery": "^1.12.4",
     "jquery-validation": "^1.16.0",
     "knox-s3": "^0.9.3",
     "meteor-node-stubs": "^0.3.2",
@@ -32,7 +32,7 @@
     "thread-sleep": "^2.0.0",
     "try-thread-sleep": "^1.0.2"
   },
-  "version": "1.3.0",
+  "version": "1.3.2",
   "description": "Track trip participants and their funding",
   "main": "index.js",
   "repository": {
