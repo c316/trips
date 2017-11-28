@@ -87,16 +87,17 @@
                     </div>
                     <div class="actions">
                         {{#if showExpired}}
-                            <span name="hideExpired" style="padding-right: 0; padding-left: 0; padding-top: 6px;" class="btn btn-circle btn-icon-only btn-default fa-stack">
-                                <i class="fa fa-archive fa-stack-1x"></i>
-                                <i class="fa fa-ban fa-stack-2x text-danger"></i>
-                            </span>
+                            <a name="hideExpired" href="" class="btn btn-circle red-sunglo"
+                               title="Setup a new trip for tracking, giving and user forms">
+                                <i class="fa fa-ban"></i>
+                                Hide Expired
+                            </a>
                         {{else}}
-                            <a name="showExpired"
-                               class="btn btn-circle btn-icon-only btn-default"
-                               href=""
-                               data-original-title=""
-                               title="Show Archived Trips"><i class="fa fa-archive" aria-hidden="true"></i> </a>
+                            <a name="showExpired" href="" class="btn btn-circle btn-default"
+                               title="Show Expired">
+                                <i class="fa fa-eye"></i>
+                                Show Expired
+                            </a>
                         {{/if}}
                         <div class="btn-group">
                             <a class="btn btn-circle btn-default " href="" data-toggle="dropdown" aria-expanded="false">
@@ -143,7 +144,7 @@
                         </div>
                         <div class="btn-group">
                             <a class="btn btn-circle btn-default " href="" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-save"></i> Export Missionary Form
+                                <i class="fa fa-save"></i> Export Missionary Info.
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu pull-right">
