@@ -1,7 +1,7 @@
 Template.EditTrip.onCreated(function () {
   Session.set("tripId", Number(FlowRouter.getParam("tripId")));
   this.autorun(()=>{
-    Meteor.subscribe('Trips', Session.get("tripId"));
+    Meteor.subscribe('Trips', Session.get("tripId"), true);
     Meteor.subscribe('TripDeadlines', Session.get("tripId"));
   });
 });

@@ -1,7 +1,7 @@
 Template.PrintAll.onCreated(function () {
   this.autorun(()=> {
-    Meteor.subscribe('users');
     tripId = new ReactiveVar(Number(FlowRouter.getParam("tripId")));
+    Meteor.subscribe('users', "", 100, tripId.get(), false);
   });
 });
 
