@@ -388,22 +388,27 @@ Meteor.methods({
     if( Roles.userIsInRole( this.userId, 'admin' ) ) {
       import Papa from 'papaparse';
       let usersOnThisTrip = Meteor.users.find({tripId: tripId}).map(function(user){return user._id});
+      let usersProfilesOnThisTrip = Meteor.users.find({tripId: tripId}).map(function(user){return {_id: user._id, profile: user.profile}});
+
       if(usersOnThisTrip && usersOnThisTrip.length > 0){
-        let collection = Forms.find({name: 'missionaryInformationForm', userId: {$in: usersOnThisTrip}}, { sort: {passportLastName: 1}}).fetch();
+        import { flatten } from './Utils';
+
+        const forms = Forms.find({name: 'missionaryInformationForm', userId: {$in: usersOnThisTrip}}, { sort: {passportLastName: 1}}).fetch();
+        let collection = forms.map((element) => {
+          let userProfile = usersProfilesOnThisTrip.find((el) => {
+            if (el._id === element.userId) {
+              return el.profile;
+            }
+          });
+          let flatProfile = flatten(userProfile);
+          Object.assign(flatProfile, element);
+          return flatProfile;
+        });
+
         logger.info("Exporting ", collection.length, "records from trip ", tripId);
 
         if(collection && collection.length > 0){
           logger.info("Using Papa Parse to unparse those docs");
-          logger.info(collection);
-
-          // TODO: iterate over this list and use Object.keys
-          // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-          // to get all the keys for each of these, push them
-          // to an array
-          // then use _.uniq (http://underscorejs.org/#uniq) to get the list of just the uniq keys,
-          // then use this new array for the header so that you end up with all of the header labels you need
-          // for the CSV
-
           return Papa.unparse(collection, {header: true});
         } else {
           throw new Meteor.Error( 400, 'No MIFs for that trip have been started.' );
