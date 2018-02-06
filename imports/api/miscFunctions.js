@@ -33,7 +33,6 @@ export const statuses = {
   waitingForRegistration: '<span class="text-right" style="color: orangered;"><i class="btn-icon-only btn-lg icon-ban"></i> Waiting for Trip Registration</span>',
 };
 
-
 export const getRaisedTotal = (userId) => {
   let total = 0;
   const adminUserId = userId || Session.get('showingUserId');

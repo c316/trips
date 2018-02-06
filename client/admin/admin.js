@@ -245,14 +245,14 @@ Template.Admin.events({
   'click .print-user'() {
     FlowRouter.go('print-one', {}, { id: this._id });
   },
-  'click #show-add-trip'(e) {
-    e.preventDefault();
+  'click #show-add-trip'(event) {
+    event.preventDefault();
     $('#trip-form').slideDown(200);
     $('#show-add-trip').prop('disabled', true);
     $('#show-add-trip').css('cursor', 'not-allowed');
   },
-  'click #update-dt-funds'(e) {
-    e.preventDefault();
+  'click #update-dt-funds'(event) {
+    event.preventDefault();
     Trips.find({ expires: { $gte: new Date() } }).map(function(trip) {
       Meteor.call('update.splits', trip.tripId);
     });
@@ -285,11 +285,11 @@ Template.Admin.events({
     Session.delete('tripId');
     Session.set('showAllTrips', true);
   },
-  'submit form'(e) {
-    e.preventDefault();
-    const formId = e.target.id;
-    const formName = e.target.name;
-    const btn = $(`#${e.target.id}-button`);
+  'submit form'(event) {
+    event.preventDefault();
+    const formId = event.target.id;
+    const formName = event.target.name;
+    const btn = $(`#${event.target.id}-button`);
     btn.button('loading');
     if (formId === 'trip-form') {
       const tripId = $("[name='trip-id']").val();
@@ -326,16 +326,16 @@ Template.Admin.events({
           Bert.alert('Ok, we have a trip now add the details, please.', 'success');
           btn.button('success');
           // reset the add-trip form
-          e.target.reset();
+          event.target.reset();
           $('#trip-form').slideUp();
           // Show the full-trip-form
           $('#full-trip-form-div').slideDown(2000);
 
           $('#show-add-trip').prop('disabled', false);
           $('#show-add-trip').css('cursor', 'pointer');
-          Meteor.call('update.splits', Number(tripId), function(err, res) {
-            if (err) console.error(err);
-            else console.log(res);
+          Meteor.call('update.splits', Number(tripId), function(error, result) {
+            if (error) console.error(error);
+            else console.log(result);
           });
         }
       });
@@ -352,16 +352,16 @@ Template.Admin.events({
           Bert.alert('Thanks for adding the deadlines, users can now join this trip.', 'success');
           $('#full-trip-form-div').slideUp();
           btn.button('success');
-          e.target.reset();
+          event.target.reset();
         }
       });
     } else if (formName === 'update-deadline') {
-      console.log(e.target.getAttribute('data-userid'));
-      const user = Meteor.users.findOne({ _id: e.target.getAttribute('data-userid') });
+      console.log(event.target.getAttribute('data-userid'));
+      const user = Meteor.users.findOne({ _id: event.target.getAttribute('data-userid') });
 
       const deadlines = [];
       const deadlineAdjustments = Deadlines.find({ tripId: user.tripId }).map(function(deadline) {
-        deadlines.push({ deadlineId: deadline._id, adjustmentAmount: e.target[deadline._id].value });
+        deadlines.push({ deadlineId: deadline._id, adjustmentAmount: event.target[deadline._id].value });
       });
       Meteor.call('update.user.deadline', deadlines, user._id, user.tripId, function(err, res) {
         if (err) {

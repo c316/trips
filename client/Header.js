@@ -2,57 +2,57 @@ import '/imports/ui/stylesheets/simple-line-icons.css';
 import { App } from '/imports/ui/js/app';
 import { Layout } from '/imports/ui/js/layout';
 
-Template.Header.onCreated(function () {
-  this.autorun(()=>{
+Template.Header.onCreated(function() {
+  this.autorun(() => {
     Meteor.subscribe('user');
   });
 });
 
-Template.Header.onRendered(()=>{
+Template.Header.onRendered(() => {
   App.init();
   Layout.init();
 });
 
 Template.Header.events({
-  'click .logout'(e){
+  'click .logout'(e) {
     e.preventDefault();
     Meteor.logout();
-    FlowRouter.go("login");
+    FlowRouter.go('login');
   },
-  'click .profile-button'(e){
+  'click .profile-button'(e) {
     e.preventDefault();
-    Session.set("showUserRegistration", true);
-    FlowRouter.go("profile");
+    Session.set('showUserRegistration', true);
+    FlowRouter.go('profile');
   },
-  'click .trip-funds-button'(e){
+  'click .trip-funds-button'(e) {
     e.preventDefault();
-    Session.set("showTripFunds", true);
-    FlowRouter.go("fundraising");
+    Session.set('showTripFunds', true);
+    FlowRouter.go('fundraising');
   },
-  'click .forms-button'(e){
+  'click .forms-button'(e) {
     e.preventDefault();
-    Session.set("showForms", true);
-    FlowRouter.go("forms");
+    Session.set('showForms', true);
+    FlowRouter.go('forms');
   },
-  'click .home-button'(e){
+  'click .home-button'(e) {
     e.preventDefault();
-    Session.delete("showForms");
-    Session.delete("showUserRegistration");
-    Session.delete("showTripFunds");
-    Session.delete("showingUserId");
-    FlowRouter.go("home");
+    Session.delete('showForms');
+    Session.delete('showUserRegistration');
+    Session.delete('showTripFunds');
+    Session.delete('showingUserId');
+    FlowRouter.go('home');
   },
-  'click .admin-button'(e){
+  'click .admin-button'(e) {
     e.preventDefault();
-    Session.delete("showForms");
-    Session.delete("showUserRegistration");
-    Session.delete("showTripFunds");
-    FlowRouter.go("/admin");
+    Session.delete('showForms');
+    Session.delete('showUserRegistration');
+    Session.delete('showTripFunds');
+    FlowRouter.go('/admin');
   },
-  'click .user-admin-link'(){
-    console.log("Clicked", this._id);
-    Session.set("showUserRegistration", true);
-    FlowRouter.go("adminShowUserHome", {}, {id: Meteor.userId()});
+  'click .user-admin-link'() {
+    console.log('Clicked', this._id);
+    Session.set('showUserRegistration', true);
+    FlowRouter.go('adminShowUserHome', {}, { id: Meteor.userId() });
   },
 });
 
@@ -62,15 +62,15 @@ Template.Header.helpers({
       Meteor.user().profile &&
       Meteor.user().profile.firstName;
   },
-  isAdminRoute(){
+  isAdminRoute() {
     const routeName = FlowRouter.getRouteName();
-    if(routeName === 'admin') return 'active open selected';
+    if (routeName === 'admin') return 'active open selected';
   },
 });
 
-Template.Header.onDestroyed(()=>{
+Template.Header.onDestroyed(() => {
   $('body').off();
-  Session.delete("showUserRegistration");
-  Session.delete("showTripFunds");
-  Session.delete("showForms");
+  Session.delete('showUserRegistration');
+  Session.delete('showTripFunds');
+  Session.delete('showForms');
 });
