@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { getDTSplitData, http_get_donortools } from '/imports/api/utils';
 
 const emptyForm = {
-  _id: '',
   profile_firstName: '',
   profile_lastName: '',
   profile_phone: '',
@@ -10,6 +9,7 @@ const emptyForm = {
   profile_address_city: '',
   profile_address_state: '',
   profile_address_zip: '',
+  email: '',
   passportStatus: '',
   passportFirstName: '',
   passportMiddleName: '',
@@ -451,16 +451,27 @@ Meteor.methods({
       import Papa from 'papaparse';
 
       const usersOnThisTrip = Meteor.users.find({ tripId }).map(function(user) { return user._id; });
-      const usersProfilesOnThisTrip = Meteor.users.find({ tripId }).map(function(user) { return { _id: user._id, profile: user.profile }; });
+      const usersProfilesOnThisTrip = Meteor.users.find({ tripId }).map(function(user) { return { _id: user._id, profile: user.profile, email: user.emails[0].address }; });
 
       if (usersOnThisTrip && usersOnThisTrip.length > 0) {
         import { flatten } from './Utils';
 
-        const forms = Forms.find({ name: 'missionaryInformationForm', userId: { $in: usersOnThisTrip } }, { sort: { passportLastName: 1 } }).fetch();
+        const forms = Forms.find({
+          name: 'missionaryInformationForm',
+          userId: {
+            $in: usersOnThisTrip,
+          },
+        }, {
+          sort: {
+            passportLastName: 1,
+          },
+        }).fetch();
         const collection = forms.map((element) => {
           const userProfile = usersProfilesOnThisTrip.find((el) => {
             if (el._id === element.userId) {
-              return el.profile;
+              const profileNoId = el;
+              delete profileNoId._id;
+              return profileNoId;
             }
           });
           const flatProfile = flatten(userProfile);
@@ -683,9 +694,9 @@ Meteor.methods({
       let deadlines = Deadlines.find({ tripId: deadline.tripId }).fetch();
       deadlines.push(deadline);
       deadlines = _.sortBy(deadlines, 'due');
-      deadlines.forEach(function(deadline, index) {
-        if (deadline._id) {
-          Deadlines.update({ _id: deadline._id }, {
+      deadlines.forEach(function(thisDeadline, index) {
+        if (thisDeadline._id) {
+          Deadlines.update({ _id: thisDeadline._id }, {
             $set: {
               deadlineNumber: index + 1,
               tripId: deadline.tripId,
@@ -697,7 +708,7 @@ Meteor.methods({
         } else {
           Deadlines.insert({
             deadlineNumber: index + 1,
-            tripId,
+            tripId: deadline.tripId,
             amount: deadline.amount,
             due: deadline.due,
             name: deadline.name,
