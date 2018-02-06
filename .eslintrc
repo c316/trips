@@ -11,6 +11,7 @@
     "Bert": true,
     "BrowserPolicy": true,
     "describe": true,
+    "FlowRouter": true,
     "it": true,
     "logger": true,
     "Match": true,
@@ -25,11 +26,15 @@
     "Winston": true,
     "Winston_Papertrail": true,
     "Audit_trail": true,
+    "Deadlines": true,
+    "DeadlineAdjustments": true,
     "DT_donations": true,
     "DT_funds": true,
     "DT_personas": true,
     "DT_sources": true,
     "DT_splits": true,
+    "Forms": true,
+    "Images": true,
     "Trips": true
   },
   "parserOptions": {

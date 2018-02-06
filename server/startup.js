@@ -10,26 +10,22 @@ Meteor.startup(() => {
 
   SyncedCron.add({
     name: 'Get Trip Fund Data (morning)',
-    schedule: (parser)=> {
-      return parser.recur().on('09:00:00').time();
-    },
-    job: ()=> {
-      logger.info("Started Get Trip Fund Data (morning) job");
-      let updateTripFunds = updateSplits();
+    schedule: parser => parser.recur().on('09:00:00').time(),
+    job: () => {
+      logger.info('Started Get Trip Fund Data (morning) job');
+      const updateTripFunds = updateSplits();
       return updateTripFunds;
-    }
+    },
   });
 
   SyncedCron.add({
     name: 'Get Trip Fund Data (evening)',
-    schedule: (parser)=> {
-      return parser.recur().on('18:00:00').time();
-    },
-    job: ()=> {
-      logger.info("Started Get Trip Fund Data (evening) job");
-      let updateTripFunds = updateSplits();
+    schedule: parser => parser.recur().on('18:00:00').time(),
+    job: () => {
+      logger.info('Started Get Trip Fund Data (evening) job');
+      const updateTripFunds = updateSplits();
       return updateTripFunds;
-    }
+    },
   });
 
   SyncedCron.start();
