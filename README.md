@@ -1,4 +1,6 @@
 # Trips
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/c316/trips.svg)](https://greenkeeper.io/)
 Track trip participants forms and fundraising
 
 This app works in concert with both <a href="https://donortools.com">DonorTools</a> and <a href="http://c316.github.io/give/">Give</a>.
