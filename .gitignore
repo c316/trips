@@ -1,5 +1,8 @@
 .DS_Store
-node_modules/
-settings.json
-npm-debug.log
 .idea
+.meteor/dev_bundle
+.vscode
+bundle.tar.gz
+node_modules/
+npm-debug.log
+settings.json
