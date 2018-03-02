@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { getDTSplitData, http_get_donortools } from '/imports/api/utils';
+import { connectToGive, getDTSplitData, http_get_donortools } from '/imports/api/utils';
 
 const emptyForm = {
   profile_firstName: '',
@@ -531,7 +531,6 @@ Meteor.methods({
           throw new Meteor.Error(403, 'You need to have the proper permission to do this');
         }
       }
-      import { connectToGive } from '/imports/api/utils';
 
       if (args) {
         console.log(args);
