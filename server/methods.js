@@ -1,5 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import { connectToGive, getDTSplitData, http_get_donortools } from '/imports/api/utils';
+import {
+  connectToGive,
+  getDTSplitData,
+  http_get_donortools,
+} from '../imports/api/utils';
 
 const emptyForm = {
   profile_firstName: '',
@@ -134,7 +138,10 @@ Meteor.methods({
 
     function formIsComplete(form) {
       const formLength = Object.keys(form).length;
-      if (form.passportStatus && (form.passportStatus === 'yes' || form.passportStatus === 'in-progress')) {
+      if (
+        form.passportStatus &&
+        (form.passportStatus === 'yes' || form.passportStatus === 'in-progress')
+      ) {
         if (formLength >= 33) {
           return true;
         }
@@ -146,7 +153,10 @@ Meteor.methods({
     if (Roles.userIsInRole(this.userId, 'admin')) {
       logger.info('Got to update.form as an admin user');
       if (updateThisId) {
-        logger.info('There was a updateThisId param passed in and it was: ', updateThisId);
+        logger.info(
+          'There was a updateThisId param passed in and it was: ',
+          updateThisId,
+        );
         form.userId = updateThisId;
       } else {
         form.userId = this.userId;
@@ -197,12 +207,15 @@ Meteor.methods({
     if (this.userId) {
       this.unblock();
 
-      Forms.upsert({ userId: this.userId, name }, {
-        userId: this.userId,
-        name,
-        agreed: true,
-        agreedDate: new Date(),
-      });
+      Forms.upsert(
+        { userId: this.userId, name },
+        {
+          userId: this.userId,
+          name,
+          agreed: true,
+          agreedDate: new Date(),
+        },
+      );
 
       return 'Form inserted';
     }
@@ -223,7 +236,10 @@ Meteor.methods({
     if (Roles.userIsInRole(this.userId, 'admin')) {
       logger.info('Got to form.tripRegistration as an admin user');
       if (updateThisId) {
-        logger.info('There was a updateThisId param passed in and it was: ', updateThisId);
+        logger.info(
+          'There was a updateThisId param passed in and it was: ',
+          updateThisId,
+        );
         userId = updateThisId;
       } else {
         userId = this.userId;
@@ -236,14 +252,20 @@ Meteor.methods({
     }
     const trip = Trips.findOne({ tripId: Number(tripId) });
     if (trip && trip._id) {
-      Forms.upsert({ userId, name: 'tripRegistration' }, {
-        userId,
-        name: 'tripRegistration',
-        tripId: Number(tripId),
-        registeredOn: new Date(),
-      });
+      Forms.upsert(
+        { userId, name: 'tripRegistration' },
+        {
+          userId,
+          name: 'tripRegistration',
+          tripId: Number(tripId),
+          registeredOn: new Date(),
+        },
+      );
 
-      Meteor.users.update({ _id: userId }, { $set: { tripId: Number(tripId) } });
+      Meteor.users.update(
+        { _id: userId },
+        { $set: { tripId: Number(tripId) } },
+      );
       Roles.addUsersToRoles(userId, 'trip-member');
 
       if (Meteor.settings.Give && Meteor.settings.Give.tripsManagerPassword) {
@@ -254,16 +276,24 @@ Meteor.methods({
           email: user.emails[0].address,
           fundId: tripId,
         };
-        Meteor.call('runGiveMethod', 'insertFundraisersWithTrip', tripMemberData, function(err, res) {
-          if (err) {
-            logger.error(err);
-          } else {
-            logger.info(res);
-          }
-        });
+        Meteor.call(
+          'runGiveMethod',
+          'insertFundraisersWithTrip',
+          tripMemberData,
+          function(err, res) {
+            if (err) {
+              logger.error(err);
+            } else {
+              logger.info(res);
+            }
+          },
+        );
       }
     } else {
-      throw new Meteor.Error(400, "Hmmm...I couldn't find that trip, ask your Trip coordinator if this is the right ID.");
+      throw new Meteor.Error(
+        400,
+        "Hmmm...I couldn't find that trip, ask your Trip coordinator if this is the right ID.",
+      );
     }
   },
   /**
@@ -298,7 +328,7 @@ Meteor.methods({
       }
       // this.unblock();
 
-      let DTTrip = http_get_donortools(`settings/funds/${tripId}.json`);
+      let DTTrip = http_get_donortools(`settings/funds/${tripId}.json?per_page=1000`);
       if (DTTrip && DTTrip.statusCode === 200) {
         DTTrip = DTTrip.data.fund;
       } else {
@@ -330,7 +360,10 @@ Meteor.methods({
           startDate: new Date(data.tripStartDate),
           show: data.showFundraisingModule,
         };
-        Meteor.call('runGiveMethod', 'insertTrip', tripData, function(err, res) {
+        Meteor.call('runGiveMethod', 'insertTrip', tripData, function(
+          err,
+          res,
+        ) {
           if (err) {
             logger.error(err);
           } else {
@@ -352,26 +385,39 @@ Meteor.methods({
   'edit.trip.fundraising'(tripId, showFundraisingModule) {
     check(tripId, Number);
     check(showFundraisingModule, Boolean);
-    logger.info('Started edit.trip.fundraising with tripId:', tripId, 'and showFundraisingModule set to:', showFundraisingModule);
+    logger.info(
+      'Started edit.trip.fundraising with tripId:',
+      tripId,
+      'and showFundraisingModule set to:',
+      showFundraisingModule,
+    );
 
     if (Roles.userIsInRole(this.userId, 'admin')) {
-      Trips.update({ tripId }, {
-        $set: {
-          showFundraisingModule,
+      Trips.update(
+        { tripId },
+        {
+          $set: {
+            showFundraisingModule,
+          },
         },
-      });
+      );
 
       // The corresponding ID in Give is a string, not a number
       const tripString = tripId.toString();
 
       if (Meteor.settings.Give && Meteor.settings.Give.tripsManagerPassword) {
-        Meteor.call('runGiveMethod', 'updateTripFundraising', { tripId: tripString, showFundraisingModule }, function(err, res) {
-          if (err) {
-            logger.error(err);
-          } else {
-            logger.info(res);
-          }
-        });
+        Meteor.call(
+          'runGiveMethod',
+          'updateTripFundraising',
+          { tripId: tripString, showFundraisingModule },
+          function(err, res) {
+            if (err) {
+              logger.error(err);
+            } else {
+              logger.info(res);
+            }
+          },
+        );
       }
     }
   },
@@ -387,23 +433,28 @@ Meteor.methods({
    */
   'add.deadline'(deadlines, tripId) {
     console.dir(deadlines);
-    check(deadlines, [{
-      amount: String,
-      due: String,
-      name: String,
-    }]);
+    check(deadlines, [
+      {
+        amount: String,
+        due: String,
+        name: String,
+      },
+    ]);
     check(tripId, String);
     logger.info('Started add.trip with data: ', deadlines, tripId);
 
     if (Roles.userIsInRole(this.userId, 'admin')) {
       deadlines.forEach(function(deadline, index) {
-        Deadlines.upsert({ tripId: Number(tripId), deadlineNumber: index + 1 }, {
-          deadlineNumber: index + 1,
-          tripId: Number(tripId),
-          amount: Number(deadline.amount),
-          due: new Date(deadline.due),
-          name: deadline.name,
-        });
+        Deadlines.upsert(
+          { tripId: Number(tripId), deadlineNumber: index + 1 },
+          {
+            deadlineNumber: index + 1,
+            tripId: Number(tripId),
+            amount: Number(deadline.amount),
+            due: new Date(deadline.due),
+            name: deadline.name,
+          },
+        );
       });
       return 'Inserted all deadlines';
     }
@@ -417,10 +468,12 @@ Meteor.methods({
    * @param {String} userId
    */
   'update.user.deadline'(deadlines, userId, tripId) {
-    check(deadlines, [{
-      adjustmentAmount: String,
-      deadlineId: String,
-    }]);
+    check(deadlines, [
+      {
+        adjustmentAmount: String,
+        deadlineId: String,
+      },
+    ]);
     check(userId, String);
     check(tripId, Number);
 
@@ -428,12 +481,15 @@ Meteor.methods({
 
     if (Roles.userIsInRole(this.userId, 'admin')) {
       deadlines.forEach(function(deadline, index) {
-        DeadlineAdjustments.upsert({ tripId, userId, deadlineId: deadline.deadlineId }, {
-          adjustmentAmount: Number(deadline.adjustmentAmount),
-          deadlineId: deadline.deadlineId,
-          tripId,
-          userId,
-        });
+        DeadlineAdjustments.upsert(
+          { tripId, userId, deadlineId: deadline.deadlineId },
+          {
+            adjustmentAmount: Number(deadline.adjustmentAmount),
+            deadlineId: deadline.deadlineId,
+            tripId,
+            userId,
+          },
+        );
       });
     }
   },
@@ -450,22 +506,35 @@ Meteor.methods({
     if (Roles.userIsInRole(this.userId, 'admin')) {
       import Papa from 'papaparse';
 
-      const usersOnThisTrip = Meteor.users.find({ tripId }).map(function(user) { return user._id; });
-      const usersProfilesOnThisTrip = Meteor.users.find({ tripId }).map(function(user) { return { _id: user._id, profile: user.profile, email: user.emails[0].address }; });
+      const usersOnThisTrip = Meteor.users.find({ tripId }).map(function(user) {
+        return user._id;
+      });
+      const usersProfilesOnThisTrip = Meteor.users
+        .find({ tripId })
+        .map(function(user) {
+          return {
+            _id: user._id,
+            profile: user.profile,
+            email: user.emails[0].address,
+          };
+        });
 
       if (usersOnThisTrip && usersOnThisTrip.length > 0) {
         import { flatten } from './Utils';
 
-        const forms = Forms.find({
-          name: 'missionaryInformationForm',
-          userId: {
-            $in: usersOnThisTrip,
+        const forms = Forms.find(
+          {
+            name: 'missionaryInformationForm',
+            userId: {
+              $in: usersOnThisTrip,
+            },
           },
-        }, {
-          sort: {
-            passportLastName: 1,
+          {
+            sort: {
+              passportLastName: 1,
+            },
           },
-        }).fetch();
+        ).fetch();
         const collection = forms.map((element) => {
           const userProfile = usersProfilesOnThisTrip.find((el) => {
             if (el._id === element.userId) {
@@ -479,7 +548,12 @@ Meteor.methods({
           return flatProfile;
         });
 
-        logger.info('Exporting ', collection.length, 'records from trip ', tripId);
+        logger.info(
+          'Exporting ',
+          collection.length,
+          'records from trip ',
+          tripId,
+        );
 
         if (collection && collection.length > 0) {
           logger.info('Using Papa Parse to unparse those docs');
@@ -510,25 +584,44 @@ Meteor.methods({
     } else if (Roles.userIsInRole(this.userId, 'admin') && role === 'leader') {
       return Roles.addUsersToRoles(userId, role);
     }
-    throw new Meteor.Error(400, 'Need to have the proper permission to do this');
+    throw new Meteor.Error(
+      400,
+      'Need to have the proper permission to do this',
+    );
   },
   /**
    * Runs a Give method
    *
    * @method runGiveMethod
    */
-  'runGiveMethod'(method, args) {
+  runGiveMethod(method, args) {
     check(method, String);
     check(args, Match.Maybe(Object));
-    logger.info('Started DDP connection with the runGiveMethod method:', method, 'and the args:', args);
-    if ((Roles.userIsInRole(this.userId, ['super-admin', 'admin'])) ||
-      (method === 'insertFundraisersWithTrip' && Roles.userIsInRole(this.userId, 'trip-member')) ||
-      (method === 'updateFundraiserName' && Roles.userIsInRole(this.userId, 'trip-member')) ||
-      (method === 'removeFundraiser' && Roles.userIsInRole(this.userId, 'trip-member'))) {
-      if (method === 'removeFundraiser' && !(Roles.userIsInRole(this.userId, ['super-admin', 'admin']))) {
+    logger.info(
+      'Started DDP connection with the runGiveMethod method:',
+      method,
+      'and the args:',
+      args,
+    );
+    if (
+      Roles.userIsInRole(this.userId, ['super-admin', 'admin']) ||
+      (method === 'insertFundraisersWithTrip' &&
+        Roles.userIsInRole(this.userId, 'trip-member')) ||
+      (method === 'updateFundraiserName' &&
+        Roles.userIsInRole(this.userId, 'trip-member')) ||
+      (method === 'removeFundraiser' &&
+        Roles.userIsInRole(this.userId, 'trip-member'))
+    ) {
+      if (
+        method === 'removeFundraiser' &&
+        !Roles.userIsInRole(this.userId, ['super-admin', 'admin'])
+      ) {
         const user = Meteor.users.findOne({ _id: this.userId });
         if (args.email !== user.emails[0].address) {
-          throw new Meteor.Error(403, 'You need to have the proper permission to do this');
+          throw new Meteor.Error(
+            403,
+            'You need to have the proper permission to do this',
+          );
         }
       }
 
@@ -557,7 +650,10 @@ Meteor.methods({
         });
       }
     } else {
-      throw new Meteor.Error(403, 'You need to have the proper permission to do this');
+      throw new Meteor.Error(
+        403,
+        'You need to have the proper permission to do this',
+      );
     }
   },
   /**
@@ -565,7 +661,7 @@ Meteor.methods({
    *
    * @method updateExpiredSignedURLS
    */
-  'updateExpiredSignedURLS'() {
+  updateExpiredSignedURLS() {
     if (this.userId) {
       import knox from 'knox-s3';
       import { getSignedURLs } from '/imports/api/miscFunctions';
@@ -583,9 +679,11 @@ Meteor.methods({
         images = Images.find().cursor;
       } else if (Roles.userIsInRole(this.userId, 'leader')) {
         const leaderTripId = Meteor.users.findOne({ _id: this.userId }).tripId;
-        const users = Meteor.users.find({ tripId: leaderTripId }).map(function(user) {
-          return user._id;
-        });
+        const users = Meteor.users
+          .find({ tripId: leaderTripId })
+          .map(function(user) {
+            return user._id;
+          });
         images = Images.find({ userId: { $in: users } }).cursor;
       } else {
         images = Images.find({ userId: this.userId }).cursor;
@@ -593,10 +691,13 @@ Meteor.methods({
       images.forEach(function(image) {
         const date = new Date();
         const time = date.getTime();
-        if (time > (image.versions &&
-          image.versions.original &&
-          image.versions.original.meta &&
-          image.versions.original.meta.expires)) {
+        if (
+          time >
+          (image.versions &&
+            image.versions.original &&
+            image.versions.original.meta &&
+            image.versions.original.meta.expires)
+        ) {
           logger.info('this image has expired, updating signed expiration');
 
           getSignedURLs(client, 'thumbnail', image._id, function(err, res) {
@@ -616,7 +717,7 @@ Meteor.methods({
    *
    * @method updateUserDoc
    */
-  'updateUserDoc'(formData) {
+  updateUserDoc(formData) {
     check(formData, {
       firstName: String,
       lastName: String,
@@ -630,7 +731,10 @@ Meteor.methods({
     });
     logger.info(`Started updateUserDoc method with user: ${this.userId}`);
 
-    return Meteor.users.update({ _id: this.userId }, { $set: { profile: formData } });
+    return Meteor.users.update(
+      { _id: this.userId },
+      { $set: { profile: formData } },
+    );
   },
   /**
    * This method inserts a deadline and shifts the existing deadlines around so they are still in date order
@@ -653,13 +757,16 @@ Meteor.methods({
       deadlines = _.sortBy(deadlines, 'due');
       deadlines.forEach(function(deadline, index) {
         if (deadline._id) {
-          Deadlines.update({ _id: deadline._id }, {
-            deadlineNumber: index + 1,
-            tripId: Number(tripId),
-            amount: Number(deadline.amount),
-            due: deadline.due,
-            name: deadline.name,
-          });
+          Deadlines.update(
+            { _id: deadline._id },
+            {
+              deadlineNumber: index + 1,
+              tripId: Number(tripId),
+              amount: Number(deadline.amount),
+              due: deadline.due,
+              name: deadline.name,
+            },
+          );
         } else {
           Deadlines.insert({
             deadlineNumber: index + 1,
@@ -671,7 +778,10 @@ Meteor.methods({
         }
       });
     } else {
-      throw new Meteor.Error(403, 'You need to have the proper permission to do this');
+      throw new Meteor.Error(
+        403,
+        'You need to have the proper permission to do this',
+      );
     }
   },
   /**
@@ -689,21 +799,27 @@ Meteor.methods({
     });
 
     if (Roles.userIsInRole(this.userId, 'admin')) {
-      logger.info('Started update.deadline method with deadline object:', deadline);
+      logger.info(
+        'Started update.deadline method with deadline object:',
+        deadline,
+      );
       let deadlines = Deadlines.find({ tripId: deadline.tripId }).fetch();
       deadlines.push(deadline);
       deadlines = _.sortBy(deadlines, 'due');
       deadlines.forEach(function(thisDeadline, index) {
         if (thisDeadline._id) {
-          Deadlines.update({ _id: thisDeadline._id }, {
-            $set: {
-              deadlineNumber: index + 1,
-              tripId: deadline.tripId,
-              amount: deadline.amount,
-              due: deadline.due,
-              name: deadline.name,
+          Deadlines.update(
+            { _id: thisDeadline._id },
+            {
+              $set: {
+                deadlineNumber: index + 1,
+                tripId: deadline.tripId,
+                amount: deadline.amount,
+                due: deadline.due,
+                name: deadline.name,
+              },
             },
-          });
+          );
         } else {
           Deadlines.insert({
             deadlineNumber: index + 1,
@@ -715,7 +831,10 @@ Meteor.methods({
         }
       });
     } else {
-      throw new Meteor.Error(403, 'You need to have the proper permission to do this');
+      throw new Meteor.Error(
+        403,
+        'You need to have the proper permission to do this',
+      );
     }
   },
   /**
@@ -730,7 +849,10 @@ Meteor.methods({
       logger.info(`Started deleted.deadline method with deadlineId: ${deadlineId}`);
       return Deadlines.remove({ _id: deadlineId });
     }
-    throw new Meteor.Error(403, 'You need to have the proper permission to do this');
+    throw new Meteor.Error(
+      403,
+      'You need to have the proper permission to do this',
+    );
   },
   /**
    * This method updates an image that was uploaded by an admin
@@ -748,19 +870,40 @@ Meteor.methods({
     logger.info(`Started update.imageUserId method with fileId: ${existingImageId}and changeUserIdToThisId: ${changeUserIdToThisId}`);
 
     if (Roles.userIsInRole(this.userId, 'admin')) {
-      return Images.update({ _id: existingImageId }, { $set: { userId: changeUserIdToThisId, meta: { uploadedByAdmin: true, adminId: this.userId } } });
+      return Images.update(
+        { _id: existingImageId },
+        {
+          $set: {
+            userId: changeUserIdToThisId,
+            meta: { uploadedByAdmin: true, adminId: this.userId },
+          },
+        },
+      );
     } else if (Roles.userIsInRole(this.userId, 'leader')) {
       const leaderTripId = Meteor.users.findOne({ _id: this.userId }).tripId;
-      const passedInUserTripId = Meteor.users.findOne({ _id: changeUserIdToThisId }).tripId;
+      const passedInUserTripId = Meteor.users.findOne({
+        _id: changeUserIdToThisId,
+      }).tripId;
       if (leaderTripId === passedInUserTripId && image.userId === this.userId) {
-        return Images.update({ _id: existingImageId }, { $set: { userId: changeUserIdToThisId, meta: { uploadedByLeader: true, leaderId: this.userId } } });
+        return Images.update(
+          { _id: existingImageId },
+          {
+            $set: {
+              userId: changeUserIdToThisId,
+              meta: { uploadedByLeader: true, leaderId: this.userId },
+            },
+          },
+        );
       }
       throw new Meteor.Error(
         'update.imageUserId.unauthorized',
         'Cannot update this image because your tripId does not match the user trip ID you passed in',
       );
     } else {
-      throw new Meteor.Error(403, 'You need to have the proper permission to do this');
+      throw new Meteor.Error(
+        403,
+        'You need to have the proper permission to do this',
+      );
     }
   },
   /**
@@ -773,7 +916,12 @@ Meteor.methods({
   'form.verify'(name, userId) {
     check(name, String);
     check(userId, String);
-    logger.info('Started form.verify with form name:', name, 'and userId:', userId);
+    logger.info(
+      'Started form.verify with form name:',
+      name,
+      'and userId:',
+      userId,
+    );
     if (Roles.userIsInRole(this.userId, 'leader')) {
       this.unblock();
 
@@ -783,19 +931,25 @@ Meteor.methods({
 
       if (leaderTripId === passedInUserTripId) {
         if (name === 'passportImage') {
-          formUpdateStatus = Forms.upsert({ userId, name }, {
-            userId,
-            name,
-            verified: true,
-            verifiedDate: new Date(),
-          });
-        } else {
-          formUpdateStatus = Forms.update({ userId, name }, {
-            $set: {
+          formUpdateStatus = Forms.upsert(
+            { userId, name },
+            {
+              userId,
+              name,
               verified: true,
               verifiedDate: new Date(),
             },
-          });
+          );
+        } else {
+          formUpdateStatus = Forms.update(
+            { userId, name },
+            {
+              $set: {
+                verified: true,
+                verifiedDate: new Date(),
+              },
+            },
+          );
         }
         return formUpdateStatus;
       }
@@ -806,7 +960,7 @@ Meteor.methods({
    *
    * @method moveCurrentTripToOtherTrips
    */
-  'moveCurrentTripToOtherTrips'(userId) {
+  moveCurrentTripToOtherTrips(userId) {
     logger.info('Started moveCurrentTripToOtherTrips with userId:', userId);
     check(userId, Match.Maybe(String));
     if (this.userId) {
@@ -814,16 +968,37 @@ Meteor.methods({
         email,
         tripRegistrationForm;
       if (Roles.userIsInRole(this.userId, 'admin') && userId) {
-        currentTrip = Meteor.users.findOne({ _id: userId }) && Meteor.users.findOne({ _id: userId }).tripId;
-        email = Meteor.users.findOne({ _id: userId }) && Meteor.users.findOne({ _id: userId }).emails && Meteor.users.findOne({ _id: userId }).emails[0].address;
-        tripRegistrationForm = Forms.findOne({ userId, archived: { $ne: true }, name: 'tripRegistration' });
+        currentTrip =
+          Meteor.users.findOne({ _id: userId }) &&
+          Meteor.users.findOne({ _id: userId }).tripId;
+        email =
+          Meteor.users.findOne({ _id: userId }) &&
+          Meteor.users.findOne({ _id: userId }).emails &&
+          Meteor.users.findOne({ _id: userId }).emails[0].address;
+        tripRegistrationForm = Forms.findOne({
+          userId,
+          archived: { $ne: true },
+          name: 'tripRegistration',
+        });
       } else {
-        currentTrip = Meteor.users.findOne({ _id: this.userId }) && Meteor.users.findOne({ _id: this.userId }).tripId;
-        email = Meteor.users.findOne({ _id: this.userId }) && Meteor.users.findOne({ _id: this.userId }).emails && Meteor.users.findOne({ _id: this.userId }).emails[0].address;
-        tripRegistrationForm = Forms.findOne({ userId: this.userId, archived: { $ne: true }, name: 'tripRegistration' });
+        currentTrip =
+          Meteor.users.findOne({ _id: this.userId }) &&
+          Meteor.users.findOne({ _id: this.userId }).tripId;
+        email =
+          Meteor.users.findOne({ _id: this.userId }) &&
+          Meteor.users.findOne({ _id: this.userId }).emails &&
+          Meteor.users.findOne({ _id: this.userId }).emails[0].address;
+        tripRegistrationForm = Forms.findOne({
+          userId: this.userId,
+          archived: { $ne: true },
+          name: 'tripRegistration',
+        });
       }
       if (currentTrip) {
-        Meteor.call('runGiveMethod', 'removeFundraiser', { email }, function(err, res) {
+        Meteor.call('runGiveMethod', 'removeFundraiser', { email }, function(
+          err,
+          res,
+        ) {
           if (err) {
             logger.error(err);
           } else {
@@ -831,24 +1006,30 @@ Meteor.methods({
           }
         });
         if (Roles.userIsInRole(this.userId, 'admin') && userId) {
-          Meteor.users.update({ _id: userId }, {
-            $addToSet: {
-              otherTrips: currentTrip,
+          Meteor.users.update(
+            { _id: userId },
+            {
+              $addToSet: {
+                otherTrips: currentTrip,
+              },
+              $unset: {
+                tripId: '',
+              },
             },
-            $unset: {
-              tripId: '',
-            },
-          });
+          );
           Roles.removeUsersFromRoles(userId, 'trip-member');
         } else {
-          Meteor.users.update({ _id: this.userId }, {
-            $addToSet: {
-              otherTrips: currentTrip,
+          Meteor.users.update(
+            { _id: this.userId },
+            {
+              $addToSet: {
+                otherTrips: currentTrip,
+              },
+              $unset: {
+                tripId: '',
+              },
             },
-            $unset: {
-              tripId: '',
-            },
-          });
+          );
           Roles.removeUsersFromRoles(userId, 'trip-member');
         }
         if (tripRegistrationForm) {

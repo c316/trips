@@ -6,6 +6,11 @@ Template.Header.onCreated(function() {
   this.autorun(() => {
     Meteor.subscribe('user');
   });
+
+  Bert.defaults = {
+    hideDelay: 99999,
+    style: 'growl-bottom-right',
+  };
 });
 
 Template.Header.onRendered(() => {
@@ -58,9 +63,9 @@ Template.Header.events({
 
 Template.Header.helpers({
   firstName() {
-    return Meteor.user() &&
-      Meteor.user().profile &&
-      Meteor.user().profile.firstName;
+    return (
+      Meteor.user() && Meteor.user().profile && Meteor.user().profile.firstName
+    );
   },
   isAdminRoute() {
     const routeName = FlowRouter.getRouteName();
