@@ -121,7 +121,7 @@ Template.UserRegistration.onRendered(function() {
           },
         );
       } else {
-        Meteor.call('updateUserDoc', formData, function(err, res) {
+        Meteor.call('updateUserDoc', formData, function(err) {
           if (err) {
             btn.button('error');
             console.error(err);
@@ -136,9 +136,9 @@ Template.UserRegistration.onRendered(function() {
                   lname: formData.lastName,
                   email: Meteor.user().emails[0].address,
                 },
-                function(err, res) {
-                  if (err) {
-                    console.error(err);
+                function(error, res) {
+                  if (error) {
+                    console.error(error);
                   } else {
                     console.log(res);
                   }
