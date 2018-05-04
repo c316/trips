@@ -807,7 +807,7 @@ Meteor.methods({
       deadlines.push(deadline);
       deadlines = _.sortBy(deadlines, 'due');
       deadlines.forEach(function(thisDeadline, index) {
-        if (thisDeadline._id) {
+        if (thisDeadline._id === deadline._id) {
           Deadlines.update(
             { _id: thisDeadline._id },
             {
@@ -820,7 +820,7 @@ Meteor.methods({
               },
             },
           );
-        } else {
+        } else if (thisDeadline._id === 'insert-new-deadline') {
           Deadlines.insert({
             deadlineNumber: index + 1,
             tripId: deadline.tripId,
