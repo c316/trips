@@ -964,9 +964,10 @@ Meteor.methods({
     logger.info('Started moveCurrentTripToOtherTrips with userId:', userId);
     check(userId, Match.Maybe(String));
     if (this.userId) {
-      let currentTrip,
-        email,
-        tripRegistrationForm;
+      let currentTrip;
+      let email;
+      let tripRegistrationForm;
+      
       if (Roles.userIsInRole(this.userId, 'admin') && userId) {
         currentTrip =
           Meteor.users.findOne({ _id: userId }) &&
