@@ -31,7 +31,7 @@
     "request-promise": "^4.2.1",
     "spawn-sync": "^1.0.15",
     "thread-sleep": "^2.0.0",
-    "try-thread-sleep": "^1.0.2"
+    "try-thread-sleep": "^2.0.0"
   },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",
