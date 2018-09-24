@@ -2,6 +2,8 @@
   "name": "trips",
   "private": true,
   "scripts": {
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
     "start": "meteor run --port 3003 --settings settings.json"
   },
   "dependencies": {
@@ -46,7 +48,7 @@
     "faker": "^4.1.0",
     "nock": "^9.2.5"
   },
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Track trip participants and their funding",
   "main": "index.js",
   "repository": {
