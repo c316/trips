@@ -74,11 +74,15 @@ const _Person = (persona_id) => {
 };
 
 export const getDTSplitData = (fundId) => {
+  const waitForDelete = DTSplits.remove({ fund_id: fundId });
+
   const allData = _Splits(fundId);
+
   allData.map((split) => {
     split.donation = _Donation(split.donation_id);
     split.persona = _Person(split.donation.persona_id);
-    const storeMe = DTSplits.upsert({ _id: split.id }, split);
+    split._id = String(split.id);
+    DTSplits.insert(split);
   });
   return allData;
 };
