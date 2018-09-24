@@ -1,12 +1,11 @@
-Template.FundraisingPage.helpers( {
-  title(){
-    return "Fundraising";
+Template.FundraisingPage.helpers({
+  title() {
+    return 'Fundraising';
   },
-  user(){
-    if( !Session.get( "showingOtherUser" ) ) {
-      return Meteor.user();
-    } else {
+  user() {
+    if (!Session.get('showingOtherUser')) {
       return Meteor.user();
     }
-  }
+    return Meteor.user();
+  },
 });

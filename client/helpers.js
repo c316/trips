@@ -1,5 +1,6 @@
 import moment from 'moment';
-import { getRaisedTotalForTrip,
+import {
+  getRaisedTotalForTrip,
   getDeadlinesTotalForTrip,
   getDeadlineAdjustmentsForTrip,
   getRaisedTotal,

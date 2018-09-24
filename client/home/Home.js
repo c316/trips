@@ -1,23 +1,22 @@
 Template.Home.helpers({
-  title(){
-    return "Home";
+  title() {
+    return 'Home';
   },
-  otherUser(){
-    if (Session.get("showingOtherUser")) {
+  otherUser() {
+    if (Session.get('showingOtherUser')) {
       return true;
     }
   },
-  user(){
-    if (!Session.get("showingOtherUser")) {
+  user() {
+    if (!Session.get('showingOtherUser')) {
       return Meteor.user();
-    } else {
-      return this;
     }
-  }
+    return this;
+  },
 });
 
-Template.Home.onDestroyed(function () {
-  Session.delete("showTripFunds");
-  Session.delete("showForms");
-  Session.delete("showUserRegistration");
+Template.Home.onDestroyed(function() {
+  Session.delete('showTripFunds');
+  Session.delete('showForms');
+  Session.delete('showUserRegistration');
 });

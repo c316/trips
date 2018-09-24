@@ -4,45 +4,45 @@ import { BootstrapDatePicker } from '/imports/ui/js/bootstrap-datepicker';
 import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
 import { phoneUS, zipcode } from '/imports/api/validationMethods';
 
-Template.MissionaryInformationForm.onRendered(function(){
+Template.MissionaryInformationForm.onRendered(function() {
   phoneUS();
   zipcode();
 
   $('.date-picker').datepicker({
     autoclose: true,
-    startView: 'decade'
+    startView: 'decade',
   });
-  $("[name='emergencyContactPhone']").inputmask({"mask": "(999) 999-9999"});
-  $("[name='lastTetanusShotYear']").inputmask({"mask": "9999"});
+  $("[name='emergencyContactPhone']").inputmask({ mask: '(999) 999-9999' });
+  $("[name='lastTetanusShotYear']").inputmask({ mask: '9999' });
 
   // for more info visit the official plugin documentation:
   // http://docs.jquery.com/Plugins/Validation
-  var missionaryInformationFormVar = $('#missionaryInformationForm');
-  var error1 = $('.alert-danger', missionaryInformationFormVar);
-  var success1 = $('.alert-success', missionaryInformationFormVar);
+  const missionaryInformationFormVar = $('#missionaryInformationForm');
+  const error1 = $('.alert-danger', missionaryInformationFormVar);
+  const success1 = $('.alert-success', missionaryInformationFormVar);
 
   missionaryInformationFormVar.validate({
-    errorElement: 'span', //default input error message container
+    errorElement: 'span', // default input error message container
     errorClass: 'help-block help-block-error', // default input error message class
     focusInvalid: false,
     ignore: [],
     rules: {
       preferredName: {
         required: true,
-        minlength: 2
+        minlength: 2,
       },
-      passportStatus:{
-        required: true
+      passportStatus: {
+        required: true,
       },
       passportExpirationDate: {
-        required: function () {
-          if( $( "input:radio[name='passportStatus']" ).is( ":checked" ) ) {
-            if( $( 'input[name="passportStatus"]:checked' ).val() === 'yes' ) {
+        required() {
+          if ($("input:radio[name='passportStatus']").is(':checked')) {
+            if ($('input[name="passportStatus"]:checked').val() === 'yes') {
               return true;
             }
           }
           return false;
-        }
+        },
       },
       birthdate: {
         required: true,
@@ -91,7 +91,7 @@ Template.MissionaryInformationForm.onRendered(function(){
         required: true,
       },
       convictedOfACrime: {
-        required: true
+        required: true,
       },
       permissionToRunBackgroundCheck: {
         required: true,
@@ -109,93 +109,92 @@ Template.MissionaryInformationForm.onRendered(function(){
         required: true,
       },
       whatThreeSkills: {
-        required: true
+        required: true,
       },
       iWouldLikeToParticipateIn: {
-        required: true
+        required: true,
       },
       opportunityDetails: {
-        required: true
+        required: true,
       },
       iagree: {
-        required: true
-      }
+        required: true,
+      },
     },
     messages: {
-      preferredName: "Please specify your name",
+      preferredName: 'Please specify your name',
       emergencyContactAddressZip: {
-        minlength: "Your zip code needs to be at least 5 digits long"
-      }
+        minlength: 'Your zip code needs to be at least 5 digits long',
+      },
     },
 
-    invalidHandler: function(event, validator) { //display error alert on form submit
+    invalidHandler(event, validator) { // display error alert on form submit
       success1.hide();
       error1.show();
 
       if (!validator.numberOfInvalids()) return;
     },
 
-    errorPlacement: function(error, element) {
+    errorPlacement(error, element) {
       if (element.is(':checkbox')) {
-        error.insertAfter(element.closest(".md-checkbox-list, .md-checkbox-inline, .checkbox-list, .checkbox-inline"));
+        error.insertAfter(element.closest('.md-checkbox-list, .md-checkbox-inline, .checkbox-list, .checkbox-inline'));
       } else if (element.is(':radio')) {
-        error.insertAfter(element.closest(".md-radio-list, .md-radio-inline, .radio-list,.radio-inline"));
+        error.insertAfter(element.closest('.md-radio-list, .md-radio-inline, .radio-list,.radio-inline'));
       } else {
         error.insertAfter(element); // for other inputs, just perform default behavior
       }
     },
 
-    highlight: function(element) { // highlight error inputs
+    highlight(element) { // highlight error inputs
       $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
     },
 
-    unhighlight: function(element) { // revert the change done by highlight
+    unhighlight(element) { // revert the change done by highlight
       $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
     },
 
-    success: function(label) {
+    success(label) {
       label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-    }
+    },
   });
 
   // Show the explain box if they have a criminal past
-  if( $( 'input[name="convictedOfACrime"]:checked' ).val() === 'yes' ) {
+  if ($('input[name="convictedOfACrime"]:checked').val() === 'yes') {
     $('#convictedOfACrimeExplainedDiv').show();
   }
 
   // Show the explain box if they have traveled outside the US
-  if( $( 'input[name="traveledOutsideTheUS"]:checked' ).val() === 'yes' ) {
+  if ($('input[name="traveledOutsideTheUS"]:checked').val() === 'yes') {
     $('#outsideUSTravelExplainedDiv').show();
   }
 
   // Show the explain box if they have traveled with TMP before
-  if( $( 'input[name="beenOnATMPTrip"]:checked' ).val() === 'yes' ) {
+  if ($('input[name="beenOnATMPTrip"]:checked').val() === 'yes') {
     $('#beenOnATMPTripExplainedDiv').show();
   }
 
   // Show the explain box if they do speak other languages
-  if( $( 'input[name="speaksOtherLanguages"]:checked' ).val() === 'yes' ) {
+  if ($('input[name="speaksOtherLanguages"]:checked').val() === 'yes') {
     $('#languageProficiencyExplainedExplainedDiv').show();
   }
-
 });
 
 Template.MissionaryInformationForm.helpers({
-  missionaryInformation(){
-    let thisForm = Forms.findOne({name: 'missionaryInformationForm', userId: this._id});
+  missionaryInformation() {
+    const thisForm = Forms.findOne({ name: 'missionaryInformationForm', userId: this._id });
     return thisForm || {};
   },
 });
 
 Template.MissionaryInformationForm.events({
-  'change .date-picker'(e){
-    let dateValue = $(e.currentTarget).val();
+  'change .date-picker'(e) {
+    const dateValue = $(e.currentTarget).val();
     if (dateValue) $(e.currentTarget).addClass('edited');
   },
-  'change #missionaryInformationForm'(e, tmpl){
+  'change #missionaryInformationForm'(e, tmpl) {
     // check to see if the trip leader is looking at the form to verify it, if so, then
     // exit this change function
-    if(Session.get("verifying")){
+    if (Session.get('verifying')) {
       return;
     }
     // This will be called several times when the form renders, make sure
@@ -203,11 +202,11 @@ Template.MissionaryInformationForm.events({
     // Then check that if is is empty that is was empty in the document
     // if it wasn't empty in the document then that means the user
     // deleted the value here and we should then update to the new blank value
-    if(!e.target.value){
-      let thisForm = Forms.findOne({_id: this._id});
-      if(!thisForm) return;
-      let oldValue = thisForm[e.target.name];
-      if(!oldValue) {
+    if (!e.target.value) {
+      const thisForm = Forms.findOne({ _id: this._id });
+      if (!thisForm) return;
+      const oldValue = thisForm[e.target.name];
+      if (!oldValue) {
         return;
       }
     }
@@ -219,11 +218,11 @@ Template.MissionaryInformationForm.events({
     // checkboxes called, 'iWouldLikeToParticipateIn' push them into one key,
     // otherwise this value will be overwritten and you'll only get the last value
     // inserted into the document
-    let form = {};
-    let iWouldLikeToParticipateIn = [];
-    $("#missionaryInformationForm").serializeArray().map(function(x){
-      if(x.value) {
-        if(x.name === 'iWouldLikeToParticipateIn'){
+    const form = {};
+    const iWouldLikeToParticipateIn = [];
+    $('#missionaryInformationForm').serializeArray().map(function(x) {
+      if (x.value) {
+        if (x.name === 'iWouldLikeToParticipateIn') {
           iWouldLikeToParticipateIn.push(x.value);
         } else {
           form[x.name] = x.value;
@@ -232,60 +231,60 @@ Template.MissionaryInformationForm.events({
     });
     form.iWouldLikeToParticipateIn = iWouldLikeToParticipateIn;
     form.name = 'missionaryInformationForm';
-    form.verified = form.verified ? true : false;
-    if(form.verified){
+    form.verified = !!form.verified;
+    if (form.verified) {
       form.verifiedDate = new Date(form.verifiedDate);
     }
 
-    let updateThisId = tmpl && tmpl.data._id;
-    Meteor.call("update.form", form, updateThisId, function(err, res){
-      if(err) console.error(err);
+    const updateThisId = tmpl && tmpl.data._id;
+    Meteor.call('update.form', form, updateThisId, function(err, res) {
+      if (err) console.error(err);
     });
   },
-  'change [name="passportStatus"]'(){
-    if( $( 'input[name="passportStatus"]:checked' ).val() === 'yes' ) {
-      $( '#passportExpirationDateDiv').show();
+  'change [name="passportStatus"]'() {
+    if ($('input[name="passportStatus"]:checked').val() === 'yes') {
+      $('#passportExpirationDateDiv').show();
     } else {
       Bert.alert({
         message: 'Please enter your passport information and upload a color photocopy of your passport as soon as you get it.',
         type: 'warning',
         style: 'fixed-top',
-        icon: 'fa-exclamation'
+        icon: 'fa-exclamation',
       });
       $('#passportExpirationDateDiv').hide();
-      $('[name="passportExpirationDate"]').val("");
+      $('[name="passportExpirationDate"]').val('');
     }
   },
-  'change [name="convictedOfACrime"]'(){
-    if( $( 'input[name="convictedOfACrime"]:checked' ).val() === 'yes' ) {
-      $( '#convictedOfACrimeExplainedDiv').show();
+  'change [name="convictedOfACrime"]'() {
+    if ($('input[name="convictedOfACrime"]:checked').val() === 'yes') {
+      $('#convictedOfACrimeExplainedDiv').show();
     } else {
       $('#convictedOfACrimeExplainedDiv').hide();
-      $('[name="convictedOfACrimeExplained"]').val("");
+      $('[name="convictedOfACrimeExplained"]').val('');
     }
   },
-  'change [name="speaksOtherLanguages"]'(){
-    if( $( 'input[name="speaksOtherLanguages"]:checked' ).val() === 'yes' ) {
-      $( '#languageProficiencyExplainedExplainedDiv').show();
+  'change [name="speaksOtherLanguages"]'() {
+    if ($('input[name="speaksOtherLanguages"]:checked').val() === 'yes') {
+      $('#languageProficiencyExplainedExplainedDiv').show();
     } else {
       $('#languageProficiencyExplainedExplainedDiv').hide();
-      $('[name="languageProficiencyExplained"]').val("");
+      $('[name="languageProficiencyExplained"]').val('');
     }
   },
-  'change [name="beenOnATMPTrip"]'(){
-    if( $( 'input[name="beenOnATMPTrip"]:checked' ).val() === 'yes' ) {
-      $( '#beenOnATMPTripExplainedDiv').show();
+  'change [name="beenOnATMPTrip"]'() {
+    if ($('input[name="beenOnATMPTrip"]:checked').val() === 'yes') {
+      $('#beenOnATMPTripExplainedDiv').show();
     } else {
       $('#beenOnATMPTripExplainedDiv').hide();
-      $('[name="beenOnATMPTripExplained"]').val("");
+      $('[name="beenOnATMPTripExplained"]').val('');
     }
   },
-  'change [name="traveledOutsideTheUS"]'(){
-    if( $( 'input[name="traveledOutsideTheUS"]:checked' ).val() === 'yes' ) {
-      $( '#outsideUSTravelExplainedDiv').show();
+  'change [name="traveledOutsideTheUS"]'() {
+    if ($('input[name="traveledOutsideTheUS"]:checked').val() === 'yes') {
+      $('#outsideUSTravelExplainedDiv').show();
     } else {
       $('#outsideUSTravelExplainedDiv').hide();
-      $('[name="outsideUSTravelExplained"]').val("");
+      $('[name="outsideUSTravelExplained"]').val('');
     }
-  }
+  },
 });

@@ -1,36 +1,35 @@
 export const setupPapertrail = () => {
+  const host = Meteor.settings.Papertrail.host;
+  const port = Meteor.settings.Papertrail.port;
 
-  let host = Meteor.settings.Papertrail.host;
-  let port = Meteor.settings.Papertrail.port;
-
-//creating a global server logger
+  // creating a global server logger
   logger = Winston;
 
-  logger.add( Winston_Papertrail, {
+  logger.add(Winston_Papertrail, {
     levels: {
       debug: 0,
-      info:  1,
-      warn:  2,
+      info: 1,
+      warn: 2,
       error: 3,
-      auth:  4
+      auth: 4,
     },
     colors: {
       debug: 'blue',
-      info:  'green',
-      warn:  'red',
+      info: 'green',
+      warn: 'red',
       error: 'red',
-      auth:  'red'
+      auth: 'red',
     },
 
-    host:             host ? host : 'localhost',
-    port:             port ? port : '1234', // this change from papertrail account to account
+    host: host || 'localhost',
+    port: port || '1234', // this change from papertrail account to account
     handleExceptions: true,
-    json:             true,
-    colorize:         true,
-    logFormat:        function ( level, message ) {
-      return '[' + level + '] ' + message;
-    }
-  } );
+    json: true,
+    colorize: true,
+    logFormat(level, message) {
+      return `[${level}] ${message}`;
+    },
+  });
 
-  logger.info( " =====> Trips restarted " + new Date( Date.now() ) + " <=====" );
-}
+  logger.info(` =====> Trips restarted ${new Date(Date.now())} <=====`);
+};

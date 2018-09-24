@@ -1,1 +1,1 @@
-import('buffer').then(({Buffer}) => {global.Buffer = Buffer;});
+import('buffer').then(({ Buffer }) => { global.Buffer = Buffer; });

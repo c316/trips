@@ -967,7 +967,7 @@ Meteor.methods({
       let currentTrip;
       let email;
       let tripRegistrationForm;
-      
+
       if (Roles.userIsInRole(this.userId, 'admin') && userId) {
         currentTrip =
           Meteor.users.findOne({ _id: userId }) &&
