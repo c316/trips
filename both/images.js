@@ -4,19 +4,18 @@ import { getSignedURLs } from '/imports/api/miscFunctions';
 import gm from 'gm';
 import knox from 'knox-s3';
 
-
-let bound,
-  client,
-  Request,
-  cfdomain,
-  createThumbnails;
+let bound;
+let client;
+let request;
+let cfdomain;
+let createThumbnails;
 
 if (Meteor.isServer) {
   // Fix CloudFront certificate issue
   // Read: https://github.com/chilts/awssum/issues/164
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
-  Request = Npm.require('request');
+  request = Npm.require('request');
   bound = Meteor.bindEnvironment(function(callback) {
     return callback();
   });
@@ -36,7 +35,9 @@ if (Meteor.isServer) {
     const fut = new Future();
     const updateAndSave = function(error) {
       return bound(function() {
-        if (error) { console.error(error); }
+        if (error) {
+          console.error(error);
+        }
         const upd = {
           $set: {
             'versions.thumbnail': {
@@ -67,8 +68,10 @@ Images = new FilesCollection({
       return true;
     }
     if (file.extension === 'pdf') {
-      return 'Your image cannot be in PDF format. It needs to be jpg, png or jpeg.' +
-          ' Try scanning it again, but scan it as an image, not a document.';
+      return (
+        'Your image cannot be in PDF format. It needs to be jpg, png or jpeg.' +
+        ' Try scanning it again, but scan it as an image, not a document.'
+      );
     }
     return 'Please upload and image (jpg, png or jpeg), with size less than 20MB';
   },
@@ -85,7 +88,7 @@ Images = new FilesCollection({
         // As after viewing this code it will be easy
         // to get access to unlisted and protected files
         const filePath = `files/${Random.id()}-${version}.${fileRef.extension}`;
-        client.putFile(vRef.path, filePath, function(error, res) {
+        client.putFile(vRef.path, filePath, function(error) {
           bound(function() {
             let upd;
             if (error) {
@@ -94,23 +97,32 @@ Images = new FilesCollection({
               upd = {
                 $set: {},
               };
-              upd.$set[`versions.${version}.meta.pipeFrom`] = `${cfdomain}/${filePath}`;
+              upd.$set[
+                `versions.${version}.meta.pipeFrom`
+              ] = `${cfdomain}/${filePath}`;
               upd.$set[`versions.${version}.meta.pipePath`] = filePath;
-              self.collection.update({
-                _id: fileRef._id,
-              }, upd, function(error) {
-                if (error) {
-                  console.error(error);
-                } else {
-                  // Unlink original files from FS
-                  // after successful upload to AWS:S3
-                  self.unlink(self.collection.findOne(fileRef._id), version);
-                  getSignedURLs(client, version, fileRef._id, function(err, res) {
-                    if (err) console.error(err);
-                    else console.log(res);
-                  });
-                }
-              });
+              self.collection.update(
+                {
+                  _id: fileRef._id,
+                },
+                upd,
+                function(errorHere) {
+                  if (errorHere) {
+                    console.error(errorHere);
+                  } else {
+                    // Unlink original files from FS
+                    // after successful upload to AWS:S3
+                    self.unlink(self.collection.findOne(fileRef._id), version);
+                    getSignedURLs(client, version, fileRef._id, function(
+                      err,
+                      result,
+                    ) {
+                      if (err) console.error(err);
+                      else console.log(result);
+                    });
+                  }
+                },
+              );
             }
           });
         });
@@ -118,18 +130,34 @@ Images = new FilesCollection({
     }, 2000);
   },
   interceptDownload(http, fileRef, version) {
-    let path,
-      ref,
-      ref1,
-      ref2;
-    path = (ref = fileRef.versions) != null ? (ref1 = ref[version]) != null ? (ref2 = ref1.meta) != null ? ref2.pipeFrom : void 0 : void 0 : void 0;
+    let ref;
+    let ref1;
+    let ref2;
+    const path =
+      (ref = fileRef.versions) != null
+        ? (ref1 = ref[version]) != null
+          ? (ref2 = ref1.meta) != null
+            ? ref2.pipeFrom
+            : void 0
+          : void 0
+        : void 0;
     if (path) {
       // If file is moved to S3
       // We will pipe request to S3
       // So, original link will stay always secure
-      Request({
+      request({
         url: path,
-        headers: _.pick(http.request.headers, 'range', 'accept-language', 'accept', 'cache-control', 'pragma', 'connection', 'upgrade-insecure-requests', 'user-agent'),
+        headers: _.pick(
+          http.request.headers,
+          'range',
+          'accept-language',
+          'accept',
+          'cache-control',
+          'pragma',
+          'connection',
+          'upgrade-insecure-requests',
+          'user-agent',
+        ),
       }).pipe(http.response);
       return true;
     }
@@ -149,7 +177,13 @@ if (Meteor.isServer) {
     cursor.forEach(function(fileRef) {
       _.each(fileRef.versions, function(vRef) {
         let ref;
-        if (vRef != null ? (ref = vRef.meta) != null ? ref.pipePath : void 0 : void 0) {
+        if (
+          vRef != null
+            ? (ref = vRef.meta) != null
+              ? ref.pipePath
+              : void 0
+            : void 0
+        ) {
           client.deleteFile(vRef.meta.pipePath, function(error) {
             bound(function() {
               if (error) {
