@@ -30,7 +30,8 @@ Template.registerHelper('submitFormText', function(e) {
   }
   return {
     'data-loading-text': "Processing... <i class='fa fa-spinner fa-spin'></i>",
-    'data-error-text': "Hmm...that didn't work. Please look over your form and try again <i class='fa fa-exclamation-triangle'></i>",
+    'data-error-text':
+      "Hmm...that didn't work. Please look over your form and try again <i class='fa fa-exclamation-triangle'></i>",
     'data-success-text': agreed || "Got it! <i class='fa fa-check'></i>",
   };
 });
@@ -46,7 +47,10 @@ Template.registerHelper('agreed', function(e) {
       disabled: 'disabled',
     };
   }
-  if (Roles.userIsInRole(Meteor.userId(), 'admin') && Meteor.user()._id !== Session.get('showingUserId')) {
+  if (
+    Roles.userIsInRole(Meteor.userId(), 'admin') &&
+    Meteor.user()._id !== Session.get('showingUserId')
+  ) {
     // Admins can't agree to terms for another user, only the user can do this
     return { disabled: 'disabled' };
   }
@@ -66,13 +70,14 @@ Template.registerHelper('passportPhotoOriginal', function() {
 });
 
 Template.registerHelper('noTripRegistration', function() {
-  const tripId = Meteor.users.findOne({ _id: this._id })
-    && Meteor.users.findOne({ _id: this._id }).tripId;
+  const tripId =
+    Meteor.users.findOne({ _id: this._id }) &&
+    Meteor.users.findOne({ _id: this._id }).tripId;
   if (tripId) {
-
   } else {
-    const trips = Meteor.users.findOne({ _id: this._id })
-      && Meteor.users.findOne({ _id: this._id }).otherTrips;
+    const trips =
+      Meteor.users.findOne({ _id: this._id }) &&
+      Meteor.users.findOne({ _id: this._id }).otherTrips;
     if (trips) {
       return;
     }
@@ -83,8 +88,9 @@ Template.registerHelper('noTripRegistration', function() {
 });
 
 Template.registerHelper('otherTripsRegistration', function() {
-  const trips = Meteor.users.findOne({ _id: this._id })
-    && Meteor.users.findOne({ _id: this._id }).otherTrips;
+  const trips =
+    Meteor.users.findOne({ _id: this._id }) &&
+    Meteor.users.findOne({ _id: this._id }).otherTrips;
   if (trips) {
     return true;
   }
@@ -92,7 +98,9 @@ Template.registerHelper('otherTripsRegistration', function() {
 });
 
 Template.registerHelper('noTripRegistrationExpand', function() {
-  const tripId = Meteor.users.findOne({ _id: this._id }) && Meteor.users.findOne({ _id: this._id }).tripId;
+  const tripId =
+    Meteor.users.findOne({ _id: this._id }) &&
+    Meteor.users.findOne({ _id: this._id }).tripId;
   if (tripId) {
     return {
       style: 'display: none;',
@@ -101,7 +109,7 @@ Template.registerHelper('noTripRegistrationExpand', function() {
 });
 
 Template.registerHelper('oddEven', function(index) {
-  if ((index % 2) === 0) return 'even';
+  if (index % 2 === 0) return 'even';
   return 'odd';
 });
 
@@ -111,13 +119,11 @@ Template.registerHelper('selected', function(key, value) {
   }
 });
 
-
 Template.registerHelper('checked', function(name, value) {
   if (this[name] === value) {
     return { checked: 'checked' };
   }
 });
-
 
 Template.registerHelper('multiChecked', function(name, value) {
   if (this[name] && this[name].indexOf(value) !== -1) {
@@ -126,13 +132,14 @@ Template.registerHelper('multiChecked', function(name, value) {
 });
 
 Template.registerHelper('editedClass', function(value) {
-  if (value) { return 'edited'; }
+  if (value) {
+    return 'edited';
+  }
 });
 
 Template.registerHelper('appVersion', function() {
   return '1.3.2';
 });
-
 
 Template.registerHelper('thisUserIsInRole', function(_id, role) {
   return Roles.userIsInRole(_id, role.split(', '));
@@ -149,24 +156,22 @@ Template.registerHelper('formatMoney', function(amount) {
 
 Template.registerHelper('totalRaisedForTrip', function() {
   const totalRaised = getRaisedTotalForTrip(Session.get('tripId'));
-  const totalAdjustments = getDeadlineAdjustmentsForTrip(Session.get('tripId'));
-  return Number(totalRaised - totalAdjustments).toLocaleString();
+  return Number(totalRaised).toLocaleString();
 });
 
 Template.registerHelper('totalNeededForTrip', function() {
   const tripId = Number(Session.get('tripId'));
   const totalNeeded = getDeadlinesTotalForTrip(tripId);
-  console.log(totalNeeded);
   const users = Meteor.users.find({ tripId });
   return Number(totalNeeded * users.count()).toLocaleString();
 });
-
 
 Template.registerHelper('raisedAmount', function() {
   const raisedTotal = getRaisedTotal(this._id);
   const deadlineTotal = getDeadlineTotal(this._id);
   const deadlineAdjustments = getDeadlineAdjustments(this._id);
-  const deadlineTotalWithAdjustments = Number(deadlineTotal) + Number(deadlineAdjustments);
+  const deadlineTotalWithAdjustments =
+    Number(deadlineTotal) + Number(deadlineAdjustments);
   if (raisedTotal > 0) {
     return `$${Number(raisedTotal).toLocaleString()} raised of $${Number(deadlineTotalWithAdjustments).toLocaleString()} total`;
   }
@@ -180,14 +185,14 @@ Template.registerHelper('needToRaiseThisAmount', function() {
     const deadlineTotal = getDeadlineTotal(Session.get('showingUserId'));
     const deadlineAdjustments = getDeadlineAdjustments(Session.get('showingUserId'));
     const needToRaiseThisAmount = deadlineTotal - raisedTotal;
-    const deadlineTotalWithAdjustments = Number(needToRaiseThisAmount) + Number(deadlineAdjustments);
+    const deadlineTotalWithAdjustments =
+      Number(needToRaiseThisAmount) + Number(deadlineAdjustments);
     if (deadlineAdjustments > 0) {
       return `Your deadline adjustment = $${deadlineAdjustments}<br/>$${deadlineTotalWithAdjustments}`;
     }
     return `$${deadlineTotalWithAdjustments}`;
   }
 });
-
 
 Template.registerHelper('showTripRaisedTotal', function() {
   const splits = DTSplits.find({ fund_id: this.tripId });
@@ -217,10 +222,13 @@ Template.registerHelper('showFundraisingModule', function() {
 });
 
 Template.registerHelper('status', function() {
-  const tripId = Meteor.users.findOne({ _id: this._id }) && Meteor.users.findOne({ _id: this._id }).tripId;
+  const tripId =
+    Meteor.users.findOne({ _id: this._id }) &&
+    Meteor.users.findOne({ _id: this._id }).tripId;
   const passportImage = Images.findOne({ userId: this._id });
-  const otherTrips = Meteor.users.findOne({ _id: this._id })
-    && Meteor.users.findOne({ _id: this._id }).otherTrips;
+  const otherTrips =
+    Meteor.users.findOne({ _id: this._id }) &&
+    Meteor.users.findOne({ _id: this._id }).otherTrips;
 
   if (tripId || otherTrips) {
     const forms = Forms.find({
@@ -248,7 +256,11 @@ Template.registerHelper('status', function() {
 });
 
 Template.registerHelper('formStarted', function(name) {
-  const form = Forms.findOne({ name, userId: this._id, archived: { $ne: true } });
+  const form = Forms.findOne({
+    name,
+    userId: this._id,
+    archived: { $ne: true },
+  });
   return form;
 });
 
@@ -300,10 +312,12 @@ Template.registerHelper('images', function() {
 
 Template.registerHelper('fullName', function(parentContext) {
   if (parentContext) {
-    const profile = parentContext && parentContext.profile && parentContext.profile;
+    const profile =
+      parentContext && parentContext.profile && parentContext.profile;
     return `${profile && profile.firstName} ${profile && profile.lastName}`;
   }
-  return `${this.profile && this.profile.firstName} ${this.profile && this.profile.lastName}`;
+  return `${this.profile &&
+    this.profile.firstName} ${this.profile && this.profile.lastName}`;
 });
 
 Template.registerHelper('pathFor', function(path, view) {
@@ -330,5 +344,7 @@ Template.registerHelper('pathFor', function(path, view) {
   }
   query = view.hash.query ? FlowRouter._qs.parse(view.hash.query) : {};
   hashBang = view.hash.hash ? view.hash.hash : '';
-  return FlowRouter.path(path, view.hash, query) + (hashBang ? `#${hashBang}` : '');
+  return (
+    FlowRouter.path(path, view.hash, query) + (hashBang ? `#${hashBang}` : '')
+  );
 });
