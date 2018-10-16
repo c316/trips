@@ -1,4 +1,4 @@
-export default Login = (function() {
+export default (function() {
   const handleLogin = function() {
     $('.login-form').validate({
       errorElement: 'span', // default input error message container
@@ -25,13 +25,16 @@ export default Login = (function() {
         },
       },
 
-      invalidHandler(event, validator) { // display error alert on form submit
+      invalidHandler(event, validator) {
+        // display error alert on form submit
         $('.alert-danger', $('.login-form')).show();
       },
 
-      highlight(element) { // hightlight error inputs
+      highlight(element) {
+        // hightlight error inputs
         $(element)
-          .closest('.form-group').addClass('has-error'); // set error class to the control group
+          .closest('.form-group')
+          .addClass('has-error'); // set error class to the control group
       },
 
       success(label) {
@@ -50,7 +53,11 @@ export default Login = (function() {
 
     $('.login-form input').keypress(function(e) {
       if (e.which == 13) {
-        if ($('.login-form').validate().form()) {
+        if (
+          $('.login-form')
+            .validate()
+            .form()
+        ) {
           $('.login-form').submit(); // form validation success, call ajax form submit
         }
         return false;
@@ -77,13 +84,15 @@ export default Login = (function() {
         },
       },
 
-      invalidHandler(event, validator) { // display error alert on form submit
-
+      invalidHandler(event, validator) {
+        // display error alert on form submit
       },
 
-      highlight(element) { // hightlight error inputs
+      highlight(element) {
+        // hightlight error inputs
         $(element)
-          .closest('.form-group').addClass('has-error'); // set error class to the control group
+          .closest('.form-group')
+          .addClass('has-error'); // set error class to the control group
       },
 
       success(label) {
@@ -102,7 +111,11 @@ export default Login = (function() {
 
     $('.forget-form input').keypress(function(e) {
       if (e.which == 13) {
-        if ($('.forget-form').validate().form()) {
+        if (
+          $('.forget-form')
+            .validate()
+            .form()
+        ) {
           $('.forget-form').submit();
         }
         return false;
@@ -164,19 +177,22 @@ export default Login = (function() {
         },
       },
 
-      messages: { // custom messages for radio buttons and checkboxes
+      messages: {
+        // custom messages for radio buttons and checkboxes
         tnc: {
           required: 'Please accept terms of service first.',
         },
       },
 
-      invalidHandler(event, validator) { // display error alert on form submit
-
+      invalidHandler(event, validator) {
+        // display error alert on form submit
       },
 
-      highlight(element) { // hightlight error inputs
+      highlight(element) {
+        // hightlight error inputs
         $(element)
-          .closest('.form-group').addClass('has-error'); // set error class to the control group
+          .closest('.form-group')
+          .addClass('has-error'); // set error class to the control group
       },
 
       success(label) {
@@ -185,7 +201,8 @@ export default Login = (function() {
       },
 
       errorPlacement(error, element) {
-        if (element.attr('name') == 'tnc') { // insert checkbox errors after the container
+        if (element.attr('name') == 'tnc') {
+          // insert checkbox errors after the container
           error.insertAfter($('#register_tnc_error'));
         } else if (element.closest('.input-icon').size() === 1) {
           error.insertAfter(element.closest('.input-icon'));
@@ -201,7 +218,11 @@ export default Login = (function() {
 
     $('.register-form input').keypress(function(e) {
       if (e.which == 13) {
-        if ($('.register-form').validate().form()) {
+        if (
+          $('.register-form')
+            .validate()
+            .form()
+        ) {
           $('.register-form').submit();
         }
         return false;
@@ -216,6 +237,5 @@ export default Login = (function() {
       handleForgetPassword();
       handleRegister();
     },
-
   };
-}());
+})();

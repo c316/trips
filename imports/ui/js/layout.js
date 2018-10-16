@@ -3,7 +3,7 @@ Core script to handle the entire theme and core functions
  * */
 import { App } from './app';
 
-export const Layout = (function() {
+export default (function() {
   const layoutImgPath = 'layouts/layout5/img/';
 
   const layoutCssPath = 'layouts/layout5/css/';
@@ -13,15 +13,15 @@ export const Layout = (function() {
   // Set proper height for sidebar and content. The content and sidebar height must be synced always.
   const handleContentHeight = function() {
     const content = $('.page-content');
-    const copyright = $('.copyright');
-    const body = $('body');
-    let height;
-
-    const available_height = App.getViewPort().height - $('.copyright').outerHeight() - $('.page-header').outerHeight() - 50;
+    const available_height =
+      App.getViewPort().height -
+      $('.copyright').outerHeight() -
+      $('.page-header').outerHeight() -
+      50;
     content.css('min-height', available_height);
   };
 
-    // handle on page scroll
+  // handle on page scroll
   const handleHeaderOnScroll = function() {
     if ($(window).scrollTop() > 60) {
       $('body').addClass('page-on-scroll');
@@ -35,7 +35,7 @@ export const Layout = (function() {
   // handle go to top button
   const handleGo2Top = function() {
     const Go2TopOperation = function() {
-      const CurrentWindowPosition = $(window).scrollTop();// current vertical position
+      const CurrentWindowPosition = $(window).scrollTop(); // current vertical position
       if (CurrentWindowPosition > 100) {
         $('.go2top').show();
       } else {
@@ -43,9 +43,9 @@ export const Layout = (function() {
       }
     };
 
-    Go2TopOperation();// call headerFix() when the page was loaded
+    Go2TopOperation(); // call headerFix() when the page was loaded
     if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-      $(window).bind('touchend touchcancel touchleave', function(e) {
+      $(window).bind('touchend touchcancel touchleave', function() {
         Go2TopOperation();
       });
     } else {
@@ -63,7 +63,10 @@ export const Layout = (function() {
   const handleHeaderMenu = function() {
     $('.page-header .navbar-nav > .dropdown-fw, .page-header .navbar-nav > .more-dropdown, .page-header .navbar-nav > .dropdown > .dropdown-menu  > .dropdown').click(function(e) {
       if (App.getViewPort().width > resBreakpointMd) {
-        if ($(this).hasClass('more-dropdown') || $(this).hasClass('more-dropdown-sub')) {
+        if (
+          $(this).hasClass('more-dropdown') ||
+          $(this).hasClass('more-dropdown-sub')
+        ) {
           return;
         }
         e.stopPropagation();
@@ -71,7 +74,9 @@ export const Layout = (function() {
         e.stopPropagation();
       }
 
-      const links = $(this).parent().find('> .dropdown');
+      const links = $(this)
+        .parent()
+        .find('> .dropdown');
 
       if (App.getViewPort().width < resBreakpointMd) {
         if ($(this).hasClass('open')) {
@@ -91,28 +96,34 @@ export const Layout = (function() {
       }
     });
 
-    $('.page-header .navbar-nav .more-dropdown-sub .dropdown-menu, .page-header .navbar-nav .dropdown-sub .dropdown-menu').click(function() {
-
-    });
+    $('.page-header .navbar-nav .more-dropdown-sub .dropdown-menu, .page-header .navbar-nav .dropdown-sub .dropdown-menu').click(function() {});
   };
 
-    // Handles main menu on window resize
+  // Handles main menu on window resize
   const handleMainMenuOnResize = function() {
     // handle hover dropdown menu for desktop devices only
-    const width = App.getViewPort().width;
+    const { width } = App.getViewPort();
     const menu = $('.page-header .navbar-nav');
     if (width >= resBreakpointMd && menu.data('breakpoint') !== 'desktop') {
       menu.data('breakpoint', 'desktop');
-      $('[data-hover="extended-dropdown"]', menu).not('.hover-initialized').each(function() {
-        $(this).dropdownHover();
-        $(this).addClass('hover-initialized');
-      });
-    } else if (width < resBreakpointMd && menu.data('breakpoint') !== 'mobile') {
+      $('[data-hover="extended-dropdown"]', menu)
+        .not('.hover-initialized')
+        .each(function() {
+          $(this).dropdownHover();
+          $(this).addClass('hover-initialized');
+        });
+    } else if (
+      width < resBreakpointMd &&
+      menu.data('breakpoint') !== 'mobile'
+    ) {
       menu.data('breakpoint', 'mobile');
       // disable hover bootstrap dropdowns plugin
       $('[data-hover="extended-dropdown"].hover-initialized', menu).each(function() {
         $(this).unbind('hover');
-        $(this).parent().unbind('hover').find('.dropdown-submenu')
+        $(this)
+          .parent()
+          .unbind('hover')
+          .find('.dropdown-submenu')
           .each(function() {
             $(this).unbind('hover');
           });
@@ -147,4 +158,4 @@ export const Layout = (function() {
       return App.getAssetsPath() + layoutCssPath;
     },
   };
-}());
+})();

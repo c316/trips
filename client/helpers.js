@@ -2,7 +2,6 @@ import moment from 'moment';
 import {
   getRaisedTotalForTrip,
   getDeadlinesTotalForTrip,
-  getDeadlineAdjustmentsForTrip,
   getRaisedTotal,
   getDeadlineTotal,
   getDeadlineAdjustments,

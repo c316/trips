@@ -1,6 +1,6 @@
 import '/imports/ui/stylesheets/simple-line-icons.css';
 import { App } from '/imports/ui/js/app';
-import { Layout } from '/imports/ui/js/layout';
+import Layout from '/imports/ui/js/layout';
 
 Template.Header.onCreated(function() {
   this.autorun(() => {
