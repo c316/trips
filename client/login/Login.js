@@ -1,11 +1,11 @@
 import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
+import { bertSuccess } from '../../imports/api/utils';
 
 Template.LoginContent.onRendered(() => {
   $('body').addClass('login');
   import '/imports/ui/stylesheets/login.css';
 
   $("[name='phone']").inputmask({ mask: '(999) 999-9999' });
-
 
   $('.login-form').validate({
     rules: {
@@ -27,13 +27,11 @@ Template.LoginContent.onRendered(() => {
       },
     },
 
-    invalidHandler(event, validator) { // display error alert on form submit
-
-    },
-
-    highlight(element) { // hightlight error inputs
+    highlight(element) {
+      // hightlight error inputs
       $(element)
-        .closest('.form-group').addClass('has-error'); // set error class to the control group
+        .closest('.form-group')
+        .addClass('has-error'); // set error class to the control group
     },
 
     success(label) {
@@ -42,7 +40,8 @@ Template.LoginContent.onRendered(() => {
     },
 
     errorPlacement(error, element) {
-      if (element.attr('name') == 'tnc') { // insert checkbox errors after the container
+      if (element.attr('name') == 'tnc') {
+        // insert checkbox errors after the container
         error.insertAfter($('#register_tnc_error'));
       } else if (element.closest('.input-icon').size() === 1) {
         error.insertAfter(element.closest('.input-icon'));
@@ -51,8 +50,8 @@ Template.LoginContent.onRendered(() => {
       }
     },
     submitHandler() {
-      let email = $('[name="email"]').val(),
-        password = $('[name="password"]').val();
+      const email = $('[name="email"]').val();
+      const password = $('[name="password"]').val();
 
       Meteor.loginWithPassword(email, password, (error) => {
         if (error) {
@@ -73,29 +72,32 @@ Template.LoginContent.onRendered(() => {
 });
 
 Template.LoginContent.events({
-  'submit .register-form'(e) {
-    e.preventDefault();
-    const emailVar = e.target.email.value.trim();
-    const passwordVar = e.target.password.value;
+  'submit .register-form'(event) {
+    event.preventDefault();
+    const emailVar = event.target.email.value.trim();
+    const passwordVar = event.target.password.value;
     const profile = {
-      firstName: e.target.firstname.value.trim(),
-      lastName: e.target.lastname.value.trim(),
-      phone: e.target.phone.value.trim(),
+      firstName: event.target.firstname.value.trim(),
+      lastName: event.target.lastname.value.trim(),
+      phone: event.target.phone.value.trim(),
       address: {
-        address: e.target.address.value.trim(),
-        city: e.target.city.value.trim(),
-        state: e.target.state.value.trim(),
-        zip: e.target.zip.value.trim(),
+        address: event.target.address.value.trim(),
+        city: event.target.city.value.trim(),
+        state: event.target.state.value.trim(),
+        zip: event.target.zip.value.trim(),
       },
     };
-    Accounts.createUser({
-      email: emailVar,
-      password: passwordVar,
-      profile,
-    }, (e) => {
-      if (e) console.error(e);
-      else FlowRouter.go('home');
-    });
+    Accounts.createUser(
+      {
+        email: emailVar,
+        password: passwordVar,
+        profile,
+      },
+      (err) => {
+        if (err) console.error(err);
+        else FlowRouter.go('home');
+      },
+    );
   },
   'click #register-btn'() {
     $('.login-form').hide();
@@ -111,33 +113,29 @@ Template.LoginContent.events({
     $('.register-form').hide();
     $('.login-form').show();
   },
-  'click #back-btn'(e) {
-    e.target.form.reset();
+  'click #back-btn'(event) {
+    event.target.form.reset();
     $('.register-form').hide();
     $('.forget-form').hide();
     $('.login-form').show();
   },
-  'click #forget-password'(e) {
-    e.preventDefault();
+  'click #forget-password'(event) {
+    event.preventDefault();
     $('.login-form').hide();
     $('.register-form').hide();
     $('.forget-form').show();
   },
-  'submit .forget-form'(e) {
-    e.preventDefault();
+  'submit .forget-form'(event) {
+    event.preventDefault();
     Accounts.forgotPassword({ email: e.target.email.value }, (err) => {
       if (err) console.error(err);
       else {
-        Bert.alert({
-          title: 'Email sent',
-          message: 'Check your email inbox for the password reset email.',
-          type: 'success',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-up',
-        });
+        bertSuccess(
+          'Email sent',
+          'Check your email inbox for the password reset email.',
+        );
         FlowRouter.go('login');
       }
     });
   },
 });
-

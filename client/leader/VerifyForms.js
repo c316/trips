@@ -1,4 +1,5 @@
 import { App } from '/imports/ui/js/app';
+import { bertError, bertSuccess } from '../../imports/api/utils';
 
 Template.VerifyForms.onCreated(function() {
   Meteor.call('updateExpiredSignedURLS');
@@ -32,7 +33,9 @@ Template.VerifyForms.helpers({
 
 Template.VerifyForms.events({
   'click .already-verified'(e) {
-    const nextId = $('.tab-pane.active').next().attr('id');
+    const nextId = $('.tab-pane.active')
+      .next()
+      .attr('id');
     const formName = e.target.getAttribute('data-form-name');
     if (formName === 'passportImage') {
       FlowRouter.go('/leader');
@@ -41,21 +44,17 @@ Template.VerifyForms.events({
     }
     App.scrollTo($('.steps'));
   },
-  'click .verified'(e) {
-    const nextId = $('.tab-pane.active').next().attr('id');
+  'click .verified'(event) {
+    const nextId = $('.tab-pane.active')
+      .next()
+      .attr('id');
     console.log(nextId);
-    const formName = e.target.getAttribute('data-form-name');
+    const formName = event.target.getAttribute('data-form-name');
 
     Meteor.call('form.verify', formName, this._id, function(err, res) {
       if (err) {
         console.error(err);
-        Bert.alert({
-          title: 'Error',
-          message: err.reason,
-          type: 'danger',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-down',
-        });
+        bertError('Error', err.reason);
       } else {
         console.log(res);
         if (formName === 'passportImage') {
@@ -63,19 +62,16 @@ Template.VerifyForms.events({
         } else {
           $(`a[href="#${nextId}"]`).click();
         }
-        Bert.alert({
-          title: 'Verified',
-          type: 'success',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-up',
-        });
+        bertSuccess('', 'Verified');
         App.scrollTo($('.steps'));
       }
     });
   },
   'click .next'() {
     console.log('clicked verified');
-    const nextId = $('.tab-pane.active').next().attr('id');
+    const nextId = $('.tab-pane.active')
+      .next()
+      .attr('id');
     console.log(nextId);
     $(`a[href="#${nextId}"]`).click();
     App.scrollTo($('.steps'));

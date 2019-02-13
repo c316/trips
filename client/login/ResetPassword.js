@@ -1,3 +1,5 @@
+import { bertSuccess } from '../../imports/api/utils';
+
 Template.ResetPassword.onRendered(function() {
   $('body').addClass('login');
   import '/imports/ui/stylesheets/login.css';
@@ -20,20 +22,12 @@ Template.ResetPassword.events({
     event.preventDefault();
     const tokenVar = FlowRouter.getParam('token');
     const newPasswordVar = event.target.password.value;
-    console.log(tokenVar, newPasswordVar);
     Accounts.resetPassword(tokenVar, newPasswordVar, (err) => {
       if (err) console.error(err);
       else {
-        Bert.alert({
-          title: 'Reset successful',
-          message: 'Your password has been changed',
-          type: 'success',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-up',
-        });
+        bertSuccess('Reset successful', 'Your password has been changed');
         FlowRouter.go('home');
       }
     });
   },
 });
-

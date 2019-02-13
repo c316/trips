@@ -1,8 +1,13 @@
 import { ReactiveVar } from 'meteor/reactive-var';
 
 import { repeater } from '/imports/ui/js/jquery.repeater';
-import { repeaterSetup, setDocHeight, updateSearchVal } from '/imports/api/miscFunctions';
+import {
+  repeaterSetup,
+  setDocHeight,
+  updateSearchVal,
+} from '/imports/api/miscFunctions';
 import '/imports/ui/stylesheets/admin-print.css';
+import { bertSuccess, bertError } from '../../imports/api/utils';
 
 Template.Admin.onCreated(function() {
   Session.delete('showingUserId');
@@ -14,10 +19,14 @@ Template.Admin.onCreated(function() {
       'users',
       Session.get('searchValue'),
       Session.get('documentLimit'),
-      (Session.get('tripId') ? Number(Session.get('tripId')) : null),
-      (Session.get('showAllTrips') ? Session.get('showAllTrips') : false),
+      Session.get('tripId') ? Number(Session.get('tripId')) : null,
+      Session.get('showAllTrips') ? Session.get('showAllTrips') : false,
     );
-    Meteor.subscribe('Trips', (Session.get('tripId') ? Number(Session.get('tripId')) : null), Session.get('showExpired'));
+    Meteor.subscribe(
+      'Trips',
+      Session.get('tripId') ? Number(Session.get('tripId')) : null,
+      Session.get('showExpired'),
+    );
     Meteor.subscribe('Forms');
     Meteor.subscribe('Deadlines');
     Meteor.subscribe('DeadlineAdjustments');
@@ -34,7 +43,8 @@ Template.Admin.onRendered(() => {
     autoclose: true,
   });
 
-  $('.date-picker').datepicker()
+  $('.date-picker')
+    .datepicker()
     .on('change', function(e) {
       // `e` here contains the extra attributes
       $(e.currentTarget).addClass('edited');
@@ -47,9 +57,15 @@ Template.Admin.helpers({
   },
   user() {
     if (Session.get('tripId')) {
-      return Meteor.users.find({ tripId: Session.get('tripId') }, { sort: { 'profile.lastName': 1, 'profile.firstName': 1 } });
+      return Meteor.users.find(
+        { tripId: Session.get('tripId') },
+        { sort: { 'profile.lastName': 1, 'profile.firstName': 1 } },
+      );
     }
-    return Meteor.users.find({}, { sort: { 'profile.lastName': 1, 'profile.firstName': 1 } });
+    return Meteor.users.find(
+      {},
+      { sort: { 'profile.lastName': 1, 'profile.firstName': 1 } },
+    );
   },
   trips() {
     return Trips.find({}, { sort: { name: 1 } });
@@ -79,7 +95,11 @@ Template.Admin.helpers({
   },
   deadlineAdjustmentValue() {
     const user = Template.parentData(2);
-    const deadlineAdjustment = DeadlineAdjustments.findOne({ tripId: user.tripId, userId: user._id, deadlineId: this._id });
+    const deadlineAdjustment = DeadlineAdjustments.findOne({
+      tripId: user.tripId,
+      userId: user._id,
+      deadlineId: this._id,
+    });
     return deadlineAdjustment && deadlineAdjustment.adjustmentAmount;
   },
   filteringTrip() {
@@ -95,13 +115,16 @@ Template.Admin.helpers({
     return Trips.findOne({ tripId }) && Trips.findOne({ tripId }).name;
   },
   forms() {
-    const tripId = Meteor.users.findOne({ _id: this._id }) && Meteor.users.findOne({ _id: this._id }).tripId;
+    const tripId =
+      Meteor.users.findOne({ _id: this._id }) &&
+      Meteor.users.findOne({ _id: this._id }).tripId;
     const passportImage = Images.findOne({ userId: this._id });
 
     // Past trips, some users might have gone on a trip in the past, and completed forms, but don't have a trip that
     // they are currently registered for
-    const otherTrips = Meteor.users.findOne({ _id: this._id })
-      && Meteor.users.findOne({ _id: this._id }).otherTrips;
+    const otherTrips =
+      Meteor.users.findOne({ _id: this._id }) &&
+      Meteor.users.findOne({ _id: this._id }).otherTrips;
 
     if (tripId || otherTrips) {
       const forms = Forms.find({
@@ -114,7 +137,10 @@ Template.Admin.helpers({
       const totalNumberOfForms = forms && forms.count();
       if (totalNumberOfForms > 3) {
         if (passportImage) {
-          const verifiedForms = Forms.find({ userId: this._id, verified: true });
+          const verifiedForms = Forms.find({
+            userId: this._id,
+            verified: true,
+          });
           const totalNumberOfForms = verifiedForms && verifiedForms.count();
           if (totalNumberOfForms === 4) {
             return [{ name: 'All Verified', complete: true }];
@@ -195,7 +221,11 @@ Template.Admin.helpers({
     return [{ name: 'Not Started', complete: false }];
   },
   thisUserIsMe() {
-    if (!Session.get('tripId') && !Session.get('searchValue') && !Session.get('showAllTrips')) {
+    if (
+      !Session.get('tripId') &&
+      !Session.get('searchValue') &&
+      !Session.get('showAllTrips')
+    ) {
       return this._id === Meteor.userId();
     }
     return false;
@@ -206,19 +236,21 @@ Template.Admin.helpers({
 });
 
 Template.Admin.events({
-  'click [name="showExpired"]'(e) {
-    e.preventDefault();
+  'click [name="showExpired"]'(event) {
+    event.preventDefault();
     Session.set('showExpired', true);
   },
-  'click [name="hideExpired"]'(e) {
-    e.preventDefault();
+  'click [name="hideExpired"]'(event) {
+    event.preventDefault();
     Session.set('showExpired', false);
   },
   'keyup, change .search': _.debounce(function() {
     updateSearchVal();
   }, 300),
   'click .clear-button'() {
-    $('.search').val('').change();
+    $('.search')
+      .val('')
+      .change();
     Session.set('documentLimit', 30);
   },
   'click .user-admin-link'() {
@@ -253,16 +285,12 @@ Template.Admin.events({
   },
   'click #update-dt-funds'(event) {
     event.preventDefault();
-    Trips.find({ expires: { $gte: new Date() } }).map(function(trip) {
-      Meteor.call('update.splits', trip.tripId);
-    });
-    Bert.alert({
-      title: 'Checking',
-      message: 'Just asked DonorTools for an update, it might be a minute.',
-      type: 'success',
-      style: 'growl-bottom-right',
-      icon: 'fa-refresh',
-    });
+    Trips.find({ expires: { $gte: new Date() } }).map(trip =>
+      Meteor.call('update.splits', trip.tripId));
+    bertSuccess(
+      'Checking',
+      'Just asked DonorTools for an update, it might be a minute.',
+    );
   },
   'click .filter-trip'() {
     Session.set('tripId', this.tripId);
@@ -271,10 +299,14 @@ Template.Admin.events({
     Meteor.call('export.formByTrip', this.tripId, function(err, fileContent) {
       if (err) {
         console.error(err);
-        Bert.alert(err.reason, 'danger');
+        bertError('', err.reason);
       } else if (fileContent) {
-        const nameFile = `Missionary Information Forms for Trip ${this.tripId}.csv`;
-        const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+        const nameFile = `Missionary Information Forms for Trip ${
+          this.tripId
+        }.csv`;
+        const blob = new Blob([fileContent], {
+          type: 'text/plain;charset=utf-8',
+        });
         import fileSaver from 'file-saver';
 
         fileSaver.saveAs(blob, nameFile);
@@ -296,85 +328,127 @@ Template.Admin.events({
       const tripStartDate = new Date($("[name='tripStartDate']").val());
       const tripEndDate = new Date($("[name='tripEndDate']").val());
       const tripExpirationDate = new Date($("[name='tripExpirationDate']").val());
-      let showFundraisingModule = $('#financial-module-no').is(':checked') ? 'no' : $('#financial-module-yes').is(':checked') ? 'yes' : false;
+      let showFundraisingModule = $('#financial-module-no').is(':checked')
+        ? 'no'
+        : $('#financial-module-yes').is(':checked')
+          ? 'yes'
+          : false;
       if (!showFundraisingModule) {
-        Bert.alert('Please choose one of the options for the fundraising module', 'danger');
+        bertError(
+          '',
+          'Please choose one of the options for the fundraising module',
+        );
         btn.button('reset');
         return;
       }
-      showFundraisingModule === 'yes' ? showFundraisingModule = true : showFundraisingModule = false;
+      showFundraisingModule === 'yes'
+        ? (showFundraisingModule = true)
+        : (showFundraisingModule = false);
 
       if (!tripId || !tripStartDate || !tripEndDate || !tripExpirationDate) {
-        Bert.alert('Please make sure you have a trip start date, end date, expiration date and a trip id', 'danger');
+        bertError(
+          '',
+          'Please make sure you have a trip start date, end date, expiration date and a trip id',
+        );
         btn.button('reset');
         return;
       }
-      Meteor.call('add.trip', tripId, {
-        tripStartDate, tripEndDate, tripExpirationDate, showFundraisingModule,
-      }, function(err, res) {
-        if (err) {
-          console.error(err);
-          Bert.alert(err.reason, 'danger');
-          btn.button('error');
+      Meteor.call(
+        'add.trip',
+        tripId,
+        {
+          tripStartDate,
+          tripEndDate,
+          tripExpirationDate,
+          showFundraisingModule,
+        },
+        function(err, res) {
+          if (err) {
+            console.error(err);
+            bertError('', err.reason);
+            btn.button('error');
 
-          $('#show-add-trip').prop('disabled', false);
-          $('#show-add-trip').css('cursor', 'pointer');
-        } else {
-          console.log(res);
-          Session.set('tripId', tripId);
+            $('#show-add-trip').prop('disabled', false);
+            $('#show-add-trip').css('cursor', 'pointer');
+          } else {
+            console.log(res);
+            Session.set('tripId', tripId);
 
-          Bert.alert('Ok, we have a trip now add the details, please.', 'success');
-          btn.button('success');
-          // reset the add-trip form
-          event.target.reset();
-          $('#trip-form').slideUp();
-          // Show the full-trip-form
-          $('#full-trip-form-div').slideDown(2000);
+            bertSuccess('', 'Ok, we have a trip now add the details, please.');
+            btn.button('success');
+            // reset the add-trip form
+            event.target.reset();
+            $('#trip-form').slideUp();
+            // Show the full-trip-form
+            $('#full-trip-form-div').slideDown(2000);
 
-          $('#show-add-trip').prop('disabled', false);
-          $('#show-add-trip').css('cursor', 'pointer');
-          Meteor.call('update.splits', Number(tripId), function(error, result) {
-            if (error) console.error(error);
-            else console.log(result);
-          });
-        }
-      });
+            $('#show-add-trip').prop('disabled', false);
+            $('#show-add-trip').css('cursor', 'pointer');
+            Meteor.call('update.splits', Number(tripId), function(
+              error,
+              result,
+            ) {
+              if (error) console.error(error);
+              else console.log(result);
+            });
+          }
+        },
+      );
     } else if (formId === 'full-trip-form') {
       const formatedRepeaterForm = $('.mt-repeater').repeaterVal();
       const tripId = Session.get('tripId');
-      Meteor.call('add.deadline', formatedRepeaterForm.deadlines, tripId, function(err, res) {
-        if (err) {
-          console.error(err);
-          Bert.alert(err.reason, 'danger');
-          btn.button('error');
-        } else {
-          console.log(res);
-          Bert.alert('Thanks for adding the deadlines, users can now join this trip.', 'success');
-          $('#full-trip-form-div').slideUp();
-          btn.button('success');
-          event.target.reset();
-        }
-      });
+      Meteor.call(
+        'add.deadline',
+        formatedRepeaterForm.deadlines,
+        tripId,
+        function(err, res) {
+          if (err) {
+            console.error(err);
+            bertError('', err.reason);
+            btn.button('error');
+          } else {
+            console.log(res);
+            bertSuccess(
+              '',
+              'Thanks for adding the deadlines, users can now join this trip.',
+            );
+            $('#full-trip-form-div').slideUp();
+            btn.button('success');
+            event.target.reset();
+          }
+        },
+      );
     } else if (formName === 'update-deadline') {
       console.log(event.target.getAttribute('data-userid'));
-      const user = Meteor.users.findOne({ _id: event.target.getAttribute('data-userid') });
+      const user = Meteor.users.findOne({
+        _id: event.target.getAttribute('data-userid'),
+      });
 
       const deadlines = [];
       const deadlineAdjustments = Deadlines.find({ tripId: user.tripId }).map(function(deadline) {
-        deadlines.push({ deadlineId: deadline._id, adjustmentAmount: event.target[deadline._id].value });
+        deadlines.push({
+          deadlineId: deadline._id,
+          adjustmentAmount: event.target[deadline._id].value,
+        });
       });
-      Meteor.call('update.user.deadline', deadlines, user._id, user.tripId, function(err, res) {
-        if (err) {
-          console.error(err);
-          Bert.alert(err.reason, 'danger');
-          btn.button('error');
-        } else {
-          console.log(res);
-          Bert.alert('Ok, you should now see the deadline adjustment.', 'success');
-          $('#full-trip-form-div').slideUp();
-          btn.button('success');
-        }
-      });
+      Meteor.call(
+        'update.user.deadline',
+        deadlines,
+        user._id,
+        user.tripId,
+        function(err, res) {
+          if (err) {
+            console.error(err);
+            bertError('', err.reason);
+            btn.button('error');
+          } else {
+            console.log(res);
+            bertSuccess('', 'Ok, you should now see the deadline adjustment.');
+            $('#full-trip-form-div').slideUp();
+            btn.button('success');
+          }
+        },
+      );
     }
   },
   'click #trip-form-cancel-button'() {
@@ -389,13 +463,7 @@ Template.Admin.events({
       if (err) console.error(err);
       else {
         console.log(res);
-        Bert.alert({
-          title: 'Admin',
-          message: 'This user has been updated.',
-          type: 'success',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-up',
-        });
+        bertSuccess('Admin', 'This user has been updated.');
       }
     });
   },
@@ -407,21 +475,15 @@ Template.Admin.events({
         if (err) console.error(err);
         else {
           console.log(res);
-          Bert.alert({
-            title: 'Leader',
-            message: 'This user is now a trip leader.',
-            type: 'success',
-            style: 'growl-bottom-right',
-            icon: 'fa-thumbs-up',
-          });
+          bertSuccess('Leader', 'This user is now a trip leader.');
         }
       });
     } else {
       $('#trips-modal').modal();
     }
   },
-  'click #print-page'(e) {
-    e.preventDefault();
+  'click #print-page'(event) {
+    event.preventDefault();
     window.print();
   },
 });

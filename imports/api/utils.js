@@ -101,3 +101,30 @@ export const updateSplits = () => {
   });
   return 'success';
 };
+
+export const bertError = (title, message) =>
+  Bert.alert({
+    title: title || null,
+    message,
+    type: 'danger',
+    style: 'growl-bottom-right',
+    icon: 'fa fa-frown-o',
+  });
+
+export const bertSuccess = (title, message) =>
+  Bert.alert({
+    title: title || null,
+    message,
+    type: 'success',
+    style: 'growl-bottom-right',
+    icon: 'fa fa-smile-o',
+  });
+
+export const bertWarn = (title, message) =>
+  Bert.alert({
+    title: title || null,
+    message,
+    type: 'warning',
+    style: 'growl-bottom-right',
+    icon: 'fa fa-ban',
+  });

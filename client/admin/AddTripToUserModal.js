@@ -1,3 +1,5 @@
+import { bertError, bertSuccess } from '../../imports/api/utils';
+
 Template.AddTripIdToUserModal.onCreated(function() {
   this.autorun(() => {
     if (Session.get('tripId')) {
@@ -13,43 +15,40 @@ Template.AddTripIdToUserModal.helpers({
 });
 
 Template.AddTripIdToUserModal.events({
-  'click #save-change'(e) {
+  'click #save-change'() {
     console.log('you clicked', $('#trips').val(), Session.get('showingUserId'));
     $('#trips-modal').modal('hide');
-    Meteor.call('form.tripRegistration', $('#trips').val().trim(), Session.get('showingUserId'), function(err, res) {
-      if (err) {
-        console.error(err);
-        Bert.alert({
-          title: 'Sorry',
-          message: 'Hmm...there was a problem adding that user to a trip. Try refreshing this page, then try again. If you still have problems, contact the admin.',
-          type: 'danger',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-down',
-        });
-      } else {
-        console.log(res);
-        Bert.alert({
-          title: 'Leader',
-          message: 'This user is now a member of that trip.',
-          type: 'success',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-up',
-        });
-        Meteor.call('add.roleToUser', Session.get('showingUserId'), 'leader', function(err, res) {
-          if (err) console.error(err);
-          else {
-            console.log(res);
-            Bert.alert({
-              title: 'Leader',
-              message: 'This user is now a trip leader.',
-              type: 'success',
-              style: 'growl-bottom-right',
-              icon: 'fa-thumbs-up',
-            });
-          }
-        });
-      }
-    });
+    Meteor.call(
+      'form.tripRegistration',
+      $('#trips')
+        .val()
+        .trim(),
+      Session.get('showingUserId'),
+      function(err, res) {
+        if (err) {
+          console.error(err);
+          bertError(
+            'Sorry',
+            'Hmm...there was a problem adding that user to a trip. Try refreshing this page, then try again. If you still have problems, contact the admin.',
+          );
+        } else {
+          console.log(res);
+          bertSuccess('Leader', 'This user is now a member of that trip.');
+          Meteor.call(
+            'add.roleToUser',
+            Session.get('showingUserId'),
+            'leader',
+            function(error, result) {
+              if (error) console.error(error);
+              else {
+                console.log(result);
+                bertSuccess('Leader', 'This user is now a trip leader.');
+              }
+            },
+          );
+        }
+      },
+    );
   },
 });
 

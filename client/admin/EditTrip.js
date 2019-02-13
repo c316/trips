@@ -1,3 +1,5 @@
+import { bertSuccess, bertError } from '../../imports/api/utils';
+
 Template.EditTrip.onCreated(function() {
   this.autorun(() => {
     Session.set('tripId', Number(FlowRouter.getParam('tripId')));
@@ -31,10 +33,10 @@ Template.EditTrip.events({
     Meteor.call('delete.deadline', deleteThis, function(err) {
       if (err) {
         console.error(err);
-        Bert.alert(err.reason, 'danger');
+        bertError('', err.reason);
         btn.button('error');
       } else {
-        Bert.alert('Successfully deleted a deadline.', 'success');
+        bertSuccess('', 'Successfully deleted a deadline.');
       }
     });
   },
@@ -52,10 +54,10 @@ Template.EditTrip.events({
       Meteor.call('insert.deadline', deadline, tripId, function(err) {
         if (err) {
           console.error(err);
-          Bert.alert(err.reason, 'danger');
+          bertError('', err.reason);
           btn.button('error');
         } else {
-          Bert.alert('Successfully inserted a new deadline.', 'success');
+          bertSuccess('', 'Successfully inserted a new deadline.');
           btn.button('success');
           event.target.reset();
           $('#new-deadline').slideUp();
@@ -67,10 +69,11 @@ Template.EditTrip.events({
       Meteor.call('update.deadline', deadline, function(err) {
         if (err) {
           console.error(err);
-          Bert.alert(err.reason, 'danger');
+          bertError('', err.reason);
+
           btn.button('error');
         } else {
-          Bert.alert('Successfully updated a deadline.', 'success');
+          bertSuccess('', 'Successfully updated a deadline.');
           btn.button('success');
         }
       });

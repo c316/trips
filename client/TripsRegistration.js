@@ -1,4 +1,5 @@
 import { statuses } from '/imports/api/miscFunctions';
+import { bertError, bertSuccess } from '../imports/api/utils';
 
 Template.TripRegistration.onCreated(function() {
   const user = Meteor.users.findOne({ _id: Session.get('showingUserId') });
@@ -26,34 +27,18 @@ Template.TripRegistration.helpers({
 });
 
 Template.TripRegistration.events({
-  'click #tripRegistrationFormSubmit, submit #tripRegistrationForm'(e) {
-    e.preventDefault();
-    console.log('Got here');
+  'click #tripRegistrationFormSubmit, submit #tripRegistrationForm'(event) {
+    event.preventDefault();
     const tripId = $("[name='trip-id']")
       .val()
       .trim();
     const updateThisId = FlowRouter.getQueryParam('id');
-    Meteor.call('form.tripRegistration', tripId, updateThisId, function(
-      err,
-      res,
-    ) {
+    Meteor.call('form.tripRegistration', tripId, updateThisId, function(err) {
       if (err) {
         console.error(err);
-        Bert.alert({
-          title: 'Error',
-          message: err.reason,
-          type: 'danger',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-down',
-        });
+        bertError('Error', err.reason);
       } else {
-        Bert.alert({
-          title: 'Registered',
-          message: 'Ok, you are registered for this trip.',
-          type: 'success',
-          style: 'growl-bottom-right',
-          icon: 'fa-thumbs-up',
-        });
+        bertSuccess('Registered', 'Ok, you are registered for this trip.');
         location.reload();
       }
     });
@@ -62,16 +47,13 @@ Template.TripRegistration.events({
     Meteor.call(
       'moveCurrentTripToOtherTrips',
       Session.get('showingUserId'),
-      function(err, res) {
+      function(err) {
         if (err) console.error(err);
         else {
-          Bert.alert({
-            title: 'Old trip removed',
-            message: 'Ok, you can now register for a new trip.',
-            type: 'success',
-            style: 'growl-bottom-right',
-            icon: 'fa-thumbs-up',
-          });
+          bertSuccess(
+            'Old trip removed',
+            'Ok, you can now register for a new trip.',
+          );
           location.reload();
         }
       },

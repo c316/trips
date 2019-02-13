@@ -3,6 +3,7 @@ import 'jquery-validation';
 import { BootstrapDatePicker } from '/imports/ui/js/bootstrap-datepicker';
 import { JqueryInputMask } from '/imports/ui/js/jquery.inputmask';
 import { phoneUS, zipcode } from '/imports/api/validationMethods';
+import { bertSuccess } from '../../imports/api/utils';
 
 Template.MissionaryInformationForm.onRendered(function() {
   phoneUS();
@@ -128,11 +129,10 @@ Template.MissionaryInformationForm.onRendered(function() {
       },
     },
 
-    invalidHandler(event, validator) { // display error alert on form submit
+    invalidHandler() {
+      // display error alert on form submit
       success1.hide();
       error1.show();
-
-      if (!validator.numberOfInvalids()) return;
     },
 
     errorPlacement(error, element) {
@@ -145,12 +145,18 @@ Template.MissionaryInformationForm.onRendered(function() {
       }
     },
 
-    highlight(element) { // highlight error inputs
-      $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+    highlight(element) {
+      // highlight error inputs
+      $(element)
+        .closest('.form-group')
+        .addClass('has-error'); // set error class to the control group
     },
 
-    unhighlight(element) { // revert the change done by highlight
-      $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+    unhighlight(element) {
+      // revert the change done by highlight
+      $(element)
+        .closest('.form-group')
+        .removeClass('has-error'); // set error class to the control group
     },
 
     success(label) {
@@ -181,17 +187,20 @@ Template.MissionaryInformationForm.onRendered(function() {
 
 Template.MissionaryInformationForm.helpers({
   missionaryInformation() {
-    const thisForm = Forms.findOne({ name: 'missionaryInformationForm', userId: this._id });
+    const thisForm = Forms.findOne({
+      name: 'missionaryInformationForm',
+      userId: this._id,
+    });
     return thisForm || {};
   },
 });
 
 Template.MissionaryInformationForm.events({
-  'change .date-picker'(e) {
-    const dateValue = $(e.currentTarget).val();
-    if (dateValue) $(e.currentTarget).addClass('edited');
+  'change .date-picker'(event) {
+    const dateValue = $(event.currentTarget).val();
+    if (dateValue) $(event.currentTarget).addClass('edited');
   },
-  'change #missionaryInformationForm'(e, tmpl) {
+  'change #missionaryInformationForm'(event, tmpl) {
     // check to see if the trip leader is looking at the form to verify it, if so, then
     // exit this change function
     if (Session.get('verifying')) {
@@ -202,10 +211,10 @@ Template.MissionaryInformationForm.events({
     // Then check that if is is empty that is was empty in the document
     // if it wasn't empty in the document then that means the user
     // deleted the value here and we should then update to the new blank value
-    if (!e.target.value) {
+    if (!event.target.value) {
       const thisForm = Forms.findOne({ _id: this._id });
       if (!thisForm) return;
-      const oldValue = thisForm[e.target.name];
+      const oldValue = thisForm[event.target.name];
       if (!oldValue) {
         return;
       }
@@ -220,15 +229,17 @@ Template.MissionaryInformationForm.events({
     // inserted into the document
     const form = {};
     const iWouldLikeToParticipateIn = [];
-    $('#missionaryInformationForm').serializeArray().map(function(x) {
-      if (x.value) {
-        if (x.name === 'iWouldLikeToParticipateIn') {
-          iWouldLikeToParticipateIn.push(x.value);
-        } else {
-          form[x.name] = x.value;
+    $('#missionaryInformationForm')
+      .serializeArray()
+      .map(function(x) {
+        if (x.value) {
+          if (x.name === 'iWouldLikeToParticipateIn') {
+            iWouldLikeToParticipateIn.push(x.value);
+          } else {
+            form[x.name] = x.value;
+          }
         }
-      }
-    });
+      });
     form.iWouldLikeToParticipateIn = iWouldLikeToParticipateIn;
     form.name = 'missionaryInformationForm';
     form.verified = !!form.verified;
@@ -237,7 +248,7 @@ Template.MissionaryInformationForm.events({
     }
 
     const updateThisId = tmpl && tmpl.data._id;
-    Meteor.call('update.form', form, updateThisId, function(err, res) {
+    Meteor.call('update.form', form, updateThisId, function(err) {
       if (err) console.error(err);
     });
   },
@@ -245,12 +256,7 @@ Template.MissionaryInformationForm.events({
     if ($('input[name="passportStatus"]:checked').val() === 'yes') {
       $('#passportExpirationDateDiv').show();
     } else {
-      Bert.alert({
-        message: 'Please enter your passport information and upload a color photocopy of your passport as soon as you get it.',
-        type: 'warning',
-        style: 'fixed-top',
-        icon: 'fa-exclamation',
-      });
+      bertSuccess('Please enter your passport information and upload a color photocopy of your passport as soon as you get it.');
       $('#passportExpirationDateDiv').hide();
       $('[name="passportExpirationDate"]').val('');
     }
