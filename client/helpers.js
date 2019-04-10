@@ -137,7 +137,7 @@ Template.registerHelper('editedClass', function(value) {
 });
 
 Template.registerHelper('appVersion', function() {
-  return '1.3.4';
+  return '1.3.5';
 });
 
 Template.registerHelper('thisUserIsInRole', function(_id, role) {

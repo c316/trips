@@ -8,7 +8,7 @@ Template.Header.onCreated(function() {
   });
 
   Bert.defaults = {
-    hideDelay: 99999,
+    hideDelay: 3500,
     style: 'growl-bottom-right',
   };
 });

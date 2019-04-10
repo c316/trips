@@ -108,7 +108,6 @@ export const bertError = (title, message) =>
     message,
     type: 'danger',
     style: 'growl-bottom-right',
-    icon: 'fa fa-frown-o',
   });
 
 export const bertSuccess = (title, message) =>
@@ -117,7 +116,6 @@ export const bertSuccess = (title, message) =>
     message,
     type: 'success',
     style: 'growl-bottom-right',
-    icon: 'fa fa-smile-o',
   });
 
 export const bertWarn = (title, message) =>
@@ -126,5 +124,4 @@ export const bertWarn = (title, message) =>
     message,
     type: 'warning',
     style: 'growl-bottom-right',
-    icon: 'fa fa-ban',
   });

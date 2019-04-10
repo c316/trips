@@ -33,12 +33,12 @@ aldeed:simple-schema
 alanning:roles
 
 twbs:bootstrap
+themeteorchef:bert
 fortawesome:fontawesome
 ongoworks:security
 
 percolate:synced-cron
 apollo
-themeteorchef:bert
 wylio:winston-papertrail
 wylio:mandrill
 reywood:publish-composite
