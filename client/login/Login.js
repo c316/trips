@@ -127,15 +127,18 @@ Template.LoginContent.events({
   },
   'submit .forget-form'(event) {
     event.preventDefault();
-    Accounts.forgotPassword({ email: e.target.email.value }, (err) => {
-      if (err) console.error(err);
-      else {
-        bertSuccess(
-          'Email sent',
-          'Check your email inbox for the password reset email.',
-        );
-        FlowRouter.go('login');
-      }
-    });
+    if (event.target.email && event.target.email.value) {
+      const lowercaseEmail = event.target.email.value.toLowerCase();
+      Accounts.forgotPassword({ email: lowercaseEmail }, (err) => {
+        if (err) console.error(err);
+        else {
+          bertSuccess(
+            'Email sent',
+            'Check your email inbox for the password reset email.',
+          );
+          FlowRouter.go('login');
+        }
+      });
+    }
   },
 });
