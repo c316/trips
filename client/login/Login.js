@@ -53,7 +53,7 @@ Template.LoginContent.onRendered(() => {
       const email = $('[name="email"]').val();
       const password = $('[name="password"]').val();
 
-      Meteor.loginWithPassword(email, password, (error) => {
+      Meteor.loginWithPassword(email, password, error => {
         if (error) {
           alert(error.reason);
         } else {
@@ -93,7 +93,7 @@ Template.LoginContent.events({
         password: passwordVar,
         profile,
       },
-      (err) => {
+      err => {
         if (err) console.error(err);
         else FlowRouter.go('home');
       },
@@ -104,8 +104,6 @@ Template.LoginContent.events({
     $('.register-form').show();
     // Fill the form fields so we can just submit them
     if (Meteor.isDevelopment) {
-      import { fillForms } from '/imports/api/miscFunctions';
-
       fillForms();
     }
   },
@@ -129,15 +127,12 @@ Template.LoginContent.events({
     event.preventDefault();
     if (event.target.email && event.target.email.value) {
       const lowercaseEmail = event.target.email.value.toLowerCase();
-      Accounts.forgotPassword({ email: lowercaseEmail }, (err) => {
+      Accounts.forgotPassword({ email: lowercaseEmail }, err => {
         if (err) console.error(err);
-        else {
-          bertSuccess(
-            'Email sent',
-            'Check your email inbox for the password reset email.',
-          );
-          FlowRouter.go('login');
-        }
+        alert(`If the email, ${lowercaseEmail} email exists in our database, you will receive a "Reset Your Password" email. 
+          
+Check your email inbox and spam folder for the password reset email. If you don't receive an email, you may have registered with a different email address.`);
+        FlowRouter.go('/');
       });
     }
   },
