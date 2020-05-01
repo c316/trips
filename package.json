@@ -4,7 +4,9 @@
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "start": "meteor run --port 3003 --settings settings.json"
+    "start": "meteor run --port 3003 --settings settings.json",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
@@ -23,7 +25,7 @@
     "graphql-server-express": "^1.4.1",
     "graphql-tools": "^2.24.0",
     "isomorphic-fetch": "^2.2.1",
-    "jquery": "1.12.3",
+    "jquery": "3.5.0",
     "jquery-validation": "^1.19.1",
     "knox-s3": "^0.9.5",
     "meteor-node-stubs": "^0.3.3",
@@ -33,7 +35,8 @@
     "request-promise": "^4.2.4",
     "spawn-sync": "^1.0.15",
     "thread-sleep": "^2.2.0",
-    "try-thread-sleep": "^2.0.0"
+    "try-thread-sleep": "^2.0.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",
@@ -60,5 +63,6 @@
   "bugs": {
     "url": "https://github.com/c316/trips/issues"
   },
-  "homepage": "https://github.com/c316/trips#readme"
+  "homepage": "https://github.com/c316/trips#readme",
+  "snyk": true
 }
