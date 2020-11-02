@@ -137,7 +137,13 @@ Template.registerHelper('editedClass', function(value) {
 });
 
 Template.registerHelper('appVersion', function() {
-  return '1.3.5';
+  return '1.3.6';
+});
+
+Template.registerHelper('thisYear', function() {
+  const d = new Date();
+  const year = d.getFullYear();
+  return year;
 });
 
 Template.registerHelper('thisUserIsInRole', function(_id, role) {
